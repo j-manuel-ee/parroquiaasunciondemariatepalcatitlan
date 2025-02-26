@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Redes Sociales - Coro Asunción de María</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('imagen/cielo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+
+    .top-bar {
+      background-color: rgba(0, 64, 128, 0.9);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .top-bar img {
+      height: 50px;
+      margin-right: 15px;
+    }
+
+    .top-bar .title {
+      display: flex;
+      align-items: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .top-bar a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      margin-left: 20px;
+    }
+
+    .top-bar a:hover {
+      text-decoration: underline;
+    }
+
+    .main-content {
+      padding: 50px 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      max-width: 1000px;
+      margin: 80px auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #007bff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+
+    .social-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .social-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 250px;
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .social-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .social-card img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 15px;
+    }
+
+    .social-card a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    .social-card a:hover {
+      text-decoration: underline;
+    }
+
+    .whatsapp {
+      background-color: #25D366;
+    }
+
+    .facebook {
+      background-color: #4267B2;
+    }
+
+    .instagram {
+      background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4);
+    }
+
+    .tiktok {
+      background-color: #000;
+    }
+
+    .youtube {
+      background-color: #FF0000;
+    }
+
+    .gmail {
+      background: linear-gradient(45deg, #EA4335, #FBBC05, #34A853, #4285F4);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="title">
+    <img src="imagen/logo_asun.png" alt="Logo CAM">
+    <a href="index.html">Parroquia Asunción de María de Tepalcatitlán</a>
+  </div>
+  <a href="index.html">Inicio</a>
+</div>
+
+<div class="main-content">
+  <h1>Redes Sociales</h1>
+  <div class="social-container">
+    <!-- WhatsApp con mensaje predeterminado -->
+    <div class="social-card whatsapp" onclick="window.location.href='https://wa.me/525532141087?text=Hola%2C%20me%20interesa%20contactar%20con%20el%20coro%20CAM%20para%20obtener%20informaci%C3%B3n.';">
+      <img src="imagen/whats.png" alt="WhatsApp">
+      <a href="https://wa.me/525532141087?text=Hola%2C%20me%20interesa%20contactar%20con%20el%20coro%20CAM%20para%20obtener%20informaci%C3%B3n." target="_blank">Contacta con nosotros en WhatsApp</a>
+    </div>
+
+    <!-- Facebook -->
+    <div class="social-card facebook" onclick="window.location.href='https://www.facebook.com/jesusesnuestrosecreto';">
+      <img src="imagen/face.png" alt="Facebook">
+      <a href="https://www.facebook.com/jesusesnuestrosecreto" target="_blank">Facebook</a>
+    </div>
+
+    <!-- Instagram -->
+    <div class="social-card instagram" onclick="window.location.href='https://www.instagram.com/coro_c.a.m/';">
+      <img src="imagen/insta.png" alt="Instagram">
+      <a href="https://www.instagram.com/coro_c.a.m/" target="_blank">@coro_c.a.m</a>
+    </div>
+
+    <!-- YouTube -->
+    <div class="social-card youtube" onclick="window.location.href='https://www.youtube.com/@coroasunciondemaria';">
+      <img src="imagen/Youtube.png" alt="YouTube">
+      <a href="https://www.youtube.com/@coroasunciondemaria" target="_blank">YouTube</a>
+    </div>
+
+    <!-- Gmail -->
+    <div class="social-card gmail">
+      <img src="imagen/gmail.png" alt="Gmail">
+      <a href="mailto:corocamindustrial@gmail.com">corocamindustrial@gmail.com</a>
+    </div>
+
+    <!-- TikTok -->
+    <div class="social-card tiktok" onclick="window.location.href='https://www.tiktok.com/@coro.c.a.m';">
+      <img src="imagen/tt.png" alt="TikTok">
+      <a href="https://www.tiktok.com/@coro.c.a.m" target="_blank">@coro.c.a.m</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Coro Asunción de María. Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>
