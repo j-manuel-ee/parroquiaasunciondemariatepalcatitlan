@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Redes Sociales - Parroquia Asunción de María</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('imagen/cielo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+
+    .top-bar {
+      background-color: rgba(0, 64, 128, 0.9); /* Barra translúcida */
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .top-bar img {
+      height: 50px;
+      margin-right: 15px;
+    }
+
+    .top-bar .title {
+      display: flex;
+      align-items: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .top-bar a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      margin-left: 20px;
+    }
+
+    .top-bar a:hover {
+      text-decoration: underline;
+    }
+
+    .main-content {
+      padding: 50px 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      max-width: 1000px;
+      margin: 80px auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #007bff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .video-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .video-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 360px;
+      margin: 20px;
+      padding: 15px;
+      background: url('imagen/madera.jpg') no-repeat center center;
+      background-size: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    video {
+      width: 100%; /* Ajustar automáticamente al ancho del contenedor */
+      border: none; /* Eliminar las líneas o bordes */
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Opcional: añadir sombra */
+    }
+
+    .social-link {
+      font-size: 1.5em;
+      color: white; /* Cambiado a blanco */
+      text-decoration: none;
+      margin-top: 10px;
+    }
+
+    .social-link:hover {
+      color: #ccc; /* Efecto hover para enlaces */
+    }
+
+    .social-logo.facebook {
+      height: 40px; /* Tamaño del logo de Facebook */
+      vertical-align: middle; /* Alinear con el texto */
+    }
+
+    .social-logo.instagram {
+      height: 60px; /* Tamaño del logo de Instagram (más grande aún) */
+      vertical-align: middle; /* Alinear con el texto */
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="title">
+    <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+    <a href="index.html">Parroquia Asunción de María de Tepalcatitlán</a>
+  </div>
+  <a href="index.html">Inicio</a>
+</div>
+
+<div class="main-content">
+  <h1>
+    <img src="imagen/facebook.png" alt="Facebook Logo" class="social-logo facebook">
+    Redes Sociales
+    <img src="imagen/instagram.jpg" alt="Instagram Logo" class="social-logo instagram">
+  </h1>
+  <div class="video-container">
+    <!-- Contenedor de Facebook -->
+    <div class="video-wrapper">
+      <video autoplay loop muted playsinline>
+        <source src="videos/face%20asun.mp4" type="video/mp4">
+        Tu navegador no soporta el elemento de video.
+      </video>
+      <a class="social-link" href="https://www.facebook.com/p/parroquia-asunción-de-maría-tepalcatitlán-100081210477585/" target="_blank">
+        Parroquia Asunción de María Tepalcatitlán
+      </a>
+    </div>
+
+    <!-- Contenedor de Instagram -->
+    <div class="video-wrapper">
+      <video autoplay loop muted playsinline>
+        <source src="videos/insta%20asun.mp4" type="video/mp4">
+        Tu navegador no soporta el elemento de video.
+      </video>
+      <a class="social-link" href="https://www.instagram.com/asunciondemaria_7/" target="_blank">
+        @asunciondemaria_7
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Parroquia Asunción de María de Tepalcatitlán. Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>
