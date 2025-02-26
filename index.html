@@ -4,15 +4,17 @@
   <meta charset="UTF-8">
   <title>Parroquia Asunción de María</title>
   <style>
+    /* Estilos generales */
     body, html {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      scroll-behavior: smooth;
+      scroll-behavior: smooth; /* Desplazamiento suave */
       background: url('imagen/cielo.jpg') no-repeat center center fixed;
       background-size: cover;
     }
 
+    /* Sección de portada con fondo */
     .hero-section {
       display: flex;
       flex-direction: column;
@@ -36,9 +38,10 @@
       text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
     }
 
+    /* Estilos de contenedor principal */
     .main-content {
       padding: 50px 20px;
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.9); /* Fondo translúcido para mejorar legibilidad */
     }
 
     .section {
@@ -58,16 +61,156 @@
       color: #555;
       line-height: 1.6;
     }
+
+    /* Botón para bajar */
+    .scroll-down {
+      color: white;
+      text-decoration: none;
+      font-size: 1.5em;
+      margin-top: 20px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    /* Sección de selección de rol */
+    .role-selection {
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      background-color: #f1f1f1;
+      border-top: 1px solid #ccc;
+    }
+
+    .role-selection h2 {
+      font-size: 1.8em;
+      color: #333;
+    }
+
+    .role-selection select, .role-selection button {
+      padding: 10px;
+      font-size: 1em;
+      margin: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .role-selection button {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Estilos para sección del foro */
+    .forum-section {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+    }
+
+    .forum-section h3 {
+      font-size: 1.8em;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .forum-section textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+
+    .forum-section button {
+      margin-top: 10px;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Estilo del mapa */
+    .map-section {
+      margin-top: 40px;
+      padding: 20px;
+    }
+
+    .map-section iframe {
+      width: 100%;
+      height: 400px;
+      border: 0;
+    }
+
+    /* Estilo del popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 80%;
+    }
+
+    .popup button {
+      margin-top: 20px;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
+  <script>
+    function enviarComentario() {
+      const comentario = document.getElementById('comentario').value;
+      const usuario = '<%= session.getAttribute("usuario") %>'; // Obtener el usuario de la sesión
+
+      if (!usuario) {
+        // Si no hay usuario, mostrar el popup
+        document.getElementById('popup').style.display = 'flex';
+      } else {
+        // Si hay usuario, enviar el comentario
+        document.getElementById('comentarioForm').submit();
+      }
+    }
+
+    function cerrarPopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
 </head>
 <body>
 
 <div class="hero-section">
   <img src="imagen/logo_asun.png" alt="Logo de la Parroquia">
   <h1>Parroquia Asunción de María de Tepalcatitlán</h1>
+  <a href="#content" class="scroll-down">⬇ Deslizar hacia abajo</a>
 </div>
 
-<div class="main-content">
+<div id="content" class="main-content">
   <div class="section">
     <h2><a class="Oficina" href="oficina.html">Información de oficina</a></h2>
     <p>De Martes a Sábados: 9:00 AM - 1:00 PM, 4:00PM - 7:00PM</p>
@@ -98,48 +241,59 @@
     <h2><a class="Comentarios" href="comentarios.html">Foro de Opiniones</a></h2>
     <p>Comparte con la comunidad tu opinión acerca de lo que conforma la parroquia de la Asunción de María</p>
   </div>
+  <!--<div class="forum-section">
+    <h3>Foro de Opiniones</h3>
+
+    <form id="comentarioForm" action="foro.jsp" method="POST">
+      <textarea id="comentario" name="comentario" placeholder="Escribe tu opinión aquí..."></textarea>
+      <button type="button" onclick="enviarComentario()">Enviar Opinión</button>
+    </form>
+  </div>-->
+
   <!-- Sección del mapa -->
   <div class="map-section">
     <h3>Ubicación de la Parroquia</h3>
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.397843518592!2d-99.1270693!3d19.4760285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f90b4367bbc3%3A0xd2caa35576a999cf!2sParroquia%20de%20la%20Asunci%C3%B3n%20de%20Mar%C3%ADa!5e0!3m2!1ses!2smx!4v1618864105453!5m2!1ses!2smx"
-            width="1000" height="450" allowfullscreen="" loading="lazy"></iframe>
+            width="600" height="450" allowfullscreen="" loading="lazy"></iframe>
   </div>
 </div>
 
+<!-- Popup de inicio de sesión -->
 <div id="popup" class="popup">
-    <div class="popup-content">
-      <p>Para comentar, por favor inicia sesión.</p>
-      <button onclick="window.location.href='userLogin.jsp'">Iniciar sesión</button>
-      <button onclick="cerrarPopup()">Cerrar</button>
-    </div>
+  <div class="popup-content">
+    <p>Para comentar, por favor inicia sesión.</p>
+    <button onclick="window.location.href='userLogin.jsp'">Iniciar sesión</button>
+    <button onclick="cerrarPopup()">Cerrar</button>
   </div>
-  
-  <div class="role-selection">
-    <h2>Selecciona tu rol</h2>
-    <form onsubmit="redirigirSegunRol(); return false;">
-      <label for="role">Rol:</label>
-      <select id="role" name="role">
-        <option value="user">Usuario</option>
-        <option value="admin">Administrador</option>
-        <option value="coordinador">Coordinador</option> <!-- Nueva opción -->
-      </select>
-      <button type="submit">Continuar</button>
-    </form>
-  </div>
-  
-  <script>
-    function redirigirSegunRol() {
-      var rol = document.getElementById('role').value;
-      if (rol === 'user') {
-        window.location.href = 'userLogin.jsp'; // Redirige a la página de login de usuario
-      } else if (rol === 'admin') {
-        window.location.href = 'adminLogin.jsp'; // Redirige a la página de login de administrador
-      } else if (rol === 'coordinador') {
-        window.location.href = 'coordinadorLogin.jsp'; // Redirige a la página de login de coordinador
-      }
+</div>
+
+<div class="role-selection">
+  <h2>Selecciona tu rol</h2>
+  <form onsubmit="redirigirSegunRol(); return false;">
+    <label for="role">Rol:</label>
+    <select id="role" name="role">
+      <option value="user">Usuario</option>
+      <option value="admin">Administrador</option>
+      <option value="coordinador">Coordinador</option> <!-- Nueva opción -->
+    </select>
+    <button type="submit">Continuar</button>
+  </form>
+</div>
+
+<script>
+  function redirigirSegunRol() {
+    var rol = document.getElementById('role').value;
+    if (rol === 'user') {
+      window.location.href = 'userLogin.jsp'; // Redirige a la página de login de usuario
+    } else if (rol === 'admin') {
+      window.location.href = 'adminLogin.jsp'; // Redirige a la página de login de administrador
+    } else if (rol === 'coordinador') {
+      window.location.href = 'coordinadorLogin.jsp'; // Redirige a la página de login de coordinador
     }
-  </script>
-  
+  }
+</script>
+
+
 
 <footer>
   <p>&copy; 2025 Parroquia Asunción de María de Tepalcatitlán. Todos los derechos reservados.</p>
