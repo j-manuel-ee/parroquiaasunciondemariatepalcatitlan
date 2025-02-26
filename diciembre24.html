@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Todos Somos Uno - 2024</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('imagen/cielo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .top-bar {
+            background-color: rgba(0, 64, 128, 0.9);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .top-bar img {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .top-bar .title {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin-left: 20px;
+        }
+
+        .top-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
+            padding: 50px 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            max-width: 1000px;
+            margin: 80px auto;
+        }
+
+        .announcement {
+            flex: 1;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .announcement img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .carousel {
+            position: relative;
+            max-width: 400px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .carousel img {
+            width: 100%;
+            display: none;
+        }
+
+        .carousel img.active {
+            display: block;
+        }
+
+        .event-details {
+            flex: 2;
+            max-width: 550px;
+        }
+
+        .event-details h1 {
+            font-size: 2em;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .event-details p {
+            font-size: 1.2em;
+            color: #555;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .video {
+            margin-top: 30px;
+        }
+
+        .video h2 {
+            font-size: 1.8em;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .video iframe {
+            width: 100%;
+            height: 400px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="title">
+        <img src="imagen/logo_asun.png" alt="Logo Fuerzas Básicas AM">
+        <a href="diciembresCAM.html">Regresar a Conciertos con Causa</a>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="announcement">
+        <img src="imagen/diciembres/posterTSU.jpg" alt="Anuncio del Concierto">
+        <div class="carousel">
+            <img src="imagen/diciembres/Todos%20Somos%20uno.jpg" alt="Foto 1" class="active">
+            <img src="imagen/diciembres/tsu/1.jpg" alt="Foto 2">
+            <img src="imagen/diciembres/tsu/2.jpg" alt="Foto 3">
+            <img src="imagen/diciembres/tsu/3.jpg" alt="Foto 4">
+            <img src="imagen/diciembres/tsu/4.jpg" alt="Foto 5">
+            <img src="imagen/diciembres/tsu/5.jpg" alt="Foto 6">
+            <img src="imagen/diciembres/tsu/6.jpg" alt="Foto 7">
+            <img src="imagen/diciembres/tsu/1.1.jpg" alt="Foto 8">
+            <img src="imagen/diciembres/tsu/7.jpg" alt="Foto 9">
+            <img src="imagen/diciembres/tsu/8.jpg" alt="Foto 10">
+            <img src="imagen/diciembres/tsu/9.jpg" alt="Foto 11">
+            <img src="imagen/diciembres/tsu/10.jpg" alt="Foto 12">
+        </div>
+    </div>
+
+    <div class="event-details">
+        <h1>Todos Somos Uno - Diciembre 2024</h1>
+        <p>
+            El 7 de diciembre de 2024, el Coro Asunción de María organizó el concierto con causa <strong>"Todos Somos Uno"</strong>,
+            celebrado en el auditorio del Centro Parroquial Asunción de María.
+        </p>
+        <p>
+            Este evento tuvo como propósito recolectar despensas para las familias necesitadas de la comunidad de la Asunción,
+            basándose en datos proporcionados por la <strong>Operación María de Nazareth</strong>.
+        </p>
+        <p>
+            El concierto fue un tributo al dueto Jesse & Joy, presentando una selección de 10 de sus éxitos.
+        </p>
+
+        <div class="video">
+            <h2>Video del Evento</h2>
+            <!-- Enlace con miniatura que redirige al video en YouTube -->
+            <a href="https://www.youtube.com/watch?v=FyoD0Zk9738" target="_blank">
+                <img src="https://img.youtube.com/vi/FyoD0Zk9738/0.jpg" alt="Miniatura del Video" class="video-thumbnail">
+            </a>
+        </div>        
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Coro Asunción de María. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.carousel img');
+    const totalImages = images.length;
+
+    setInterval(() => {
+        images[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % totalImages;
+        images[currentIndex].classList.add('active');
+    }, 7000);
+</script>
+
+</body>
+</html>
