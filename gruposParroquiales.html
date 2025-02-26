@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Grupos Parroquiales</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('imagen/cielo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 1px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            justify-items: center;
+        }
+
+        .group-card {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            padding: 15px;
+            color: black;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            font-size: 1em;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .group-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .inactive {
+            background-color: #ccc !important;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .group-card h2 {
+            margin: 0;
+            font-size: 1.1em;
+            margin-left: 10px;
+        }
+
+        .group-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .logo {
+            display: block;
+            margin: 30px auto;
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Grupos Parroquiales</h1>
+    <div class="grid-container">
+        <a href="adoracion.html" class="group-card inactive">
+            <img src="imagen/Logo_adoracion.jpg" alt="Logo Adoración Nocturna" class="group-logo">
+            <h2>Adoración Nocturna</h2>
+        </a>
+        <a href="catequesis.html" class="group-card inactive">
+            <img src="imagen/Logo_catequesis.jpg" alt="Logo Catequesis" class="group-logo">
+            <h2>Catequesis</h2>
+        </a>
+        <a href="cofradia.html" class="group-card inactive">
+            <img src="imagen/virgenCarmen.jpg" alt="Logo Cofradía de la Virgen del Carmen" class="group-logo">
+            <h2>Cofradía de la Virgen del Carmen</h2>
+        </a>
+        <a href="cam.html" class="group-card">
+            <img src="imagen/logoCAM.png" alt="Logo Coro Asunción de María" class="group-logo">
+            <h2>Coro Asunción de María</h2>
+        </a>
+        <a href="cfam.html" class="group-card">
+            <img src="imagen/LogoCFAM.jpg" alt="Logo Coro Familiar Asunción de María" class="group-logo">
+            <h2>Coro Familiar Asunción de María</h2>
+        </a>
+        <a href="sos.html" class="group-card">
+            <img src="imagen/LogoSOS.jpg" alt="Logo Coro SOS" class="group-logo">
+            <h2>Coro SOS Vamos a cantar</h2>
+        </a>
+        <a href="encuentro.html" class="group-card inactive">
+            <img src="imagen/LogoMatrimonial.jpg" alt="Logo Encuentro Matrimonial" class="group-logo">
+            <h2>Encuentro Matrimonial</h2>
+        </a>
+        <a href="escPastoral.html" class="group-card inactive">
+            <img src="imagen/logo_escPastoral.jpg" alt="Logo Escuela de Pastoral" class="group-logo">
+            <h2>Escuela de Pastoral</h2>
+        </a>
+        <a href="escenicos.html" class="group-card">
+            <img src="imagen/Logo_escenicos.jpg" alt="Logo Evangelizadores Escénicos" class="group-logo">
+            <h2>Evangelizadores Escénicos</h2>
+        </a>
+        <a href="fuerzasBasicas.html" class="group-card">
+            <img src="imagen/LogoFB.jpg" alt="Logo Fuerzas Básicas AM" class="group-logo">
+            <h2>Fuerzas Básicas AM</h2>
+        </a>
+        <a href="scouts.html" class="group-card inactive">
+            <img src="imagen/logoScouts.jpg" alt="Logo Grupo Scouts 9 Asgard" class="group-logo">
+            <h2>Grupo Scouts 9 Asgard</h2>
+        </a>
+        <a href="hermanos.html" class="group-card inactive">
+            <img src="imagen/Logo_hermanos.jpg" alt="Logo Hermanos en Cristo" class="group-logo">
+            <h2>Hermanos en Cristo</h2>
+        </a>
+        <a href="kuhtli.html" class="group-card">
+            <img src="imagen/LogoKuhtli.jpg" alt="Logo Jornadas Juveniles Kuhtli" class="group-logo">
+            <h2>Jornadas Juveniles Kuhtli</h2>
+        </a>
+        <a href="liturgia.html" class="group-card inactive">
+            <img src="imagen/LogoLiturgia.jpg" alt="Logo Liturgia" class="group-logo">
+            <h2>Liturgia</h2>
+        </a>
+
+        <a href="ministros.html" class="group-card inactive">
+            <img src="imagen/Logo_ministros.jpg" alt="Logo Ministros de la Eucaristía" class="group-logo">
+            <h2>Ministros de la Eucaristía</h2>
+        </a>
+
+        <a href="monaguillos.html" class="group-card inactive">
+            <img src="imagen/Logo_monaguillos.jpg" alt="Logo Monaguillos" class="group-logo">
+            <h2>Monaguillos</h2>
+        </a>
+
+        <a href="franciscana.html" class="group-card inactive">
+            <img src="imagen/Logo_franciscana.jpg" alt="Logo Orden Franciscana Seglar" class="group-logo">
+            <h2>Orden Franciscana Seglar</h2>
+        </a>
+
+        <a href="preBautismales.html" class="group-card inactive">
+            <img src="imagen/Logo_prebautismales.jpg" alt="Logo Pláticas Pre Bautismales" class="group-logo">
+            <h2>Pláticas Pre Bautismales</h2>
+        </a>
+
+        <a href="pastoralInfantil.html" class="group-card inactive">
+            <img src="imagen/Logo_pastoralinfantil.jpg" alt="Logo Pastoral Infantil" class="group-logo">
+            <h2>Pastoral Infantil</h2>
+        </a>
+
+        <a href="pastoralSocial.html" class="group-card inactive">
+            <img src="imagen/LogoPastoral_Social.jpg" alt="Logo Pastoral Social" class="group-logo">
+            <h2>Pastoral Social</h2>
+        </a>
+
+        <a href="serApoyo.html" class="group-card inactive">
+            <img src="imagen/Logo_apoyo.jpg" alt="Logo Servicio de Apoyo" class="group-logo">
+            <h2>Servicio de Apoyo</h2>
+        </a>
+
+        <a href="serPsico.html" class="group-card inactive">
+            <img src="imagen/LogoPsico.jpg" alt="Logo Servicio Psicológico" class="group-logo">
+            <h2>Servicio Psicológico</h2>
+        </a>
+    </div>
+</div>
+
+<!-- Imagen del logo en la parte inferior -->
+<img src="imagen/logo_asun.png" alt="Logo de la Parroquia" class="logo">
+
+<footer>
+    <p>&copy; 2025 Parroquia Asunción de María de Tepalcatitlán. Todos los derechos reservados.</p>
+</footer>
+</body>
+</html>
