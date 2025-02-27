@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comentarios</title>
     <style>
         body {
@@ -109,33 +110,6 @@
             background-color: #0056b3;
         }
     </style>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("closeModalButton").addEventListener("click", function () {
-                document.getElementById("normativasModal").classList.add("hidden");
-            });
-        });
-
-        function agregarComentario(event) {
-            event.preventDefault();
-            const usuario = document.getElementById("usuario").value;
-            const mensaje = document.getElementById("mensaje").value;
-            const puntuacion = document.getElementById("puntuacion").value;
-
-            if (usuario && mensaje && puntuacion) {
-                const comentariosContainer = document.getElementById("comentarios");
-                const nuevoComentario = document.createElement("div");
-                nuevoComentario.classList.add("comment");
-                nuevoComentario.innerHTML = `
-                    <h4>${usuario} <small>(Ahora)</small></h4>
-                    <div class="stars">${"★".repeat(puntuacion)}</div>
-                    <p>${mensaje}</p>
-                `;
-                comentariosContainer.prepend(nuevoComentario);
-                document.getElementById("formComentario").reset();
-            }
-        }
-    </script>
 </head>
 <body>
 
@@ -169,7 +143,7 @@
     </div>
 
     <!-- Formulario para agregar comentarios -->
-    <form id="formComentario" onsubmit="agregarComentario(event)">
+    <form id="formComentario">
         <input type="text" id="usuario" placeholder="Tu nombre" required>
         <textarea id="mensaje" placeholder="Escribe tu opinión" required></textarea>
         <select id="puntuacion" required>
@@ -182,6 +156,63 @@
         <button type="submit">Enviar</button>
     </form>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("closeModalButton").addEventListener("click", function () {
+            document.getElementById("normativasModal").classList.add("hidden");
+        });
+
+        cargarComentarios();
+    });
+
+    // Enviar comentario al backend
+    document.getElementById("formComentario").addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        const usuario = document.getElementById("usuario").value;
+        const mensaje = document.getElementById("mensaje").value;
+        const puntuacion = document.getElementById("puntuacion").value;
+
+        fetch('http://localhost:3000/comentarios', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ usuario, mensaje, puntuacion })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                cargarComentarios(); // Recargar comentarios después de agregar uno nuevo
+                document.getElementById("formComentario").reset();
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    // Cargar comentarios desde el backend
+    function cargarComentarios() {
+        fetch('http://localhost:3000/comentarios')
+        .then(response => response.json())
+        .then(data => {
+            const comentariosContainer = document.getElementById("comentarios");
+            comentariosContainer.innerHTML = ""; // Limpiar comentarios antes de agregar nuevos
+
+            data.forEach(comentario => {
+                const nuevoComentario = document.createElement("div");
+                nuevoComentario.classList.add("comment");
+                nuevoComentario.innerHTML = `
+                    <h4>${comentario.usuario} <small>(${comentario.fecha})</small></h4>
+                    <div class="stars">${"★".repeat(comentario.puntuacion)}</div>
+                    <p>${comentario.mensaje}</p>
+                `;
+                comentariosContainer.prepend(nuevoComentario);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
 
 </body>
 </html>
