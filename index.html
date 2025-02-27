@@ -262,7 +262,7 @@
 <div id="popup" class="popup">
   <div class="popup-content">
     <p>Para comentar, por favor inicia sesión.</p>
-    <button onclick="window.location.href='userLogin.jsp'">Iniciar sesión</button>
+    <button onclick="window.location.href='userLogin.html'">Iniciar sesión</button>
     <button onclick="cerrarPopup()">Cerrar</button>
   </div>
 </div>
@@ -284,11 +284,11 @@
   function redirigirSegunRol() {
     var rol = document.getElementById('role').value;
     if (rol === 'user') {
-      window.location.href = 'userLogin.jsp'; // Redirige a la página de login de usuario
+      window.location.href = 'userLogin.html'; // Redirige a la página de login de usuario
     } else if (rol === 'admin') {
-      window.location.href = 'adminLogin.jsp'; // Redirige a la página de login de administrador
+      window.location.href = 'adminLogin.html'; // Redirige a la página de login de administrador
     } else if (rol === 'coordinador') {
-      window.location.href = 'coordinadorLogin.jsp'; // Redirige a la página de login de coordinador
+      window.location.href = 'coordinadorLogin.html'; // Redirige a la página de login de coordinador
     }
   }
 </script>
