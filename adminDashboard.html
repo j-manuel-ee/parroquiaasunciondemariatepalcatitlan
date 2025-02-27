@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard del Administrador</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('imagen/cielo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .header {
+      background-color: rgba(31, 120, 180, 0.9);
+      color: #ffffff;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .header .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .header .logo-container img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .header .logo-container .logo-text {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .header .logout a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1em;
+      padding: 10px 20px;
+      background-color: #d9534f;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .header .logout a:hover {
+      background-color: #c9302c;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 80px auto 20px;
+    }
+
+    .grid-item {
+      background-color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      padding: 40px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      color: #333;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .grid-item h3 {
+      margin: 0;
+      font-size: 1.2em;
+    }
+
+    .grid-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .content {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      min-height: 200px;
+    }
+  </style>
+  <script>
+    function cargarSeccion(seccion) {
+      const contentDiv = document.getElementById("content");
+      if (seccion === "eventos") {
+        contentDiv.innerHTML = "<h2>Gestión de Eventos</h2><p>Aquí puedes gestionar los eventos.</p>";
+      } else {
+        contentDiv.innerHTML = "<p>Selecciona una opción del menú para gestionar el contenido.</p>";
+      }
+    }
+
+    function cerrarSesion() {
+      localStorage.removeItem("rol"); // Eliminar sesión simulada
+      window.location.href = "index.html"; // Redirigir a la página principal
+    }
+  </script>
+</head>
+<body>
+<div class="header">
+  <div class="logo-container">
+    <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+    <div class="logo-text">Panel de Administrador</div>
+  </div>
+  <div class="logout">
+    <a href="#" onclick="cerrarSesion()">Salir de Administrador</a>
+  </div>
+</div>
+
+<!-- Contenedor de recuadros -->
+<div class="grid-container">
+  <div class="grid-item" onclick="cargarSeccion('eventos')">
+    <h3>Eventos</h3>
+  </div>
+</div>
+
+<!-- Contenido dinámico -->
+<div id="content" class="content">
+  <p>Selecciona una opción del menú para gestionar el contenido.</p>
+</div>
+
+</body>
+</html>
