@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Redes Sociales - Coro SOS</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('imagen/cielo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+
+    .top-bar {
+      background-color: rgba(0, 64, 128, 0.9);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .top-bar img {
+      height: 50px;
+      margin-right: 15px;
+    }
+
+    .top-bar .title {
+      display: flex;
+      align-items: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .top-bar a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      margin-left: 20px;
+    }
+
+    .top-bar a:hover {
+      text-decoration: underline;
+    }
+
+    .main-content {
+      padding: 50px 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      max-width: 1000px;
+      margin: 80px auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #007bff;
+      margin-bottom: 40px;
+    }
+
+    .social-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .social-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 250px;
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .social-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .social-card img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 15px;
+    }
+
+    .social-card a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    .social-card a:hover {
+      text-decoration: underline;
+    }
+
+    .instagram {
+      background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4);
+    }
+
+    .gmail {
+      background: linear-gradient(45deg, #EA4335, #FBBC05, #34A853, #4285F4);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="title">
+    <img src="imagen/logo_asun.png" alt="Logo Coro SOS">
+    <a href="index.html">Parroquia Asunción de María de Tepalcatitlán</a>
+  </div>
+  <a href="index.html">Inicio</a>
+</div>
+
+<div class="main-content">
+  <h1>Redes Sociales</h1>
+  <div class="social-container">
+    <!-- Instagram -->
+    <div class="social-card instagram" onclick="window.location.href='https://www.instagram.com/coro.sos/';">
+      <img src="imagen/insta.png" alt="Instagram">
+      <a href="https://www.instagram.com/coro.sos/" target="_blank">@coro.sos</a>
+    </div>
+    <!-- Gmail -->
+    <div class="social-card gmail">
+      <img src="imagen/gmail.png" alt="Gmail">
+      <a href="mailto:coro.sos2020@gmail.com">coro.sos2020@gmail.com</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Coro SOS. Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>
