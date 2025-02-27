@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Eventos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('imagen/cielo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #004080;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        .form-container input, .form-container button {
+            padding: 12px;
+            margin: 8px 0;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .form-container button {
+            background-color: #004080;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+
+        .form-container button:hover {
+            background-color: #003060;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #004080;
+            color: white;
+        }
+
+        td button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            font-size: 14px;
+        }
+
+        .edit {
+            background-color: #28a745;
+        }
+
+        .edit:hover {
+            background-color: #218838;
+        }
+
+        .delete {
+            background-color: #dc3545;
+        }
+
+        .delete:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Gestión de Eventos</h1>
+
+<div class="form-container">
+    <form id="eventoForm">
+        <label for="nombre">Nombre del Evento:</label>
+        <input type="text" id="nombre" required>
+
+        <label for="fecha">Fecha del Evento:</label>
+        <input type="date" id="fecha" required>
+
+        <button type="submit">Agregar Evento</button>
+    </form>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="eventosTabla"></tbody>
+</table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", cargarEventos);
+
+    function cargarEventos() {
+        let eventos = JSON.parse(localStorage.getItem("eventos")) || [];
+        let tabla = document.getElementById("eventosTabla");
+        tabla.innerHTML = "";
+
+        eventos.forEach((evento, index) => {
+            let fila = `<tr>
+                            <td>${evento.nombre}</td>
+                            <td>${evento.fecha}</td>
+                            <td>
+                                <button class="edit" onclick="editarEvento(${index})">Editar</button>
+                                <button class="delete" onclick="eliminarEvento(${index})">Eliminar</button>
+                            </td>
+                        </tr>`;
+            tabla.innerHTML += fila;
+        });
+    }
+
+    document.getElementById("eventoForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        let nombre = document.getElementById("nombre").value;
+        let fecha = document.getElementById("fecha").value;
+
+        let eventos = JSON.parse(localStorage.getItem("eventos")) || [];
+        eventos.push({ nombre, fecha });
+
+        localStorage.setItem("eventos", JSON.stringify(eventos));
+        cargarEventos();
+        document.getElementById("eventoForm").reset();
+    });
+
+    function eliminarEvento(index) {
+        let eventos = JSON.parse(localStorage.getItem("eventos")) || [];
+        eventos.splice(index, 1);
+        localStorage.setItem("eventos", JSON.stringify(eventos));
+        cargarEventos();
+    }
+
+    function editarEvento(index) {
+        let eventos = JSON.parse(localStorage.getItem("eventos")) || [];
+        let nuevoNombre = prompt("Nuevo nombre:", eventos[index].nombre);
+        let nuevaFecha = prompt("Nueva fecha (YYYY-MM-DD):", eventos[index].fecha);
+
+        if (nuevoNombre && nuevaFecha) {
+            eventos[index] = { nombre: nuevoNombre, fecha: nuevaFecha };
+            localStorage.setItem("eventos", JSON.stringify(eventos));
+            cargarEventos();
+        }
+    }
+</script>
+
+</body>
+</html>

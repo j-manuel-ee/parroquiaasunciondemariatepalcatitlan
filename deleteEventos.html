@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestionar Eventos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: url('imagen/cielo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #004080;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #004080;
+            color: white;
+        }
+
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #d9534f;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lista de Eventos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Fecha</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody id="eventosTabla">
+            <!-- Aquí se mostrarán los eventos -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function cargarEventos() {
+        let eventos = JSON.parse(localStorage.getItem("eventos")) || [];
+        let tabla = document.getElementById("eventosTabla");
+        tabla.innerHTML = "";  
+
+        eventos.forEach((evento, index) => {
+            let fila = `<tr>
+                            <td>${index + 1}</td>
+                            <td>${evento.nombre}</td>
+                            <td>${evento.fecha}</td>
+                            <td><button onclick="eliminarEvento(${index})">Eliminar</button></td>
+                        </tr>`;
+            tabla.innerHTML += fila;
+        });
+    }
+
+    function eliminarEvento(index) {
+        let eventos = JSON.parse(localStorage.getItem("eventos")) || [];
+        eventos.splice(index, 1);
+        localStorage.setItem("eventos", JSON.stringify(eventos));
+        cargarEventos();
+    }
+
+    document.addEventListener("DOMContentLoaded", cargarEventos);
+</script>
+
+</body>
+</html>

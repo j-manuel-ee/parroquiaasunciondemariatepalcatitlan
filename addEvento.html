@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Evento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: url('imagen/cielo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #004080;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        button {
+            margin-top: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #004080;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #0066cc;
+        }
+
+        .message {
+            text-align: center;
+            color: green;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Agregar Evento</h1>
+    <form id="eventoForm">
+        <label>Nombre del Evento:</label>
+        <input type="text" id="nombre" required>
+
+        <label>Fecha del Evento:</label>
+        <input type="date" id="fecha" required>
+
+        <button type="submit">Agregar Evento</button>
+    </form>
+
+    <div class="message" id="mensaje"></div>
+</div>
+
+<script>
+    document.getElementById("eventoForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const nombre = document.getElementById("nombre").value;
+        const fecha = document.getElementById("fecha").value;
+
+        if (nombre && fecha) {
+            let eventos = JSON.parse(localStorage.getItem("eventos")) || [];
+            eventos.push({ nombre, fecha });
+            localStorage.setItem("eventos", JSON.stringify(eventos));
+
+            document.getElementById("mensaje").innerText = "Evento agregado con éxito!";
+            setTimeout(() => {
+                window.location.href = "gesEventos.html"; // Simula redirección
+            }, 1000);
+        }
+    });
+</script>
+</body>
+</html>
