@@ -2,62 +2,186 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Foro de Opiniones</title>
+    <title>Comentarios</title>
     <style>
-        /* Estilos generales */
-        body, html {
+        body {
+            font-family: Arial, sans-serif;
+            background: url('imagen/cielo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: url('imagen/cielo.jpg') no-repeat center center fixed;
-            background-size: cover; /* La imagen cubre toda la pantalla */
-            color: #333;
         }
 
-        .construction-container {
+        .top-bar {
+            background-color: #004080;
+            color: white;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 80vh; /* Ocupa el 80% de la pantalla para dejar espacio para el logo */
-            backdrop-filter: blur(5px); /* Difumina el fondo detrás del contenido */
+            justify-content: space-between;
+            padding: 15px 40px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .top-bar img {
+            height: 50px;
+            margin-right: 15px;
+        }
+        .top-bar .title {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin-left: 20px;
+        }
+        .top-bar a:hover {
+            text-decoration: underline;
         }
 
-        .construction-container h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-
-        .construction-container img {
-            max-width: 300px; /* Ajusta el tamaño máximo de la imagen */
-            width: 100%; /* Se adapta a pantallas pequeñas */
-            margin-top: 10px;
-        }
-
-        /* Estilos para el logo en la parte inferior */
-        .logo-container {
-            position: relative;
-            text-align: center;
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.9);
             padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
-        .logo-container img {
-            max-width: 150px; /* Tamaño del logo */
+        .modal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .comment {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .comment h4 {
+            font-size: 18px;
+        }
+
+        .stars {
+            color: #ffcc00;
+        }
+
+        form input, form textarea, form select, form button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
         }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("closeModalButton").addEventListener("click", function () {
+                document.getElementById("normativasModal").classList.add("hidden");
+            });
+        });
+
+        function agregarComentario(event) {
+            event.preventDefault();
+            const usuario = document.getElementById("usuario").value;
+            const mensaje = document.getElementById("mensaje").value;
+            const puntuacion = document.getElementById("puntuacion").value;
+
+            if (usuario && mensaje && puntuacion) {
+                const comentariosContainer = document.getElementById("comentarios");
+                const nuevoComentario = document.createElement("div");
+                nuevoComentario.classList.add("comment");
+                nuevoComentario.innerHTML = `
+                    <h4>${usuario} <small>(Ahora)</small></h4>
+                    <div class="stars">${"★".repeat(puntuacion)}</div>
+                    <p>${mensaje}</p>
+                `;
+                comentariosContainer.prepend(nuevoComentario);
+                document.getElementById("formComentario").reset();
+            }
+        }
+    </script>
 </head>
 <body>
-<div class="construction-container">
-    <h1>🚧 Página en Construcción 🚧</h1>
-    <p>Estamos trabajando para que nos compartas tus comentarios. Vuelve pronto.</p>
-    <img src="imagen/enConstruccion.jpg" alt="Imagen de construcción">
+
+<!-- Barra superior -->
+<div class="top-bar">
+    <div class="title">
+        <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+        <a href="index.html">Parroquia Asunción de María de Tepalcatitlán</a>
+    </div>
+    <a href="index.html">Inicio</a>
 </div>
 
-<!-- Logo en la parte inferior -->
-<div class="logo-container">
-    <img src="imagen/logo_asun.png" alt="Logo del Coro Asunción de María">
+<!-- Modal de normativas -->
+<div id="normativasModal" class="modal">
+    <div class="modal-content">
+        <h3>Normativas de Convivencia</h3>
+        <p>Por favor, respeta las opiniones de los demás y utiliza un lenguaje apropiado. Todos los comentarios serán revisados para asegurar un ambiente sano y pacífico.</p>
+        <button id="closeModalButton">Entendido</button>
+    </div>
 </div>
+
+<!-- Contenedor principal -->
+<div class="container">
+    <h1>Comentarios</h1>
+
+    <div>
+        <h3>Comentarios recientes</h3>
+        <div id="comentarios">
+            <p>No hay comentarios aún.</p>
+        </div>
+    </div>
+
+    <!-- Formulario para agregar comentarios -->
+    <form id="formComentario" onsubmit="agregarComentario(event)">
+        <input type="text" id="usuario" placeholder="Tu nombre" required>
+        <textarea id="mensaje" placeholder="Escribe tu opinión" required></textarea>
+        <select id="puntuacion" required>
+            <option value="5">5 Estrellas</option>
+            <option value="4">4 Estrellas</option>
+            <option value="3">3 Estrellas</option>
+            <option value="2">2 Estrellas</option>
+            <option value="1">1 Estrella</option>
+        </select>
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+
 </body>
 </html>
