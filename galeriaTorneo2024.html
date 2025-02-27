@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Galería del Torneo - Fuerzas Básicas AM</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('imagen/cielo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+
+    .top-bar {
+      background-color: rgba(0, 64, 128, 0.9);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .top-bar img {
+      height: 50px;
+      margin-right: 15px;
+    }
+
+    .top-bar .title {
+      display: flex;
+      align-items: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .top-bar a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      margin-left: 20px;
+    }
+
+    .top-bar a:hover {
+      text-decoration: underline;
+    }
+
+    .main-content {
+      padding: 50px 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      max-width: 1200px;
+      margin: 80px auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #007bff;
+      margin-bottom: 30px;
+    }
+
+    .gallery-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 20px;
+    }
+
+    .gallery-box {
+      position: relative;
+      width: 350px;
+      height: 250px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .gallery-box img.active {
+      opacity: 1;
+    }
+
+    .gallery-box video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .video-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 360px;
+      margin: 20px;
+      padding: 15px;
+      background: url('imagen/madera.jpg') no-repeat center center;
+      background-size: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    video {
+      width: 100%; /* Ajustar automáticamente al ancho del contenedor */
+      border: none; /* Eliminar las líneas o bordes */
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Opcional: añadir sombra */
+    }
+
+    .gallery-box:hover {
+      transform: translateY(-5px);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #555;
+    }
+
+  </style>
+  <script>
+    // Función para cambiar automáticamente las imágenes
+    function startSlideshow() {
+      const boxes = document.querySelectorAll('.gallery-box');
+      boxes.forEach((box) => {
+        const images = box.querySelectorAll('img');
+        let currentIndex = 0;
+
+        setInterval(() => {
+          images[currentIndex].classList.remove('active');
+          currentIndex = (currentIndex + 1) % images.length;
+          images[currentIndex].classList.add('active');
+        }, 7000); // Cambia cada 7 segundos
+      });
+    }
+
+    // Iniciar la galería al cargar la página
+    window.onload = startSlideshow;
+  </script>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="title">
+    <img src="imagen/logo_asun.png" alt="Logo Fuerzas Básicas AM">
+    <a href="galeriaFBAM.html">Regresar</a>
+  </div>
+</div>
+
+<div class="main-content">
+  <h1>Galería del Torneo de Fútbol y Voleibol</h1>
+
+  <div class="gallery-container">
+    <!-- Galería 1 con enlace a galeriaTorneo2024.jsp -->
+    <div class="gallery-box" onclick="window.location.href='galeriaTorneo2024.html'">
+      <img src="imagen/fuerzas_basicas.jpg" alt="Foto 1" class="active">
+      <img src="imagen/torneo2024/DSC_0291.JPG" alt="Foto 2">
+      <img src="imagen/torneo2024/DSC_0003.JPG" alt="Foto 3">
+      <img src="imagen/torneo2024/DSC_0004.JPG" alt="Foto 4">
+      <img src="imagen/torneo2024/DSC_0012.JPG" alt="Foto 5">
+      <img src="imagen/torneo2024/DSC_0025.JPG" alt="Foto 6">
+      <img src="imagen/torneo2024/DSC_0028.JPG" alt="Foto 7">
+      <img src="imagen/torneo2024/DSC_0029.JPG" alt="Foto 8">
+      <img src="imagen/torneo2024/DSC_0035.JPG" alt="Foto 9">
+      <img src="imagen/torneo2024/DSC_0111.JPG" alt="Foto 10">
+      <img src="imagen/torneo2024/DSC_0368.JPG" alt="Foto 11">
+      <img src="imagen/torneo2024/DSC_0383.JPG" alt="Foto 12">
+    </div>
+
+    <!-- Galería 2 -->
+    <div class="gallery-box">
+      <img src="imagen/torneo2024/DSC_0121.JPG" alt="Foto 1" class="active">
+      <img src="imagen/torneo2024/DSC_0138.JPG" alt="Foto 2">
+      <img src="imagen/torneo2024/DSC_0171.JPG" alt="Foto 3">
+      <img src="imagen/torneo2024/DSC_0247.JPG" alt="Foto 4">
+      <img src="imagen/torneo2024/DSC_0263.JPG" alt="Foto 5">
+      <img src="imagen/torneo2024/DSC_0301.JPG" alt="Foto 6">
+      <img src="imagen/torneo2024/DSC_0312.JPG" alt="Foto 7">
+      <img src="imagen/torneo2024/DSC_0327.JPG" alt="Foto 8">
+      <img src="imagen/torneo2024/DSC_0341.JPG" alt="Foto 9">
+      <img src="imagen/torneo2024/DSC_0347.JPG" alt="Foto 10">
+      <img src="imagen/torneo2024/DSC_0429.JPG" alt="Foto 11">
+    </div>
+  </div>
+</div>
+
+  <footer>
+    <p>&copy; 2025 Fuerzas Básicas AM. Todos los derechos reservados.</p>
+  </footer>
+
+</body>
+</html>

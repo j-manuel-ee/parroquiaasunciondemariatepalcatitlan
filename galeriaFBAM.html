@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Galería - Fuerzas Básicas AM</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('imagen/cielo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+
+    .top-bar {
+      background-color: rgba(0, 64, 128, 0.9);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .top-bar img {
+      height: 50px;
+      margin-right: 15px;
+    }
+
+    .top-bar .title {
+      display: flex;
+      align-items: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .top-bar a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      margin-left: 20px;
+    }
+
+    .top-bar a:hover {
+      text-decoration: underline;
+    }
+
+    .main-content {
+      padding: 50px 20px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      max-width: 1000px;
+      margin: 80px auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #007bff;
+      margin-bottom: 30px;
+    }
+
+    .gallery-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+      filter: brightness(0.8);
+    }
+
+    .gallery-item .caption {
+      position: absolute;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      width: 100%;
+      padding: 10px;
+      text-align: center;
+      font-size: 1em;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #555;
+    }
+  </style>
+  <script>
+    // Redirigir al hacer clic en un recuadro
+    function redirectTo(page) {
+      window.location.href = page;
+    }
+  </script>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="title">
+    <img src="imagen/logo_asun.png" alt="Logo Fuerzas Básicas AM">
+    <a href="index.html">Parroquia Asunción de María de Tepalcatitlán</a>
+  </div>
+  <a href="fuerzasBasicas.html">Regresar</a>
+</div>
+
+<div class="main-content">
+  <h1>Galería de Fuerzas Básicas AM</h1>
+
+  <div class="gallery-container">
+    <!-- Imagen 1 -->
+    <div class="gallery-item" onclick="redirectTo('galeriaTorneo2024.html')">
+      <img src="imagen/fuerzas_basicas.jpg" alt="Torneo de Fútbol y Voleibol 2024">
+      <div class="caption">Torneo de Fútbol y Voleibol 2024</div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Fuerzas Básicas AM. Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>

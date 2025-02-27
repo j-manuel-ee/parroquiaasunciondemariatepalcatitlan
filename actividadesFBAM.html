@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Actividades - Fuerzas Básicas AM</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('imagen/cielo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .top-bar {
+            background-color: rgba(0, 64, 128, 0.9);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .top-bar img {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .top-bar .title {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin-left: 20px;
+        }
+
+        .top-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .main-content {
+            padding: 50px 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            max-width: 1000px;
+            margin: 80px auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        .activities-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        .activity-card {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .activity-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+            transition: filter 0.3s ease;
+        }
+
+        .activity-card:hover img {
+            filter: brightness(1);
+        }
+
+        .activity-card h2 {
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            color: white;
+            font-size: 1.5em;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+            margin: 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+    <script>
+        function redirectTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="title">
+        <img src="imagen/logo_asun.png" alt="Logo Fuerzas Básicas AM">
+        <a href="index.html">Parroquia Asunción de María de Tepalcatitlán</a>
+    </div>
+    <a href="index.html">Inicio</a>
+</div>
+
+<div class="main-content">
+    <h1>Actividades de Fuerzas Básicas AM</h1>
+
+    <div class="activities-container">
+        <!-- Torneo Deportivo -->
+        <div class="activity-card" onclick="redirectTo('torneos.html')">
+            <img src="imagen/deportivo.jpg" alt="Torneo Deportivo">
+            <h2>Torneo Deportivo</h2>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Fuerzas Básicas AM. Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>
