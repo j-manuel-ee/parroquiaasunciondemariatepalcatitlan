@@ -3,61 +3,300 @@
 <head>
     <meta charset="UTF-8">
     <title>Eventos del Mes</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        /* Estilos generales */
-        body, html {
-            margin: 0;
-            padding: 0;
+        body {
             font-family: Arial, sans-serif;
-            text-align: center;
+            margin: 0;
             background: url('imagen/cielo.jpg') no-repeat center center fixed;
-            background-size: cover; /* La imagen cubre toda la pantalla */
+            background-size: cover;
             color: #333;
         }
 
-        .construction-container {
+        .top-bar {
+            background-color: rgba(0, 64, 128, 0.9);
+            color: white;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            height: 80vh; /* Ocupa el 80% de la pantalla para dejar espacio para el logo */
-            backdrop-filter: blur(5px); /* Difumina el fondo detrás del contenido */
+            justify-content: space-between;
+            padding: 15px 40px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        .construction-container h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
+        .top-bar img {
+            height: 50px;
+            margin-right: 15px;
         }
 
-        .construction-container img {
-            max-width: 300px; /* Ajusta el tamaño máximo de la imagen */
-            width: 100%; /* Se adapta a pantallas pequeñas */
-            margin-top: 10px;
+        .top-bar .title {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
         }
 
-        /* Estilos para el logo en la parte inferior */
-        .logo-container {
-            position: relative;
-            text-align: center;
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin-left: 20px;
+        }
+
+        .top-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.95);
             padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
-        .logo-container img {
-            max-width: 150px; /* Tamaño del logo */
+        h1, h2 {
+            color: #004080;
+        }
+
+        table {
             width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+            position: relative;
+            width: 14.28%; /* Mantiene el tamaño de cada celda */
+        }
+
+        th {
+            background-color: #004080;
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        .today {
+            background-color: #ffcc00 !important;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .event-day {
+            background-color: #007BFF !important;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .past-event {
+            background-color: #FF5733 !important;
+            color: white;
+            font-weight: bold;
+        }
+
+        .event-box {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            color: white;
+            font-weight: bold;
+        }
+
+        .blue-event {
+            background-color: #007BFF;
+        }
+
+        .red-event {
+            background-color: #FF5733;
+        }
+
+        /* Colores por temporada litúrgica con tonos más tenues */
+        .adviento, .cuaresma {
+            background-color: #9b59b6; /* Morado tenue */
+            color: white;
+        }
+
+        .pascua {
+            background-color: #f0f0f0; /* Blanco suave */
+            color: black;
+        }
+
+        .tiempo-comun {
+            background-color: #77b300; /* Verde tenue */
+            color: white;
+        }
+
+        /* Estilo de la nueva sección explicativa */
+        .liturgical-explanation {
+            background-color: rgba(240, 240, 240, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .liturgical-explanation h3 {
+            color: #004080;
+            margin-bottom: 10px;
+        }
+
+        .liturgical-explanation p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .liturgical-explanation ul {
+            margin-left: 20px;
+            list-style-type: square;
         }
     </style>
 </head>
 <body>
-<div class="construction-container">
-    <h1>🚧 Página en Construcción 🚧</h1>
-    <p>Estamos trabajando para traerte toda la información del mes. Vuelve pronto.</p>
-    <img src="imagen/enConstruccion.jpg" alt="Imagen de construcción">
-</div>
 
-<!-- Logo en la parte inferior -->
-<div class="logo-container">
-    <img src="imagen/logo_asun.png" alt="Logo del Coro Asunción de María">
-</div>
+  <div class="top-bar">
+    <div class="title">
+      <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+      Parroquia Asunción de María de Tepalcatitlán
+    </div>
+    <a href="index.html">Inicio</a>
+  </div>
+
+    <div class="container">
+        <h1>Eventos del Mes</h1>
+        <h2 id="month-year"></h2>
+        
+        <table id="calendar">
+            <tr>
+                <th>Dom</th>
+                <th>Lun</th>
+                <th>Mar</th>
+                <th>Mié</th>
+                <th>Jue</th>
+                <th>Vie</th>
+                <th>Sáb</th>
+            </tr>
+        </table>
+        
+        <h2>Eventos Programados</h2>
+        <ul id="event-list"></ul>
+        
+        <!-- Nueva sección explicativa sobre los colores litúrgicos -->
+        <div class="liturgical-explanation">
+            <h3>Explicación de los Colores del Calendario</h3>
+            <p>El calendario contiene varios colores en el cual explicaremos sus funciones.</p>
+            <ul>
+                <li><strong>Amarillo (Día actual):</strong> Este color simboliza el día actual que está transcurriendo.</li>
+                <li><strong>Azul (Evento):</strong> Este color simboliza el día que tiene un evento programado.</li>
+                <li><strong>Rojo (Evento realizado):</strong> Este color simboliza el evento ya efectuado.</li>
+            </ul>
+            <p>En el calendario litúrgico de la Iglesia Católica utiliza diferentes colores para simbolizar las distintas temporadas del año litúrgico. Estos colores tienen un profundo significado y nos ayudan a vivir y reflexionar sobre las distintas etapas del año litúrgico. A continuación se explican los colores utilizados en el calendario:</p>
+            <ul>
+                <li><strong>Morado (Cuaresma y Adviento):</strong> Este color simboliza la penitencia, la preparación y la reflexión.</li>
+                <li><strong>Blanco (Pascua):</strong> El blanco representa la pureza y la alegría.</li>
+                <li><strong>Verde (Tiempo Ordinario):</strong> El verde simboliza la esperanza y la vida.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        const events = {
+            '2025-03-05': 'Miércoles de ceniza',
+            '2025-03-12': 'Inicio Curso de Biblia',
+            '2025-03-19': 'Curso de Biblia',
+            '2025-03-26': 'Curso de Biblia'
+        };
+
+        // Función para determinar la temporada litúrgica
+        function getLiturgicalSeason(date) {
+            const month = date.getMonth() + 1; // Enero = 1, Febrero = 2, ...
+            const day = date.getDate();
+            const year = date.getFullYear();
+
+            // Cuaresma: entre el Miércoles de Ceniza y el Sábado Santo
+            const cuaresmaStart = new Date(year, 2, 5); // Miércoles de ceniza
+            const cuaresmaEnd = new Date(year, 3, 11); // Sábado Santo
+
+            // Adviento: Cuarto Domingo antes de Navidad
+            const advientoStart = new Date(year, 11, 1); // Empieza el 1 de diciembre
+            const advientoEnd = new Date(year, 11, 24); // 24 de diciembre
+
+            // Pascua: Domingo de Resurrección
+            const pascuaStart = new Date(year, 3, 12); // Domingo de Pascua
+
+            if (date >= cuaresmaStart && date <= cuaresmaEnd) {
+                return "cuaresma";
+            } else if (date >= advientoStart && date <= advientoEnd) {
+                return "adviento";
+            } else if (date >= pascuaStart) {
+                return "pascua";
+            } else {
+                return "tiempo-comun";
+            }
+        }
+
+        function generateCalendar() {
+            const today = new Date();
+            const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            const month = today.getMonth();
+            const year = today.getFullYear();
+            document.getElementById("month-year").innerText = `${monthNames[month]} ${year}`;
+            
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            const table = document.getElementById("calendar");
+            let row = table.insertRow();
+            
+            for (let i = 0; i < firstDay; i++) {
+                row.insertCell();
+            }
+            
+            const eventList = document.getElementById("event-list");
+            eventList.innerHTML = "";
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                if (row.cells.length === 7) {
+                    row = table.insertRow();
+                }
+                let cell = row.insertCell();
+                const dateStr = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+                const season = getLiturgicalSeason(new Date(year, month, day));
+                cell.classList.add(season); // Aplica la temporada litúrgica al día
+                cell.innerText = day;
+
+                if (dateStr in events) {
+                    let eventClass = new Date(year, month, day) < today ? "past-event" : "event-day";
+                    cell.classList.add(eventClass);
+                    cell.title = events[dateStr];
+                    
+                    let eventBox = document.createElement("li");
+                    eventBox.className = `event-box ${eventClass === "past-event" ? "red-event" : "blue-event"}`;
+                    eventBox.innerText = `${events[dateStr]} - ${day} de ${monthNames[month]}`;
+                    eventList.appendChild(eventBox);
+                }
+                if (day === today.getDate()) {
+                    cell.classList.add("today");
+                }
+            }
+        }
+
+        window.onload = function() {
+            generateCalendar();
+        };
+    </script>
 </body>
 </html>
