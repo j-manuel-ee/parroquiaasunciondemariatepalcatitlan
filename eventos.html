@@ -1,172 +1,210 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Eventos del Mes</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: url('imagen/cielo.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #333;
-        }
+  <meta charset="UTF-8" />
+  <title>Eventos del Mes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: url('imagen/cielo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
 
-        .top-bar {
-            background-color: rgba(0, 64, 128, 0.9);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 40px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
+    .top-bar {
+      background-color: rgba(0, 64, 128, 0.9);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
 
-        .top-bar img {
-            height: 50px;
-            margin-right: 15px;
-        }
+    .top-bar img {
+      height: 50px;
+      margin-right: 15px;
+    }
 
-        .top-bar .title {
-            display: flex;
-            align-items: center;
-            font-size: 22px;
-            font-weight: bold;
-        }
+    .top-bar .title {
+      display: flex;
+      align-items: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
 
-        .top-bar a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            margin-left: 20px;
-        }
+    .top-bar a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      margin-left: 20px;
+    }
 
-        .top-bar a:hover {
-            text-decoration: underline;
-        }
+    .top-bar a:hover {
+      text-decoration: underline;
+    }
 
-        .container {
-            max-width: 900px;
-            margin: 50px auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
 
-        h1, h2 {
-            color: #004080;
-        }
+    h1, h2 {
+      color: #004080;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
 
-        th, td {
-            border: 1px solid #ccc;
-            padding: 12px;
-            text-align: center;
-            position: relative;
-            width: 14.28%; /* Mantiene el tamaño de cada celda */
-        }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: center;
+      position: relative;
+      width: 14.28%;
+    }
 
-        th {
-            background-color: #004080;
-            color: white;
-            font-weight: bold;
-        }
+    th {
+      background-color: #004080;
+      color: white;
+      font-weight: bold;
+    }
 
-        td {
-            background-color: #f9f9f9;
-        }
+    td {
+      background-color: #f9f9f9;
+    }
 
-        .today {
-            background-color: #ffcc00 !important;
-            font-weight: bold;
-            border-radius: 5px;
-        }
+    .today {
+      background-color: transparent !important;
+      font-weight: bold;
+      border-radius: 5px;
+      border: 3px solid #f1d97a
+    }
 
-        .event-day {
-            background-color: #007BFF !important;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    .event-day {
+      background-color: #007BFF !important;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-        .past-event {
-            background-color: #FF5733 !important;
-            color: white;
-            font-weight: bold;
-        }
+    .past-event {
+      background-color: #FF5733 !important;
+      color: white;
+      font-weight: bold;
+    }
 
-        .event-box {
-            padding: 10px;
-            border-radius: 5px;
-            margin: 5px 0;
-            color: white;
-            font-weight: bold;
-        }
+    .event-box {
+      padding: 10px;
+      border-radius: 5px;
+      margin: 5px 0;
+      color: white;
+      font-weight: bold;
+    }
 
-        .blue-event {
-            background-color: #007BFF;
-        }
+    .blue-event {
+      background-color: #007BFF;
+    }
 
-        .red-event {
-            background-color: #FF5733;
-        }
+    .red-event {
+      background-color: #FF5733;
+    }
 
-        /* Colores por temporada litúrgica con tonos más tenues */
-        .adviento, .cuaresma {
-            background-color: #9b59b6; /* Morado tenue */
-            color: white;
-        }
+    .adviento, .cuaresma {
+      background-color: #9b59b6; /* Morado tenue */
+      color: white;
+    }
 
-        .pascua {
-            background-color: #f0f0f0; /* Blanco suave */
-            color: black;
-        }
+    .pascua {
+      background-color: #f0f0f0;
+      color: black;
+    }
 
-        .tiempo-comun {
-            background-color: #77b300; /* Verde tenue */
-            color: white;
-        }
+    .tiempo-comun {
+      background-color: #77b300;
+      color: white;
+    }
 
-        /* Estilo de la nueva sección explicativa */
-        .liturgical-explanation {
-            background-color: rgba(240, 240, 240, 0.9);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            margin-top: 30px;
-            text-align: left;
-        }
+    .cuaresma-especial {
+      background-color: #AA0000 !important;
+      color: white !important;
+      font-weight: bold;
+      border-radius: 5px;
+      border: 2px solid #9a1b1b;
+    }
 
-        .liturgical-explanation h3 {
-            color: #004080;
-            margin-bottom: 10px;
-        }
+    .liturgical-explanation {
+      background-color: rgba(240, 240, 240, 0.9);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+      text-align: left;
+    }
 
-        .liturgical-explanation p {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
+    .liturgical-explanation h3 {
+      color: #004080;
+      margin-bottom: 10px;
+    }
 
-        .liturgical-explanation ul {
-            margin-left: 20px;
-            list-style-type: square;
-        }
-    </style>
+    .liturgical-explanation p {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .liturgical-explanation ul {
+      margin-left: 20px;
+      list-style-type: square;
+    }
+    .bouncing-button-container {
+  margin: 30px 0;
+}
+
+.bouncing-button {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: #FFD700;
+  color: #333;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: bounce 1.5s infinite;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.bouncing-button:hover {
+  background-color: #e6c200;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);  
+  }
+  40% {
+    transform: translateY(-15px); 
+  }
+  60% {
+    transform: translateY(-7px);
+  }
+}
+  </style>
 </head>
 <body>
-
   <div class="top-bar">
     <div class="title">
       <img src="imagen/logo_asun.png" alt="Logo Parroquia">
@@ -175,143 +213,154 @@
     <a href="index.html">Inicio</a>
   </div>
 
-    <div class="container">
-        <h1>Eventos del Mes</h1>
-        <h2 id="month-year"></h2>
-        
-        <table id="calendar">
-            <tr>
-                <th>Dom</th>
-                <th>Lun</th>
-                <th>Mar</th>
-                <th>Mié</th>
-                <th>Jue</th>
-                <th>Vie</th>
-                <th>Sáb</th>
-            </tr>
-        </table>
-        
-        <h2>Eventos Programados</h2>
-        <ul id="event-list"></ul>
+  <div class="container">
+    <h1>Eventos del Mes</h1>
+    <h2 id="month-year"></h2>
 
-        <div class="events-explanation">
-            <h3>Explicación de los Eventos</h3>
-            <ul>
-                <li><strong>Curso de Biblia:</strong>Se lleva a cabo en las instalaciones del Centro Parroquial a las 6:40pm. Lleva tu biblia y una libreta para anotar.</li>
-                <li><strong>El Romacncero:</strong>Se llevará a cabo en la parroquia a las 7pm.</li>
+    <table id="calendar">
+      <tr>
+        <th>Dom</th>
+        <th>Lun</th>
+        <th>Mar</th>
+        <th>Mié</th>
+        <th>Jue</th>
+        <th>Vie</th>
+        <th>Sáb</th>
+      </tr>
+    </table>
 
-            </ul>
-        </div>
-        <!-- Nueva sección explicativa sobre los colores litúrgicos -->
-        <div class="liturgical-explanation">
-            <h3>Explicación de los Colores del Calendario</h3>
-            <p>El calendario contiene varios colores en el cual explicaremos sus funciones.</p>
-            <ul>
-                <li><strong>Amarillo (Día actual):</strong> Este color simboliza el día actual que está transcurriendo.</li>
-                <li><strong>Azul (Evento):</strong> Este color simboliza el día que tiene un evento programado.</li>
-                <li><strong>Rojo (Evento realizado):</strong> Este color simboliza el evento ya efectuado.</li>
-            </ul>
-            <p>En el calendario litúrgico de la Iglesia Católica utiliza diferentes colores para simbolizar las distintas temporadas del año litúrgico. Estos colores tienen un profundo significado y nos ayudan a vivir y reflexionar sobre las distintas etapas del año litúrgico. A continuación se explican los colores utilizados en el calendario:</p>
-            <ul>
-                <li><strong>Morado (Cuaresma y Adviento):</strong> Este color simboliza la penitencia, la preparación y la reflexión.</li>
-                <li><strong>Blanco (Pascua):</strong> El blanco representa la pureza y la alegría.</li>
-                <li><strong>Verde (Tiempo Ordinario):</strong> El verde simboliza la esperanza y la vida.</li>
-            </ul>
-        </div>
+    <div class="bouncing-button-container">
+        <a href="semanaSanta.html" target="_blank" class="bouncing-button">Conoce las actividades de Semana Santa aquí</a>
+      </div>
+      
+
+    <h2>Eventos Programados</h2>
+    <ul id="event-list"></ul>
+
+    <div class="events-explanation">
+      <h3>Explicación de los Eventos</h3>
+      <ul>
+        <li><strong>Curso de Biblia:</strong> Se lleva a cabo en el Centro Parroquial a las 6:40pm. Lleva tu biblia y libreta.</li>
+        <li><strong>El Romancero:</strong> Se llevará a cabo en la parroquia a las 7pm.</li>
+        <li><strong>Retiro Parroquial:</strong> Se llevará a cabo en el Centro Parroquial a las 8:45am. Lleva una libreta, biblia, pluma, vaso y un lunch para compratir.</li>
+        <li><strong>Reliquias:</strong> Las reliquias del beato Carlo Acutis y de San José Sánchez de Río estarán en exposición en la parroquia los días 9, 10 y 11 de abril.</li>
+        <li><strong>Semana Santa:</strong> Para conocer las actividades que habrá en Semana Santa da click <a href="semanaSanta.html" target="_blank">aquí.</a>
+        </li>
+
+
+      </ul>
     </div>
-    
-    <script>
-        const events = {
-            '2025-04-02': 'Curso de Biblia',
-            '2025-04-04': 'Romancero',
-            '2025-04-06': 'Retiro Parroquial',
-            '2025-04-09': 'Curso de Biblia',
-            '2025-04-13': 'Domingo de Ramos',
-            '2025-04-16': 'Cena Judía',
-            '2025-04-17': 'Jueves Santo',
-            '2025-04-18': 'Viernes Santo',
-            '2025-04-19': 'Vigilia de Pascua',
-            '2025-04-23': 'Curso de Biblia',
-            '2025-04-30': 'Curso de Biblia'
-        };
 
-        // Función para determinar la temporada litúrgica
-        function getLiturgicalSeason(date) {
-            const month = date.getMonth() + 1; // Enero = 1, Febrero = 2, ...
-            const day = date.getDate();
-            const year = date.getFullYear();
+    <div class="liturgical-explanation">
+        <h3>Explicación de los Colores del Calendario</h3>
+        <p>El calendario contiene varios colores en el cual explicaremos sus funciones.</p>
+        <ul>
+            <li><strong>Amarillo (Día actual):</strong> Este color simboliza el día actual que está transcurriendo.</li>
+            <li><strong>Azul (Evento):</strong> Este color simboliza el día que tiene un evento programado.</li>
+            <li><strong>Naranja (Evento realizado):</strong> Este color simboliza el evento ya efectuado.</li>
+            <li><strong>Rojo (Semana Santa):</strong> Este color simboliza los días de la Semana Mayor.</li>
+        </ul>
+        <p>En el calendario litúrgico de la Iglesia Católica utiliza diferentes colores para simbolizar las distintas temporadas del año litúrgico. Estos colores tienen un profundo significado y nos ayudan a vivir y reflexionar sobre las distintas etapas del año litúrgico. A continuación se explican los colores utilizados en el calendario:</p>
+        <ul>
+            <li><strong>Morado (Cuaresma y Adviento):</strong> Este color simboliza la penitencia, la preparación y la reflexión.</li>
+            <li><strong>Blanco (Pascua):</strong> El blanco representa la pureza y la alegría.</li>
+            <li><strong>Verde (Tiempo Ordinario):</strong> El verde simboliza la esperanza y la vida.</li>
+        </ul>
+    </div>
+  </div>
 
-            // Cuaresma: entre el Miércoles de Ceniza y el Sábado Santo
-            const cuaresmaStart = new Date(year, 2, 5); // Miércoles de ceniza
-            const cuaresmaEnd = new Date(year, 3, 11); // Sábado Santo
-
-            // Adviento: Cuarto Domingo antes de Navidad
-            const advientoStart = new Date(year, 11, 1); // Empieza el 1 de diciembre
-            const advientoEnd = new Date(year, 11, 24); // 24 de diciembre
-
-            // Pascua: Domingo de Resurrección
-            const pascuaStart = new Date(year, 3, 12); // Domingo de Pascua
-
-            if (date >= cuaresmaStart && date <= cuaresmaEnd) {
-                return "cuaresma";
-            } else if (date >= advientoStart && date <= advientoEnd) {
-                return "adviento";
-            } else if (date >= pascuaStart) {
-                return "pascua";
-            } else {
-                return "tiempo-comun";
-            }
+  <script>
+    const events = {
+      '2025-04-02': 'Curso de Biblia 18:40 hrs',
+      '2025-04-04': 'Romancero 19:00 hrs',
+      '2025-04-06': 'Retiro Parroquial 09:00 hrs',
+      '2025-04-09': 'Curso de Biblia 18:40 hrs',
+      '2025-04-09': 'Reliquias de Carlo Acutis y San José Sánchez del Río en la parroquia todo el día',
+      '2025-04-10': 'Reliquias de Carlo Acutis y San José Sánchez del Río en la parroquia todo el día',
+      '2025-04-11': 'Reliquias de Carlo Acutis y San José Sánchez del Río en la parroquia todo el día',
+      '2025-04-13': 'Domingo de Ramos 11:30 hrs',
+      '2025-04-16': 'Cena Judía 19:00 hrs',
+      '2025-04-17': 'Jueves Santo 17:00 hrs',
+      '2025-04-18': 'Viernes Santo 15:00 hrs',
+      '2025-04-19': 'Vigilia de Pascua 20:00 hrs',
+      '2025-04-23': 'Curso de Biblia 18:40 hrs',
+      '2025-04-30': 'Curso de Biblia 18:40 hrs'
+    };
+  
+    function getLiturgicalSeason(date) {
+      const year = date.getFullYear();
+      const cuaresmaStart = new Date(year, 2, 5);
+      const cuaresmaEnd = new Date(year, 3, 11);
+      const pascuaStart = new Date(year, 3, 12);
+      if (date >= cuaresmaStart && date <= cuaresmaEnd) return "cuaresma";
+      if (date >= pascuaStart) return "pascua";
+      return "tiempo-comun";
+    }
+  
+    function parseEventHour(eventStr) {
+      const match = eventStr.match(/(\d{1,2}):(\d{2})/);
+      if (!match) return [0, 0]; // Si no hay hora, default a 00:00
+      return [parseInt(match[1]), parseInt(match[2])];
+    }
+  
+    function generateCalendar() {
+      const today = new Date();
+      const month = 3; // Abril
+      const year = 2025;
+      const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+      document.getElementById("month-year").innerText = `${monthNames[month]} ${year}`;
+  
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const table = document.getElementById("calendar");
+      const cuaresmaEspeciales = ['2025-04-13', '2025-04-14', '2025-04-15', '2025-04-16', '2025-04-17', '2025-04-18', '2025-04-19'];
+      let row = table.insertRow();
+  
+      for (let i = 0; i < firstDay; i++) row.insertCell();
+  
+      const eventList = document.getElementById("event-list");
+      eventList.innerHTML = "";
+  
+      for (let day = 1; day <= daysInMonth; day++) {
+        if (row.cells.length === 7) row = table.insertRow();
+        let cell = row.insertCell();
+        const dateStr = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+        const cellDate = new Date(year, month, day);
+        const season = getLiturgicalSeason(cellDate);
+        cell.classList.add(season);
+        cell.innerText = day;
+  
+        if (cuaresmaEspeciales.includes(dateStr)) {
+          cell.classList.add("cuaresma-especial");
         }
-
-        function generateCalendar() {
-            const today = new Date();
-            const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-            const month = today.getMonth();
-            const year = today.getFullYear();
-            document.getElementById("month-year").innerText = `${monthNames[month]} ${year}`;
-            
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            
-            const table = document.getElementById("calendar");
-            let row = table.insertRow();
-            
-            for (let i = 0; i < firstDay; i++) {
-                row.insertCell();
-            }
-            
-            const eventList = document.getElementById("event-list");
-            eventList.innerHTML = "";
-            
-            for (let day = 1; day <= daysInMonth; day++) {
-                if (row.cells.length === 7) {
-                    row = table.insertRow();
-                }
-                let cell = row.insertCell();
-                const dateStr = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-                const season = getLiturgicalSeason(new Date(year, month, day));
-                cell.classList.add(season); // Aplica la temporada litúrgica al día
-                cell.innerText = day;
-
-                if (dateStr in events) {
-                    let eventClass = new Date(year, month, day) < today ? "past-event" : "event-day";
-                    cell.classList.add(eventClass);
-                    cell.title = events[dateStr];
-                    
-                    let eventBox = document.createElement("li");
-                    eventBox.className = `event-box ${eventClass === "past-event" ? "red-event" : "blue-event"}`;
-                    eventBox.innerText = `${events[dateStr]} - ${day} de ${monthNames[month]}`;
-                    eventList.appendChild(eventBox);
-                }
-                if (day === today.getDate()) {
-                    cell.classList.add("today");
-                }
-            }
+  
+        if (events[dateStr]) {
+          const [hour, minute] = parseEventHour(events[dateStr]);
+          const eventDateTime = new Date(year, month, day, hour, minute);
+          const isPast = eventDateTime < today;
+          const eventClass = isPast ? "past-event" : "event-day";
+  
+          cell.classList.add(eventClass);
+          cell.title = events[dateStr];
+  
+          const eventBox = document.createElement("li");
+          eventBox.className = `event-box ${isPast ? "red-event" : "blue-event"}`;
+          eventBox.innerText = `${events[dateStr]} - ${day} de ${monthNames[month]}`;
+          eventList.appendChild(eventBox);
+  
+          if (cuaresmaEspeciales.includes(dateStr)) {
+            eventBox.classList.remove("blue-event", "red-event");
+            eventBox.classList.add("cuaresma-especial");
+          }
         }
-
-        window.onload = function() {
-            generateCalendar();
-        };
-    </script>
+  
+        if (day === today.getDate() && today.getMonth() === month && today.getFullYear() === year) {
+          cell.classList.add("today");
+        }
+      }
+    }
+  
+    window.onload = generateCalendar;
+  </script>  
 </body>
 </html>
