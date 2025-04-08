@@ -235,6 +235,28 @@
       background-color: #0056b3;
     }
 
+    .bouncing-button-container {
+  margin: 30px 0;
+}
+
+.bouncing-button {
+  display: inline-block;
+  padding: 12px 25px;
+  background-color: #FFD700;
+  color: #333;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: bounce 1.5s infinite;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.bouncing-button:hover {
+  background-color: #e6c200;
+}
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -255,12 +277,13 @@
 <!-- Aviso emergente -->
 <div id="aviso" class="aviso">
   <div class="aviso-contenido">
-    <img src="imagen/retiro.jpg" alt="Aviso Importante" style="max-width: 85%; border-radius: 10px; margin-bottom: 15px;">
-    <h2>Retiro Parroquial</h2>
-    <p>La Parroquia Asunción de María te invita a participar en el retiro parroquial que tendrá este domingo 6 de Abril a las 8:45 am
-      en las instalaciones del Centro Parroquial ubicado en Unión #17 col. Industrial. </p>
+    <img src="imagen/Carlo.png" alt="Aviso Importante" style="max-width: 70%; border-radius: 10px; margin-bottom: 15px;">
+    <h2>Carlo Acutis y San José Sánchez del Río</h2>
+    <p>Hermanas y hermanos, la parroquia se llena de júbilo al tener la reliquia de dos santos jóvenes en nuestra comunidad. Del
+      9 al 12 de abril, vísita nuestra parroquia y conoce las reliquias de estos dos santos, y juntos pidámosles que nos enseñen
+      a ser santos como ellos.</p>
       <p>¡No Faltes!</p>
-    <button onclick="cerrarAviso()">Aceptar</button>
+    <button onclick="cerrarAviso()">Cerrar aviso</button>
   </div>
 </div>
 
