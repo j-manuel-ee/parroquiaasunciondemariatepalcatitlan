@@ -84,7 +84,7 @@
     }
 
     td {
-      background-color: #0000;
+      background-color: white;
     }
 
     .today {
@@ -127,22 +127,29 @@
       color: white;
     }
 
-    .pascua {
+    .gaudete, .laetare {
+      background-color: #FF00FF;
+      color: white;
+    }
+
+    .pascua, .navidad {
       background-color: #f0f0f0;
       color: black;
+    }
+
+    .pentecostes, .semanaSanta {
+      background-color: #AA0000;
+      color: white;
+    }
+
+    .maria {
+      background-color: #00DCFF;
+      color: white;
     }
 
     .tiempo-comun {
       background-color: #77b300;
       color: white;
-    }
-
-    .cuaresma-especial {
-      background-color: #AA0000 !important;
-      color: white !important;
-      font-weight: bold;
-      border-radius: 5px;
-      border: 2px solid #9a1b1b;
     }
 
     .liturgical-explanation {
@@ -259,13 +266,15 @@
             <li><strong>Amarillo (Día actual):</strong> Este color simboliza el día actual que está transcurriendo.</li>
             <li><strong>Azul (Evento):</strong> Este color simboliza el día que tiene un evento programado.</li>
             <li><strong>Naranja (Evento realizado):</strong> Este color simboliza el evento ya efectuado.</li>
-            <li><strong>Rojo (Semana Santa):</strong> Este color simboliza los días de la Semana Mayor.</li>
+            <li><strong>Azul Cian (Asunción de María):</strong>Este color simboliza la fiesta de la Asunción de María</li>
         </ul>
         <p>En el calendario litúrgico de la Iglesia Católica utiliza diferentes colores para simbolizar las distintas temporadas del año litúrgico. Estos colores tienen un profundo significado y nos ayudan a vivir y reflexionar sobre las distintas etapas del año litúrgico. A continuación se explican los colores utilizados en el calendario:</p>
         <ul>
             <li><strong>Morado (Cuaresma y Adviento):</strong> Este color simboliza la penitencia, la preparación y la reflexión.</li>
-            <li><strong>Blanco (Pascua):</strong> El blanco representa la pureza y la alegría.</li>
+            <li><strong>Blanco (Pascua y Navidad):</strong> El blanco representa la pureza y la alegría.</li>
             <li><strong>Verde (Tiempo Ordinario):</strong> El verde simboliza la esperanza y la vida.</li>
+            <li><strong>Rojo (Semana Santa y Pentecostés):</strong> Este color simboliza los días de la Semana Mayor y la fiesta de Pentecostés.</li>
+            <li><strong>Rosa (Gaudete y Laetare):</strong> Tercer domingo de Adviento y Cuarto domingo de Cuaresma. Se usa como signo de alegría en medio de los tiempos penitenciales.</li>
         </ul>
     </div>
   </div>
@@ -287,16 +296,47 @@
       '2025-04-18': 'Viernes Santo 15:00 hrs',
       '2025-04-19': 'Vigilia de Pascua 20:00 hrs',
       '2025-04-23': 'Curso de Biblia 18:40 hrs',
-      '2025-04-30': 'Curso de Biblia 18:40 hrs'
+      '2025-04-30': 'Curso de Biblia 18:40 hrs',
+      //--------------Mayo-----------------
+      '2025-05-07': 'Curso de Biblia 18:40 hrs',
+      '2025-05-14': 'Curso de Biblia 18:40 hrs',
+      '2025-05-21': 'Curso de Biblia 18:40 hrs',
+      '2025-05-28': 'Curso de Biblia 18:40 hrs',
+      //-------------Junio-----------------
     };
   
     function getLiturgicalSeason(date) {
       const year = date.getFullYear();
       const cuaresmaStart = new Date(year, 2, 5);
-      const cuaresmaEnd = new Date(year, 3, 11);
-      const pascuaStart = new Date(year, 3, 12);
+      const laetareStart = new Date(year, 2, 30);
+      const laetareEnd = new Date(year, 2, 30);
+      const cuaresmaEnd = new Date(year, 3, 12);
+      const semanaSantaStart = new Date(year, 3, 13);
+      const semanaSantaEnd = new Date(year, 3, 19);
+      const pascuaStart = new Date(year, 3, 20);
+      const pascuaEnd = new Date(year, 5, 7);
+      const pentecostesStart = new Date(year, 5, 8);
+      const pentecostesEnd = new Date(year, 5, 8);
+      const advientoStart1 = new Date(year, 10, 30);
+      const advientoEnd1 = new Date(year, 11, 13);
+      const gaudeteStart = new Date(year, 11, 14);
+      const gaudeteEnd = new Date(year, 11, 14);
+      const advientoStart = new Date(year, 11, 15);
+      const advientoEnd = new Date(year, 11, 24);
+      const navidadStart = new Date(year, 11, 25);
+      const navidadEnd = new Date(2026, 0, 12);
+      const asunStart = new Date(year, 7, 15);
+      const asunEnd = new Date(year, 7, 15);
       if (date >= cuaresmaStart && date <= cuaresmaEnd) return "cuaresma";
-      if (date >= pascuaStart) return "pascua";
+      if (date >= laetareStart && date <= laetareEnd) return "laetare";
+      if (date >= semanaSantaStart && date <= semanaSantaEnd) return "semanaSanta";
+      if (date >= pascuaStart && date <= pascuaEnd) return "pascua";
+      if (date >= pentecostesStart && date <= pentecostesEnd) return "pentecostes";
+      if (date >= advientoStart1 && date <= advientoEnd1) return "adviento";
+      if (date >= advientoStart && date <= advientoEnd) return "adviento";
+      if (date >= gaudeteStart && date <= gaudeteEnd) return "gaudete";
+      if (date >= navidadStart && date <= navidadEnd) return "navidad";
+      if (date >= asunStart && date <= asunEnd) return "maria";
       return "tiempo-comun";
     }
   
@@ -316,7 +356,7 @@
       const firstDay = new Date(year, month, 1).getDay();
       const daysInMonth = new Date(year, month + 1, 0).getDate();
       const table = document.getElementById("calendar");
-      const cuaresmaEspeciales = ['2025-04-13', '2025-04-14', '2025-04-15', '2025-04-16', '2025-04-17', '2025-04-18', '2025-04-19'];
+      const cuaresmaEspeciales = [];
       let row = table.insertRow();
   
       for (let i = 0; i < firstDay; i++) row.insertCell();
