@@ -337,8 +337,8 @@
   
     function generateCalendar() {
       const today = new Date();
-      const month = 5; // Abril
-      const year = 2025;
+      const month = today.getMonth();
+      const year = today.getFullYear();
       const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
       document.getElementById("month-year").innerText = `${monthNames[month]} ${year}`;
   
