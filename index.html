@@ -199,7 +199,7 @@
     }
 
     .aviso-contenido {
-      background: white;
+      background: rgb(103, 185, 240);
       padding: 30px;
       text-align: center;
       border-radius: 15px;
@@ -274,15 +274,48 @@
 </head>
 <body>
 
-<!-- Aviso emergente -->
+<!-- Aviso emergente actualizado -->
 <div id="aviso" class="aviso">
   <div class="aviso-contenido">
-    <h2>Horarios de Misas Dominicales</h2>
-    <p>A partir del primer domingo del mes de julio, los horarios de las misas dominicales cambiarán.</p>
-    <p>8 am, 11 am, 1 pm, 6 pm.</p>
+    <img src="imagen/parroquia.png" alt="Fiesta Patronal" style="max-width: 100%; border-radius: 10px; margin-bottom: 15px;">
+    <h2>Fiesta Patronal</h2>
+    <p>Faltan:</p>
+    <h3 id="cuentaRegresiva" style="margin-top: 10px; color: #f8f8f8;"></h3>
+    <div class="bouncing-button-container">
+      <a href="fiestaPatronal.html" target="_blank" class="bouncing-button">Conoce más</a>
+    </div>
     <button onclick="cerrarAviso()">Cerrar aviso</button>
   </div>
 </div>
+
+<script>
+  function cerrarAviso() {
+    document.getElementById('aviso').style.display = 'none';
+  }
+
+  function actualizarCuentaRegresiva() {
+    const fechaObjetivo = new Date("August 17, 2025 00:00:00").getTime();
+    const ahora = new Date().getTime();
+    const diferencia = fechaObjetivo - ahora;
+
+    if (diferencia < 0) {
+      document.getElementById("cuentaRegresiva").innerHTML = "¡La Fiesta Patronal ha comenzado!";
+      return;
+    }
+
+    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+    document.getElementById("cuentaRegresiva").innerHTML =
+      `${dias} días, ${horas} horas, ${minutos} minutos, ${segundos} segundos`;
+  }
+
+  setInterval(actualizarCuentaRegresiva, 1000);
+  actualizarCuentaRegresiva();
+</script>
+
 
 
 <script>
