@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Procesando Inicio de Sesión</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const params = new URLSearchParams(window.location.search);
+            const username = params.get("username");
+            const password = params.get("password");
+            
+            const cuentas = {
+                "1017123": "Adoracion01",
+                "1017234": "Catequesis20",
+                "1017345": "CofraDelCarmen33",
+                "1017456": "CAMJENS30",
+                "1017567": "CoroFAM51",
+                "1017678": "CoroSOS62",
+                "1017789": "EnMatrimonial79",  
+                "1017890": "EscPastoral88",
+                "1017901": "EvaEscenicos92",
+                "1017012" : "FBAM100", 
+                "1017023" : "Scouts111",
+                "1017034" : "HmnCristo121", 
+                "1017045" : "MJVCKuhtli135",  
+                "1017056" : "Liturgia2024",  
+                "1017067" : "Meses743",  
+                "1017078" : "Monaguillos532",  
+                "1017089" : "MnO456vW",  
+                "1017090" : "Platicas947",  
+                "1017111" : "PasInfantil0487", 
+                "1017222" : "PasScocial738", 
+                "1017333" : "LmN753dE",
+                "1017444" : "QrS852fG"  
+            };
+
+            if (cuentas[username] && cuentas[username] === password) {
+                window.location.href = "cordiDashboard.html";
+            } else {
+                window.location.href = "error.html";
+            }
+        });
+    </script>
+</head>
+<body>
+    <h2>Procesando inicio de sesión...</h2>
+</body>
+</html>

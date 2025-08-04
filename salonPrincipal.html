@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Centro Parroquial Asunción de María</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: url('imagen/cielo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .top-bar {
+            background-color: rgba(0, 64, 128, 0.9);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .top-bar img {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        .top-bar .title {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin-left: 20px;
+        }
+
+        .top-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+            padding: 0 20px;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        .image-container img {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05);
+        }
+
+        .agenda {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(14, 50px);
+            gap: 10px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .agenda .day, .agenda .time {
+            font-weight: bold;
+            text-align: center;
+            background-color: rgba(0, 64, 128, 0.9);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .agenda .event {
+            background-color: white; /* Cambiar el fondo a blanco */
+            color: black; /* Cambiar el texto a negro */
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="title">
+            <img src="imagen/logo_asun.png" alt="Logo Recinto">
+            Salón Principal
+        </div>
+        <a href="index.html">Inicio</a>
+    </div>
+
+    <div class="container">
+        <!-- Imagen en el centro -->
+        <div class="image-container">
+            <img src="imagen/salonP.jpg" alt="Horario del Recinto">
+        </div>
+
+        <!-- Agenda debajo de la imagen -->
+        <div class="agenda">
+            <div class="day">Horario</div>
+            <div class="day">Domingo</div>
+            <div class="day">Lunes</div>
+            <div class="day">Martes</div>
+            <div class="day">Miércoles</div>
+            <div class="day">Jueves</div>
+            <div class="day">Viernes</div>
+            <div class="day">Sábado</div>
+
+            <!-- Horarios y eventos -->
+            <script>
+                // Eventos por cada hora, con los días de la semana correspondientes.
+                const eventsByHour = {
+                    // Domingo = 0
+                    // Lunes = 1
+                    9: { 0: ''}, // Martes = 2
+                    10: { 0: 'SOS'}, // Miércoles = 3
+                    11: { 0: 'SOS'}, // Jueves = 4
+                    12: { 0: ''}, // Viernes = 5
+                    13: { 0: 'CAM'}, // Sábado = 6
+                    14: { 0: ''},
+                    15: { 0: ''},
+                    16: { 0: 'Kuhtli'},
+                    17: { 0: 'Kuhtli'},
+                    18: { 6: 'CAM', 0: 'Kuhtli'},
+                    19: { 6: 'CAM', 3: 'Curso Biblia'},
+                    20: { 6: ''},
+                    21: { 0: ''},
+                    22: { 0: ''}
+                    
+                };
+
+                // Generar las filas de la agenda de 7:00 AM a 10:00 PM
+                for (let hour = 9; hour <= 22; hour++) {
+                    document.write(`<div class="time">${hour}:00</div>`);
+                    for (let day = 0; day < 7; day++) {
+                        // Verificar si hay eventos para esa hora y día
+                        let event = eventsByHour[hour] && eventsByHour[hour][day];
+                        if (event) {
+                            document.write(`<div class="event">${event}</div>`);
+                        } else {
+                            document.write('<div class="event"></div>');
+                        }
+                    }
+                }
+            </script>
+        </div>
+    </div>
+</body>
+</html>

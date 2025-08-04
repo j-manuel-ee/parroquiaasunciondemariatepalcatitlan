@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SOS Vamos a cantar | Parroquia Asunción de María</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f8f8f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #3c8dff;
+      color: white;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    header img {
+      height: 100px;
+    }
+
+    .header-text {
+      text-align: center;
+      flex: 1;
+    }
+
+    .header-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em;
+      margin: 0;
+    }
+
+    nav {
+      background-color: #0415aa;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 20px;
+      display: inline-block;
+      position: relative;
+    }
+
+    nav a:hover {
+      background-color: #3c8dff;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #0415aa;
+      min-width: 200px;
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 12px 20px;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .banner {
+      background: url('imagen/Sos.jpg') no-repeat center;
+      background-size: cover;
+      background-position: 55% 30%;
+      height:400px;
+      position: relative;
+    }
+
+    .banner::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .banner h2 {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      color: #5a2a27;
+      font-size: 1.8em;
+      margin-top: 30px;
+    }
+
+    .video-container {
+        position: relative;
+        width: 100%;
+        max-width: 750px;
+        margin: 0 auto;
+    }
+
+    .video-container video {
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .play-button {
+        display: block;
+        margin: 20px auto;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1.2em;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .play-button:hover {
+        background-color: #0056b3;
+    }
+
+    .social-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .social-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 250px;
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .social-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .social-card img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 15px;
+    }
+
+    .social-card a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    .social-card a:hover {
+      text-decoration: underline;
+    }
+
+    .whatsapp {
+      background-color: #25D366;
+    }
+
+    .facebook {
+      background-color: #4267B2;
+    }
+
+    .instagram {
+      background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4);
+    }
+
+    .tiktok {
+      background-color: #000;
+    }
+
+    .youtube {
+      background-color: #FF0000;
+    }
+
+    .gmail {
+      background: linear-gradient(45deg, #EA4335, #FBBC05, #34A853, #4285F4);
+    }
+
+    .historia-texto {
+      line-height: 1.8;
+      font-size: 1.1em;
+      text-align: justify;
+      margin-bottom: 20px;
+    }
+
+    footer {
+      background-color: #04396a;
+      color: white;
+      text-align: center;
+      padding: 30px 10px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .dropdown-content {
+        position: static;
+      }
+    }
+  </style>
+  <script>
+    function redirectTo(page) {
+      window.location.href = page;
+    }
+  </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+          </div>
+          <div class="header-text">
+            <h1>Parroquia Asunción de María</h1>
+            <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
+          </div>
+      </header>
+
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="oficina.html">Oficina</a>
+        <div class="dropdown">
+          <a>Historia ▾</a>
+          <div class="dropdown-content">
+            <a href="historia.html">Parroquia</a>
+            <a href="histAsun.html">Asunción de María</a>
+          </div>
+        </div>
+        <div class="dropdown">
+            <a>Eventos ▾</a>
+            <div class="dropdown-content">
+              <a href="eventos.html">Calendario Mensual</a>
+              <a href="fiestaPatronal.html">Fiesta Patronal</a>
+            </div>
+          </div>
+        <a href="grupos.html">Grupos Parroquiales</a>
+        <a href="mision.html">Misión</a>
+        <a href="contacto.html">Contacto</a>
+        <div class="dropdown">
+          <a>Acceso ▾</a>
+          <div class="dropdown-content">
+            <a href="adminLogin.html">Administrador</a>
+            <a href="coordinadorLogin.html">Coordinador</a>
+          </div>
+        </div>
+      </nav>
+
+  <div class="banner">
+    <h2>SOS Vamos a cantar</h2>
+  </div>
+
+  <div class="container">
+    <section id="Acerca SOS Vamos a cantar"> 
+      <section id="Acerca-sos">
+        <h3>Acerca de SOS Vamos a cantar</h3>
+        <p class="historia-texto">
+            <div class="video-container">
+                <video id="coroVideo" loop>
+                    <source src="videos/coro_sos.mp4" type="video/mp4">
+                    Tu navegador no soporta la reproducción de videos.
+                </video>
+            </div>
+    
+            <button class="play-button" onclick="playVideo()">Reproducir Video</button>
+        </p>
+      </section>
+    </section>
+
+    <section id="Contacto">
+      <h3>Contacto</h3>
+      <p class="historia-texto">
+        Para más información sobre SOS Vamos a cantar, síguenos o contáctanos a través de nuestras redes sociales:
+      </p>
+      <div class="social-container">
+        <!-- Instagram -->
+        <div class="social-card instagram" onclick="window.location.href='https://www.instagram.com/coro.sos/';">
+          <img src="imagen/insta.png" alt="Instagram">
+          <a href="https://www.instagram.com/coro.sos/" target="_blank">@coro.sos</a>
+        </div>
+        <!-- Gmail -->
+        <div class="social-card gmail">
+          <img src="imagen/gmail.png" alt="Gmail">
+          <a href="mailto:coro.sos2020@gmail.com">coro.sos2020@gmail.com</a>
+        </div>
+      </div>
+    </section>
+    
+
+  </div>
+  <footer>
+    <p>&copy; 2025 Parroquia Asunción de María | Grupos Parroquiales | SOS Vamos a cantar</p>
+  </footer>
+  <script>
+    function playVideo() {
+        let video = document.getElementById("coroVideo");
+        video.play();
+    }
+</script>
+</body>
+</html>
+
