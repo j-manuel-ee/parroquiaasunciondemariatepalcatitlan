@@ -2,437 +2,84 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Parroquia Asunción de María</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página en reconstrucción</title>
   <style>
-    /* Estilos generales */
     body, html {
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
-      scroll-behavior: smooth; /* Desplazamiento suave */
+      height: 100%;
+      font-family: 'Open Sans', sans-serif;
       background: url('imagen/cielo.jpg') no-repeat center center fixed;
       background-size: cover;
-    }
-
-    /* Sección de portada con fondo */
-    .hero-section {
+      color: white;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      height: 100vh;
-      background: url('imagen/asun.jpg') no-repeat center center/cover;
-      color: white;
+      flex-direction: column;
     }
 
-    .hero-section img {
-      max-width: 200px;
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .image-container img {
+      max-width: 900px;
+      width: 80%;
       margin-bottom: 20px;
     }
 
-    .hero-section h1 {
-      font-size: 3em;
-      font-weight: bold;
-      margin: 0;
-      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-    }
-
-    /* Estilos de contenedor principal */
-    .main-content {
-      padding: 50px 20px;
-      background-color: rgba(255, 255, 255, 0.9); /* Fondo translúcido para mejorar legibilidad */
-    }
-
-    .section {
-      margin-bottom: 40px;
-    }
-
-    .section h2 {
+    .countdown {
       font-size: 2em;
-      color: #333;
-      border-bottom: 2px solid #007bff;
-      padding-bottom: 10px;
-      cursor: pointer;
-    }
-
-    .section p {
-      font-size: 1.1em;
-      color: #555;
-      line-height: 1.6;
-    }
-
-    /* Botón para bajar */
-    .scroll-down {
-      color: white;
-      text-decoration: none;
-      font-size: 1.5em;
-      margin-top: 20px;
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-10px); }
-      60% { transform: translateY(-5px); }
-    }
-
-    /* Sección de selección de rol */
-    .role-selection {
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-      background-color: #f1f1f1;
-      border-top: 1px solid #ccc;
-    }
-
-    .role-selection h2 {
-      font-size: 1.8em;
-      color: #333;
-    }
-
-    .role-selection select, .role-selection button {
-      padding: 10px;
-      font-size: 1em;
-      margin: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .role-selection button {
-      background-color: #007bff;
-      color: white;
-      cursor: pointer;
-    }
-
-    /* Estilos para sección del foro */
-    .forum-section {
-      margin-top: 40px;
-      padding: 20px;
-      background-color: #f5f5f5;
-      border-radius: 8px;
-    }
-
-    .forum-section h3 {
-      font-size: 1.8em;
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    .forum-section textarea {
-      width: 100%;
-      height: 100px;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      resize: none;
-    }
-
-    .forum-section button {
-      margin-top: 10px;
-      background-color: #007bff;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    /* Estilo del mapa */
-    .map-section {
-      margin-top: 40px;
-      padding: 20px;
-    }
-
-    .map-section iframe {
-      width: 100%;
-      height: 400px;
-      border: 0;
-    }
-
-    /* Estilo del popup */
-    .popup {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .popup-content {
-      background: white;
-      padding: 20px;
-      text-align: center;
-      border-radius: 10px;
-      max-width: 400px;
-      width: 80%;
-    }
-
-    .popup button {
-      margin-top: 20px;
-      background-color: #007bff;
-      color: white;
+      background: rgba(0, 0, 0, 0.6);
       padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    
-    /* Estilos del aviso emergente */
-    .aviso {
-      display: flex;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      animation: fadeIn 0.5s ease-in-out;
-    }
-
-    .aviso-contenido {
-      background: rgb(103, 185, 240);
-      padding: 30px;
-      text-align: center;
-      border-radius: 15px;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .aviso h2 {
-      margin-top: 0;
-      font-size: 24px;
-      color: #333;
-    }
-
-    .aviso p {
-      font-size: 18px;
-      color: #555;
-    }
-
-    .aviso button {
-      margin-top: 20px;
-      background-color: #007bff;
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.3s ease-in-out;
-    }
-
-    .aviso button:hover {
-      background-color: #0056b3;
-    }
-
-    .bouncing-button-container {
-  margin: 30px 0;
-}
-
-.bouncing-button {
-  display: inline-block;
-  padding: 12px 25px;
-  background-color: #FFD700;
-  color: #333;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  animation: bounce 1.5s infinite;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-.bouncing-button:hover {
-  background-color: #e6c200;
-}
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+      border-radius: 10px;
     }
   </style>
+</head>
+<body>
+
+  <h1>Estamos reconstruyendo la página para una actualización</h1>
+
+  <div class="image-container">
+    <img src="imagen/reconstruccion.png" alt="Imagen de mantenimiento">
+  </div>
+
+  <div class="countdown" id="countdown">
+    Cargando contador...
+  </div>
+
   <script>
-    function cerrarAviso() {
-      document.getElementById('aviso').style.display = 'none';
-    }
-  </script>
-</head>
-<body>
+    // Fecha objetivo: Martes 5 de agosto a las 12:00 PM del año actual
+    const targetDate = new Date("2025-08-05T12:00:00");
 
-<!-- Aviso emergente actualizado -->
-<div id="aviso" class="aviso">
-  <div class="aviso-contenido">
-    <img src="imagen/parroquia.png" alt="Fiesta Patronal" style="max-width: 100%; border-radius: 10px; margin-bottom: 15px;">
-    <h2>Fiesta Patronal</h2>
-    <p>Faltan:</p>
-    <h3 id="cuentaRegresiva" style="margin-top: 10px; color: #f8f8f8;"></h3>
-    <div class="bouncing-button-container">
-      <a href="fiestaPatronal.html" target="_blank" class="bouncing-button">Conoce más</a>
-    </div>
-    <button onclick="cerrarAviso()">Cerrar aviso</button>
-  </div>
-</div>
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
 
-<script>
-  function cerrarAviso() {
-    document.getElementById('aviso').style.display = 'none';
-  }
-
-  function actualizarCuentaRegresiva() {
-    const fechaObjetivo = new Date("August 17, 2025 00:00:00").getTime();
-    const ahora = new Date().getTime();
-    const diferencia = fechaObjetivo - ahora;
-
-    if (diferencia < 0) {
-      document.getElementById("cuentaRegresiva").innerHTML = "¡La Fiesta Patronal ha comenzado!";
-      return;
-    }
-
-    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
-    const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
-
-    document.getElementById("cuentaRegresiva").innerHTML =
-      `${dias} días, ${horas} horas, ${minutos} minutos, ${segundos} segundos`;
-  }
-
-  setInterval(actualizarCuentaRegresiva, 1000);
-  actualizarCuentaRegresiva();
-</script>
-
-
-
-<script>
-    function enviarComentario() {
-      const comentario = document.getElementById('comentario').value;
-      const usuario = '<%= session.getAttribute("usuario") %>'; // Obtener el usuario de la sesión
-
-      if (!usuario) {
-        // Si no hay usuario, mostrar el popup
-        document.getElementById('popup').style.display = 'flex';
-      } else {
-        // Si hay usuario, enviar el comentario
-        document.getElementById('comentarioForm').submit();
+      if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "¡La página ya está disponible!";
+        return;
       }
+
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+      document.getElementById("countdown").innerHTML =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }
 
-    function cerrarPopup() {
-      document.getElementById('popup').style.display = 'none';
-    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   </script>
-</head>
-<body>
-
-<div class="hero-section">
-  <img src="imagen/logo_asun.png" alt="Logo de la Parroquia">
-  <h1>Parroquia Asunción de María de Tepalcatitlán</h1>
-  <a href="#content" class="scroll-down">⬇ Deslizar hacia abajo</a>
-</div>
-
-<div id="content" class="main-content">
-  <div class="section">
-    <h2><a class="Oficina" href="oficina.html">Información de oficina</a></h2>
-    <p>De Martes a Sábados: 9:00 AM - 1:00 PM, 4:00PM - 7:00PM</p>
-  </div>
-
-  <div class="section">
-    <h2><a class="grupos" href="gruposParroquiales.html">Grupos Parroquiales</a></h2>
-    <p>Descubre los grupos de la parroquia, desde catequesis hasta grupos de jóvenes, donde puedes participar y crecer en comunidad.</p>
-  </div>
-
-  <div class="section">
-    <h2><a class="Eventos" href="eventos.html">Eventos del mes</a></h2>
-    <p>Consulta aquí los eventos especiales de este mes, incluyendo misas, reuniones y celebraciones.</p>
-  </div>
-
-  <div class="section">
-    <h2><a class="redes" href="redesSociales.html">Redes Sociales</a></h2>
-    <p>Síguenos en nuestras redes sociales para estar al tanto de todas nuestras actividades y anuncios.</p>
-  </div>
-
-  <div class="section">
-    <h2><a class="OperacionMariaNazareth" href="operacionMariaNazareth.html">Misión "Operación María de Nazareth" 2024</a></h2>
-    <p>Conoce nuestra misión de ayuda y servicio a la comunidad a través de la Operación María de Nazareth.</p>
-  </div>
-
-  <!-- Sección de foro -->
-  <div class="section">
-    <h2><a class="Comentarios" href="comentarios.html">Foro de Opiniones</a></h2>
-    <p>Comparte con la comunidad tu opinión acerca de lo que conforma la parroquia de la Asunción de María</p>
-  </div>
-  <!--<div class="forum-section">
-    <h3>Foro de Opiniones</h3>
-
-    <form id="comentarioForm" action="foro.jsp" method="POST">
-      <textarea id="comentario" name="comentario" placeholder="Escribe tu opinión aquí..."></textarea>
-      <button type="button" onclick="enviarComentario()">Enviar Opinión</button>
-    </form>
-  </div>-->
-
-  <!-- Sección del mapa -->
-  <div class="map-section">
-    <h3>Ubicación de la Parroquia</h3>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.397843518592!2d-99.1270693!3d19.4760285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f90b4367bbc3%3A0xd2caa35576a999cf!2sParroquia%20de%20la%20Asunci%C3%B3n%20de%20Mar%C3%ADa!5e0!3m2!1ses!2smx!4v1618864105453!5m2!1ses!2smx"
-            width="600" height="450" allowfullscreen="" loading="lazy"></iframe>
-  </div>
-</div>
-
-<!-- Popup de inicio de sesión -->
-<div id="popup" class="popup">
-  <div class="popup-content">
-    <p>Para comentar, por favor inicia sesión.</p>
-    <button onclick="window.location.href='userLogin.html'">Iniciar sesión</button>
-    <button onclick="cerrarPopup()">Cerrar</button>
-  </div>
-</div>
-
-<div class="role-selection">
-  <h2>Selecciona tu rol</h2>
-  <form onsubmit="redirigirSegunRol(); return false;">
-    <label for="role">Rol:</label>
-    <select id="role" name="role">
-      <option value="user">Usuario</option>
-      <option value="admin">Administrador</option>
-      <option value="coordinador">Coordinador</option> <!-- Nueva opción -->
-    </select>
-    <button type="submit">Continuar</button>
-  </form>
-</div>
-
-<script>
-  function redirigirSegunRol() {
-    var rol = document.getElementById('role').value;
-    if (rol === 'user') {
-      window.location.href = 'errorPage.html'; // Redirige a la página de login de usuario
-    } else if (rol === 'admin') {
-      window.location.href = 'adminLogin.html'; // Redirige a la página de login de administrador
-    } else if (rol === 'coordinador') {
-      window.location.href = 'coordinadorLogin.html'; // Redirige a la página de login de coordinador
-    }
-  }
-</script>
-
-
-
-<footer>
-  <p>&copy; 2025 Parroquia Asunción de María de Tepalcatitlán. Todos los derechos reservados.</p>
-</footer>
 
 </body>
-</html> 
+</html>
+
