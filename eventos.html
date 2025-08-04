@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eventos del Mes | Parroquia Asunción de María</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      background: url('imagen/cielo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+
+    header {
+      background-color: #3c8dff;
+      color: white;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    header img {
+      height: 100px;
+    }
+
+    .header-text {
+      text-align: center;
+      flex: 1;
+    }
+
+    .header-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em;
+      margin: 0;
+    }
+
+    nav {
+      background-color: #0415aa;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 20px;
+      display: inline-block;
+      position: relative;
+    }
+
+    nav a:hover {
+      background-color: #3c8dff;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #0415aa;
+      min-width: 200px;
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 12px 20px;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1{
+      font-family: 'Playfair Display', serif;
+      color: #fffcfc;
+    }
+
+    h2{
+      font-family: 'Playfair Display', serif;
+      color: #000000;
+      text-align: center;
+    }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      color: #5a2a27;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: center;
+      position: relative;
+      width: 14.28%;
+    }
+
+    th {
+      background-color: #0415aa;
+      color: white;
+    }
+
+    td {
+      background-color: white;
+    }
+
+    .today {
+      font-weight: bold;
+      border-radius: 5px;
+      border: 3.5px solid #ecbd01;
+    }
+
+    .event-day {
+      background-color: #007BFF !important;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .past-event {
+      background-color: #FF5733 !important;
+      color: white;
+      font-weight: bold;
+    }
+
+    .event-box {
+      padding: 10px;
+      border-radius: 5px;
+      margin: 5px 0;
+      color: white;
+      font-weight: bold;
+    }
+
+    .blue-event {
+      background-color: #007BFF;
+    }
+
+    .red-event {
+      background-color: #FF5733;
+    }
+
+    .adviento, .cuaresma {
+      background-color: #9b59b6;
+      color: white;
+    }
+
+    .gaudete, .laetare {
+      background-color: #FF00FF;
+      color: white;
+    }
+
+    .pascua, .navidad {
+      background-color: #f0f0f0;
+      color: black;
+    }
+
+    .pentecostes, .semanaSanta {
+      background-color: #AA0000;
+      color: white;
+    }
+
+    .maria {
+      background-color: #00DCFF;
+      color: white;
+    }
+
+    .tiempo-comun {
+      background-color: #77b300;
+      color: white;
+    }
+
+    .liturgical-explanation {
+      background-color: rgba(240, 240, 240, 0.9);
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .liturgical-explanation h3 {
+      color: #004080;
+      margin-bottom: 10px;
+    }
+
+    .liturgical-explanation p {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .liturgical-explanation ul {
+      margin-left: 20px;
+      list-style-type: square;
+    }
+
+    footer {
+      background-color: #04396a;
+      color: white;
+      text-align: center;
+      padding: 30px 10px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-left">
+        <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+      </div>
+      <div class="header-text">
+    <h1>Eventos Parroquiales</h1>
+    <p>Parroquia Asunción de María de Tepalcatitlán</p>
+      </div>
+  </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="oficina.html">Oficina</a>
+    <div class="dropdown">
+      <a>Historia ▾</a>
+      <div class="dropdown-content">
+        <a href="historia.html">Parroquia</a>
+        <a href="histAsun.html">Asunción de María</a>
+      </div>
+    </div>
+    <div class="dropdown">
+        <a>Eventos ▾</a>
+        <div class="dropdown-content">
+          <a href="eventos.html">Calendario Mensual</a>
+          <a href="fiestaPatronal.html">Fiesta Patronal</a>
+        </div>
+      </div>
+    <a href="grupos.html">Grupos Parroquiales</a>
+    <a href="mision.html">Misión</a>
+    <a href="contacto.html">Contacto</a>
+    <div class="dropdown">
+      <a>Acceso ▾</a>
+      <div class="dropdown-content">
+        <a href="adminLogin.html">Administrador</a>
+        <a href="coordinadorLogin.html">Coordinador</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>Eventos del Mes</h2>
+    <h3 id="month-year"></h3>
+
+    <table id="calendar">
+      <tr>
+        <th>Dom</th><th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th>
+      </tr>
+    </table>
+
+    <h2>Eventos Programados</h2>
+    <ul id="event-list"></ul>
+
+    <div class="events-explanation">
+      <h3>Explicación de los Eventos</h3>
+      <ul>
+        <li><strong>Curso de Biblia:</strong> Se lleva a cabo en el Centro Parroquial a las 6:40pm. Lleva tu biblia y libreta.</li>
+        <li><strong>Taller de lectura:</strong> Se lleva a cabo en la biblioteca parroquial a las 6:40pm. Actualmente leyendo un libro de Sta. Teresa de Ávila.</li>
+        <li><strong>Novenario:</strong> Se lleva a cabo el novenario a la Virgen de la Asunción a las 5pm en la Parroquia. Iniciando el 5 de Agosto y culminando el 13 de Agosto.</li>
+        <li><strong>Dormición:</strong> Se celebrará la Dormición de la Virgen en la Parroquia. Comenzando a las 5:40pm.</li>
+        <li><strong>Adoración Nocturna:</strong> El grupo de Adoración Nocturna celebrará su aniversario con actividades al culminar la misa de las 18 hrs.</li>
+        <li><strong>Fiesta Patronal:</strong> Te invitamos a revisar el apartado de Fiesta Patronal para que sepas a detalle todo lo que hemos preparado.</li>
+      </li>
+      </ul>
+    </div>
+
+    <div class="liturgical-explanation">
+        <h3>Explicación de los Colores del Calendario</h3>
+        <p>El calendario contiene varios colores en el cual explicaremos sus funciones.</p>
+        <ul>
+            <li><strong>Amarillo (Día actual):</strong> Este color simboliza el día actual que está transcurriendo.</li>
+            <li><strong>Azul (Evento):</strong> Este color simboliza el día que tiene un evento programado.</li>
+            <li><strong>Naranja (Evento realizado):</strong> Este color simboliza el evento ya efectuado.</li>
+            <li><strong>Azul Cian (Asunción de María):</strong>Este color simboliza la fiesta de la Asunción de María</li>
+        </ul>
+        <p>En el calendario litúrgico de la Iglesia Católica utiliza diferentes colores para simbolizar las distintas temporadas del año litúrgico. Estos colores tienen un profundo significado y nos ayudan a vivir y reflexionar sobre las distintas etapas del año litúrgico. A continuación se explican los colores utilizados en el calendario:</p>
+        <ul>
+            <li><strong>Morado (Cuaresma y Adviento):</strong> Este color simboliza la penitencia, la preparación y la reflexión.</li>
+            <li><strong>Blanco (Pascua y Navidad):</strong> El blanco representa la pureza y la alegría.</li>
+            <li><strong>Verde (Tiempo Ordinario):</strong> El verde simboliza la esperanza y la vida.</li>
+            <li><strong>Rojo (Semana Santa y Pentecostés):</strong> Este color simboliza los días de la Semana Mayor y la fiesta de Pentecostés.</li>
+            <li><strong>Rosa (Gaudete y Laetare):</strong> Tercer domingo de Adviento y Cuarto domingo de Cuaresma. Se usa como signo de alegría en medio de los tiempos penitenciales.</li>
+        </ul>
+    </div>
+  </div>
+
+  <script>
+    const events = {
+        //-------------Junio-----------------
+      '2025-06-04': 'Curso de Biblia 18:40 hrs',
+      '2025-06-11': 'Curso de Biblia 18:40 hrs',
+      '2025-06-18': 'Curso de Biblia 18:40 hrs',
+      '2025-06-25': 'Curso de Biblia 18:40 hrs',
+      //-------------Julio-----------------
+      '2025-07-02': 'Curso de Biblia 18:40 hrs',
+      '2025-07-04': 'Taller de lectura 18:40 hrs',
+      '2025-07-09': 'Curso de Biblia 18:40 hrs',
+      '2025-07-11': 'Taller de lectura 18:40 hrs',
+      '2025-07-16': 'Curso de Biblia 18:40 hrs',
+      '2025-07-18': 'Taller de lectura 18:40 hrs',
+      '2025-07-23': 'Curso de Biblia 18:40 hrs',
+      '2025-07-25': 'Taller de lectura 18:40 hrs',
+      '2025-07-30': 'Curso de Biblia 18:40 hrs',
+      //-------------Agosto-----------------
+      '2025-08-01': 'Taller de lectura 18:40 hrs',
+      '2025-08-05': 'Novenario a la Virgen de la Asunción 17 hrs',
+      '2025-08-06': 'Novenario a la Virgen de la Asunción 17 hrs',
+      '2025-08-06': 'Curso de Biblia 18:40 hrs',
+      '2025-08-07': 'Novenario a la Virgen de la Asunción 17 hrs',
+      '2025-08-08': 'Novenario a la Virgen de la Asunción 17 hrs',
+      '2025-08-08': 'Taller de lectura 18:40 hrs',
+      '2025-08-09': 'Novenario a la Virgen de la Asunción 17 hrs',
+      '2025-08-10': 'Novenario a la Virgen de la Asunción 17 hrs',
+      '2025-08-11': 'Novenario a la Virgen de la Asunción 17 hrs',
+      '2025-08-12': 'Novenario a la Virgen de la Asunción 17 hrs',
+      '2025-08-13': 'Novenario a la Virgen de la Asunción 17 hrs',
+      '2025-08-13': 'Curso de Biblia 18:40 hrs',
+      '2025-08-14': 'Celebración de la Dormición de la Virgen',
+      '2025-08-16': 'Aniversario de la Adoración Nocturna',
+      '2025-08-17': 'Fiesta Patronal',
+      '2025-08-20': 'Curso de Biblia 18:40 hrs',
+      '2025-08-22': 'Taller de lectura 18:40 hrs',
+      '2025-08-27': 'Curso de Biblia 18:40 hrs',
+      '2025-08-29': 'Taller de lectura 18:40 hrs',
+      //-------------Septiembre-----------------
+      '2025-09-03': 'Curso de Biblia 18:40 hrs',
+      '2025-09-05': 'Taller de lectura 18:40 hrs',
+      '2025-09-10': 'Curso de Biblia 18:40 hrs',
+      '2025-09-12': 'Curso de Biblia 18:40 hrs',
+      '2025-09-17': 'Curso de Biblia 18:40 hrs',
+      '2025-09-19': 'Taller de lectura 18:40 hrs',
+      '2025-09-24': 'Curso de Biblia 18:40 hrs',
+      '2025-09-26': 'Taller de lectura 18:40 hrs',
+    };
+
+    function getLiturgicalSeason(date) {
+      const year = date.getFullYear();
+      const cuaresmaStart = new Date(year, 2, 5);
+      const cuaresmaEnd = new Date(year, 3, 12);
+      const laetare = new Date(year, 2, 30);
+      const semanaSanta = [new Date(year, 3, 13), new Date(year, 3, 19)];
+      const pascua = [new Date(year, 3, 20), new Date(year, 5, 7)];
+      const pentecostes = new Date(year, 5, 8);
+      const adviento = [[new Date(year, 10, 30), new Date(year, 11, 13)], [new Date(year, 11, 15), new Date(year, 11, 24)]];
+      const gaudete = new Date(year, 11, 14);
+      const navidad = [new Date(year, 11, 25), new Date(2026, 0, 12)];
+      const asuncion = new Date(year, 7, 15);
+
+      if (date >= cuaresmaStart && date <= cuaresmaEnd) return "cuaresma";
+      if (+date === +laetare) return "laetare";
+      if (date >= semanaSanta[0] && date <= semanaSanta[1]) return "semanaSanta";
+      if (date >= pascua[0] && date <= pascua[1]) return "pascua";
+      if (+date === +pentecostes) return "pentecostes";
+      if ((date >= adviento[0][0] && date <= adviento[0][1]) || (date >= adviento[1][0] && date <= adviento[1][1])) return "adviento";
+      if (+date === +gaudete) return "gaudete";
+      if (date >= navidad[0] && date <= navidad[1]) return "navidad";
+      if (+date === +asuncion) return "maria";
+      return "tiempo-comun";
+    }
+
+    function generateCalendar() {
+      const today = new Date();
+      const month = today.getMonth();
+      const year = today.getFullYear();
+      const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+      document.getElementById("month-year").innerText = `${monthNames[month]} ${year}`;
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const table = document.getElementById("calendar");
+      let row = table.insertRow();
+
+      for (let i = 0; i < firstDay; i++) row.insertCell();
+
+      const eventList = document.getElementById("event-list");
+      eventList.innerHTML = "";
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        if (row.cells.length === 7) row = table.insertRow();
+        const cell = row.insertCell();
+        const date = new Date(year, month, day);
+        const dateStr = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+        const season = getLiturgicalSeason(date);
+        cell.classList.add(season);
+        cell.innerText = day;
+
+        if (events[dateStr]) {
+          const eventBox = document.createElement("li");
+          const isPast = date < today;
+          cell.classList.add(isPast ? "past-event" : "event-day");
+          cell.title = events[dateStr];
+
+          eventBox.className = `event-box ${isPast ? "red-event" : "blue-event"}`;
+          eventBox.innerText = `${events[dateStr]} - ${day} de ${monthNames[month]}`;
+          eventList.appendChild(eventBox);
+        }
+
+        if (day === today.getDate() && today.getMonth() === month && today.getFullYear() === year) {
+          cell.classList.add("today");
+        }
+      }
+    }
+
+    window.onload = generateCalendar;
+  </script>
+
+<footer>
+    <p>&copy; 2025 Parroquia Asunción de María | Eventos</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Error de inicio de sesión</title>
+    <style>
+        /* Hacer que la imagen ocupe toda la pantalla */
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .full-screen-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('imagen/error.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+
+        .error-message {
+            position: absolute;
+            color: white;
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            z-index: 1;
+            text-shadow: 2px 2px 4px #000000, -2px -2px 4px #000000, 2px -2px 4px #000000, -2px 2px 4px #000000; /* Borde negro */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Fondo con la imagen a pantalla completa -->
+<div class="full-screen-image"></div>
+
+<!-- Mensaje de error -->
+<div class="error-message">
+    <p>¡Error! Esta págiana no está en funcionamiento.</p>
+    <a href="index.html" style="display: block; margin-top: 20px; color: yellow; font-size: 1em; text-decoration: none;">Volver al inicio</a>
+</div>
+
+</body>
+</html>

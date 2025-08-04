@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nuestra Historia | Parroquia Asunción de María</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f8f8f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #3c8dff;
+      color: white;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    header img {
+      height: 100px;
+    }
+
+    .header-text {
+      text-align: center;
+      flex: 1;
+    }
+
+    .header-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em;
+      margin: 0;
+    }
+
+    nav {
+      background-color: #0415aa;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 20px;
+      display: inline-block;
+      position: relative;
+    }
+
+    nav a:hover {
+      background-color: #3c8dff;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #0415aa;
+      min-width: 200px;
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 12px 20px;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .banner {
+      background: url('imagen/asun.jpg') no-repeat center;
+      background-size: cover;
+      background-position: 55% 45%;
+      height: 250px;
+      position: relative;
+    }
+
+    .banner::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .banner h2 {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      color: #5a2a27;
+      font-size: 1.8em;
+      margin-top: 30px;
+    }
+
+    .historia-texto {
+      line-height: 1.8;
+      font-size: 1.1em;
+      text-align: justify;
+      margin-bottom: 20px;
+    }
+
+    footer {
+      background-color: #04396a;
+      color: white;
+      text-align: center;
+      padding: 30px 10px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .dropdown-content {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+          </div>
+          <div class="header-text">
+            <h1>Parroquia Asunción de María</h1>
+            <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
+          </div>
+      </header>
+
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="oficina.html">Oficina</a>
+        <div class="dropdown">
+          <a>Historia ▾</a>
+          <div class="dropdown-content">
+            <a href="historia.html">Parroquia</a>
+            <a href="histAsun.html">Asunción de María</a>
+          </div>
+        </div>
+        <div class="dropdown">
+            <a>Eventos ▾</a>
+            <div class="dropdown-content">
+              <a href="eventos.html">Calendario Mensual</a>
+              <a href="fiestaPatronal.html">Fiesta Patronal</a>
+            </div>
+          </div>
+        <a href="grupos.html">Grupos Parroquiales</a>
+        <a href="mision.html">Misión</a>
+        <a href="contacto.html">Contacto</a>
+        <div class="dropdown">
+          <a>Acceso ▾</a>
+          <div class="dropdown-content">
+            <a href="adminLogin.html">Administrador</a>
+            <a href="coordinadorLogin.html">Coordinador</a>
+          </div>
+        </div>
+      </nav>
+
+  <div class="banner">
+    <h2>Nuestra Historia</h2>
+  </div>
+
+  <div class="container">
+    <h3>La Parroquia de la Asunción de María: Un Tesoro Histórico en el Corazón de la Colonia Industrial</h3>
+    <p class="historia-texto">
+      La Parroquia de la Asunción de María, un emblemático recinto religioso en la Colonia Industrial de la Alcaldía Gustavo A. Madero, es mucho más que una iglesia; es un testimonio vivo de la rica historia de la Ciudad de México y del antiguo pueblo de Tepalcatitlán.
+    </p>
+
+    <h3>Orígenes en Tepalcatitlán</h3>
+    <p class="historia-texto">
+      Antes de la fundación de la Colonia Industrial, esta zona al norte de la Ciudad de México albergaba un antiguo barrio indígena conocido como Tepalcatitlán. Se cree que el templo actual se erige sobre los cimientos de una antigua capilla virreinal, posiblemente dedicada también a Santa María y que data de principios de 1773. Con el paso del tiempo, esta capilla original sufrió deterioros significativos, perdiendo elementos como su techo, puertas y altar.
+    </p>
+
+    <h3>El Nacimiento de la Parroquia Moderna</h3>
+    <p class="historia-texto">
+      El impulso para la construcción de la iglesia actual comenzó a principios del siglo XX, impulsado por el crecimiento de la Colonia Industrial, que se fraccionó a partir de 1926. Esta colonia fue pensada para los obreros de las industrias que surgían en la zona.
+    </p>
+    <p class="historia-texto">
+      La construcción de la Parroquia de la Asunción de María se inició formalmente el 1 de octubre de 1935, gracias al esfuerzo y la dedicación de los vecinos de la colonia. La primera piedra se colocó el 2 de febrero de 1936, marcando el inicio de una obra que avanzaría con el apoyo de la comunidad, incluyendo figuras como el ingeniero Armando Espinosa de los Monteros y Alfonso Kuri Lishbar E.
+    </p>
+    <p class="historia-texto">
+      El culto se inauguró en octubre de 1941, y la iglesia fue elevada oficialmente a la categoría de parroquia en 1944, coincidiendo con la celebración del XXV aniversario de la primera misa oficiada en este lugar.
+    </p>
+
+    <h3>Resistencia en Tiempos de Conflicto</h3>
+    <p class="historia-texto">
+      Un dato notable en la historia de esta parroquia es su papel durante la Guerra Cristera. Existen registros, como una denuncia en el Archivo General de la Nación, que señalan que la capilla, bajo la dirección del sacerdote Modesto Nápoles, oficiaba misas de manera clandestina, desafiando las leyes de la época. Esto subraya la profunda fe y la determinación de la comunidad para mantener vivas sus prácticas religiosas.
+    </p>
+
+    <h3>Arquitectura y Legado</h3>
+    <p class="historia-texto">
+      La arquitectura de la Parroquia de la Asunción de María refleja el estilo de su época, con formas mixtilíneas en los pretiles que enfatizan cada sección de la iglesia, producto de una cuidadosa reconstrucción. Hoy en día, la parroquia sigue siendo un pilar fundamental para la vida comunitaria de la Colonia Industrial. Sus campanadas anuncian las misas matutinas y vespertinas, resonando en todo el barrio y manteniendo viva una tradición que ha perdurado por siglos.
+    </p>
+    <p class="historia-texto">
+      La Parroquia de la Asunción de María de Tepalcatitlán no es solo un edificio, sino un símbolo de la resiliencia, la fe y la identidad de una colonia que ha sabido conservar su historia a través de los años.
+    </p>
+
+    <div class="galeria">
+      <img src="imagen/asunhistoria1.jpg" alt="Historia 1">
+      <img src="imagen/asunhistoria.jpg" alt="Historia 2">
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Parroquia Asunción de María | Historia de la Parroquia</p>
+  </footer>
+
+</body>
+</html>

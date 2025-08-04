@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grupos Parroquiales | Parroquia Asunción de María</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: url('imagen/cielo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+
+    header {
+      background-color: #3c8dff;
+      color: white;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    header img {
+      height: 100px;
+    }
+
+    .header-text {
+      text-align: center;
+      flex: 1;
+    }
+
+    .header-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em;
+      margin: 0;
+    }
+
+    nav {
+      background-color: #0415aa;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 20px;
+      display: inline-block;
+      position: relative;
+    }
+
+    nav a:hover {
+      background-color: #3c8dff;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #0415aa;
+      min-width: 200px;
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 12px 20px;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .banner {
+      background: url('imagen/asun.jpg') no-repeat center;
+      background-size: cover;
+      background-position: 55% 45%;
+      height: 250px;
+      position: relative;
+    }
+
+    .banner::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .banner h2 {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+    }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      color: #5a2a27;
+      font-size: 1.8em;
+      margin-top: 30px;
+    }
+
+    .historia-texto {
+      line-height: 1.8;
+      font-size: 1.1em;
+      text-align: justify;
+      margin-bottom: 20px;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px 0;
+    }
+
+    .group-card {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      background-color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      color: #333;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .group-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .group-logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+
+    .group-card h2 {
+      font-size: 1.1em;
+      margin: 0;
+    }
+
+    .inactive {
+      background-color: #ccc !important;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .logo {
+      display: block;
+      margin: 30px auto;
+      width: 100px;
+      height: auto;
+    }
+
+    footer {
+      background-color: #04396a;
+      color: white;
+      text-align: center;
+      padding: 30px 10px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .dropdown-content {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+          </div>
+          <div class="header-text">
+            <h1>Parroquia Asunción de María</h1>
+            <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
+          </div>
+      </header>
+
+
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="oficina.html">Oficina</a>
+        <div class="dropdown">
+          <a>Historia ▾</a>
+          <div class="dropdown-content">
+            <a href="historia.html">Parroquia</a>
+            <a href="histAsun.html">Asunción de María</a>
+          </div>
+        </div>
+        <div class="dropdown">
+            <a>Eventos ▾</a>
+            <div class="dropdown-content">
+              <a href="eventos.html">Calendario Mensual</a>
+              <a href="fiestaPatronal.html">Fiesta Patronal</a>
+            </div>
+          </div>
+        <a href="grupos.html">Grupos Parroquiales</a>
+        <a href="mision.html">Misión</a>
+        <a href="contacto.html">Contacto</a>
+        <div class="dropdown">
+          <a>Acceso ▾</a>
+          <div class="dropdown-content">
+            <a href="adminLogin.html">Administrador</a>
+            <a href="coordinadorLogin.html">Coordinador</a>
+          </div>
+        </div>
+      </nav>
+
+  <div class="banner">
+    <h2>Grupos Parroquiales</h2>
+  </div>
+
+  <div class="container">
+    <div class="grid-container">
+      <a href="adoracion.html" class="group-card">
+        <img src="imagen/Logo_adoracion.jpg" alt="Logo Adoración Nocturna" class="group-logo">
+        <h2>Adoración Nocturna</h2>
+      </a>
+      <a href="catequesis.html" class="group-card inactive">
+        <img src="imagen/Logo_catequesis.jpg" alt="Logo Catequesis" class="group-logo">
+        <h2>Catequesis</h2>
+      </a>
+      <a href="cofradia.html" class="group-card inactive">
+        <img src="imagen/virgenCarmen.jpg" alt="Logo Cofradía de la Virgen del Carmen" class="group-logo">
+        <h2>Cofradía de la Virgen del Carmen</h2>
+      </a>
+      <a href="cam.html" class="group-card">
+        <img src="imagen/logoCAM.png" alt="Logo Coro Asunción de María" class="group-logo">
+        <h2>Coro Asunción de María</h2>
+      </a>
+      <a href="sos.html" class="group-card">
+        <img src="imagen/LogoSOS.jpg" alt="Logo Coro SOS" class="group-logo">
+        <h2>Coro SOS Vamos a cantar</h2>
+      </a>
+      <a href="encuentro.html" class="group-card inactive">
+        <img src="imagen/LogoMatrimonial.jpg" alt="Logo Encuentro Matrimonial" class="group-logo">
+        <h2>Encuentro Matrimonial</h2>
+      </a>
+      <a href="escPastoral.html" class="group-card inactive">
+        <img src="imagen/logo_escPastoral.jpg" alt="Logo Escuela de Pastoral" class="group-logo">
+        <h2>Escuela de Pastoral</h2>
+      </a>
+      <a href="escenicos.html" class="group-card">
+        <img src="imagen/Logo_escenicos.jpg" alt="Logo Evangelizadores Escénicos" class="group-logo">
+        <h2>Evangelizadores Escénicos</h2>
+      </a>
+      <a href="fuerzasBasicas.html" class="group-card">
+        <img src="imagen/LogoFB.jpg" alt="Logo Fuerzas Básicas AM" class="group-logo">
+        <h2>Fuerzas Básicas AM</h2>
+      </a>
+      <a href="scouts.html" class="group-card inactive">
+        <img src="imagen/logoScouts.jpg" alt="Logo Grupo Scouts 9 Asgard" class="group-logo">
+        <h2>Grupo Scouts 9 Asgard</h2>
+      </a>
+      <a href="hermanos.html" class="group-card inactive">
+        <img src="imagen/Logo_hermanos.jpg" alt="Logo Hermanos en Cristo" class="group-logo">
+        <h2>Hermanos en Cristo</h2>
+      </a>
+      <a href="kuhtli.html" class="group-card">
+        <img src="imagen/LogoKuhtli.jpg" alt="Logo Jornadas Juveniles Kuhtli" class="group-logo">
+        <h2>Grupo de Jornadas Kuhtli</h2>
+      </a>
+      <a href="liturgia.html" class="group-card inactive">
+        <img src="imagen/LogoLiturgia.jpg" alt="Logo Liturgia" class="group-logo">
+        <h2>Liturgia</h2>
+      </a>
+      <a href="ministros.html" class="group-card">
+        <img src="imagen/Logo_ministros.jpg" alt="Logo Ministros de la Eucaristía" class="group-logo">
+        <h2>Ministros de la Eucaristía</h2>
+      </a>
+      <a href="monaguillos.html" class="group-card inactive">
+        <img src="imagen/Logo_monaguillos.jpg" alt="Logo Monaguillos" class="group-logo">
+        <h2>Monaguillos</h2>
+      </a>
+      <a href="franciscana.html" class="group-card inactive">
+        <img src="imagen/Logo_franciscana.jpg" alt="Logo Orden Franciscana Seglar" class="group-logo">
+        <h2>Orden Franciscana Seglar</h2>
+      </a>
+      <a href="preSacramentales.html" class="group-card">
+        <img src="imagen/Logo_prebautismales.jpg" alt="Logo Pláticas Pre Bautismales" class="group-logo">
+        <h2>Pláticas Pre Sacramentales</h2>
+      </a>
+      <a href="pastoralInfantil.html" class="group-card inactive">
+        <img src="imagen/Logo_pastoralinfantil.jpg" alt="Logo Pastoral Infantil" class="group-logo">
+        <h2>Pastoral Infantil</h2>
+      </a>
+      <a href="pastoralSocial.html" class="group-card inactive">
+        <img src="imagen/LogoPastoral_Social.jpg" alt="Logo Pastoral Social" class="group-logo">
+        <h2>Pastoral Social</h2>
+      </a>
+      <a href="escucha.html" class="group-card">
+        <img src="imagen/Logo_apoyo.jpg" alt="Logo Servicio de Apoyo" class="group-logo">
+        <h2>Escucha, Servicio y Acompañamiento</h2>
+      </a>
+      <a href="serPsico.html" class="group-card inactive">
+        <img src="imagen/LogoPsico.jpg" alt="Logo Servicio Psicológico" class="group-logo">
+        <h2>Servicio Psicológico</h2>
+      </a>
+    </div>
+  </div>
+
+  <img src="imagen/logo_asun.png" alt="Logo de la Parroquia" class="logo">
+
+  <footer>
+    <p>&copy; 2025 Parroquia Asunción de María | Grupos Parroquiales</p>
+  </footer>
+</body>
+</html>
