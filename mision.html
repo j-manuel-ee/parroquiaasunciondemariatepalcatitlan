@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Operación María de Nazareth | Parroquia Asunción de María</title>
+  <title>Fuerzas Básicas AM | Parroquia Asunción de María</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
     body {
@@ -88,10 +88,10 @@
     }
 
     .banner {
-      background: url('imagen/fondo_mision.jpg') no-repeat center;
+      background: url('imagen/fuerzas_basicas.jpg') no-repeat center;
       background-size: cover;
-      background-position: 10% 30%;
-      height: 400px;
+      background-position: 40% 60%;
+      height: 350px;
       position: relative;
     }
 
@@ -126,6 +126,117 @@
       margin-top: 30px;
     }
 
+    .activities-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 20px 0;
+    }
+
+    .activity-card {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .activity-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .activity-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.7);
+      transition: filter 0.3s ease;
+    }
+
+    .activity-card:hover img {
+      filter: brightness(1);
+    }
+
+    .activity-card h2 {
+      position: absolute;
+      bottom: 10px;
+      left: 15px;
+      color: white;
+      font-size: 1.5em;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+      margin: 0;
+    }
+
+    .social-container {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .social-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 250px;
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .social-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .social-card img {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 15px;
+    }
+
+    .social-card a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    .social-card a:hover {
+      text-decoration: underline;
+    }
+
+    .whatsapp {
+      background-color: #25D366;
+    }
+
+    .facebook {
+      background-color: #4267B2;
+    }
+
+    .instagram {
+      background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4);
+    }
+
+    .tiktok {
+      background-color: #000;
+    }
+
+    .youtube {
+      background-color: #FF0000;
+    }
+
+    .gmail {
+      background: linear-gradient(45deg, #EA4335, #FBBC05, #34A853, #4285F4);
+    }
+
     .historia-texto {
       line-height: 1.8;
       font-size: 1.1em;
@@ -147,6 +258,11 @@
       }
     }
   </style>
+  <script>
+    function redirectTo(page) {
+      window.location.href = page;
+    }
+  </script>
 </head>
 <body>
 
@@ -189,15 +305,16 @@
         </div>
       </nav>
 
-  <div class="banner">
-    <h2>Operación María de Nazareth 2024</h2>
+  <h1>Seguimos recaudando toda la información</h1>
+  <h1>Le agradecemos su espera</h1>
+
+  <div class="image-container">
+    <img src="imagen/omn.png" alt="Imagen de mantenimiento">
   </div>
 
-
-  <footer>
-    <p>&copy; 2025 Parroquia Asunción de María | Operación María de Nazareth</p>
-  </footer>
+  <div class="countdown" id="countdown">
+    Cargando contador...
+  </div>
 
 </body>
 </html>
-
