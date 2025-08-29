@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Parroquia Asunción de María</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -88,11 +88,11 @@
     }
 
     .hero {
-      background-image: url('imagen/asun.jpg');
-      background-size: cover;
-      background-position: 55% 45%;
-      height: 300px;
-      position: relative;
+    background-image: url('imagen/asun.jpg');
+    background-size: cover;
+    background-position: 55% 45%; /* Aquí ajustas el recorrido */
+    height: 300px;
+    position: relative;
     }
 
     .hero::after {
@@ -167,133 +167,18 @@
         width: 100%;
       }
     }
-
-    /* === Anuncio emergente === */
-    .popup {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .popup-content {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 450px;
-      text-align: center;
-      font-family: 'Open Sans', sans-serif;
-      position: relative;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      overflow: hidden;
-    }
-
-    .popup-content h2 {
-      font-family: 'Playfair Display', serif;
-      margin-top: 0;
-      color: #3c8dff;
-    }
-
-    .popup-content p {
-      margin: 10px 0;
-    }
-
-    .popup-content img {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 15px;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 22px;
-      cursor: pointer;
-      color: #999;
-    }
-
-    .close-btn:hover {
-      color: #000;
-    }
-
-    .popup-content a.boton {
-      display: inline-block;
-      background-color: #3c8dff;
-      color: white;
-      padding: 10px 20px;
-      margin-top: 15px;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      animation: salto 1s infinite alternate;
-    }
-
-    @keyframes salto {
-      0% {
-        transform: translateY(0);
-      }
-      100% {
-        transform: translateY(-10px);
-      }
-    }
-
-    /* Fuegos artificiales */
-    .fuegos {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: visible;
-      z-index: 10;
-    }
-
-    .fuegos span {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      opacity: 0;
-      animation: estallar 1.5s ease-out forwards;
-    }
-
-    @keyframes estallar {
-      0% {
-        opacity: 1;
-        transform: translate(0, 0) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(var(--x), var(--y)) scale(0.3);
-      }
-    }
-
-    /* Contador */
-    #countdown {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4em;
-      color: #d23636;
-      margin-top: 10px;
-    }
   </style>
 </head>
 <body>
+
   <header>
     <div class="header-left">
-      <img src="imagen/logo_asun.png" alt="Logo Parroquia" />
-    </div>
-    <div class="header-text">
-      <h1>Parroquia Asunción de María</h1>
-      <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
-    </div>
+        <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+      </div>
+      <div class="header-text">
+        <h1>Parroquia Asunción de María</h1>
+        <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
+      </div>
   </header>
 
   <nav>
@@ -332,8 +217,8 @@
   <div class="container">
     <h2>¡Bienvenidos!</h2>
     <p class="historia">
-      ¡Bienvenidos, hermanos y hermanas de la Parroquia de la Asunción de María Tepalcatitlán!
-      Aquí les compartimos, con el cariño de nuestra comunidad, una cálida presentación de “nuestra casita espiritual” en la
+      ¡Bienvenidos, hermanos y hermanas de la Parroquia de la Asunción de María Tepalcatitlán! 
+      Aquí les compartimos, con el cariño de nuestra comunidad, una cálida presentación de “nuestra casita espiritual” en la 
       Colonia Industrial:
     </p>
   </div>
@@ -341,7 +226,7 @@
   <div class="container">
     <h2>¿Quiénes somos?</h2>
     <p class="historia">
-      Somos una comunidad con raíces en el antiguo pueblo de Tepalcatitlán. Aquí, donde hace siglos hubo una capilla dedicada a Santa María,
+      Somos una comunidad con raíces en el antiguo pueblo de Tepalcatitlán. Aquí, donde hace siglos hubo una capilla dedicada a Santa María, 
       hoy se alza nuestra parroquia, testigo vivo de la historia y la fe que nos une.
     </p>
   </div>
@@ -351,133 +236,56 @@
     <p class="historia">
       Orgullosamente animamos la vida parroquia con actividades para todas las edades:
     </p>
-    <p>- <strong>Semana Santa:</strong> Representaciones vivientes de la Última Cena gracias a los “Evangelizadores Escénicos”.</p>
-    <p>- <strong>Octubre:</strong> Rosario misionero viviente en comunidad donde se pide por los continentes.</p>
-    <p>- <strong>Noviembre:</strong> Ofrendas y concursos que fortalecen la fraternidad entre los grupos.</p>
-    <p>- <strong>Diciembre:</strong> Posadas y pastorelas llenas de alegría y mensaje navideño.</p>
-    <p>- <strong>Formación permanente:</strong> Cursos bíblicos, litúrgicos y talleres que nutren nuestra fe y conocimiento.</p>
-  </div>
-
-  <div class="container">
-    <h2>¡Te esperamos con los brazos abiertos en la Parroquia de la Asunción de María Tepalcatitlán!</h2>
-    <p class="historia">
-      Desde este espacio abierto y vivo, te invitamos a unirte a nuestra misión: participar en nuestras celebraciones, actividades y proyectos.
-      Aquí, cada historia cuenta, cada voz suma y cada corazón encuentra un lugar.
+    <p>
+      - <strong>Semana Santa:</strong> Representaciones vivientes de la Última Cena gracias a los “Evangelizadores Escénicos”.
+    </p>
+    <p>
+      - <strong>Octubre:</strong> Rosario misionero viviente en comunidad donde se pide por los continentes.
+    </p>
+    <p>
+      - <strong>Noviembre:</strong> Ofrendas y concursos que fortalecen la fraternidad entre los grupos.
+    </p>
+    <p>
+      - <strong>Diciembre:</strong> Posadas y pastorelas llenas de alegría y mensaje navideño.
+    </p>
+    <p>
+      - <strong>Formación permanente:</strong> Cursos bíblicos, litúrgicos y talleres que nutren nuestra fe y conocimiento.
     </p>
   </div>
 
-  <div class="container">
-    <h2>Ubicación</h2>
-    <p class="historia">
-      Nos encontramos en Av. Necaxa 100, Colonia Industrial, Gustavo A. Madero, CDMX, C.P. 07800
-    </p>
-    <p><strong>Teléfono:</strong> 55 5557 4812</p>
-    <p><strong>Que nuestra Madre, Asunta al Cielo, continúe protegiendo y guiando a nuestra comunidad. Amén.</strong></p>
-
+    <div class="container">
+      <h2>¡Te esperamos con los brazos abiertos en la Parroquia de la Asunción de María Tepalcatitlán!</h2>
+      <p class="historia">
+        Desde este espacio abierto y vivo, te invitamos a unirte a nuestra misión: participar en nuestras celebraciones, actividades y proyectos. 
+        Aquí, cada historia cuenta, cada voz suma y cada corazón encuentra un lugar.
+      </p>
+    </div>
+        
+    <div class="container">
+      <h2>Ubicación</h2>
+      <p class="historia">
+        Nos encontramos en Av. Necaxa 100, Colonia Industrial, Gustavo A. Madero, CDMX, C.P. 07800
+      </p>
+      <p>
+        <strong>Teléfono:</strong> 55 5557 4812
+      </p>
+      <p>
+        <strong>Que nuestra Madre, Asunta al Cielo, continúe protegiendo y guiando a nuestra comunidad. Amén.</strong>
+      </p>
+        
     <h2>Galería</h2>
     <div class="galeria">
-      <img src="imagen/parroquia.png" alt="Imagen 1" />
-      <img src="imagen/asun.jpg" alt="Imagen 2" />
-      <img src="imagen/parroquia_union.png" alt="Imagen 3" />
+      <img src="imagen/parroquia.png" alt="Imagen 1">
+      <img src="imagen/asun.jpg" alt="Imagen 2">
+      <img src="imagen/parroquia_union.png" alt="Imagen 3">
     </div>
   </div>
 
   <footer>
-    <img src="imagen/logo_asun.png" alt="Logo Asunción de María" />
+    <img src="imagen/logo_asun.png" alt="Logo Asunción de María">
     <p>&copy; 2025 Parroquia Asunción de María | Todos los derechos reservados</p>
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.397843518592!2d-99.1270693!3d19.4760285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f90b4367bbc3%3A0xd2caa35576a999cf!2sParroquia%20de%20la%20Asunci%C3%B3n%20de%20Mar%C3%ADa!5e0!3m2!1ses!2smx!4v1618864105453!5m2!1ses!2smx"
-      allowfullscreen
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-    ></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.397843518592!2d-99.1270693!3d19.4760285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f90b4367bbc3%3A0xd2caa35576a999cf!2sParroquia%20de%20la%20Asunci%C3%B3n%20de%20Mar%C3%ADa!5e0!3m2!1ses!2smx!4v1618864105453!5m2!1ses!2smx"></iframe>
   </footer>
 
-  <!-- Anuncio emergente -->
-  <div id="popup" class="popup">
-    <div class="popup-content">
-      <span class="close-btn" onclick="closePopup()">&times;</span>
-      <div class="fuegos" id="fuegos"></div>
-      <h2>¡Fiesta Patronal 2025!</h2>
-      <p>Te invitamos a celebrar con nosotros este 17 de agosto.</p>
-      <p><strong>Misa Solemne, kermés, música y sorpresas.</strong></p>
-      <div id="countdown"></div>
-      <a class="boton" href="fiestaPatronal.html">Conoce más</a>
-    </div>
-  </div>
-
-  <script>
-    function randomColor() {
-      const colors = ['#ffd700', '#ff4500', '#1e90ff', '#32cd32', '#ff69b4', '#ffa500'];
-      return colors[Math.floor(Math.random() * colors.length)];
-    }
-
-    function createFireworkParticle(container) {
-      const particle = document.createElement('span');
-      particle.style.left = '50%';
-      particle.style.top = '50%';
-      particle.style.backgroundColor = randomColor();
-      const angle = Math.random() * 2 * Math.PI;
-      const radius = 100 + Math.random() * 100;
-      const x = Math.cos(angle) * radius + 'px';
-      const y = Math.sin(angle) * radius + 'px';
-      particle.style.setProperty('--x', x);
-      particle.style.setProperty('--y', y);
-      container.appendChild(particle);
-
-      setTimeout(() => {
-        container.removeChild(particle);
-      }, 1500);
-    }
-
-    function showFireworks() {
-      const container = document.getElementById('fuegos');
-      let count = 0;
-      const maxBursts = 8;
-      const interval = setInterval(() => {
-        for (let i = 0; i < 40; i++) {
-          createFireworkParticle(container);
-        }
-        count++;
-        if (count >= maxBursts) {
-          clearInterval(interval);
-        }
-      }, 500);
-    }
-
-    function updateCountdown() {
-      const countdownEl = document.getElementById('countdown');
-      const now = new Date().getTime();
-      const currentYear = new Date().getFullYear();
-      const targetDate = new Date(currentYear, 7, 17, 0, 0, 0).getTime();
-      let diff = targetDate - now;
-
-      if (diff < 0) {
-        const nextYearDate = new Date(currentYear + 1, 7, 17, 0, 0, 0).getTime();
-        diff = nextYearDate - now;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-      countdownEl.textContent = `Faltan ${days} días ${hours} hrs ${minutes} min ${seconds} seg`;
-    }
-
-    window.onload = function () {
-      setTimeout(() => {
-        const popup = document.getElementById('popup');
-        popup.style.display = 'flex';
-        showFireworks();
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-      }, 1000);
-    };
-
-    function closePopup() {
-      document.getElementById('popup').style.display = 'none';
-    }
-  </script>
 </body>
 </html>
