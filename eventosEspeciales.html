@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eventos Especiales | Parroquia Asunción de María</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f8f8f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #3c8dff;
+      color: white;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    header img {
+      height: 100px;
+    }
+
+    .header-text {
+      text-align: center;
+      flex: 1;
+    }
+
+    .header-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em;
+      margin: 0;
+    }
+
+    nav {
+      background-color: #0415aa;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 20px;
+      display: inline-block;
+      position: relative;
+    }
+
+    nav a:hover {
+      background-color: #3c8dff;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #0415aa;
+      min-width: 200px;
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 12px 20px;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .banner {
+      background: url('imagen/Asamblea2025.jpg') no-repeat center;
+      background-size: cover;
+      background-position: 85% 2%;
+      height: 580px;
+      position: relative;
+    }
+
+    .banner::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .banner h2 {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      color: #5a2a27;
+      font-size: 1.8em;
+      margin-top: 30px;
+    }
+
+    .historia-texto {
+      line-height: 1.8;
+      font-size: 1.1em;
+      text-align: justify;
+      margin-bottom: 20px;
+    }
+
+    footer {
+      background-color: #04396a;
+      color: white;
+      text-align: center;
+      padding: 30px 10px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .dropdown-content {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-left">
+      <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+    </div>
+    <div class="header-text">
+      <h1>Parroquia Asunción de María</h1>
+      <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
+    </div>
+  </header>
+
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="oficina.html">Oficina</a>
+    <div class="dropdown">
+      <a>Historia ▾</a>
+      <div class="dropdown-content">
+        <a href="historia.html">Parroquia</a>
+        <a href="histAsun.html">Asunción de María</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <a>Eventos ▾</a>
+      <div class="dropdown-content">
+        <a href="eventos.html">Calendario Mensual</a>
+        <a href="eventosEspeciales.html">Eventos Especiales</a>
+      </div>
+    </div>
+    <a href="grupos.html">Grupos Parroquiales</a>
+    <a href="mision.html">Misión</a>
+    <a href="contacto.html">Contacto</a>
+    <div class="dropdown">
+      <a>Acceso ▾</a>
+      <div class="dropdown-content">
+        <a href="adminLogin.html">Administrador</a>
+        <a href="coordinadorLogin.html">Coordinador</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="banner"></div>
+
+  <div class="container">
+    <section id="Acerca-fiestaPatronal">
+      <h3>Acerca de la Asamblea Parroquial 2025</h3>
+      <p class="historia-texto">
+        <strong>La comunidad de la Parroquia Asunción de María</strong> se prepara para realizar por segundo año consecutivo, la asamblea parroquial 2025.
+      </p>
+
+      <h3>¿Qué se busca?</h3>
+      <p class="historia-texto">
+        Con esta asamblea se busca conocer los problemas, dudas, y actividades que podemos realizar en nuestra comunidad, también darle solución a los problemas y trabajar todos en conjunto
+        para construir en sínodo una comunidad amigable, que transmita amor y compartamos la alegría de ser hermanos.
+      </p>
+      <p class="historia-texto">
+        Este año se pide que se inscriban con anticipación para llevar un orden y tener el material para todos los asistentes.
+      </p>
+
+      <h3>¿Cómo me registro?</h3>
+      <p class="historia-texto">Es a través de un formulario de Google donde nos piden:</p>
+      <ul class="historia-texto">
+        <li>Nombre completo</li>
+        <li>Número de celular</li>
+        <li>Correo electrónico</li>
+        <li>Grupo parroquial (Si no perteneces a ningún grupo, deja este apartado vacío)</li>
+        <li>Y unas preguntas un poco más personales</li>
+      </ul>
+
+      <p class="historia-texto">
+        En el siguiente link se pueden registrar:  
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSclY3YqJkShIbqsVzH8ZI2B4boLvX-kGSNy-Frm63imciQa_A/viewform" target="_blank">
+          👉 Registro Asamblea Parroquial 2025
+        </a>
+      </p>
+
+      <!-- Imagen final -->
+      <div style="text-align: center; margin-top: 30px;">
+        <img src="imagen/Asamblea2025.jpg" alt="Fiesta Patronal Asunción de María" style="max-width: 70%; height: auto; border-radius: 10px;">
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Parroquia Asunción de María | Eventos Especiales</p>
+  </footer>
+
+</body>
+</html>
