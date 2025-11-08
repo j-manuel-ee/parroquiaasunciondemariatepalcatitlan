@@ -9,7 +9,8 @@
     body {
       margin: 0;
       font-family: 'Open Sans', sans-serif;
-      background-color: #f8f8f8;
+      background: url('imagen/cielo.jpg') no-repeat center center fixed;
+      background-size: cover;
       color: #333;
     }
 
@@ -63,7 +64,6 @@
       background-color: #3c8dff;
     }
 
-    /* Dropdown */
     .dropdown {
       position: relative;
     }
@@ -87,50 +87,26 @@
       display: block;
     }
 
-    .banner {
-      background: url('imagen/Asamblea2025.jpg') no-repeat center;
-      background-size: cover;
-      background-position: 85% 2%;
-      height: 580px;
-      position: relative;
-    }
-
-    .banner::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .banner h2 {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      color: #fff;
-      font-family: 'Playfair Display', serif;
-      font-size: 2.2em;
+    h1 {
       text-align: center;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    h3 {
       font-family: 'Playfair Display', serif;
-      color: #5a2a27;
-      font-size: 1.8em;
-      margin-top: 30px;
+      color: #ffffff;
+      margin-top: 40px;
     }
 
-    .historia-texto {
-      line-height: 1.8;
-      font-size: 1.1em;
-      text-align: justify;
-      margin-bottom: 20px;
+    .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 40px 0;
+    }
+
+    .image-container img {
+      max-width: 80%;
+      width: 400px;
+      height: auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
     }
 
     footer {
@@ -144,6 +120,10 @@
     @media (max-width: 768px) {
       .dropdown-content {
         position: static;
+      }
+
+      .image-container img {
+        width: 90%;
       }
     }
   </style>
@@ -171,15 +151,16 @@
       </div>
     </div>
     <div class="dropdown">
-      <a>Eventos ▾</a>
-      <div class="dropdown-content">
-        <a href="eventos.html">Calendario Mensual</a>
-        <a href="eventosEspeciales.html">Eventos Especiales</a>
+        <a>Eventos ▾</a>
+        <div class="dropdown-content">
+          <a href="eventos.html">Calendario Mensual</a>
+          <a href="fiestaPatronal.html">Eventos Especiales</a>
+        </div>
       </div>
-    </div>
     <a href="grupos.html">Grupos Parroquiales</a>
     <a href="mision.html">Misión</a>
     <a href="contacto.html">Contacto</a>
+    <a href="foro.html">Foro de Opiniones</a>
     <div class="dropdown">
       <a>Acceso ▾</a>
       <div class="dropdown-content">
@@ -189,51 +170,12 @@
     </div>
   </nav>
 
-  <div class="banner"></div>
+  <h1>Por el momento no tenemos eventos especiales</h1>
+  <h1>Intente después volver a ingresar para descubrir los próximos eventos</h1>
 
-  <div class="container">
-    <section id="Acerca-fiestaPatronal">
-      <h3>Acerca de la Asamblea Parroquial 2025</h3>
-      <p class="historia-texto">
-        <strong>La comunidad de la Parroquia Asunción de María</strong> se prepara para realizar por segundo año consecutivo, la asamblea parroquial 2025.
-      </p>
-
-      <h3>¿Qué se busca?</h3>
-      <p class="historia-texto">
-        Con esta asamblea se busca conocer los problemas, dudas, y actividades que podemos realizar en nuestra comunidad, también darle solución a los problemas y trabajar todos en conjunto
-        para construir en sínodo una comunidad amigable, que transmita amor y compartamos la alegría de ser hermanos.
-      </p>
-      <p class="historia-texto">
-        Este año se pide que se inscriban con anticipación para llevar un orden y tener el material para todos los asistentes.
-      </p>
-
-      <h3>¿Cómo me registro?</h3>
-      <p class="historia-texto">Es a través de un formulario de Google donde nos piden:</p>
-      <ul class="historia-texto">
-        <li>Nombre completo</li>
-        <li>Número de celular</li>
-        <li>Correo electrónico</li>
-        <li>Grupo parroquial (Si no perteneces a ningún grupo, deja este apartado vacío)</li>
-        <li>Y unas preguntas un poco más personales</li>
-      </ul>
-
-      <p class="historia-texto">
-        En el siguiente link se pueden registrar:  
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSclY3YqJkShIbqsVzH8ZI2B4boLvX-kGSNy-Frm63imciQa_A/viewform" target="_blank">
-          👉 Registro Asamblea Parroquial 2025
-        </a>
-      </p>
-
-      <!-- Imagen final -->
-      <div style="text-align: center; margin-top: 30px;">
-        <img src="imagen/Asamblea2025.jpg" alt="Asamblea Parroquial Asunción de María" style="max-width: 70%; height: auto; border-radius: 10px;">
-      </div>
-    </section>
+  <div class="image-container">
+    <img src="imagen/SinEventos.png" alt="Imagen de mantenimiento">
   </div>
-
-  <footer>
-    <p>&copy; 2025 Parroquia Asunción de María | Eventos Especiales</p>
-  </footer>
 
 </body>
 </html>
