@@ -95,6 +95,7 @@
       background: rgba(255, 255, 255, 0.95);
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      gap: 30px;
     }
 
     h1{
@@ -236,9 +237,48 @@
       padding: 30px 10px;
       margin-top: 40px;
     }
+
+    #calendar-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+  #info-panel {
+    width: 260px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    padding: 16px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  #info-panel h2 {
+    font-size: 1.2em;
+    color: #0415aa;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  #info-panel p,
+  #info-panel span {
+    font-size: 1em;
+    margin: 6px 0;
+    text-align: justify;
+    color: #333;
+  }
+
+  #info-panel span {
+    display: block;
+    font-weight: bold;
+    color: #4b0082;
+  }
+
   </style>
 </head>
 <body>
+  
   <header>
     <div class="header-left">
         <img src="imagen/logo_asun.png" alt="Logo Parroquia">
@@ -246,7 +286,7 @@
       <div class="header-text">
     <h1>Eventos Parroquiales</h1>
     <p>Parroquia Asunción de María de Tepalcatitlán</p>
-      </div>
+    </div>
   </header>
 
   <nav>
@@ -282,41 +322,52 @@
     <h2>Eventos del Mes</h2>
     <h3 id="month-year"></h3>
 
-    <table id="calendar">
-      <tr>
-        <th>Dom</th><th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th>
-      </tr>
-    </table>
+    <div id="calendar-container">
+      <div style="flex: 1;">
+        <table id="calendar">
+          <tr>
+            <th>Dom</th><th>Lun</th><th>Mar</th><th>Mié</th><th>Jue</th><th>Vie</th><th>Sáb</th>
+          </tr>
+        </table>
 
-    <h2>Eventos Programados</h2>
-    <ul id="event-list"></ul>
+        <h2>Eventos Programados</h2>
+        <ul id="event-list"></ul>
 
-    <div class="events-explanation">
-      <h3>Explicación de los Eventos</h3>
-      <ul>
-        <li><strong>Curso de Biblia:</strong> Se lleva a cabo en el Centro Parroquial a las 6:40pm. Lleva tu biblia y libreta.</li>
-        <li><strong>Taller de lectura:</strong> Se lleva a cabo en la biblioteca parroquial a las 6:40pm. Actualmente leyendo un libro de Sta. Teresa de Ávila.</li>
-      </li>
-      </ul>
+        <div class="events-explanation">
+          <h3>Explicación de los Eventos</h3>
+          <ul>
+            <li><strong>Curso de Biblia:</strong> Se lleva a cabo en el Centro Parroquial a las 6:40pm. Lleva tu biblia y libreta.</li>
+            <li><strong>Taller de lectura:</strong> Se lleva a cabo en la biblioteca parroquial a las 6:40pm. Actualmente leyendo un libro de Sta. Teresa de Ávila.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PANEL DE SANTOS MOVIDO AL LADO DERECHO -->
+      <div id="info-panel">
+        <h2>📖 Día Litúrgico</h2>
+        <p id="current-date"></p>
+        <span id="saint-name"></span>
+        <p id="saint-desc"></p>
+      </div>
     </div>
 
     <div class="liturgical-explanation">
-        <h3>Explicación de los Colores del Calendario</h3>
-        <p>El calendario contiene varios colores en el cual explicaremos sus funciones.</p>
-        <ul>
-            <li><strong>Amarillo (Día actual):</strong> Este color simboliza el día actual que está transcurriendo.</li>
-            <li><strong>Azul (Evento):</strong> Este color simboliza el día que tiene un evento programado.</li>
-            <li><strong>Naranja (Evento realizado):</strong> Este color simboliza el evento ya efectuado.</li>
-            <li><strong>Azul Cian (Asunción de María):</strong>Este color simboliza la fiesta de la Asunción de María</li>
-        </ul>
-        <p>En el calendario litúrgico de la Iglesia Católica utiliza diferentes colores para simbolizar las distintas temporadas del año litúrgico. Estos colores tienen un profundo significado y nos ayudan a vivir y reflexionar sobre las distintas etapas del año litúrgico. A continuación se explican los colores utilizados en el calendario:</p>
-        <ul>
-            <li><strong>Morado (Cuaresma y Adviento):</strong> Este color simboliza la penitencia, la preparación y la reflexión.</li>
-            <li><strong>Blanco (Pascua y Navidad):</strong> El blanco representa la pureza y la alegría.</li>
-            <li><strong>Verde (Tiempo Ordinario):</strong> El verde simboliza la esperanza y la vida.</li>
-            <li><strong>Rojo (Semana Santa y Pentecostés):</strong> Este color simboliza los días de la Semana Mayor y la fiesta de Pentecostés.</li>
-            <li><strong>Rosa (Gaudete y Laetare):</strong> Tercer domingo de Adviento y Cuarto domingo de Cuaresma. Se usa como signo de alegría en medio de los tiempos penitenciales.</li>
-        </ul>
+      <h3>Explicación de los Colores del Calendario</h3>
+      <p>El calendario contiene varios colores en el cual explicaremos sus funciones.</p>
+      <ul>
+        <li><strong>Amarillo (Día actual):</strong> Este color simboliza el día actual que está transcurriendo.</li>
+        <li><strong>Azul (Evento):</strong> Este color simboliza el día que tiene un evento programado.</li>
+        <li><strong>Naranja (Evento realizado):</strong> Este color simboliza el evento ya efectuado.</li>
+        <li><strong>Azul Cian (Asunción de María):</strong> Este color simboliza la fiesta de la Asunción de María.</li>
+      </ul>
+      <p>En el calendario litúrgico de la Iglesia Católica se utilizan diferentes colores para simbolizar las distintas temporadas del año litúrgico...</p>
+      <ul>
+        <li><strong>Morado (Cuaresma y Adviento):</strong> Penitencia y preparación.</li>
+        <li><strong>Blanco (Pascua y Navidad):</strong> Pureza y alegría.</li>
+        <li><strong>Verde (Tiempo Ordinario):</strong> Esperanza y vida.</li>
+        <li><strong>Rojo (Semana Santa y Pentecostés):</strong> Pasión y Espíritu Santo.</li>
+        <li><strong>Rosa (Gaudete y Laetare):</strong> Alegría en tiempos penitenciales.</li>
+      </ul>
     </div>
   </div>
 
@@ -381,6 +432,7 @@
       //-------------Noviembre-----------------
       '2025-11-05': 'Curso de Biblia 18:40 hrs',
       '2025-11-07': 'Taller de lectura 18:40 hrs',
+      '2025-11-08': 'Taller de lectura 10:45 hrs',
       '2025-11-12': 'Curso de Biblia 18:40 hrs',
       '2025-11-14': 'Taller de lectura 18:40 hrs',
       '2025-11-19': 'Curso de Biblia 18:40 hrs',
@@ -394,7 +446,257 @@
       '2025-12-12': 'Día de la Virgen de Guadalupe',
     };
 
-   function getLiturgicalSeason(date) {
+    const saints = {
+    "11-08": {
+      name: "San Godofredo de Amiens",
+      desc: "Obispo francés del siglo XI, conocido por su austeridad y caridad hacia los pobres. Reformó la vida monástica y luchó contra los abusos del clero.",
+    },
+    
+    "11-09": {
+      name: "Dedicación de la Basílica de Letrán",
+      desc: "Catedral del Papa en Roma, símbolo de unidad de la Iglesia.",
+    },
+    "11-10": {
+      name: "San León Magno, Papa y Doctor de la Iglesia",
+      desc: "Defensor de la fe y gran predicador. Detuvo la invasión de Atila el Huno y fortaleció la autoridad del Papado en el siglo V.",
+    },
+    "11-11": {
+      name: "San Martín de Tours",
+      desc: "Obispo francés, famoso por compartir su capa con un mendigo.",
+    },
+    "11-12": {
+      name: "San Josafat Kuncewycz",
+      desc: "Mártir de la unidad cristiana entre católicos y ortodoxos.",
+    },
+    "11-13": {
+      name: "San Estanislao Kostka",
+      desc: "Joven jesuita polaco, ejemplo de pureza y vocación.",
+    },
+    "11-14": {
+      name: "San Nicolás Tavelic",
+      desc: "Franciscano misionero y mártir en Tierra Santa.",
+    },
+    "11-15": {
+      name: "San Alberto Magno",
+      desc: "Científico y teólogo, maestro de Santo Tomás de Aquino.",
+    },
+    "11-16": {
+      name: "Santa Margarita de Escocia",
+      desc:"Reina caritativa y madre ejemplar.",
+   },
+    "11-17": {
+      name: "Santa Isabel de Hungría",
+      desc: "Princesa que dedicó su vida a servir a los pobres.",
+    },
+    "11-18": {
+      name: "San Odón de Cluny, y Dedicación de las Basílicas de San Pedro y San Pablo",
+      desc: "Es reconocido por haber impulsado la reforma cluniacense, renovando la vida espiritual de los monjes y fundando otros monasterios. También conmemoración de los templos que guardan las tumbas de San Pedro y San Pablo.",
+    },
+    "11-19": {
+      name: "Santa Matilde de Hackeborn",
+      desc: "Monja benedictina y mística del Sagrado Corazón.",
+    },
+    "11-20": {
+      name: "San Félix de Valois",
+      desc: "Cofundador de la Orden de la Santísima Trinidad.",
+    },
+    "11-21": {
+      name: "Presentación de la Virgen María",
+      desc: "Se recuerda el ofrecimiento de María a Dios en el templo siendo niña, signo de entrega total y pureza de corazón.",
+    },
+    "11-22": {
+      name: "Santa Cecilia, Virgen y Mártir",
+      desc: "Patrona de los músicos, entregó su vida a Cristo y murió mártir por su fe mientras cantaba a Dios en su corazón.",
+    },
+    "11-23": {
+      name: "San Clemente I, Papa",
+      desc: "Mártir de los primeros siglos de la Iglesia.",
+    },
+    "11-24": {
+      name: "San Andrés Dung-Lac y Compañeros Mártires",
+      desc: "Mártires de Vietnam que dieron su vida por la fe.",
+    },
+    "11-25": {
+      name: "Santa Catalina de Alejandría",
+      desc: "Mártir y patrona de los filósofos.",
+    },
+    "11-26": {
+      name: "San Leonardo de Porto Maurizio",
+      desc: "Franciscano promotor del Vía Crucis.",
+    },
+    "11-27": {
+      name: "Nuestra Señora de la Medalla Milagrosa",
+      desc: "Aparición de la Virgen María a Santa Catalina Labouré en París en 1830, con el mensaje de esperanza y protección para el mundo.",
+    },
+    "11-28": {
+      name: "San Jaime de la Marca",
+      desc: "Predicador franciscano que extendió la devoción al Nombre de Jesús.",
+    },
+    "11-29": {
+      name: "San Saturnino de Toulouse",
+      desc: "Primer obispo de Toulouse, mártir del siglo III.",
+    },
+    "11-30": {
+      name: "San Andrés Apóstol",
+      desc: "Hermano de San Pedro, primer apóstol llamado por Jesús.",
+    },
+    //-------------Diciembre-----------
+    "12-01":{
+      name: "San Eloy",
+      desc: "Obispo y orfebre francés, patrono de los artesanos del metal.",
+    },
+    "12-02":{
+      name: "Santa Bibiana",
+      desc: "Mártir romana, símbolo de fortaleza en la persecución.",
+    },
+    "12-03":{
+      name: "San Francisco Javier",
+      desc: "Misionero jesuita, evangelizador en Asia.",
+    },
+    "12-04":{
+      name: "Santa Bárbara",
+      desc: "Mártir cristiana, patrona de los mineros y artilleros.",
+    },
+    "12-05":{
+      name: "San Sabas",
+      desc: "Monje palestino, fundador de monasterios en Tierra Santa.",
+    },
+    "12-06":{
+      name: "San Nicolás de Bari",
+      desc: "Obispo generoso, origen de la tradición de Santa Claus.",
+    },
+    "12-07":{
+      name: "San Ambrosio de Milán",
+      desc: "Obispo y Doctor de la Iglesia, maestro de San Agustín.",
+    },
+    "12-08":{
+      name: "Inmaculada Concepción de María",
+      desc: "Dogma que celebra a María libre de pecado original.",
+    },
+    "12-09":{
+      name: "San Juan Diego Cuauhtlatoatzin",
+      desc: "Vidente de la Virgen de Guadalupe en el Tepeyac.",
+    },
+    "12-10":{
+      name: "Nuestra Señora de Loreto",
+      desc: "Recuerdo de la casa donde vivió la Virgen María.",
+    },
+    "12-11":{
+      name: "San Dámaso I, Papa",
+      desc: "Promotor del culto a los mártires y del latín litúrgico.",
+    },
+    "12-12":{
+      name: "Nuestra Señora de Guadalupe",
+      desc: "Patrona de México y Emperatriz de América.",
+    },
+    "12-13":{
+      name: "Santa Lucía",
+      desc: "Mártir de Siracusa, símbolo de pureza y luz.",
+    },
+    "12-14":{
+      name: "San Juan de la Cruz",
+      desc: "Místico y Doctor de la Iglesia, reformador del Carmelo.",
+    },
+    "12-15":{
+      name: "Santa Cristiana",
+      desc: "Mártir en Persia, ejemplo de fidelidad a la fe.",
+    },
+    "12-16":{
+      name: "San José Manyanet",
+      desc: "Fundador de los Hijos de la Sagrada Familia.",
+    },
+    "12-17":{
+      name: "San Lázaro",
+      desc: "Amigo de Jesús, resucitado por Él.",
+    },
+    "12-18":{
+      name: "Nuestra Señora de la Esperanza",
+      desc: "Invocación mariana de preparación para la Navidad.",
+    },
+    "12-19":{
+      name: "San Nemesio y compañeros mártires",
+      desc: "Testigos fieles de Cristo en tiempos de persecución.",
+    },
+    "12-20":{
+      name: "San Domingo de Silos",
+      desc: "Abad español, protector de los cautivos.",
+    },
+    "12-21":{
+      name: "San Pedro Canisio",
+      desc: "Jesuita y Doctor de la Iglesia, defensor de la fe en Alemania.",
+    },
+    "12-22":{
+      name: "Santa Francisca Javiera Cabrini",
+      desc: "Fundadora de los Misioneros del Sagrado Corazón, patrona de los migrantes.",
+    },
+    "12-23":{
+      name: "San Juan de Kety",
+      desc: "Sacerdote polaco, modelo de humildad y caridad.",
+    },
+    "12-24":{
+      name: "Nochebuena (Vigilia de Navidad)",
+      desc: "Espera del nacimiento de Cristo.",
+    },
+    "12-25":{
+      name: "Navidad del Señor",
+      desc: "Celebración del nacimiento de Jesucristo.",
+    },
+    "12-26":{
+      name: "San Esteban, primer mártir",
+      desc: "Diácono y primer mártir cristiano.",
+    },
+    "12-27":{
+      name: "San Juan Evangelista",
+      desc: "Apóstol y autor del Evangelio según San Juan.",
+    },
+    "12-28":{
+      name: "Santos Inocentes",
+      desc: "Niños martirizados por Herodes en Belén.",
+    },
+    "12-29":{
+      name: "San Tomás Becket",
+      desc: "Arzobispo de Canterbury, mártir por defender la Iglesia.",
+    },
+    "12-30":{
+      name: "Sagrada Familia de Jesús, María y José",
+      desc: "Modelo de amor y unidad familiar.",
+    },
+    "12-31":{
+      name: "San Silvestre I, Papa",
+      desc: "Gobernó la Iglesia durante el tiempo de Constantino.",
+    },
+  };
+
+  function updateInfoPanel() {
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.getMonth() + 1;
+    const year = today.getFullYear();
+    const weekdayNames = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    const monthNames = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+    const formattedDate = `${weekdayNames[today.getDay()]} ${day} de ${monthNames[month - 1]} de ${year}`;
+
+    const key = `${month.toString().padStart(2,'0')}-${day.toString().padStart(2,'0')}`;
+    const saint = saints[key];
+
+    document.getElementById("current-date").innerText = formattedDate;
+
+    if (saint) {
+      document.getElementById("saint-name").innerText = `⛪ ${saint.name}`;
+      document.getElementById("saint-desc").innerText = saint.desc;
+      document.getElementById("liturgical-color").innerText = saint.color;
+      document.getElementById("saint-img").src = saint.img;
+      document.getElementById("saint-img").alt = saint.name;
+      document.getElementById("saint-img").style.display = "block";
+    } else {
+      document.getElementById("saint-name").innerText = "⛪ Sin celebración especial";
+      document.getElementById("saint-desc").innerText = "Día ordinario del tiempo litúrgico.";
+      document.getElementById("liturgical-color").innerText = "Verde — símbolo de esperanza y crecimiento espiritual.";
+      document.getElementById("saint-img").style.display = "none";
+    }
+  }
+
+    function getLiturgicalSeason(date) {
     const year = date.getFullYear();
     const cuaresmaStart = new Date(year, 2, 5);
     const cuaresmaEnd = new Date(year, 3, 12);
@@ -475,7 +777,14 @@
     }
   }
 
-  window.onload = generateCalendar;
+  window.onload = () => {
+    generateCalendar();
+    updateInfoPanel();
+    setInterval(() => {
+      generateCalendar();
+      updateInfoPanel();
+    }, 60000);
+  };
 </script>
 
 <footer>
