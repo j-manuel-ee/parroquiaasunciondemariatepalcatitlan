@@ -394,76 +394,89 @@
       '2025-12-12': 'Día de la Virgen de Guadalupe',
     };
 
-    function getLiturgicalSeason(date) {
-      const year = date.getFullYear();
-      const cuaresmaStart = new Date(year, 2, 5);
-      const cuaresmaEnd = new Date(year, 3, 12);
-      const laetare = new Date(year, 2, 30);
-      const semanaSanta = [new Date(year, 3, 13), new Date(year, 3, 19)];
-      const pascua = [new Date(year, 3, 20), new Date(year, 5, 7)];
-      const pentecostes = new Date(year, 5, 8);
-      const adviento = [[new Date(year, 10, 30), new Date(year, 11, 13)], [new Date(year, 11, 15), new Date(year, 11, 24)]];
-      const gaudete = new Date(year, 11, 14);
-      const navidad = [new Date(year, 11, 25), new Date(2026, 0, 12)];
-      const asuncion = new Date(year, 7, 15);
+   function getLiturgicalSeason(date) {
+    const year = date.getFullYear();
+    const cuaresmaStart = new Date(year, 2, 5);
+    const cuaresmaEnd = new Date(year, 3, 12);
+    const laetare = new Date(year, 2, 30);
+    const semanaSanta = [new Date(year, 3, 13), new Date(year, 3, 19)];
+    const pascua = [new Date(year, 3, 20), new Date(year, 5, 7)];
+    const pentecostes = new Date(year, 5, 8);
+    const adviento = [[new Date(year, 10, 30), new Date(year, 11, 13)], [new Date(year, 11, 15), new Date(year, 11, 24)]];
+    const gaudete = new Date(year, 11, 14);
+    const navidad = [new Date(year, 11, 25), new Date(2026, 0, 12)];
+    const asuncion = new Date(year, 7, 15);
 
-      if (date >= cuaresmaStart && date <= cuaresmaEnd) return "cuaresma";
-      if (+date === +laetare) return "laetare";
-      if (date >= semanaSanta[0] && date <= semanaSanta[1]) return "semanaSanta";
-      if (date >= pascua[0] && date <= pascua[1]) return "pascua";
-      if (+date === +pentecostes) return "pentecostes";
-      if ((date >= adviento[0][0] && date <= adviento[0][1]) || (date >= adviento[1][0] && date <= adviento[1][1])) return "adviento";
-      if (+date === +gaudete) return "gaudete";
-      if (date >= navidad[0] && date <= navidad[1]) return "navidad";
-      if (+date === +asuncion) return "maria";
-      return "tiempo-comun";
-    }
+    if (date >= cuaresmaStart && date <= cuaresmaEnd) return "cuaresma";
+    if (+date === +laetare) return "laetare";
+    if (date >= semanaSanta[0] && date <= semanaSanta[1]) return "semanaSanta";
+    if (date >= pascua[0] && date <= pascua[1]) return "pascua";
+    if (+date === +pentecostes) return "pentecostes";
+    if ((date >= adviento[0][0] && date <= adviento[0][1]) || (date >= adviento[1][0] && date <= adviento[1][1])) return "adviento";
+    if (+date === +gaudete) return "gaudete";
+    if (date >= navidad[0] && date <= navidad[1]) return "navidad";
+    if (+date === +asuncion) return "maria";
+    return "tiempo-comun";
+  }
 
-    function generateCalendar() {
-      const today = new Date();
-      const month = today.getMonth();
-      const year = today.getFullYear();
-      const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-      document.getElementById("month-year").innerText = `${monthNames[month]} ${year}`;
+  function generateCalendar() {
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    document.getElementById("month-year").innerText = `${monthNames[month]} ${year}`;
 
-      const firstDay = new Date(year, month, 1).getDay();
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-      const table = document.getElementById("calendar");
-      let row = table.insertRow();
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const table = document.getElementById("calendar");
+    let row = table.insertRow();
 
-      for (let i = 0; i < firstDay; i++) row.insertCell();
+    for (let i = 0; i < firstDay; i++) row.insertCell();
 
-      const eventList = document.getElementById("event-list");
-      eventList.innerHTML = "";
+    const eventList = document.getElementById("event-list");
+    eventList.innerHTML = "";
 
-      for (let day = 1; day <= daysInMonth; day++) {
-        if (row.cells.length === 7) row = table.insertRow();
-        const cell = row.insertCell();
-        const date = new Date(year, month, day);
-        const dateStr = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-        const season = getLiturgicalSeason(date);
-        cell.classList.add(season);
-        cell.innerText = day;
+    for (let day = 1; day <= daysInMonth; day++) {
+      if (row.cells.length === 7) row = table.insertRow();
+      const cell = row.insertCell();
+      const date = new Date(year, month, day);
+      const dateStr = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+      const season = getLiturgicalSeason(date);
+      cell.classList.add(season);
+      cell.innerText = day;
 
-        if (events[dateStr]) {
-          const eventBox = document.createElement("li");
-          const isPast = date < today;
-          cell.classList.add(isPast ? "past-event" : "event-day");
-          cell.title = events[dateStr];
-
-          eventBox.className = `event-box ${isPast ? "red-event" : "blue-event"}`;
-          eventBox.innerText = `${events[dateStr]} - ${day} de ${monthNames[month]}`;
-          eventList.appendChild(eventBox);
+      if (events[dateStr]) {
+        const eventText = events[dateStr];
+        const match = eventText.match(/(\d{1,2}):(\d{2})/);
+        let eventDateTime = new Date(year, month, day);
+        if (match) {
+          const eventHour = parseInt(match[1]);
+          const eventMinute = parseInt(match[2]);
+          eventDateTime.setHours(eventHour, eventMinute, 0, 0);
         }
 
-        if (day === today.getDate() && today.getMonth() === month && today.getFullYear() === year) {
-          cell.classList.add("today");
+        let isPast = false;
+        if (today > eventDateTime) {
+          isPast = true;
         }
+
+        cell.classList.add(isPast ? "past-event" : "event-day");
+        cell.title = events[dateStr];
+
+        const eventBox = document.createElement("li");
+        eventBox.className = `event-box ${isPast ? "red-event" : "blue-event"}`;
+        eventBox.innerText = `${eventText} - ${day} de ${monthNames[month]}`;
+        eventList.appendChild(eventBox);
+      }
+
+      if (day === today.getDate() && today.getMonth() === month && today.getFullYear() === year) {
+        cell.classList.add("today");
       }
     }
+  }
 
-    window.onload = generateCalendar;
-  </script>
+  window.onload = generateCalendar;
+</script>
 
 <footer>
     <p>&copy; 2025 Parroquia Asunción de María | Eventos</p>
