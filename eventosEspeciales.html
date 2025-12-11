@@ -9,8 +9,7 @@
     body {
       margin: 0;
       font-family: 'Open Sans', sans-serif;
-      background: url('imagen/cielo.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background-color: #f8f8f8;
       color: #333;
     }
 
@@ -64,6 +63,7 @@
       background-color: #3c8dff;
     }
 
+    /* Dropdown */
     .dropdown {
       position: relative;
     }
@@ -87,26 +87,51 @@
       display: block;
     }
 
-    h1 {
-      text-align: center;
+    .hero {
+    background-image: url('imagen/guadalupe.png');
+    background-size: cover;
+    background-position: 50% 20%; /* Aquí ajustas el recorrido */
+    height: 700px;
+    position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
       font-family: 'Playfair Display', serif;
-      color: #ffffff;
-      margin-top: 40px;
+      font-size: 2em;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
     }
 
-    .image-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 40px 0;
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
     }
 
-    .image-container img {
-      max-width: 80%;
-      width: 400px;
-      height: auto;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
+    h3 {
+      font-family: 'Playfair Display', serif;
+      color: #5a2a27;
+      font-size: 1.8em;
+      margin-top: 30px;
+    }
+
+    .historia-texto {
+      line-height: 1.8;
+      font-size: 1.1em;
+      text-align: justify;
+      margin-bottom: 20px;
     }
 
     footer {
@@ -120,10 +145,6 @@
     @media (max-width: 768px) {
       .dropdown-content {
         position: static;
-      }
-
-      .image-container img {
-        width: 90%;
       }
     }
   </style>
@@ -160,6 +181,7 @@
     <a href="grupos.html">Grupos Parroquiales</a>
     <a href="mision.html">Misión</a>
     <a href="contacto.html">Contacto</a>
+    <a href="foro.html">Foro de Opiniones</a>
     <a href="transmisiones.html">En Vivo</a>
     <div class="dropdown">
       <a>Acceso ▾</a>
@@ -169,13 +191,47 @@
       </div>
     </div>
   </nav>
+  
+  <div class="banner"></div>
 
-  <h1>Por el momento no tenemos eventos especiales</h1>
-  <h1>Intente después volver a ingresar para descubrir los próximos eventos</h1>
-
-  <div class="image-container">
-    <img src="imagen/SinEventos.png" alt="Imagen de mantenimiento">
+  <div class="hero">
+    <div class="hero-text">Santa María de Guadalupe Reina de México</div>
   </div>
+
+  <div class="container">
+    <section id="Acerca-fiestaPatronal">
+      <h3>Actividades por la celebración de la Virgen de Guadalupe 2025</h3>
+      <p class="historia-texto">
+        <strong>La comunidad de la Parroquia Asunción de María</strong> se prepara para realizar actividades por la festividad de Santa María de Guadalupe.
+      </p>
+
+      <h3>¿Cuando, dónde y a qué hora?</h3>
+      <p class="historia-texto">
+        Estas actividades se realizarán el día viernes 12 de diciembre desde las 9 de la mañana y reanudando con el Santo Rosario a las 5 de la tarde dentro del templo.
+      </p>
+
+      <h3>¿Qué actividades habrán?</h3>
+      <p class="historia-texto">Este año son varias actividades que se realizarán para celebrar a nuestra madre del cielo:</p>
+      <ul class="historia-texto">
+        <li><strong>Misa solemne</strong> a las 9 de la mañana</li>
+        <li><strong>Misa en el mercado Ramón Corona</strong> a las 12 de la tarde</li>
+        <li><strong>Santo Rosario</strong> a las 5 de la tarde</li>
+        <li><strong>Representación de las apariciones Guadalupanas</strong> a las 5:30 de la tarde</li>
+        <li><strong>Misa solemene</strong> a las 6 de la tarde</li>
+        <li><strong>Procesión con dazantes y faroles</strong> a las 7 de la noche</li>
+        <li><strong>Serenata con los coros y verbena</strong> a las 7:30 de la noche</li>
+      </ul>
+
+      <!-- Imagen final -->
+      <div style="text-align: center; margin-top: 30px;">
+        <img src="imagen/fiesta-guadalupana.jpg" alt="Fiesta Guadalupana" style="max-width: 70%; height: auto; border-radius: 10px;">
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Parroquia Asunción de María | Eventos Especiales</p>
+  </footer>
 
 </body>
 </html>
