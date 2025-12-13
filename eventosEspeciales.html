@@ -87,31 +87,31 @@
       display: block;
     }
 
-    .hero {
-    background-image: url('imagen/guadalupe.png');
-    background-size: cover;
-    background-position: 50% 20%; /* Aquí ajustas el recorrido */
-    height: 700px;
-    position: relative;
+    
+    .banner {
+      background: url('imagen/2000_Barreras.jpg') no-repeat center;
+      background-size: cover;
+      background-position: 30% 15%;
+      height: 750px;
+      position: relative;
     }
 
-    .hero::after {
+    .banner::after {
       content: "";
       position: absolute;
       top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.4);
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
     }
 
-    .hero-text {
+    .banner h2 {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      color: white;
+      color: #fff;
       font-family: 'Playfair Display', serif;
-      font-size: 2em;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+      font-size: 2.2em;
+      text-align: center;
     }
 
     .container {
@@ -193,37 +193,42 @@
   
   <div class="banner"></div>
 
-  <div class="hero">
-    <div class="hero-text">Santa María de Guadalupe Reina de México</div>
-  </div>
-
   <div class="container">
     <section id="Acerca-fiestaPatronal">
-      <h3>Actividades por la celebración de la Virgen de Guadalupe 2025</h3>
+      <h3>Acerca de la obra musical "2000 Barreras De Un Amor Inevitable"</h3>
       <p class="historia-texto">
-        <strong>La comunidad de la Parroquia Asunción de María</strong> se prepara para realizar actividades por la festividad de Santa María de Guadalupe.
+        <strong>El Coro Asunción de María</strong> se prepara para realizar como cada año su presentación con causa, que este año realizará una obra teatral musical.
       </p>
 
-      <h3>¿Cuando, dónde y a qué hora?</h3>
+      <h3>¿De qué trata?</h3>
       <p class="historia-texto">
-        Estas actividades se realizarán el día viernes 12 de diciembre desde las 9 de la mañana y reanudando con el Santo Rosario a las 5 de la tarde dentro del templo.
+        <p>Esta obra musical está ambientada en los años 2000, una época en la que el pop y el rock en español vivían su máximo esplendor con bandas como Belanova, Reik, Camila, Shakira, Sandoval, entre muchas otras. Un tiempo donde convivían con fuerza las distintas tribus urbanas: punketos, skatos, fresas, emos y más.</p>
+        <p>En medio de este ambiente nace la historia de dos jóvenes que asisten a un retiro organizado por su comunidad parroquial. Ahí, entre situaciones inesperadas y desafíos personales, surge un romance que parece imposible de detener.</p>
+        <p>Descubre el destino de este amor inevitable, marcado por la esencia inolvidable de los 2000.</p>
       </p>
 
-      <h3>¿Qué actividades habrán?</h3>
-      <p class="historia-texto">Este año son varias actividades que se realizarán para celebrar a nuestra madre del cielo:</p>
-      <ul class="historia-texto">
-        <li><strong>Misa solemne</strong> a las 9 de la mañana</li>
-        <li><strong>Misa en el mercado Ramón Corona</strong> a las 12 de la tarde</li>
-        <li><strong>Santo Rosario</strong> a las 5 de la tarde</li>
-        <li><strong>Representación de las apariciones Guadalupanas</strong> a las 5:30 de la tarde</li>
-        <li><strong>Misa solemene</strong> a las 6 de la tarde</li>
-        <li><strong>Procesión con dazantes y faroles</strong> a las 7 de la noche</li>
-        <li><strong>Serenata con los coros y verbena</strong> a las 7:30 de la noche</li>
-      </ul>
+      <h3>¿Tiene algún costo?</h3>
+      <p class="historia-texto">
+        <p>No. Tu entrada consiste en llevar un artículo de despensa no perecedero, como un kilo de arroz, frijol, aceite, comida enlatada o productos de limpieza.</p>
+        <p>Toda la despensa recolectada será entregada a familias o instituciones que realmente lo necesiten.</p>
+        <p>Si deseas más información, puedes ponerte en contacto con el Coro Asunción de María.</p>
+      </p>
+
+      <h3>¿Cuál es el fin de esta obra?</h3>
+      <p class="historia-texto">
+         Disfrutar un momento agradable en familia, compartir risas y, al mismo tiempo, apoyar a nuestros hermanos más necesitados mediante la donación de artículos de despensa, para que también ellos puedan tener una cena navideña digna y llena de esperanza.
+      </p>
+
+      <h3>¿Cuándo y en dónde se realizará?</h3>
+      <p class="historia-texto">
+        Se realizará el día sábado 13 de diciembre con una doble función a las 6 de la tarde y a las 8 de la noche en el auditorio del Centro Parroquial ubicado en la calle de Unión número 17 en la colonia Industrial.
+      </p>
+
+      <h3>¡Te esperamos!</h3>
 
       <!-- Imagen final -->
       <div style="text-align: center; margin-top: 30px;">
-        <img src="imagen/fiesta-guadalupana.jpg" alt="Fiesta Guadalupana" style="max-width: 70%; height: auto; border-radius: 10px;">
+        <img src="imagen/2000.jpg" alt="Fiesta Patronal Asunción de María" style="max-width: 70%; height: auto; border-radius: 10px;">
       </div>
     </section>
   </div>
