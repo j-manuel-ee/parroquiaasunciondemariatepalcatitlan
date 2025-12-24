@@ -1,241 +1,235 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Eventos Especiales | Parroquia Asunción de María</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      background-color: #f8f8f8;
-      color: #333;
-    }
-
-    header {
-      background-color: #3c8dff;
-      color: white;
-      padding: 20px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    header img {
-      height: 100px;
-    }
-
-    .header-text {
-      text-align: center;
-      flex: 1;
-    }
-
-    .header-text h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.2em;
-      margin: 0;
-    }
-
-    nav {
-      background-color: #0415aa;
-      display: flex;
-      justify-content: center;
-      position: relative;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      padding: 15px 20px;
-      display: inline-block;
-      position: relative;
-    }
-
-    nav a:hover {
-      background-color: #3c8dff;
-    }
-
-    /* Dropdown */
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #0415aa;
-      min-width: 200px;
-      z-index: 1;
-    }
-
-    .dropdown-content a {
-      display: block;
-      padding: 12px 20px;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    
-    .banner {
-      background: url('imagen/2000_Barreras.jpg') no-repeat center;
-      background-size: cover;
-      background-position: 30% 15%;
-      height: 750px;
-      position: relative;
-    }
-
-    .banner::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .banner h2 {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      color: #fff;
-      font-family: 'Playfair Display', serif;
-      font-size: 2.2em;
-      text-align: center;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    h3 {
-      font-family: 'Playfair Display', serif;
-      color: #5a2a27;
-      font-size: 1.8em;
-      margin-top: 30px;
-    }
-
-    .historia-texto {
-      line-height: 1.8;
-      font-size: 1.1em;
-      text-align: justify;
-      margin-bottom: 20px;
-    }
-
-    footer {
-      background-color: #04396a;
-      color: white;
-      text-align: center;
-      padding: 30px 10px;
-      margin-top: 40px;
-    }
-
-    @media (max-width: 768px) {
-      .dropdown-content {
-        position: static;
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Eventos Especiales | Parroquia Asunción de María</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Open Sans', sans-serif;
+        background-color: #f8f8f8;
+        color: #333;
       }
-    }
-  </style>
-</head>
-<body>
 
-  <header>
-    <div class="header-left">
-      <img src="imagen/logo_asun.png" alt="Logo Parroquia">
-    </div>
-    <div class="header-text">
-      <h1>Parroquia Asunción de María</h1>
-      <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
-    </div>
-  </header>
+      header {
+        background-color: #3c8dff;
+        color: white;
+        padding: 20px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
 
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="oficina.html">Oficina</a>
-    <div class="dropdown">
-      <a>Historia ▾</a>
-      <div class="dropdown-content">
-        <a href="historia.html">Parroquia</a>
-        <a href="histAsun.html">Asunción de María</a>
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      header img {
+        height: 100px;
+      }
+
+      .header-text {
+        text-align: center;
+        flex: 1;
+      }
+
+      .header-text h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.2em;
+        margin: 0;
+      }
+
+      nav {
+        background-color: #0415aa;
+        display: flex;
+        justify-content: center;
+        position: relative;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        padding: 15px 20px;
+        display: inline-block;
+        position: relative;
+      }
+
+      nav a:hover {
+        background-color: #3c8dff;
+      }
+
+      /* Dropdown */
+      .dropdown {
+        position: relative;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #0415aa;
+        min-width: 200px;
+        z-index: 1;
+      }
+
+      .dropdown-content a {
+        display: block;
+        padding: 12px 20px;
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+
+      
+      .banner {
+        background: url('imagen/Navidad.png') no-repeat center;
+        background-size: cover;
+        background-position: 70% 60%;
+        height: 500px;
+        position: relative;
+      }
+
+      .banner::after {
+        content: "";
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .banner h2 {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-family: 'Playfair Display', serif;
+        font-size: 2.2em;
+        text-align: center;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      h3 {
+        font-family: 'Playfair Display', serif;
+        color: #5a2a27;
+        font-size: 1.8em;
+        margin-top: 30px;
+      }
+
+      .historia-texto {
+        line-height: 1.8;
+        font-size: 1.1em;
+        text-align: justify;
+        margin-bottom: 20px;
+      }
+
+      footer {
+        background-color: #04396a;
+        color: white;
+        text-align: center;
+        padding: 30px 10px;
+        margin-top: 40px;
+      }
+
+      @media (max-width: 768px) {
+        .dropdown-content {
+          position: static;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header>
+      <div class="header-left">
+        <img src="imagen/logo_asun.png" alt="Logo Parroquia">
       </div>
-    </div>
-    <div class="dropdown">
-      <a>Eventos ▾</a>
-      <div class="dropdown-content">
-        <a href="eventos.html">Calendario Mensual</a>
-        <a href="eventosEspeciales.html">Eventos Especiales</a>
+      <div class="header-text">
+        <h1>Parroquia Asunción de María</h1>
+        <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
       </div>
-    </div>
-    <a href="grupos.html">Grupos Parroquiales</a>
-    <a href="mision.html">Misión</a>
-    <a href="contacto.html">Contacto</a>
-    <a href="transmisiones.html">En Vivo</a>
-    <div class="dropdown">
-      <a>Acceso ▾</a>
-      <div class="dropdown-content">
-        <a href="adminLogin.html">Administrador</a>
-        <a href="coordinadorLogin.html">Coordinador</a>
+    </header>
+
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="oficina.html">Oficina</a>
+      <div class="dropdown">
+        <a>Historia ▾</a>
+        <div class="dropdown-content">
+          <a href="historia.html">Parroquia</a>
+          <a href="histAsun.html">Asunción de María</a>
+        </div>
       </div>
-    </div>
-  </nav>
-  
-  <div class="banner"></div>
-
-  <div class="container">
-    <section id="Acerca-fiestaPatronal">
-      <h3>Acerca de la obra musical "2000 Barreras De Un Amor Inevitable"</h3>
-      <p class="historia-texto">
-        <strong>El Coro Asunción de María</strong> se prepara para realizar como cada año su presentación con causa, que este año realizará una obra teatral musical.
-      </p>
-
-      <h3>¿De qué trata?</h3>
-      <p class="historia-texto">
-        <p>Esta obra musical está ambientada en los años 2000, una época en la que el pop y el rock en español vivían su máximo esplendor con bandas como Belanova, Reik, Camila, Shakira, Sandoval, entre muchas otras. Un tiempo donde convivían con fuerza las distintas tribus urbanas: punketos, skatos, fresas, emos y más.</p>
-        <p>En medio de este ambiente nace la historia de dos jóvenes que asisten a un retiro organizado por su comunidad parroquial. Ahí, entre situaciones inesperadas y desafíos personales, surge un romance que parece imposible de detener.</p>
-        <p>Descubre el destino de este amor inevitable, marcado por la esencia inolvidable de los 2000.</p>
-      </p>
-
-      <h3>¿Tiene algún costo?</h3>
-      <p class="historia-texto">
-        <p>No. Tu entrada consiste en llevar un artículo de despensa no perecedero, como un kilo de arroz, frijol, aceite, comida enlatada o productos de limpieza.</p>
-        <p>Toda la despensa recolectada será entregada a familias o instituciones que realmente lo necesiten.</p>
-        <p>Si deseas más información, puedes ponerte en contacto con el Coro Asunción de María.</p>
-      </p>
-
-      <h3>¿Cuál es el fin de esta obra?</h3>
-      <p class="historia-texto">
-         Disfrutar un momento agradable en familia, compartir risas y, al mismo tiempo, apoyar a nuestros hermanos más necesitados mediante la donación de artículos de despensa, para que también ellos puedan tener una cena navideña digna y llena de esperanza.
-      </p>
-
-      <h3>¿Cuándo y en dónde se realizará?</h3>
-      <p class="historia-texto">
-        Se realizará el día sábado 13 de diciembre con una doble función a las 6 de la tarde y a las 8 de la noche en el auditorio del Centro Parroquial ubicado en la calle de Unión número 17 en la colonia Industrial.
-      </p>
-
-      <h3>¡Te esperamos!</h3>
-
-      <!-- Imagen final -->
-      <div style="text-align: center; margin-top: 30px;">
-        <img src="imagen/2000.jpg" alt="Fiesta Patronal Asunción de María" style="max-width: 70%; height: auto; border-radius: 10px;">
+      <div class="dropdown">
+        <a>Eventos ▾</a>
+        <div class="dropdown-content">
+          <a href="eventos.html">Calendario Mensual</a>
+          <a href="eventosEspeciales.html">Eventos Especiales</a>
+        </div>
       </div>
-    </section>
-  </div>
+      <a href="grupos.html">Grupos Parroquiales</a>
+      <a href="mision.html">Misión</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="transmisiones.html">En Vivo</a>
+      <div class="dropdown">
+        <a>Acceso ▾</a>
+        <div class="dropdown-content">
+          <a href="adminLogin.html">Administrador</a>
+          <a href="coordinadorLogin.html">Coordinador</a>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="banner">
+      <h2>¡Feliz Navidad!</h2>
+    </div>
 
-  <footer>
-    <p>&copy; 2025 Parroquia Asunción de María | Eventos Especiales</p>
-  </footer>
+    <div class="container">
+      <section id="Acerca-fiestaPatronal">
+        <h3>Acerca de las fiestas decembrinas"</h3>
+        <p class="historia-texto">
+          <strong>La Parroquia Asunción de María de Tepalcatitlán</strong> se prepara para celebrar en comunidad el nacimiento de nuestro Señor Jesucristo y por la culminación del año civil.
+        </p>
 
-</body>
-</html>
+        <h3>¿Cuáles son las misas?</h3>
+        <p class="historia-texto">
+          <p>- Este 24 de diciembre que celebramos la Noche Buena, habrán dos celebraciones eucarísticas, una será a las 18 horas y la otra a las 20 horas.</p>
+          <p>- El día 25 de diciembre que celebramos la Navidad, habrán dos celebraciones eucarísicas, una será a las 12 horas y la otra a las 18 horas.</p>
+          <p>- El día 31 de diciembre (último día del año civil), habrán dos celenraciones eucarísticas, una será a las 18 horas y la otra a las 20 horas.</p>
+          <p>- El día 1 de enero 2026 (primer día del año civil), habrán dos celebraciones eucarísicas, una será a las 12 horas y la otra a las 18 horas.</p>
+        </p>
+
+        <h3>¿Habrá transmisiones de la misa?</h3>
+        <p class="historia-texto">
+          <p>Para la misa de Noche Buena solamente se transmitirá la misa de las 18 horas</p>
+          <p>Para la misa de Fin de Año, se transmitirán ambas misas</p>
+          <p>Se transmitirán por el canal de Youtube de la Parroquia, o aquí mismo, en la sección de En Vivo podrá ver las transmisiones</p>
+        </p>
+
+        <h3>¡Feliz Navidad y próspero Año Nuevo 2026!</h3>
+        <h3>Que nuestro Señor Jesucristo nazca verdaderamente en cada uno de nuestros corazones</h3>
+
+        <!-- Imagen final -->
+        <div style="text-align: center; margin-top: 30px;">
+          <img src="imagen/Navidades.jpg" alt="Fiesta Patronal Asunción de María" style="max-width: 70%; height: auto; border-radius: 10px;">
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Parroquia Asunción de María | Eventos Especiales</p>
+    </footer>
+
+  </body>
+  </html>
