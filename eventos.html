@@ -191,7 +191,7 @@
       color: black;
     }
 
-    .pentecostes, .semanaSanta {
+    .pentecostes, .semanaSanta, .corpus {
       background-color: #AA0000;
       color: white;
     }
@@ -309,6 +309,7 @@
       <a href="grupos.html">Grupos Parroquiales</a>
       <a href="mision.html">Misión</a>
       <a href="contacto.html">Contacto</a>
+      <a href="foro.html">Foro de Opiniones</a>
       <a href="transmisiones.html">En Vivo</a>
       <div class="dropdown">
         <a>Acceso ▾</a>
@@ -339,13 +340,7 @@
           <ul>
             <li><strong>Curso de Biblia:</strong> Se lleva a cabo en el Centro Parroquial a las 6:40pm. Lleva tu biblia y libreta.</li>
             <li><strong>Taller de lectura:</strong> Se lleva a cabo en la biblioteca parroquial a las 6:40pm. Actualmente leyendo un libro de Sta. Teresa de Ávila.</li>
-            <li><strong>Santa María de Guadalupe:</strong> Se llevará a cabo dentro de la parroquia. Conoce las actividades en la sección de "Eventos Especiales".</li>
-            <li><strong>"2000 Barreras De Un Amor Inevitable":</strong> Una obra musical orientada en la época de los 2000, una obra con causa que se realizará en el auditorio del centro parroquial con doble función a las 6 y 8 de la noche. El costo de la entrada es un artículo de despensa no perecedero. Conoce más en la sección de "Eventos Especiales".</li>
-            <li><strong>Posadas:</strong> Se realizarán las posadas del día 16 de diciembre al 23 de diciembre al término de la misa de las 18 horas. El único día que no habrá será el día lunes 22 de diciembre.</li>
-            <li><strong>"Una pastorela de locos":</strong> Una pastorela cómica que se realizará en el auditorio del centro parroquial los días sábado 20 de diciembre y domingo 21 de diciembre con doble función ambos días a las 5pm y 7:30pm. El costo de entrada es de 15 pesos que les incluye palomitas. Conoce más en la sección de "Eventos Especiales".</li>
-            <li><strong>Misas de Noche Buena:</strong> Se llevará a cabo en la Parroquia con dos celebraciones eucarísticas. La primera celebración será a las 6 de la tarde y la segunda celebración a las 8 de la noche.</li>
-            <li><strong>Misas de Navidad:</strong> Se llevará a cabo en la Parroquia con dos celebraciones eucarísticas. La primera celebración será a las 12 del día y la segunda celebración a las 6 de la tarde.</li>
-            <li><strong>Misas de Fin de Año:</strong> Se llevará a cabo en la Parroquia con dos celebraciones eucarísticas. La primera celebración será a las 6 de la tarde y la segunda celebración a las 8 de la noche.</li>
+            <li><strong>Regalos del Corazón:</strong> Se lleva a cabo en el Centro Parroquial de 10 am a las 3 pm. Tiene como finalidad el compartir ya sea ropa en buen estado, o inclusive conocimiento sobre algún tema que domines.</li>
           </ul>
         </div>
       </div>
@@ -373,7 +368,7 @@
         <li><strong>Morado (Cuaresma y Adviento):</strong> Penitencia y preparación.</li>
         <li><strong>Blanco (Pascua y Navidad):</strong> Pureza y alegría.</li>
         <li><strong>Verde (Tiempo Ordinario):</strong> Esperanza y vida.</li>
-        <li><strong>Rojo (Semana Santa y Pentecostés):</strong> Pasión y Espíritu Santo.</li>
+        <li><strong>Rojo (Semana Santa, Pentecostés, y Corpus Christi):</strong> Pasión, Muerte y Resurrección de nuestro Señor Jesucristo, Festividad del Espíritu Santo, y Cuerpo y Sangre de Cristo.</li>
         <li><strong>Rosa (Gaudete y Laetare):</strong> Alegría en tiempos penitenciales.</li>
       </ul>
     </div>
@@ -381,186 +376,1369 @@
 
   <script>
     const events = {
-        //-------------Junio-----------------
-      '2025-06-04': 'Curso de Biblia 18:40 hrs',
-      '2025-06-11': 'Curso de Biblia 18:40 hrs',
-      '2025-06-18': 'Curso de Biblia 18:40 hrs',
-      '2025-06-25': 'Curso de Biblia 18:40 hrs',
-      //-------------Julio-----------------
-      '2025-07-02': 'Curso de Biblia 18:40 hrs',
-      '2025-07-04': 'Taller de lectura 18:40 hrs',
-      '2025-07-09': 'Curso de Biblia 18:40 hrs',
-      '2025-07-11': 'Taller de lectura 18:40 hrs',
-      '2025-07-16': 'Curso de Biblia 18:40 hrs',
-      '2025-07-18': 'Taller de lectura 18:40 hrs',
-      '2025-07-23': 'Curso de Biblia 18:40 hrs',
-      '2025-07-25': 'Taller de lectura 18:40 hrs',
-      '2025-07-30': 'Curso de Biblia 18:40 hrs',
-      //-------------Agosto-----------------
-      '2025-08-01': 'Taller de lectura 18:40 hrs',
-      '2025-08-05': 'Novenario a la Virgen de la Asunción 17 hrs',
-      '2025-08-06': 'Novenario a la Virgen de la Asunción 17 hrs',
-      '2025-08-06': 'Curso de Biblia 18:40 hrs',
-      '2025-08-07': 'Novenario a la Virgen de la Asunción 17 hrs',
-      '2025-08-08': 'Novenario a la Virgen de la Asunción 17 hrs',
-      '2025-08-08': 'Taller de lectura 18:40 hrs',
-      '2025-08-09': 'Novenario a la Virgen de la Asunción 17 hrs',
-      '2025-08-10': 'Novenario a la Virgen de la Asunción 17 hrs',
-      '2025-08-11': 'Novenario a la Virgen de la Asunción 17 hrs',
-      '2025-08-12': 'Novenario a la Virgen de la Asunción 17 hrs',
-      '2025-08-13': 'Novenario a la Virgen de la Asunción 17 hrs',
-      '2025-08-13': 'Curso de Biblia 18:40 hrs',
-      '2025-08-14': 'Celebración de la Dormición de la Virgen',
-      '2025-08-16': 'Aniversario de la Adoración Nocturna',
-      '2025-08-17': 'Fiesta Patronal',
-      '2025-08-20': 'Curso de Biblia 18:40 hrs',
-      '2025-08-22': 'Taller de lectura 18:40 hrs',
-      '2025-08-27': 'Curso de Biblia 18:40 hrs',
-      '2025-08-29': 'Taller de lectura 18:40 hrs',
-      //-------------Septiembre-----------------
-      '2025-09-03': 'Curso de Biblia 18:40 hrs',
-      '2025-09-05': 'Taller de lectura 18:40 hrs',
-      '2025-09-10': 'Curso de Biblia 18:40 hrs',
-      '2025-09-12': 'Curso de Biblia 18:40 hrs',
-      '2025-09-17': 'Curso de Biblia 18:40 hrs',
-      '2025-09-19': 'Taller de lectura 18:40 hrs',
-      '2025-09-24': 'Curso de Biblia 18:40 hrs',
-      '2025-09-26': 'Taller de lectura 18:40 hrs',
-      //-------------Octubre-----------------
-      '2025-10-01': 'Curso de Biblia 18:40 hrs',
-      '2025-10-03': 'Taller de lectura 18:40 hrs',
-      '2025-10-04': 'Misa de San Francisco de Asís 18 hrs',
-      '2025-10-08': 'Curso de Biblia 18:40 hrs',
-      '2025-10-10': 'Taller de lectura 18:40 hrs',
-      '2025-10-15': 'Curso de Biblia 18:40 hrs',
-      '2025-10-17': 'Taller de lectura 18:40 hrs',
-      '2025-10-22': 'Curso de Biblia 18:40 hrs',
-      '2025-10-24': 'Taller de lectura 18:40 hrs',
-      '2025-10-25': 'Asamblea Parroquial 18 hrs',
-      //-------------Noviembre-----------------
-      '2025-11-05': 'Curso de Biblia 18:40 hrs',
-      '2025-11-07': 'Taller de lectura 18:40 hrs',
-      '2025-11-12': 'Curso de Biblia 18:40 hrs',
-      '2025-11-14': 'Taller de lectura 18:40 hrs',
-      '2025-11-19': 'Curso de Biblia 18:40 hrs',
-      '2025-11-21': 'Taller de lectura 18:40 hrs',
-      '2025-11-23': 'Fiesta de Cristo Rey',
-      '2025-11-26': 'Curso de Biblia 18:40 hrs',
-      '2025-11-28': 'Taller de lectura 18:40 hrs',
-      //-------------Diciembre-----------------
-      '2025-12-03': 'Curso de Biblia 18:40 hrs',
-      '2025-12-05': 'Taller de lectura 18:40 hrs',
-      '2025-12-10': 'Curso de Biblia 18:40 hrs',
-      '2025-12-12': 'Día de la Virgen de Guadalupe 19:30 hrs',
-      '2025-12-13': 'Obra musical "2000 Barreras de un amor inevitable 20 hrs',
-      '2025-12-16': 'Posada 18:30 hrs',
-      '2025-12-17': 'Posada 18:30 hrs',
-      '2025-12-18': 'Posada 18:30 hrs',
-      '2025-12-19': 'Posada 18:30 hrs',
-      '2025-12-20': 'Pastorela "Una pastorela de locos" 19:30 hrs',
-      '2025-12-21': 'Posada 18:30 hrs',
-      '2025-12-23': 'Posada 18:30 hrs',
-      '2025-12-24': 'Misa de Noche Buena 20:00 hrs',
-      '2025-12-25': 'Misa de Navidad 12:00 hrs',
-      '2025-12-31': 'Misa de Fin de Año 20:00 hrs',
+      //-------------Enero 2026-----------------
+      '2026-01-7': 'Curso de Biblia 18:40 hrs',
+      '2026-01-9': 'Taller de Lectura 18:40 hrs',
+      '2026-01-11': 'Regalos del Corazón',
+      '2026-01-14': 'Curso de Biblia 18:40 hrs',
+      '2026-01-16': 'Taller de Lectura 18:40 hrs',
+      '2026-01-21': 'Curso de Biblia 18:40 hrs',
+      '2026-01-23': 'Taller de Lectura 18:40 hrs',
+      '2026-01-28': 'Curso de Biblia 18:40 hrs',
+      '2026-01-30': 'Taller de Lectura 18:40 hrs',
     };
 
+    //-------Santos del día------
     const saints = {
-    "11-08": {
-      name: "San Godofredo de Amiens",
-      desc: "Obispo francés del siglo XI, conocido por su austeridad y caridad hacia los pobres. Reformó la vida monástica y luchó contra los abusos del clero.",
-    },
-    
-    "11-09": {
-      name: "Dedicación de la Basílica de Letrán",
-      desc: "Catedral del Papa en Roma, símbolo de unidad de la Iglesia.",
-    },
-    "11-10": {
-      name: "San León Magno, Papa y Doctor de la Iglesia",
-      desc: "Defensor de la fe y gran predicador. Detuvo la invasión de Atila el Huno y fortaleció la autoridad del Papado en el siglo V.",
-    },
-    "11-11": {
-      name: "San Martín de Tours",
-      desc: "Obispo francés, famoso por compartir su capa con un mendigo.",
-    },
-    "11-12": {
-      name: "San Josafat Kuncewycz",
-      desc: "Mártir de la unidad cristiana entre católicos y ortodoxos.",
-    },
-    "11-13": {
-      name: "San Estanislao Kostka",
-      desc: "Joven jesuita polaco, ejemplo de pureza y vocación.",
-    },
-    "11-14": {
-      name: "San Nicolás Tavelic",
-      desc: "Franciscano misionero y mártir en Tierra Santa.",
-    },
-    "11-15": {
-      name: "San Alberto Magno",
-      desc: "Científico y teólogo, maestro de Santo Tomás de Aquino.",
-    },
-    "11-16": {
-      name: "Santa Margarita de Escocia",
-      desc:"Reina caritativa y madre ejemplar.",
-   },
-    "11-17": {
-      name: "Santa Isabel de Hungría",
-      desc: "Princesa que dedicó su vida a servir a los pobres.",
-    },
-    "11-18": {
-      name: "San Odón de Cluny, y Dedicación de las Basílicas de San Pedro y San Pablo",
-      desc: "Es reconocido por haber impulsado la reforma cluniacense, renovando la vida espiritual de los monjes y fundando otros monasterios. También conmemoración de los templos que guardan las tumbas de San Pedro y San Pablo.",
-    },
-    "11-19": {
-      name: "Santa Matilde de Hackeborn",
-      desc: "Monja benedictina y mística del Sagrado Corazón.",
-    },
-    "11-20": {
-      name: "San Félix de Valois",
-      desc: "Cofundador de la Orden de la Santísima Trinidad.",
-    },
-    "11-21": {
-      name: "Presentación de la Virgen María",
-      desc: "Se recuerda el ofrecimiento de María a Dios en el templo siendo niña, signo de entrega total y pureza de corazón.",
-    },
-    "11-22": {
-      name: "Santa Cecilia, Virgen y Mártir",
-      desc: "Patrona de los músicos, entregó su vida a Cristo y murió mártir por su fe mientras cantaba a Dios en su corazón.",
-    },
-    "11-23": {
-      name: "San Clemente I, Papa",
-      desc: "Mártir de los primeros siglos de la Iglesia.",
-    },
-    "11-24": {
-      name: "San Andrés Dung-Lac y Compañeros Mártires",
-      desc: "Mártires de Vietnam que dieron su vida por la fe.",
-    },
-    "11-25": {
-      name: "Santa Catalina de Alejandría",
-      desc: "Mártir y patrona de los filósofos.",
-    },
-    "11-26": {
-      name: "San Leonardo de Porto Maurizio",
-      desc: "Franciscano promotor del Vía Crucis.",
-    },
-    "11-27": {
-      name: "Nuestra Señora de la Medalla Milagrosa",
-      desc: "Aparición de la Virgen María a Santa Catalina Labouré en París en 1830, con el mensaje de esperanza y protección para el mundo.",
-    },
-    "11-28": {
-      name: "San Jaime de la Marca",
-      desc: "Predicador franciscano que extendió la devoción al Nombre de Jesús.",
-    },
-    "11-29": {
-      name: "San Saturnino de Toulouse",
-      desc: "Primer obispo de Toulouse, mártir del siglo III.",
-    },
-    "11-30": {
-      name: "San Andrés Apóstol",
-      desc: "Hermano de San Pedro, primer apóstol llamado por Jesús.",
-    },
-    //-------------Diciembre-----------
-    "12-01":{
+  /*------Enero---------*/
+  "01-01": {
+    name: "Santa María, Madre de Dios",
+    desc: "Solemnidad que celebra la maternidad divina de la Virgen María.",
+  },
+  "01-02": {
+    name: "San Basilio Magno y San Gregorio Nacianceno",
+    desc: "Grandes doctores de la Iglesia y defensores de la fe cristiana.",
+  },
+  "01-03": {
+    name: "Santísimo Nombre de Jesús",
+    desc: "Celebración del nombre que está sobre todo nombre.",
+  },
+  "01-04": {
+    name: "San Rigoberto",
+    desc: "Obispo de Reims, destacado por su vida pastoral.",
+  },
+  "01-05": {
+    name: "San Simeón Estilita",
+    desc: "Vivió como ermitaño sobre una columna dedicado a la oración.",
+  },
+  "01-06": {
+    name: "La Epifanía del Señor",
+    desc: "Conmemoración de la manifestación de Jesús a los Reyes Magos.",
+  },
+  "01-07": {
+    name: "San Raimundo de Peñafort",
+    desc: "Sacerdote dominico y gran jurista de la Iglesia.",
+  },
+  "01-08": {
+    name: "San Severino",
+    desc: "Monje misionero y protector de los pobres.",
+  },
+  "01-09": {
+    name: "San Julián",
+    desc: "Mártir cristiano de gran valentía.",
+  },
+  "01-10": {
+    name: "San Gregorio de Nisa",
+    desc: "Obispo y doctor de la Iglesia, hermano de San Basilio.",
+  },
+  "01-11": {
+    name: "San Higinio, Papa",
+    desc: "Noveno Papa de la Iglesia, defensor de la fe.",
+  },
+  "01-12": {
+    name: "San Arcadio",
+    desc: "Mártir que dio su vida por Cristo.",
+  },
+  "01-13": {
+    name: "San Hilario de Poitiers",
+    desc: "Doctor de la Iglesia y defensor de la Trinidad.",
+  },
+  "01-14": {
+    name: "San Félix de Nola",
+    desc: "Sacerdote conocido por su humildad y caridad.",
+  },
+  "01-15": {
+    name: "San Pablo, primer ermitaño",
+    desc: "Considerado el primer ermitaño cristiano.",
+  },
+  "01-16": {
+    name: "San Marcelo I, Papa",
+    desc: "Papa que reorganizó la Iglesia tras las persecuciones.",
+  },
+  "01-17": {
+    name: "San Antonio Abad",
+    desc: "Padre del monacato y modelo de vida ascética.",
+  },
+  "01-18": {
+    name: "San Prisciano",
+    desc: "Mártir de la Iglesia primitiva.",
+  },
+  "01-19": {
+    name: "San Mario",
+    desc: "Mártir cristiano junto con su familia.",
+  },
+  "01-20": {
+    name: "San Fabián, Papa",
+    desc: "Papa mártir durante la persecución romana.",
+  },
+  "01-21": {
+    name: "Santa Inés",
+    desc: "Joven mártir, símbolo de pureza y fidelidad a Cristo.",
+  },
+  "01-22": {
+    name: "San Vicente de Zaragoza",
+    desc: "Diácono y mártir de gran fortaleza espiritual.",
+  },
+  "01-23": {
+    name: "San Ildefonso",
+    desc: "Obispo de Toledo y defensor de la Virgen María.",
+  },
+  "01-24": {
+    name: "San Francisco de Sales",
+    desc: "Doctor de la Iglesia y patrono de los comunicadores.",
+  },
+  "01-25": {
+    name: "La Conversión de San Pablo",
+    desc: "Celebración de la conversión del apóstol de los gentiles.",
+  },
+  "01-26": {
+    name: "San Timoteo y San Tito",
+    desc: "Discípulos y colaboradores del apóstol San Pablo.",
+  },
+  "01-27": {
+    name: "Santa Ángela de Mérici",
+    desc: "Fundadora de las Ursulinas, dedicada a la educación.",
+  },
+  "01-28": {
+    name: "Santo Tomás de Aquino",
+    desc: "Doctor de la Iglesia y gran teólogo dominico.",
+  },
+  "01-29": {
+    name: "San Valero",
+    desc: "Obispo de Zaragoza y maestro de San Vicente.",
+  },
+  "01-30": {
+    name: "San Martín de Porres",
+    desc: "Religioso dominico, ejemplo de humildad y caridad.",
+  },
+  "01-31": {
+    name: "San Juan Bosco",
+    desc: "Sacerdote y educador, fundador de los Salesianos.",
+  },
+  /*------Febrero---------*/
+  "02-01": {
+    name: "Santa Brígida de Irlanda",
+    desc: "Abadesa y patrona de Irlanda, ejemplo de caridad y fe.",
+  },
+  "02-02": {
+    name: "La Presentación del Señor",
+    desc: "Jesús es presentado en el templo; fiesta de la Candelaria.",
+  },
+  "02-03": {
+    name: "San Blas",
+    desc: "Obispo y mártir, protector contra los males de la garganta.",
+  },
+  "02-04": {
+    name: "Santa Juana de Valois",
+    desc: "Reina de Francia y fundadora de una orden religiosa.",
+  },
+  "02-05": {
+    name: "Santa Águeda",
+    desc: "Virgen y mártir, símbolo de fortaleza y pureza.",
+  },
+  "02-06": {
+    name: "San Pablo Miki y compañeros mártires",
+    desc: "Mártires jesuitas que dieron su vida por Cristo en Japón.",
+  },
+  "02-07": {
+    name: "San Ricardo",
+    desc: "Rey santo, padre de varios santos.",
+  },
+  "02-08": {
+    name: "Santa Josefina Bakhita",
+    desc: "Ejemplo de perdón y esperanza tras una vida de esclavitud.",
+  },
+  "02-09": {
+    name: "Santa Apolonia",
+    desc: "Virgen y mártir, patrona de quienes sufren dolor dental.",
+  },
+  "02-10": {
+    name: "Santa Escolástica",
+    desc: "Hermana de San Benito y fundadora del monacato femenino.",
+  },
+  "02-11": {
+    name: "Nuestra Señora de Lourdes",
+    desc: "Advocación mariana asociada a la sanación y la fe.",
+  },
+  "02-12": {
+    name: "San Benito de Aniano",
+    desc: "Monje reformador de la vida monástica.",
+  },
+  "02-13": {
+    name: "San Martíniano",
+    desc: "Ermitaño conocido por su penitencia.",
+  },
+  "02-14": {
+    name: "San Valentín",
+    desc: "Mártir cristiano, patrono de los enamorados.",
+  },
+  "02-15": {
+    name: "San Claudio de la Colombière",
+    desc: "Sacerdote jesuita y promotor de la devoción al Sagrado Corazón.",
+  },
+  "02-16": {
+    name: "Santa Juliana",
+    desc: "Virgen y mártir fiel a Cristo.",
+  },
+  "02-17": {
+    name: "Los Siete Santos Fundadores de los Siervos de María",
+    desc: "Fundadores de la Orden Servita en Florencia.",
+  },
+  "02-18": {
+    name: "San Simeón",
+    desc: "Anciano justo que reconoció al Mesías en el templo.",
+  },
+  "02-19": {
+    name: "San Gaspar del Búfalo",
+    desc: "Sacerdote y fundador de los Misioneros de la Preciosa Sangre.",
+  },
+  "02-20": {
+    name: "San Eleuterio",
+    desc: "Papa y mártir del siglo II.",
+  },
+  "02-21": {
+    name: "San Pedro Damián",
+    desc: "Doctor de la Iglesia y reformador monástico.",
+  },
+  "02-22": {
+    name: "La Cátedra de San Pedro",
+    desc: "Celebración de la autoridad pastoral del Papa.",
+  },
+  "02-23": {
+    name: "San Policarpo",
+    desc: "Obispo de Esmirna y mártir, discípulo de San Juan.",
+  },
+  "02-24": {
+    name: "San Modesto",
+    desc: "Obispo y defensor de la fe.",
+  },
+  "02-25": {
+    name: "San Cesáreo",
+    desc: "Mártir cristiano del Imperio Romano.",
+  },
+  "02-26": {
+    name: "San Alejandro",
+    desc: "Mártir que dio testimonio de Cristo.",
+  },
+  "02-27": {
+    name: "San Gabriel de la Virgen de los Dolores",
+    desc: "Joven pasionista, ejemplo de pureza y devoción mariana.",
+  },
+  "02-28": {
+    name: "San Román",
+    desc: "Abad reconocido por su vida espiritual.",
+  },
+  /*------Marzo---------*/
+  "03-01": {
+    name: "San David de Gales",
+    desc: "Obispo y patrono de Gales, reconocido por su vida austera.",
+  },
+  "03-02": {
+    name: "San Simplicio, Papa",
+    desc: "Papa que defendió la fe durante tiempos difíciles.",
+  },
+  "03-03": {
+    name: "San Marino",
+    desc: "Diácono y fundador de la República de San Marino.",
+  },
+  "03-04": {
+    name: "San Casimiro",
+    desc: "Príncipe de Polonia, ejemplo de pureza y servicio.",
+  },
+  "03-05": {
+    name: "San Adriano",
+    desc: "Mártir cristiano del siglo IV.",
+  },
+  "03-06": {
+    name: "Santa Rosa de Viterbo",
+    desc: "Joven terciaria franciscana, ejemplo de fe y humildad.",
+  },
+  "03-07": {
+    name: "Santa Perpetua y Santa Felicidad",
+    desc: "Mártires que dieron su vida por su fe cristiana.",
+  },
+  "03-08": {
+    name: "San Juan de Dios",
+    desc: "Fundador de la Orden Hospitalaria, patrono de los enfermos.",
+  },
+  "03-09": {
+    name: "Santa Francisca Romana",
+    desc: "Modelo de vida familiar y espiritual.",
+  },
+  "03-10": {
+    name: "San Macario",
+    desc: "Monje y ermitaño del desierto.",
+  },
+  "03-11": {
+    name: "San Eulogio de Córdoba",
+    desc: "Sacerdote y mártir defensor de la fe.",
+  },
+  "03-12": {
+    name: "San Maximiliano",
+    desc: "Mártir que se negó a servir en el ejército romano.",
+  },
+  "03-13": {
+    name: "San Rodrigo",
+    desc: "Sacerdote mártir en Córdoba.",
+  },
+  "03-14": {
+    name: "Santa Matilde",
+    desc: "Reina de Alemania, destacada por su caridad.",
+  },
+  "03-15": {
+    name: "San Longinos",
+    desc: "Soldado romano que reconoció a Cristo en la cruz.",
+  },
+  "03-16": {
+    name: "San Heriberto",
+    desc: "Arzobispo de Colonia, promotor de la paz.",
+  },
+  "03-17": {
+    name: "San Patricio",
+    desc: "Obispo y patrono de Irlanda, gran misionero.",
+  },
+  "03-18": {
+    name: "San Cirilo de Jerusalén",
+    desc: "Doctor de la Iglesia y gran catequista.",
+  },
+  "03-19": {
+    name: "San José",
+    desc: "Esposo de la Virgen María y padre adoptivo de Jesús.",
+  },
+  "03-20": {
+    name: "San Juan Nepomuceno",
+    desc: "Sacerdote mártir, defensor del sigilo sacramental.",
+  },
+  "03-21": {
+    name: "San Nicolás de Flüe",
+    desc: "Ermitaño suizo y pacificador.",
+  },
+  "03-22": {
+    name: "San Pablo de Narbona",
+    desc: "Obispo y primer evangelizador de la región.",
+  },
+  "03-23": {
+    name: "San Toribio de Mogrovejo",
+    desc: "Arzobispo de Lima y gran defensor de los indígenas.",
+  },
+  "03-24": {
+    name: "San Óscar Romero",
+    desc: "Arzobispo y mártir, defensor de la justicia y los pobres.",
+  },
+  "03-25": {
+    name: "La Anunciación del Señor",
+    desc: "El ángel Gabriel anuncia a María la encarnación de Jesús.",
+  },
+  "03-26": {
+    name: "San Braulio",
+    desc: "Obispo de Zaragoza y escritor cristiano.",
+  },
+  "03-27": {
+    name: "San Ruperto",
+    desc: "Obispo y misionero en Austria.",
+  },
+  "03-28": {
+    name: "San Sixto III, Papa",
+    desc: "Papa del siglo V, promotor del culto mariano.",
+  },
+  "03-29": {
+    name: "San Eustasio",
+    desc: "Mártir cristiano fiel a su fe.",
+  },
+  "03-30": {
+    name: "San Zósimo",
+    desc: "Papa que gobernó la Iglesia en el siglo V.",
+  },
+  "03-31": {
+    name: "San Benjamín",
+    desc: "Diácono y mártir persa.",
+  },
+  /*------Abril---------*/
+  "04-01": {
+    name: "San Hugo de Grenoble",
+    desc: "Obispo reformador y promotor de la vida monástica.",
+  },
+  "04-02": {
+    name: "San Francisco de Paula",
+    desc: "Fundador de la Orden de los Mínimos, ejemplo de humildad.",
+  },
+  "04-03": {
+    name: "San Ricardo",
+    desc: "Rey santo, padre de varios santos.",
+  },
+  "04-04": {
+    name: "San Isidoro de Sevilla",
+    desc: "Doctor de la Iglesia y gran sabio cristiano.",
+  },
+  "04-05": {
+    name: "San Vicente Ferrer",
+    desc: "Predicador dominico y gran misionero.",
+  },
+  "04-06": {
+    name: "San Marcelino de Cartago",
+    desc: "Mártir cristiano de los primeros siglos.",
+  },
+  "04-07": {
+    name: "San Juan Bautista de La Salle",
+    desc: "Fundador de los Hermanos de las Escuelas Cristianas.",
+  },
+  "04-08": {
+    name: "San Dionisio",
+    desc: "Obispo y mártir por la fe.",
+  },
+  "04-09": {
+    name: "Santa Casilda",
+    desc: "Virgen convertida al cristianismo.",
+  },
+  "04-10": {
+    name: "San Ezequiel",
+    desc: "Profeta del Antiguo Testamento.",
+  },
+  "04-11": {
+    name: "San Estanislao",
+    desc: "Obispo y mártir de Polonia.",
+  },
+  "04-12": {
+    name: "San Julio I, Papa",
+    desc: "Papa defensor de la fe en tiempos de herejías.",
+  },
+  "04-13": {
+    name: "San Martín I, Papa",
+    desc: "Papa y mártir, defensor de la doctrina cristiana.",
+  },
+  "04-14": {
+    name: "San Benito de Nursia",
+    desc: "Padre del monacato occidental.",
+  },
+  "04-15": {
+    name: "San Damián",
+    desc: "Mártir y testigo fiel de Cristo.",
+  },
+  "04-16": {
+    name: "Santa Bernardita Soubirous",
+    desc: "Vidente de las apariciones de Lourdes.",
+  },
+  "04-17": {
+    name: "San Roberto de Molesmes",
+    desc: "Fundador de la Orden del Císter.",
+  },
+  "04-18": {
+    name: "San Perfecto",
+    desc: "Mártir en Córdoba por su fe.",
+  },
+  "04-19": {
+    name: "San León IX, Papa",
+    desc: "Papa reformador del siglo XI.",
+  },
+  "04-20": {
+    name: "San Teodoro",
+    desc: "Mártir cristiano venerado en Oriente.",
+  },
+  "04-21": {
+    name: "San Anselmo",
+    desc: "Obispo y Doctor de la Iglesia.",
+  },
+  "04-22": {
+    name: "Santa María Magdalena",
+    desc: "Discípula de Jesús y testigo de la Resurrección.",
+  },
+  "04-23": {
+    name: "San Jorge",
+    desc: "Mártir y patrono de los soldados.",
+  },
+  "04-24": {
+    name: "San Fidel de Sigmaringa",
+    desc: "Sacerdote capuchino y mártir.",
+  },
+  "04-25": {
+    name: "San Marcos Evangelista",
+    desc: "Autor del segundo Evangelio.",
+  },
+  "04-26": {
+    name: "San Isidoro",
+    desc: "Obispo y doctor de la Iglesia.",
+  },
+  "04-27": {
+    name: "Santa Zita",
+    desc: "Ejemplo de humildad y servicio.",
+  },
+  "04-28": {
+    name: "San Pedro Chanel",
+    desc: "Misionero y mártir en Oceanía.",
+  },
+  "04-29": {
+    name: "Santa Catalina de Siena",
+    desc: "Doctora de la Iglesia y patrona de Europa.",
+  },
+  "04-30": {
+    name: "San Pío V, Papa",
+    desc: "Papa reformador del Concilio de Trento.",
+  },
+  //------Mayo---------
+  "05-01": {
+    name: "San José Obrero",
+    desc: "Protector de los trabajadores y ejemplo de vida humilde.",
+  },
+  "05-02": {
+    name: "San Atanasio",
+    desc: "Obispo y Doctor de la Iglesia, defensor de la fe.",
+  },
+  "05-03": {
+    name: "San Felipe y San Santiago",
+    desc: "Apóstoles de Jesús y testigos del Evangelio.",
+  },
+  "05-04": {
+    name: "San Florián",
+    desc: "Mártir y protector contra incendios.",
+  },
+  "05-05": {
+    name: "San Hilario de Arlés",
+    desc: "Obispo defensor de la disciplina eclesial.",
+  },
+  "05-06": {
+    name: "San Domingo Savio",
+    desc: "Joven ejemplo de santidad y alegría cristiana.",
+  },
+  "05-07": {
+    name: "San Flavio y compañeros mártires",
+    desc: "Testigos de la fe cristiana en tiempos de persecución.",
+  },
+  "05-08": {
+    name: "San Pedro de Tarantasia",
+    desc: "Obispo y reformador monástico.",
+  },
+  "05-09": {
+    name: "San Isaías",
+    desc: "Profeta del Antiguo Testamento.",
+  },
+  "05-10": {
+    name: "San Juan de Ávila",
+    desc: "Doctor de la Iglesia y gran predicador.",
+  },
+  "05-11": {
+    name: "San Ignacio de Láconi",
+    desc: "Religioso capuchino, modelo de humildad.",
+  },
+  "05-12": {
+    name: "San Pancracio",
+    desc: "Joven mártir romano, patrono del trabajo.",
+  },
+  "05-13": {
+    name: "Nuestra Señora de Fátima",
+    desc: "Apariciones marianas en Portugal.",
+  },
+  "05-14": {
+    name: "San Matías Apóstol",
+    desc: "Elegido para ocupar el lugar de Judas.",
+  },
+  "05-15": {
+    name: "San Isidro Labrador",
+    desc: "Patrono de los agricultores y campesinos.",
+  },
+  "05-16": {
+    name: "San Juan Nepomuceno",
+    desc: "Sacerdote mártir, defensor del sigilo sacramental.",
+  },
+  "05-17": {
+    name: "San Pascual Bailón",
+    desc: "Religioso franciscano, devoto de la Eucaristía.",
+  },
+  "05-18": {
+    name: "San Juan I, Papa",
+    desc: "Papa y mártir del siglo VI.",
+  },
+  "05-19": {
+    name: "San Pedro Celestino",
+    desc: "Papa eremita, ejemplo de humildad.",
+  },
+  "05-20": {
+    name: "San Bernardino de Siena",
+    desc: "Predicador franciscano y promotor del Nombre de Jesús.",
+  },
+  "05-21": {
+    name: "San Cristóbal Magallanes y compañeros mártires",
+    desc: "Mártires mexicanos que dieron su vida por la fe.",
+  },
+  "05-22": {
+    name: "Santa Rita de Casia",
+    desc: "Patrona de los casos imposibles.",
+  },
+  "05-23": {
+    name: "San Desiderio",
+    desc: "Obispo y mártir cristiano.",
+  },
+  "05-24": {
+    name: "María Auxiliadora",
+    desc: "Advocación mariana promovida por San Juan Bosco.",
+  },
+  "05-25": {
+    name: "San Beda el Venerable",
+    desc: "Doctor de la Iglesia e historiador.",
+  },
+  "05-26": {
+    name: "San Felipe Neri",
+    desc: "Sacerdote y fundador del Oratorio.",
+  },
+  "05-27": {
+    name: "San Agustín de Canterbury",
+    desc: "Misionero y evangelizador de Inglaterra.",
+  },
+  "05-28": {
+    name: "San Germán",
+    desc: "Obispo destacado por su fe.",
+  },
+  "05-29": {
+    name: "San Pablo VI, Papa",
+    desc: "Papa del Concilio Vaticano II.",
+  },
+  "05-30": {
+    name: "San Fernando",
+    desc: "Rey santo de Castilla y León.",
+  },
+  "05-31": {
+    name: "La Visitación de la Virgen María",
+    desc: "María visita a su prima Isabel.",
+  },
+  //------Junio---------
+  "06-01": {
+    name: "San Justino",
+    desc: "Filósofo y mártir, uno de los primeros apologistas cristianos.",
+  },
+  "06-02": {
+    name: "San Marcelino y San Pedro",
+    desc: "Mártires romanos venerados desde la antigüedad.",
+  },
+  "06-03": {
+    name: "San Carlos Lwanga y compañeros mártires",
+    desc: "Mártires de Uganda que dieron su vida por la fe.",
+  },
+  "06-04": {
+    name: "San Francisco Caracciolo",
+    desc: "Sacerdote y fundador de una orden religiosa.",
+  },
+  "06-05": {
+    name: "San Bonifacio",
+    desc: "Obispo y mártir, gran evangelizador de Alemania.",
+  },
+  "06-06": {
+    name: "San Norberto",
+    desc: "Obispo y fundador de los premonstratenses.",
+  },
+  "06-07": {
+    name: "San Antonio María Gianelli",
+    desc: "Obispo y educador cristiano.",
+  },
+  "06-08": {
+    name: "San Medardo",
+    desc: "Obispo y protector contra las tormentas.",
+  },
+  "06-09": {
+    name: "San Efrén de Siria",
+    desc: "Doctor de la Iglesia y poeta teológico.",
+  },
+  "06-10": {
+    name: "San Asterio",
+    desc: "Mártir cristiano.",
+  },
+  "06-11": {
+    name: "San Bernabé Apóstol",
+    desc: "Compañero de San Pablo en la evangelización.",
+  },
+  "06-12": {
+    name: "San Juan de Sahagún",
+    desc: "Sacerdote y pacificador de ciudades.",
+  },
+  "06-13": {
+    name: "San Antonio de Padua",
+    desc: "Doctor de la Iglesia y patrono de los objetos perdidos.",
+  },
+  "06-14": {
+    name: "San Eliseo",
+    desc: "Profeta del Antiguo Testamento.",
+  },
+  "06-15": {
+    name: "San Vito",
+    desc: "Joven mártir, patrono contra enfermedades.",
+  },
+  "06-16": {
+    name: "San Juan Francisco Régis",
+    desc: "Sacerdote jesuita y misionero.",
+  },
+  "06-17": {
+    name: "San Raniero",
+    desc: "Peregrino y protector de viajeros.",
+  },
+  "06-18": {
+    name: "San Gregorio Barbarigo",
+    desc: "Cardenal y reformador de seminarios.",
+  },
+  "06-19": {
+    name: "San Romualdo",
+    desc: "Fundador de los camaldulenses.",
+  },
+  "06-20": {
+    name: "San Silverio, Papa",
+    desc: "Papa y mártir del siglo VI.",
+  },
+  "06-21": {
+    name: "San Luis Gonzaga",
+    desc: "Joven jesuita, patrono de la juventud.",
+  },
+  "06-22": {
+    name: "San Paulino de Nola",
+    desc: "Obispo y poeta cristiano.",
+  },
+  "06-23": {
+    name: "San José Cafasso",
+    desc: "Sacerdote y formador de sacerdotes.",
+  },
+  "06-24": {
+    name: "Natividad de San Juan Bautista",
+    desc: "Nacimiento del precursor del Señor.",
+  },
+  "06-25": {
+    name: "San Guillermo de Vercelli",
+    desc: "Ermitaño y fundador monástico.",
+  },
+  "06-26": {
+    name: "San Josemaría Escrivá",
+    desc: "Fundador del Opus Dei.",
+  },
+  "06-27": {
+    name: "San Cirilo de Alejandría",
+    desc: "Doctor de la Iglesia y defensor de la fe.",
+  },
+  "06-28": {
+    name: "San Ireneo de Lyon",
+    desc: "Obispo y mártir, gran teólogo.",
+  },
+  "06-29": {
+    name: "San Pedro y San Pablo",
+    desc: "Apóstoles y pilares de la Iglesia.",
+  },
+  "06-30": {
+    name: "Los Santos Protomártires de la Iglesia Romana",
+    desc: "Primeros mártires cristianos de Roma.",
+  },
+   //------Julio---------
+   "07-01": {
+  name: "San Aarón",
+  desc: "Hermano de Moisés y primer sumo sacerdote del Antiguo Testamento."
+},
+"07-02": {
+  name: "San Bernardino Realino",
+  desc: "Sacerdote jesuita dedicado a la atención de los pobres y enfermos."
+},
+"07-03": {
+  name: "Santo Tomás, Apóstol",
+  desc: "Apóstol que proclamó su fe diciendo: «Señor mío y Dios mío»."
+},
+"07-04": {
+  name: "Santa Isabel de Portugal",
+  desc: "Reina conocida por su caridad, humildad y amor por la paz."
+},
+"07-05": {
+  name: "San Antonio María Zaccaria",
+  desc: "Fundador de los Clérigos Regulares de San Pablo."
+},
+"07-06": {
+  name: "Santa María Goretti",
+  desc: "Mártir de la pureza y del perdón cristiano."
+},
+"07-07": {
+  name: "San Fermín",
+  desc: "Obispo y mártir, evangelizador del norte de España."
+},
+"07-08": {
+  name: "San Procopio",
+  desc: "Mártir que dio testimonio de Cristo hasta la muerte."
+},
+"07-09": {
+  name: "San Agustín Zhao Rong y compañeros",
+  desc: "Mártires chinos que entregaron su vida por la fe."
+},
+"07-10": {
+  name: "San Cristóbal",
+  desc: "Protector de los viajeros y símbolo del servicio cristiano."
+},
+"07-11": {
+  name: "San Benito de Nursia",
+  desc: "Patriarca del monacato occidental y patrono de Europa."
+},
+"07-12": {
+  name: "San Juan Gualberto",
+  desc: "Fundador de la Orden de los Vallombrosanos."
+},
+"07-13": {
+  name: "San Enrique",
+  desc: "Emperador que promovió la fe y la justicia cristiana."
+},
+"07-14": {
+  name: "San Camilo de Lelis",
+  desc: "Patrono de los enfermos y del personal de la salud."
+},
+"07-15": {
+  name: "San Buenaventura",
+  desc: "Doctor de la Iglesia, teólogo y franciscano."
+},
+"07-16": {
+  name: "Nuestra Señora del Carmen",
+  desc: "Advocación mariana, patrona del Carmelo."
+},
+"07-17": {
+  name: "San Alejo",
+  desc: "Ejemplo de humildad y desapego de los bienes materiales."
+},
+"07-18": {
+  name: "San Federico de Utrecht",
+  desc: "Obispo y mártir defensor de la fe."
+},
+"07-19": {
+  name: "Santa Macrina",
+  desc: "Modelo de vida consagrada y hermana de San Basilio."
+},
+"07-20": {
+  name: "San Elías, profeta",
+  desc: "Profeta del Antiguo Testamento, defensor del Dios verdadero."
+},
+"07-21": {
+  name: "San Lorenzo de Brindisi",
+  desc: "Doctor de la Iglesia y gran predicador."
+},
+"07-22": {
+  name: "Santa María Magdalena",
+  desc: "Discípula fiel y primera testigo de la Resurrección."
+},
+"07-23": {
+  name: "Santa Brígida de Suecia",
+  desc: "Mística y patrona de Europa."
+},
+"07-24": {
+  name: "San Charbel Makhlouf",
+  desc: "Monje libanés reconocido por su vida de oración."
+},
+"07-25": {
+  name: "Santiago Apóstol",
+  desc: "Apóstol y patrono de España."
+},
+"07-26": {
+  name: "San Joaquín y Santa Ana",
+  desc: "Padres de la Virgen María y abuelos de Jesús."
+},
+"07-27": {
+  name: "San Pantaleón",
+  desc: "Mártir y médico, patrono de los enfermos."
+},
+"07-28": {
+  name: "San Víctor I, Papa",
+  desc: "Papa que promovió la unidad de la Iglesia."
+},
+"07-29": {
+  name: "Santa Marta",
+  desc: "Ejemplo de servicio y hospitalidad cristiana."
+},
+"07-30": {
+  name: "San Pedro Crisólogo",
+  desc: "Doctor de la Iglesia y gran predicador."
+},
+"07-31": {
+  name: "San Ignacio de Loyola",
+  desc: "Fundador de la Compañía de Jesús."
+},
+//--------Agosto---------
+"08-01": {
+  name: "San Alfonso María de Ligorio",
+  desc: "Doctor de la Iglesia, fundador de los Redentoristas."
+},
+"08-02": {
+  name: "San Eusebio de Vercelli",
+  desc: "Obispo defensor de la fe frente al arrianismo."
+},
+"08-03": {
+  name: "Santa Juana Francisca de Chantal",
+  desc: "Fundadora de la Orden de la Visitación."
+},
+"08-04": {
+  name: "San Juan María Vianney",
+  desc: "Santo Cura de Ars, patrono de los sacerdotes."
+},
+"08-05": {
+  name: "Dedicación de la Basílica de Santa María la Mayor",
+  desc: "Fiesta que honra una de las principales basílicas marianas."
+},
+"08-06": {
+  name: "La Transfiguración del Señor",
+  desc: "Jesús se manifiesta en su gloria ante los apóstoles."
+},
+"08-07": {
+  name: "San Cayetano",
+  desc: "Protector del pan y del trabajo."
+},
+"08-08": {
+  name: "Santo Domingo de Guzmán",
+  desc: "Fundador de la Orden de Predicadores."
+},
+"08-09": {
+  name: "Santa Teresa Benedicta de la Cruz (Edith Stein)",
+  desc: "Mártir y patrona de Europa."
+},
+"08-10": {
+  name: "San Lorenzo, diácono y mártir",
+  desc: "Testigo de la fe y ejemplo de caridad."
+},
+"08-11": {
+  name: "Santa Clara de Asís",
+  desc: "Fundadora de las Clarisas y modelo de vida contemplativa."
+},
+"08-12": {
+  name: "San Juan Francisco Régis",
+  desc: "Sacerdote misionero y confesor incansable."
+},
+"08-13": {
+  name: "San Ponciano y San Hipólito",
+  desc: "Mártires que dieron su vida por Cristo."
+},
+"08-14": {
+  name: "San Maximiliano María Kolbe",
+  desc: "Mártir de la caridad en Auschwitz."
+},
+"08-15": {
+  name: "La Asunción de la Santísima Virgen María",
+  desc: "Solemnidad mariana que celebra su glorificación en cuerpo y alma."
+},
+"08-16": {
+  name: "San Esteban de Hungría",
+  desc: "Rey que consolidó la fe cristiana en su nación."
+},
+"08-17": {
+  name: "Santa Beatriz de Silva",
+  desc: "Fundadora de la Orden de la Inmaculada Concepción."
+},
+"08-18": {
+  name: "San Alberto Hurtado",
+  desc: "Sacerdote jesuita defensor de los pobres."
+},
+"08-19": {
+  name: "San Juan Eudes",
+  desc: "Apóstol de la devoción al Sagrado Corazón."
+},
+"08-20": {
+  name: "San Bernardo de Claraval",
+  desc: "Doctor de la Iglesia y gran predicador."
+},
+"08-21": {
+  name: "San Pío X, Papa",
+  desc: "Papa reformador y promotor de la comunión frecuente."
+},
+"08-22": {
+  name: "Santa María Reina",
+  desc: "Memoria mariana que proclama a María como Reina del cielo."
+},
+"08-23": {
+  name: "Santa Rosa de Lima",
+  desc: "Primera santa de América."
+},
+"08-24": {
+  name: "San Bartolomé, Apóstol",
+  desc: "Apóstol y misionero del Evangelio."
+},
+"08-25": {
+  name: "San Luis IX de Francia",
+  desc: "Rey ejemplar por su justicia y fe."
+},
+"08-26": {
+  name: "San José de Calasanz",
+  desc: "Fundador de las Escuelas Pías."
+},
+"08-27": {
+  name: "Santa Mónica",
+  desc: "Madre de San Agustín y modelo de perseverancia en la oración."
+},
+"08-28": {
+  name: "San Agustín, obispo y doctor de la Iglesia",
+  desc: "Uno de los grandes pensadores del cristianismo."
+},
+"08-29": {
+  name: "El Martirio de San Juan Bautista",
+  desc: "Testimonio supremo de fidelidad a la verdad."
+},
+"08-30": {
+  name: "Santa Rosa de Lima (memoria popular)",
+  desc: "Celebración devocional en algunas regiones."
+},
+"08-31": {
+  name: "San Ramón Nonato",
+  desc: "Protector de las mujeres embarazadas."
+},
+//------------Septiembre----------
+"09-01": {
+  name: "San Egidio",
+  desc: "Abad y eremita, ejemplo de vida de oración."
+},
+"09-02": {
+  name: "San Gregorio Magno",
+  desc: "Papa y doctor de la Iglesia, gran reformador."
+},
+"09-03": {
+  name: "San Gregorio el Grande (memoria)",
+  desc: "Pastor sabio y servidor de los pobres."
+},
+"09-04": {
+  name: "San Moisés, profeta",
+  desc: "Guía del pueblo de Israel según la tradición bíblica."
+},
+"09-05": {
+  name: "Santa Teresa de Calcuta",
+  desc: "Fundadora de las Misioneras de la Caridad."
+},
+"09-06": {
+  name: "San Eleuterio",
+  desc: "Papa y mártir de la Iglesia primitiva."
+},
+"09-07": {
+  name: "San Melchor Grodziecki y compañeros",
+  desc: "Mártires jesuitas del siglo XVII."
+},
+"09-08": {
+  name: "La Natividad de la Santísima Virgen María",
+  desc: "Fiesta que celebra el nacimiento de María."
+},
+"09-09": {
+  name: "San Pedro Claver",
+  desc: "Apóstol de los esclavos y defensor de la dignidad humana."
+},
+"09-10": {
+  name: "San Nicolás de Tolentino",
+  desc: "Fraile agustino, ejemplo de humildad y oración."
+},
+"09-11": {
+  name: "San Juan Gabriel Perboyre",
+  desc: "Misionero y mártir en China."
+},
+"09-12": {
+  name: "El Santísimo Nombre de María",
+  desc: "Memoria que honra el nombre de la Virgen."
+},
+"09-13": {
+  name: "San Juan Crisóstomo",
+  desc: "Doctor de la Iglesia y gran predicador."
+},
+"09-14": {
+  name: "La Exaltación de la Santa Cruz",
+  desc: "Celebración del misterio redentor de la Cruz."
+},
+"09-15": {
+  name: "Nuestra Señora de los Dolores",
+  desc: "Memoria mariana del sufrimiento de María."
+},
+"09-16": {
+  name: "San Cornelio y San Cipriano",
+  desc: "Mártires y defensores de la unidad de la Iglesia."
+},
+"09-17": {
+  name: "San Roberto Belarmino",
+  desc: "Cardenal y doctor de la Iglesia."
+},
+"09-18": {
+  name: "San José de Cupertino",
+  desc: "Santo de la humildad y patrono de los estudiantes."
+},
+"09-19": {
+  name: "San Jenaro",
+  desc: "Obispo y mártir venerado en Nápoles."
+},
+"09-20": {
+  name: "San Andrés Kim Taegon y compañeros",
+  desc: "Mártires coreanos, testigos de la fe."
+},
+"09-21": {
+  name: "San Mateo, apóstol y evangelista",
+  desc: "Autor del Evangelio según San Mateo."
+},
+"09-22": {
+  name: "San Mauricio y compañeros",
+  desc: "Mártires soldados de la Legión Tebana."
+},
+"09-23": {
+  name: "San Pío de Pietrelcina (Padre Pío)",
+  desc: "Sacerdote capuchino, estigmatizado y confesor."
+},
+"09-24": {
+  name: "Nuestra Señora de la Merced",
+  desc: "Advocación mariana, patrona de los cautivos."
+},
+"09-25": {
+  name: "San Fermín (memoria local)",
+  desc: "Obispo y mártir venerado en España."
+},
+"09-26": {
+  name: "San Cosme y San Damián",
+  desc: "Mártires médicos, patronos de los enfermos."
+},
+"09-27": {
+  name: "San Vicente de Paúl",
+  desc: "Apóstol de la caridad y fundador de congregaciones."
+},
+"09-28": {
+  name: "San Wenceslao",
+  desc: "Príncipe y mártir, patrono de Bohemia."
+},
+"09-29": {
+  name: "San Miguel, San Gabriel y San Rafael, Arcángeles",
+  desc: "Fiesta de los santos arcángeles."
+},
+"09-30": {
+  name: "San Jerónimo",
+  desc: "Doctor de la Iglesia y traductor de la Biblia."
+},
+//-------------Octubre------------
+"10-01": {
+  name: "Santa Teresita del Niño Jesús",
+  desc: "Doctora de la Iglesia y patrona de las misiones."
+},
+"10-02": {
+  name: "Santos Ángeles Custodios",
+  desc: "Fiesta que recuerda la protección de los ángeles."
+},
+"10-03": {
+  name: "San Francisco de Borja",
+  desc: "Sacerdote jesuita y tercer general de la Compañía de Jesús."
+},
+"10-04": {
+  name: "San Francisco de Asís",
+  desc: "Fundador de la Orden Franciscana y ejemplo de pobreza."
+},
+"10-05": {
+  name: "Santa Faustina Kowalska",
+  desc: "Apóstol de la Divina Misericordia."
+},
+"10-06": {
+  name: "San Bruno",
+  desc: "Fundador de la Orden Cartujana."
+},
+"10-07": {
+  name: "Nuestra Señora del Rosario",
+  desc: "Fiesta mariana que invita a la oración del Rosario."
+},
+"10-08": {
+  name: "San Simeón",
+  desc: "Anciano justo que reconoció al Mesías."
+},
+"10-09": {
+  name: "San Dionisio y compañeros",
+  desc: "Mártires de la Iglesia primitiva."
+},
+"10-10": {
+  name: "San Daniel Comboni",
+  desc: "Misionero y obispo, defensor de África."
+},
+"10-11": {
+  name: "San Juan XXIII, Papa",
+  desc: "Papa del Concilio Vaticano II."
+},
+"10-12": {
+  name: "Nuestra Señora del Pilar",
+  desc: "Advocación mariana venerada especialmente en España."
+},
+"10-13": {
+  name: "San Eduardo el Confesor",
+  desc: "Rey ejemplar por su fe y justicia."
+},
+"10-14": {
+  name: "San Calixto I, Papa",
+  desc: "Papa y mártir de la Iglesia primitiva."
+},
+"10-15": {
+  name: "Santa Teresa de Jesús",
+  desc: "Doctora de la Iglesia y reformadora del Carmelo."
+},
+"10-16": {
+  name: "Santa Margarita María Alacoque",
+  desc: "Difusora de la devoción al Sagrado Corazón."
+},
+"10-17": {
+  name: "San Ignacio de Antioquía",
+  desc: "Obispo y mártir, testigo de la fe apostólica."
+},
+"10-18": {
+  name: "San Lucas, evangelista",
+  desc: "Autor del Evangelio y de los Hechos de los Apóstoles."
+},
+"10-19": {
+  name: "San Pablo de la Cruz",
+  desc: "Fundador de los Pasionistas."
+},
+"10-20": {
+  name: "San Juan Cancio",
+  desc: "Sacerdote ejemplar y benefactor de los pobres."
+},
+"10-21": {
+  name: "Santa Úrsula y compañeras",
+  desc: "Mártires y vírgenes cristianas."
+},
+"10-22": {
+  name: "San Juan Pablo II, Papa",
+  desc: "Papa misionero y defensor de la vida."
+},
+"10-23": {
+  name: "San Juan de Capistrano",
+  desc: "Predicador franciscano y reformador."
+},
+"10-24": {
+  name: "San Antonio María Claret",
+  desc: "Fundador de los Misioneros Claretianos."
+},
+"10-25": {
+  name: "San Crispín y San Crispiniano",
+  desc: "Mártires y patronos de los zapateros."
+},
+"10-26": {
+  name: "San Evaristo, Papa",
+  desc: "Papa de los primeros siglos del cristianismo."
+},
+"10-27": {
+  name: "San Frumencio",
+  desc: "Obispo y evangelizador de Etiopía."
+},
+"10-28": {
+  name: "San Simón y San Judas, apóstoles",
+  desc: "Apóstoles de Cristo y testigos del Evangelio."
+},
+"10-29": {
+  name: "San Narciso",
+  desc: "Obispo y mártir de la Iglesia primitiva."
+},
+"10-30": {
+  name: "San Marcelo de Tánger",
+  desc: "Mártir que defendió su fe ante el Imperio."
+},
+"10-31": {
+  name: "San Alonso Rodríguez",
+  desc: "Religioso jesuita, modelo de humildad y servicio."
+},
+//-------------Noviembre-----------
+"11-01": {
+  name: "Todos los Santos",
+  desc: "Solemnidad en honor de todos los santos, conocidos y anónimos."
+},
+"11-02": {
+  name: "Conmemoración de los Fieles Difuntos",
+  desc: "Día dedicado a orar por las almas del purgatorio."
+},
+"11-03": {
+  name: "San Martín de Porres",
+  desc: "Religioso dominico, ejemplo de humildad y caridad."
+},
+"11-04": {
+  name: "San Carlos Borromeo",
+  desc: "Obispo reformador y modelo de pastor."
+},
+"11-05": {
+  name: "Santa Ángela de la Cruz",
+  desc: "Fundadora dedicada al servicio de los pobres."
+},
+"11-06": {
+  name: "San Leonardo de Porto Maurizio",
+  desc: "Gran predicador de la Pasión de Cristo."
+},
+"11-07": {
+  name: "San Willibrord",
+  desc: "Obispo y misionero en tierras germánicas."
+},
+"11-08": {
+  name: "San Severino",
+  desc: "Monje y protector de los necesitados."
+},
+"11-09": {
+  name: "Dedicación de la Basílica de Letrán",
+  desc: "Fiesta de la catedral del Papa en Roma."
+},
+"11-10": {
+  name: "San León Magno, Papa",
+  desc: "Doctor de la Iglesia y defensor de la fe."
+},
+"11-11": {
+  name: "San Martín de Tours",
+  desc: "Obispo conocido por su caridad y humildad."
+},
+"11-12": {
+  name: "San Josafat",
+  desc: "Obispo y mártir por la unidad de la Iglesia."
+},
+"11-13": {
+  name: "San Diego de Alcalá",
+  desc: "Religioso franciscano de vida humilde."
+},
+"11-14": {
+  name: "San José Pignatelli",
+  desc: "Restaurador de la Compañía de Jesús."
+},
+"11-15": {
+  name: "San Alberto Magno",
+  desc: "Doctor de la Iglesia, teólogo y científico."
+},
+"11-16": {
+  name: "Santa Margarita de Escocia",
+  desc: "Reina piadosa y defensora de los pobres."
+},
+"11-17": {
+  name: "Santa Isabel de Hungría",
+  desc: "Ejemplo de caridad y servicio cristiano."
+},
+"11-18": {
+  name: "Dedicación de las Basílicas de San Pedro y San Pablo",
+  desc: "Fiesta que honra los templos principales de Roma."
+},
+"11-19": {
+  name: "San Roque González y compañeros",
+  desc: "Mártires jesuitas en América."
+},
+"11-20": {
+  name: "San Félix de Valois",
+  desc: "Fundador de la Orden de la Santísima Trinidad."
+},
+"11-21": {
+  name: "Presentación de la Santísima Virgen María",
+  desc: "Memoria de la consagración de María a Dios."
+},
+"11-22": {
+  name: "Santa Cecilia",
+  desc: "Virgen y mártir, patrona de la música."
+},
+"11-23": {
+  name: "San Clemente I, Papa",
+  desc: "Papa y mártir de los primeros tiempos."
+},
+"11-24": {
+  name: "San Andrés Dung-Lac y compañeros",
+  desc: "Mártires de Vietnam."
+},
+"11-25": {
+  name: "Santa Catalina de Alejandría",
+  desc: "Virgen y mártir, patrona de los estudiantes."
+},
+"11-26": {
+  name: "San Leonardo de Noblac",
+  desc: "Abad y protector de los cautivos."
+},
+"11-27": {
+  name: "Nuestra Señora de la Medalla Milagrosa",
+  desc: "Advocación mariana de gran devoción."
+},
+"11-28": {
+  name: "San Andrés Apóstol",
+  desc: "Primer llamado por Jesús y hermano de Pedro."
+},
+"11-29": {
+  name: "San Saturnino",
+  desc: "Obispo y mártir de la Iglesia primitiva."
+},
+"11-30": {
+  name: "San Andrés Apóstol",
+  desc: "Apóstol y mártir, patrono de Escocia."
+},
+//-------------Diciembre-----------
+"12-01":{
       name: "San Eloy",
       desc: "Obispo y orfebre francés, patrono de los artesanos del metal.",
     },
@@ -606,7 +1784,7 @@
     },
     "12-12":{
       name: "Nuestra Señora de Guadalupe",
-      desc: "Reina de México y Emperatriz de América.",
+      desc: "Patrona de México y Emperatriz de América.",
     },
     "12-13":{
       name: "Santa Lucía",
@@ -717,15 +1895,17 @@
 
     function getLiturgicalSeason(date) {
     const year = date.getFullYear();
-    const cuaresmaStart = new Date(year, 2, 5);
-    const cuaresmaEnd = new Date(year, 3, 12);
-    const laetare = new Date(year, 2, 30);
-    const semanaSanta = [new Date(year, 3, 13), new Date(year, 3, 19)];
-    const pascua = [new Date(year, 3, 20), new Date(year, 5, 7)];
-    const pentecostes = new Date(year, 5, 8);
-    const adviento = [[new Date(year, 10, 30), new Date(year, 11, 13)], [new Date(year, 11, 15), new Date(year, 11, 24)]];
-    const gaudete = new Date(year, 11, 14);
-    const navidad = [new Date(year, 11, 25), new Date(2026, 0, 12)];
+    const cuaresmaStart = new Date(year, 1, 18);
+    const cuaresmaEnd = new Date(year, 3, 1);
+    const laetare = new Date(year, 2, 15);
+    const semanaSanta = [new Date(year, 3, 2), new Date(year, 3, 4)];
+    const pascua = [new Date(year, 3, 5), new Date(year, 4,23)];
+    const pentecostes = new Date(year, 4, 24);
+    const corpus = new Date(year, 5, 4);
+    const adviento = [[new Date(year, 10, 30), new Date(year, 11, 12)], [new Date(year, 11, 14), new Date(year, 11, 24)]];
+    const gaudete = new Date(year, 11, 13);
+    const navidadStart = new Date(year -1, 11, 25); // 25 dic año anterior (en dado caso que en diciembre no salga solamente le quitamos el -1)
+    const navidadEnd = new Date(year, 0, 11); 
     const asuncion = new Date(year, 7, 15);
 
     if (date >= cuaresmaStart && date <= cuaresmaEnd) return "cuaresma";
@@ -733,9 +1913,10 @@
     if (date >= semanaSanta[0] && date <= semanaSanta[1]) return "semanaSanta";
     if (date >= pascua[0] && date <= pascua[1]) return "pascua";
     if (+date === +pentecostes) return "pentecostes";
+    if (+date === +corpus) return "corups";
     if ((date >= adviento[0][0] && date <= adviento[0][1]) || (date >= adviento[1][0] && date <= adviento[1][1])) return "adviento";
     if (+date === +gaudete) return "gaudete";
-    if (date >= navidad[0] && date <= navidad[1]) return "navidad";
+    if (date >= navidadStart && date <= navidadEnd) return "navidad";
     if (+date === +asuncion) return "maria";
     return "tiempo-comun";
   }
@@ -807,7 +1988,7 @@
 </script>
 
 <footer>
-    <p>&copy; 2025 Parroquia Asunción de María | Eventos</p>
+    <p>&copy; 2026 Parroquia Asunción de María | Eventos</p>
   </footer>
 
 </body>
