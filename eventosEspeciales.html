@@ -1,233 +1,186 @@
-  <!DOCTYPE html>
-  <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Eventos Especiales | Parroquia Asunción de María</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
-    <style>
-      body {
-        margin: 0;
-        font-family: 'Open Sans', sans-serif;
-        background-color: #f8f8f8;
-        color: #333;
-      }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eventos Especiales | Parroquia Asunción de María Tepalcatitlán</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: url('imagen/cielo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
 
-      header {
-        background-color: #3c8dff;
-        color: white;
-        padding: 20px 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-      }
+    header {
+      background-color: #3c8dff;
+      color: white;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
 
-      .header-left {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
 
-      header img {
-        height: 100px;
-      }
+    header img {
+      height: 100px;
+    }
 
-      .header-text {
-        text-align: center;
-        flex: 1;
-      }
+    .header-text {
+      text-align: center;
+      flex: 1;
+    }
 
-      .header-text h1 {
-        font-family: 'Playfair Display', serif;
-        font-size: 2.2em;
-        margin: 0;
-      }
+    .header-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em;
+      margin: 0;
+    }
 
-      nav {
-        background-color: #0415aa;
-        display: flex;
-        justify-content: center;
-        position: relative;
-      }
+    nav {
+      background-color: #0415aa;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
 
-      nav a {
-        color: white;
-        text-decoration: none;
-        padding: 15px 20px;
-        display: inline-block;
-        position: relative;
-      }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 20px;
+      display: inline-block;
+      position: relative;
+    }
 
-      nav a:hover {
-        background-color: #3c8dff;
-      }
+    nav a:hover {
+      background-color: #3c8dff;
+    }
 
-      /* Dropdown */
-      .dropdown {
-        position: relative;
-      }
+    .dropdown {
+      position: relative;
+    }
 
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #0415aa;
+      min-width: 200px;
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 12px 20px;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    h1 {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      color: #ffffff;
+      margin-top: 40px;
+    }
+
+    .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 40px 0;
+    }
+
+    .image-container img {
+      max-width: 80%;
+      width: 400px;
+      height: auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+    }
+
+    footer {
+      background-color: #04396a;
+      color: white;
+      text-align: center;
+      padding: 30px 10px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
       .dropdown-content {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background-color: #0415aa;
-        min-width: 200px;
-        z-index: 1;
+        position: static;
       }
 
-      .dropdown-content a {
-        display: block;
-        padding: 12px 20px;
+      .image-container img {
+        width: 90%;
       }
+    }
+  </style>
+</head>
+<body>
 
-      .dropdown:hover .dropdown-content {
-        display: block;
-      }
+  <header>
+    <div class="header-left">
+      <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+    </div>
+    <div class="header-text">
+      <h1>Parroquia Asunción de María Tepalcatitlán</h1>
+      <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
+    </div>
+  </header>
 
-      
-      .banner {
-        background: url('imagen/Regalos1.jpg') no-repeat center;
-        background-size: cover;
-        background-position: 20% 8%;
-        height: 300px;
-        position: relative;
-      }
-
-      .banner::after {
-        content: "";
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-      }
-
-      .banner h2 {
-        position: absolute;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        color: #fff;
-        font-family: 'Playfair Display', serif;
-        font-size: 2.2em;
-        text-align: center;
-      }
-
-      .container {
-        max-width: 1100px;
-        margin: 40px auto;
-        padding: 0 20px;
-      }
-
-      h3 {
-        font-family: 'Playfair Display', serif;
-        color: #5a2a27;
-        font-size: 1.8em;
-        margin-top: 30px;
-      }
-
-      .historia-texto {
-        line-height: 1.8;
-        font-size: 1.1em;
-        text-align: justify;
-        margin-bottom: 20px;
-      }
-
-      footer {
-        background-color: #04396a;
-        color: white;
-        text-align: center;
-        padding: 30px 10px;
-        margin-top: 40px;
-      }
-
-      @media (max-width: 768px) {
-        .dropdown-content {
-          position: static;
-        }
-      }
-    </style>
-  </head>
-  <body>
-
-    <header>
-      <div class="header-left">
-        <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+  <nav>
+    <a href="index.html">Inicio</a>
+    <a href="oficina.html">Oficina</a>
+    <div class="dropdown">
+      <a>Historia ▾</a>
+      <div class="dropdown-content">
+        <a href="historia.html">Parroquia</a>
+        <a href="histAsun.html">Asunción de María</a>
       </div>
-      <div class="header-text">
-        <h1>Parroquia Asunción de María Tepalcatitlán</h1>
-        <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
-      </div>
-    </header>
-
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="oficina.html">Oficina</a>
-      <div class="dropdown">
-        <a>Historia ▾</a>
-        <div class="dropdown-content">
-          <a href="historia.html">Parroquia</a>
-          <a href="histAsun.html">Asunción de María</a>
-        </div>
-      </div>
-      <div class="dropdown">
+    </div>
+    <div class="dropdown">
         <a>Eventos ▾</a>
         <div class="dropdown-content">
           <a href="eventos.html">Calendario Mensual</a>
-          <a href="eventosEspeciales.html">Eventos Especiales</a>
+          <a href="fiestaPatronal.html">Eventos Especiales</a>
         </div>
       </div>
-      <a href="grupos.html">Grupos Parroquiales</a>
-      <a href="mision.html">Misión</a>
-      <a href="contacto.html">Contacto</a>
-      <a href="transmisiones.html">En Vivo</a>
-      <div class="dropdown">
-        <a>Acceso ▾</a>
-        <div class="dropdown-content">
-          <a href="adminLogin.html">Administrador</a>
-          <a href="coordinadorLogin.html">Coordinador</a>
-        </div>
+    <<a href="grupos.html">Grupos Parroquiales</a>
+    <a href="mision.html">Misión</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="foro.html">Foro de Opiniones</a>
+    <a href="transmisiones.html">En Vivo</a>
+    <div class="dropdown">
+      <a>Acceso ▾</a>
+      <div class="dropdown-content">
+        <a href="adminLogin.html">Administrador</a>
+        <a href="coordinadorLogin.html">Coordinador</a>
       </div>
-    </nav>
-    
-    <div class="banner">
-      <h2>Regalos del corazón</h2>
     </div>
+  </nav>
 
-    <div class="container">
-      <section id="Acerca-fiestaPatronal">
-        <h3>Acerca de "Regalos del Corazón"</h3>
-        <p class="historia-texto">
-          <strong>La Parroquia Asunción de María de Tepalcatitlán</strong> invita a la comunidad a que comparta como hermanos los dones, talentos y bienes materiales que han recibido gracias a Dios.
-        </p>
+  <h1>Por el momento no tenemos eventos especiales</h1>
+  <h1>Intente después volver a ingresar para descubrir los próximos eventos</h1>
 
-        <h3>¿Cómo participar?</h3>
-        <p class="historia-texto">
-          <p>Puedes apoyar con llevar ropa u objetos en buen estado que ya no ocupes y que crees que le puedan servir a alguien más. Además puedes ofrecer algún tipo de servicio, conocimiento o lo que sea que pueda ser útil para los demás.</p>
-        </p>
-
-        <h3>¿Cuándo, dónde y a qué hora se realizará?</h3>
-        <p class="historia-texto">
-          <p>Se realizará el día domingo 11 de enero del 2026 </p>
-          <p>En el Centro Parroquial Asunción de María, este está ubicado en la calle de Unión número 17 en la colonia Industrial.</p>
-          <p>En un horario de las <strong>10 de la mañana a las 3 de la tarde</strong>.</p>
-        </p>
-
-        <h3>Para información más detallada puedes revisar la imagen de abajo.</h3>
-
-        <h3>¡No faltes!</h3>
-
-        <!-- Imagen final -->
-        <div style="text-align: center; margin-top: 30px;">
-          <img src="imagen/Regalos2.jpg" alt="Fiesta Patronal Asunción de María" style="max-width: 70%; height: auto; border-radius: 10px;">
-        </div>
-      </section>
-    </div>
+  <div class="image-container">
+    <img src="imagen/SinEventos.png" alt="Imagen de mantenimiento">
+  </div>
 
     <footer>
       <p>&copy; 2026 Parroquia Asunción de María | Eventos Especiales</p>
     </footer>
 
-  </body>
-  </html>
+</body>
+</html>
