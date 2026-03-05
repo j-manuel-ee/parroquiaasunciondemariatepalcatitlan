@@ -143,6 +143,22 @@
       margin-bottom: 20px;
     }
 
+    .galeria {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .galeria img {
+      width: 450px;       /* mismo ancho para todas */
+      height: 300px;      /* misma altura */
+      object-fit: cover;  /* recorta sin deformar */
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
     footer {
       background: linear-gradient(
       135deg,
@@ -196,6 +212,7 @@
         <a href="mision.html">Misión</a>
         <a href="contacto.html">Contacto</a>
         <a href="vaticanNews.html">Vatican News</a>
+        <a href="foro.html">Foro de Opiniones</a>
         <a href="transmisiones.html">En Vivo</a>
         <div class="dropdown">
           <a>Acceso ▾</a>
@@ -262,7 +279,11 @@
           <strong>La Asunción como el Gran "Milagro":</strong> Para la fe católica, la Asunción misma de María en cuerpo y alma al cielo es considerada el mayor milagro de Dios en ella, después de la Encarnación y Resurrección de Jesús. Es un don divino que subraya su singular papel en la historia de la salvación.
         </p>
       </section>
-  
+
+      <div class="galeria">
+        <img src="imagen/Asun1.png" alt="Historia 1">
+        <img src="imagen/Asun2.png" alt="Historia 2">
+      </div>
     </div>
 
   <footer>
