@@ -9,13 +9,18 @@
     body {
       font-family: 'Open Sans', sans-serif;
       margin: 0;
-      background: url('imagen/cielo.jpg') no-repeat center center fixed;
+      background: url('imagen/fondoCuaresma.png') no-repeat center center fixed;
       background-size: cover;
       color: #333;
     }
 
     header {
-      background-color: #3c8dff;
+      background: linear-gradient(
+      135deg,
+      #2c003e 0%,
+      #4b0082 40%,
+      #6a0dad 70%,
+      #8e44ad 100%);
       color: white;
       padding: 20px 0;
       display: flex;
@@ -46,7 +51,12 @@
     }
 
     nav {
-      background-color: #0415aa;
+      background: linear-gradient(
+      90deg,
+      #2c003e,
+      #4b0082,
+      #5e2b97
+  );
       display: flex;
       justify-content: center;
       position: relative;
@@ -61,7 +71,7 @@
     }
 
     nav a:hover {
-      background-color: #3c8dff;
+      background-color: #7d3fb2;
     }
 
     .dropdown {
@@ -73,7 +83,7 @@
       position: absolute;
       top: 100%;
       left: 0;
-      background-color: #0415aa;
+      background-color: #4b0082;
       min-width: 200px;
       z-index: 1;
     }
@@ -110,7 +120,12 @@
     }
 
     footer {
-      background-color: #04396a;
+      background: linear-gradient(
+      135deg,
+      #2c003e 0%,
+      #4b0082 40%,
+      #6a0dad 70%,
+      #8e44ad 100%);
       color: white;
       text-align: center;
       padding: 30px 10px;
@@ -149,6 +164,7 @@
     <a href="grupos.html">Grupos Parroquiales</a>
     <a href="mision.html">Misión</a>
     <a href="contacto.html">Contacto</a>
+    <a href="vaticanNews.html">Vatican News</a>
     <a href="transmisiones.html">En Vivo</a>
     <div class="dropdown">
       <a>Acceso ▾</a>
@@ -163,13 +179,12 @@
     <h2>Transmisión en Vivo</h2>
     <p style="text-align:center;">Sigue aquí nuestras misas y eventos parroquiales en directo:</p>
 
-    <iframe width="100%" height="480" 
-      src="https://www.youtube.com/embed/live_stream?channel=UCTAOfPlC5F02Pc6aVKBVcug" 
-      frameborder="0" 
+    <iframe width="100%" height="480"
+      src="https://www.youtube.com/embed/live_stream?channel=UCxI6nVnEKzqUV0uSFn-it1g"
+      frameborder="0"
       allowfullscreen>
     </iframe>
-
-
+    
     <p style="text-align:center; margin-top:15px;">
       Si no hay transmisión en vivo, aparecerá el último video emitido o un mensaje de YouTube.
     </p>
