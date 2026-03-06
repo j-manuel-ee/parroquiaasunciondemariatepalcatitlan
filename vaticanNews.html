@@ -35,7 +35,15 @@
       gap: 20px;
     }
 
-    header img {
+    .header-right img{
+    height: 90px;
+    background: white;
+    padding: 6px;
+    border-radius: 8px;
+    }
+
+    .header-left img,
+    .header-right img {
       height: 100px;
     }
 
@@ -155,6 +163,24 @@
       padding: 30px 10px;
       margin-top: 40px;
     }
+
+    @media (max-width: 768px) {
+
+    header{
+    flex-direction: column;
+    text-align: center;
+    }
+
+    .header-left,
+    .header-right{
+    justify-content: center;
+    }
+
+    nav{
+    flex-wrap: wrap;
+    }
+
+    }
   </style>
 </head>
 <body>
@@ -165,6 +191,9 @@
           <div class="header-text">
             <h1>Vatican News</h1>
             <p>La voz del Santo Padre, más cerca de nuestra comunidad</p>
+          </div>
+          <div class="header-right">
+            <img src="imagen/vaticanNews.png" alt="Logo Vatican News">
           </div>
       </header>
     
@@ -189,6 +218,7 @@
           <a href="mision.html">Misión</a>
           <a href="contacto.html">Contacto</a>
           <a href="vaticanNews.html">Vatican News</a>
+          <a href="foro.html">Foro de Opiniones</a>
           <a href="transmisiones.html">En Vivo</a>
           <div class="dropdown">
             <a>Acceso ▾</a>
@@ -198,8 +228,21 @@
           </div>
         </div>
       </nav>
-<vaticannews-widget lang="es" fontSize="14" carouselVideoAuto="true" carouselVideoTime="fast"></vaticannews-widget>
-<script src="https://www.vaticannews.va/widget.js"></script>
+
+      <div class="container">
+
+        <h2>Noticias del Vaticano</h2>
+      
+        <vaticannews-widget 
+          lang="es"
+          fontSize="14"
+          carouselVideoAuto="true"
+          carouselVideoTime="fast">
+        </vaticannews-widget>
+      
+      </div>
+      
+      <script src="https://www.vaticannews.va/widget.js"></script>
 
 <footer>
     <p>&copy; 2026 Parroquia Asunción de María | Vatican News</p>
