@@ -1,186 +1,273 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Eventos Especiales | Parroquia Asunción de María Tepalcatitlán</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      background: url('imagen/cielo.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #333;
-    }
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Eventos Especiales | Parroquia Asunción de María</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Open Sans', sans-serif;
+        background-color: #f8f8f8;
+        color: #333;
+      }
 
-    header {
-      background-color: #3c8dff;
-      color: white;
-      padding: 20px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
+      header {
+        background: linear-gradient(
+        135deg,
+        #2c003e 0%,
+        #4b0082 40%,
+        #6a0dad 70%,
+        #8e44ad 100%);
+        color: white;
+        padding: 20px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
 
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
 
-    header img {
-      height: 100px;
-    }
+      header img {
+        height: 100px;
+      }
 
-    .header-text {
-      text-align: center;
-      flex: 1;
-    }
+      .header-text {
+        text-align: center;
+        flex: 1;
+      }
 
-    .header-text h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.2em;
-      margin: 0;
-    }
+      .header-text h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.2em;
+        margin: 0;
+      }
 
-    nav {
-      background-color: #0415aa;
-      display: flex;
-      justify-content: center;
-      position: relative;
-    }
+      nav {
+        background: linear-gradient(
+          90deg,
+          #2c003e,
+          #4b0082,
+          #5e2b97
+        );
+        display: flex;
+        justify-content: center;
+        position: relative;
+      }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      padding: 15px 20px;
-      display: inline-block;
-      position: relative;
-    }
+      nav a {
+        color: white;
+        text-decoration: none;
+        padding: 15px 20px;
+        display: inline-block;
+        position: relative;
+      }
 
-    nav a:hover {
-      background-color: #3c8dff;
-    }
+      nav a:hover {
+        background-color: #7d3fb2;
+      }
 
-    .dropdown {
-      position: relative;
-    }
+      /* Dropdown */
+      .dropdown {
+        position: relative;
+      }
 
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #0415aa;
-      min-width: 200px;
-      z-index: 1;
-    }
-
-    .dropdown-content a {
-      display: block;
-      padding: 12px 20px;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    h1 {
-      text-align: center;
-      font-family: 'Playfair Display', serif;
-      color: #ffffff;
-      margin-top: 40px;
-    }
-
-    .image-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 40px 0;
-    }
-
-    .image-container img {
-      max-width: 80%;
-      width: 400px;
-      height: auto;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-    }
-
-    footer {
-      background-color: #04396a;
-      color: white;
-      text-align: center;
-      padding: 30px 10px;
-      margin-top: 40px;
-    }
-
-    @media (max-width: 768px) {
       .dropdown-content {
-        position: static;
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #4b0082;
+        min-width: 200px;
+        z-index: 1;
       }
 
-      .image-container img {
-        width: 90%;
+      .dropdown-content a {
+        display: block;
+        padding: 12px 20px;
       }
-    }
-  </style>
-</head>
-<body>
 
-  <header>
-    <div class="header-left">
-      <img src="imagen/logo_asun.png" alt="Logo Parroquia">
-    </div>
-    <div class="header-text">
-      <h1>Parroquia Asunción de María Tepalcatitlán</h1>
-      <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
-    </div>
-  </header>
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
 
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="oficina.html">Oficina</a>
-    <div class="dropdown">
-      <a>Historia ▾</a>
-      <div class="dropdown-content">
-        <a href="historia.html">Parroquia</a>
-        <a href="histAsun.html">Asunción de María</a>
+      
+      .banner {
+        background: url('imagen/triduoPascual.png') no-repeat center;
+        background-size: cover;
+        background-position: 50% 25%;
+        height: 350px;
+        position: relative;
+      }
+
+      .banner::after {
+        content: "";
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .banner h2 {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-family: 'Playfair Display', serif;
+        font-size: 2.2em;
+        text-align: center;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      h3 {
+        font-family: 'Playfair Display', serif;
+        color: #5a2a27;
+        font-size: 1.8em;
+        margin-top: 30px;
+      }
+
+      .historia-texto {
+        line-height: 1.8;
+        font-size: 1.1em;
+        text-align: justify;
+        margin-bottom: 20px;
+      }
+
+      footer {
+        background: linear-gradient(
+        135deg,
+        #2c003e 0%,
+        #4b0082 40%,
+        #6a0dad 70%,
+        #8e44ad 100%);
+        color: white;
+        text-align: center;
+        padding: 30px 10px;
+        margin-top: 40px;
+      }
+
+      @media (max-width: 768px) {
+        .dropdown-content {
+          position: static;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <header>
+      <div class="header-left">
+        <img src="imagen/logo_asun.png" alt="Logo Parroquia">
       </div>
-    </div>
-    <div class="dropdown">
+      <div class="header-text">
+        <h1>Parroquia Asunción de María Tepalcatitlán</h1>
+        <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
+      </div>
+    </header>
+
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="oficina.html">Oficina</a>
+      <div class="dropdown">
+        <a>Historia ▾</a>
+        <div class="dropdown-content">
+          <a href="historia.html">Parroquia</a>
+          <a href="histAsun.html">Asunción de María</a>
+        </div>
+      </div>
+      <div class="dropdown">
         <a>Eventos ▾</a>
         <div class="dropdown-content">
           <a href="eventos.html">Calendario Mensual</a>
-          <a href="fiestaPatronal.html">Eventos Especiales</a>
+          <a href="eventosEspeciales.html">Eventos Especiales</a>
         </div>
       </div>
-    <<a href="grupos.html">Grupos Parroquiales</a>
-    <a href="mision.html">Misión</a>
-    <a href="contacto.html">Contacto</a>
-    <a href="foro.html">Foro de Opiniones</a>
-    <a href="transmisiones.html">En Vivo</a>
-    <div class="dropdown">
-      <a>Acceso ▾</a>
-      <div class="dropdown-content">
-        <a href="adminLogin.html">Administrador</a>
-        <a href="coordinadorLogin.html">Coordinador</a>
+      <a href="grupos.html">Grupos Parroquiales</a>
+      <a href="mision.html">Misión</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="vaticanNews.html">Vatican News</a>
+      <a href="transmisiones.html">En Vivo</a>
+      <div class="dropdown">
+        <a>Acceso ▾</a>
+        <div class="dropdown-content">
+          <a href="adminLogin.html">Administrador</a>
+          <a href="coordinadorLogin.html">Coordinador</a>
+        </div>
       </div>
+    </nav>
+    
+    <div class="banner">
+      <h2>Semana Santa</h2>
     </div>
-  </nav>
 
-  <h1>Por el momento no tenemos eventos especiales</h1>
-  <h1>Intente después volver a ingresar para descubrir los próximos eventos</h1>
+    <div class="container">
+      <section id="Acerca-fiestaPatronal">
+    
+        <h3>Semana Santa</h3>
+        <p class="historia-texto">
+          En este apartado encontrarás toda la información sobre los eventos que se realizarán durante la Semana Santa 
+          <strong>(29 de marzo - 4 de abril de 2026)</strong>.
+        </p>
+    
+        <h3>Domingo de Ramos (29 de marzo)</h3>
+        <ul class="historia-texto">
+          <li><strong>Las misas se celebrarán en su horario habitual:</strong> 8:00 a.m., 11:00 a.m., 1:00 p.m. y 6:00 p.m.</li>
+          <li>A las <strong>12:30 p.m.</strong> nos reuniremos en el <strong>Parque María del Carmen</strong> para iniciar la procesión hacia la parroquia, llevando nuestras palmas y acompañando con alabanzas.</li>
+        </ul>
+    
+        <h3>Pésaj – Cena Judía (31 de marzo)</h3>
+        <p class="historia-texto">
+          Se realizará una cena didáctica sobre la cena pascual judía, de la cual tiene origen nuestra celebración eucarística. 
+          Tendrá lugar a las <strong>19:00 hrs</strong> en el <strong>Centro Parroquial</strong>, ubicado en la calle Unión número 17. 
+          <strong>Cupo limitado.</strong>
+        </p>
+    
+        <h3>Jueves Santo (2 de abril)</h3>
+        <ul class="historia-texto">
+          <li>A las <strong>17:00 hrs</strong> se presentará una representación teatral de la <strong>Última Cena</strong> en la parroquia.</li>
+          <li>A las <strong>18:00 hrs</strong> continuaremos con la <strong>Santa Misa</strong>.</li>
+          <li>Al terminar la celebración eucarística permaneceremos en <strong>vigilia durante la noche</strong>, acompañando al Santísimo Sacramento en oración.</li>
+        </ul>
+    
+        <h3>Viernes Santo (3 de abril)</h3>
+        <ul class="historia-texto">
+          <li>A las <strong>09:00 hrs</strong> dará inicio el <strong>Viacrucis Viviente</strong> en el Centro Parroquial, ubicado en la calle Unión número 17, recorriendo algunas zonas de nuestra colonia.</li>
+          <li>Al término del viacrucis continuaremos en la parroquia con la <strong>meditación de las 7 Palabras</strong>.</li>
+          <li>A las <strong>18:00 hrs</strong> dará inicio la <strong>Celebración de la Adoración de la Cruz</strong>.</li>
+          <li>A las <strong>19:00 hrs</strong> continuaremos con la <strong>Procesión del Silencio</strong>, recorriendo algunas calles de la colonia.</li>
+        </ul>
+    
+        <h3>Vigilia Pascual (4 de abril)</h3>
+        <ul class="historia-texto">
+          <li>A las <strong>19:00 hrs</strong> celebraremos la <strong>Vigilia Pascual</strong> en la parroquia.</li>
+        </ul>
+    
+        <h3>¡No faltes!</h3>
+    
+      </section>
+    </div>
 
-  <div class="image-container">
-    <img src="imagen/SinEventos.png" alt="Imagen de mantenimiento">
-  </div>
+        <!-- Imagen final -->
+        <div style="text-align: center; margin-top: 30px;">
+          <img src="imagen/triduoPascual.png" alt="Fiesta Patronal Asunción de María" style="max-width: 70%; height: auto; border-radius: 10px;">
+        </div>
+      </section>
+    </div>
 
     <footer>
       <p>&copy; 2026 Parroquia Asunción de María | Eventos Especiales</p>
     </footer>
 
-</body>
-</html>
+  </body>
+  </html>
