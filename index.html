@@ -3,10 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Parroquia Asunción de María Tepalcatitlán</title>
+  <title>Parroquia Asunción de María</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
     body {
+      background: linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #fdfaf3 50%,
+      #f7f1dc 100%
+    );
       margin: 0;
       font-family: 'Open Sans', sans-serif;
       background-color: #f8f8f8;
@@ -16,11 +22,11 @@
    header {
       background: linear-gradient(
       135deg,
-      #2c003e 0%,
-      #4b0082 40%,
-      #6a0dad 70%,
-      #8e44ad 100%);
-      color: white;
+      #ffffff 0%,
+      #f5e6b3 40%,
+      #d4af37 100%
+    );
+      color: #4b3b0b;
       padding: 20px 0;
       display: flex;
       align-items: center;
@@ -52,17 +58,18 @@
     nav {
       background: linear-gradient(
       90deg,
-      #2c003e,
-      #4b0082,
-      #5e2b97
-  );
+      #ffffff,
+      #f5e6b3
+      );
+      border-top: 1px solid #e0d6a3;
+      border-bottom: 1px solid #e0d6a3;
       display: flex;
       justify-content: center;
       position: relative;
     }
 
     nav a {
-      color: white;
+      color: #4b3b0b;
       text-decoration: none;
       padding: 15px 20px;
       display: inline-block;
@@ -70,7 +77,7 @@
     }
 
     nav a:hover {
-      background-color: #7d3fb2;
+      background-color: #f0e2a0;
     }
 
     /* Dropdown */
@@ -83,7 +90,11 @@
       position: absolute;
       top: 100%;
       left: 0;
-      background-color: #4b0082;
+      background: linear-gradient(
+      90deg,
+      #ffffff,
+      #f5e6b3
+      );
       min-width: 200px;
       z-index: 1;
     }
@@ -98,7 +109,7 @@
     }
 
     .hero {
-    background-image: url('imagen/CoronaEspinas.png');
+    background-image: url('imagen/pascua.png');
     background-size: cover;
     background-position: 55% 45%; /* Aquí ajustas el recorrido */
     height: 300px;
@@ -106,12 +117,16 @@
     }
 
     .hero::after {
+      background: linear-gradient(
+        rgba(255,255,255,0.2),
+        rgba(255,255,255,0.6),
+        rgba(212,175,55,0.3)
+      );
       content: "";
       position: absolute;
       top: 0; left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.4);
     }
 
     .hero-text {
@@ -125,14 +140,21 @@
     }
 
     .container {
+      background: #ffffff;
+      border: 1px solid #eee3b0;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
       max-width: 1100px;
       margin: 40px auto;
       padding: 0 20px;
     }
 
     h2 {
+      background: linear-gradient(#c5a646, #e8d27c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       font-family: 'Playfair Display', serif;
-      color: #5a2a27;
+      color: #b8962e;
       margin-bottom: 20px;
     }
 
@@ -153,16 +175,52 @@
       object-fit: cover;
     }
 
-
-    /* ===== POPUPS ===== */
-    .aviso {
+     /* Estilo del popup */
+     .popup {
       display: none;
       position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
       justify-content: center;
       align-items: center;
-      z-index: 9999;
+      z-index: 1000;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 80%;
+    }
+
+    .popup button {
+      margin-top: 20px;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Estilos del aviso emergente */
+    .aviso {
+      display: flex;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: fadeIn 0.5s ease-in-out;
     }
 
     .aviso-contenido {
@@ -170,9 +228,20 @@
       padding: 30px;
       text-align: center;
       border-radius: 15px;
-      max-width: 420px;
-      width: 90%;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .aviso h2 {
+      margin-top: 0;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .aviso p {
+      font-size: 18px;
+      color: #555;
     }
 
     .aviso button {
@@ -182,35 +251,57 @@
       padding: 12px 24px;
       border: none;
       border-radius: 5px;
+      font-size: 16px;
       cursor: pointer;
+      transition: background 0.3s ease-in-out;
+    }
+
+    .aviso button:hover {
+      background-color: #0056b3;
+    }
+
+    .bouncing-button-container {
+    margin: 30px 0;
     }
 
     .bouncing-button {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 25px;
-      background-color: #FFD700;
-      color: #333;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 8px;
-      animation: bounce 1.5s infinite;
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #FFD700;
+    color: #333;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: bounce 1.5s infinite;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    }
+
+    .bouncing-button:hover {
+      background-color: #e6c200;
     }
 
     @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-15px); }
-      60% { transform: translateY(-8px); }
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-18px);
+      }
+      60% {
+        transform: translateY(-10px);
+      }
     }
 
     footer {
       background: linear-gradient(
-      135deg,
-      #2c003e 0%,
-      #4b0082 40%,
-      #6a0dad 70%,
-      #8e44ad 100%);
-      color: white;
+        135deg,
+        #ffffff,
+        #f5e6b3,
+        #d4af37
+      );
+      color: #4b3b0b;
       text-align: center;
       padding: 30px 10px;
     }
@@ -227,34 +318,18 @@
       margin-top: 20px;
     }
 
-    #fireworksCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 10000;
-  }
-  </style>
-
-  <!-- SCRIPT POPUPS -->
-  <script>
-    window.onload = function () {
-      document.getElementById("aviso1").style.display = "flex";
-    };
-
-    function cerrarAviso1() {
-      document.getElementById("aviso1").style.display = "none";
-      document.getElementById("aviso2").style.display = "flex";
+    @media (max-width: 768px) {
+      .galeria img {
+        width: 100%;
+      }
     }
-
-    function cerrarAviso2() {
-      document.getElementById("aviso2").style.display = "none";
+  </style>
+  <script>
+    function cerrarAviso() {
+      document.getElementById('aviso').style.display = 'none';
     }
   </script>
 </head>
-<canvas id="fireworksCanvas"></canvas>
 <body>
 
     <header>
@@ -262,7 +337,7 @@
           <img src="imagen/logo_asun.png" alt="Logo Parroquia">
         </div>
         <div class="header-text">
-          <h1>Parroquia Asunción de María Tepalcatitlán</h1>
+          <h1>Parroquia Asunción de María</h1>
           <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
         </div>
     </header>
@@ -302,36 +377,22 @@
     <div class="hero-text">"Un tiempo para volver a Dios con el corazón"</div>
   </div>
 
-  <!-- AVISO 1 -->
-  <div id="aviso1" class="aviso">
+  <!-- Aviso emergente -->
+  <div id="aviso" class="aviso">
     <div class="aviso-contenido">
-      <img src="imagen/ssanta.jpg" alt="Aviso Importante" style="max-width: 100%; border-radius: 20px; margin-bottom: 20px;">
-      <h2>Semana Santa</h2>
-      <p>Vive la Semana Santa con nosotros</p>
-      <p>Acompañemos a nuestro Señor Jesucristo en su Pasión, Muerte y Resurrección</p>
-      <a href="eventosEspeciales.html" target="_blank" 
-      class="bouncing-button">Da clic aquí</a>
-      <button onclick="cerrarAviso1()">Cerrar aviso</button>
+      <img src="imagen/pascua.png" alt="Pascua" style="max-width: 100%; border-radius: 20px; margin-bottom: 20px;">
+      <h2 class="aviso-titulo">¡Felices Pascuas!</h2>
+      <p class="aviso-frase">
+        ✨ ¡Jesús ha resucitado! ¡Aleluya, aleluya! ✨
+      </p>
+      <p class="aviso-texto">
+        La comunidad parroquial de la Asunción de María les desea unas 
+        felices Pascuas. Que el Señor Jesús Resucitado llene sus hogares 
+        de paz, esperanza y alegría, y los acompañe siempre.
+      </p>
+      <button class="btn-cerrar" onclick="cerrarAviso()">Cerrar</button>
     </div>
   </div>
-</div>
-
-<!-- AVISO 2 -->
-<div id="aviso2" class="aviso">
-  <div class="aviso-contenido">
-    <img src="imagen/ultimaCena.png" alt="Jueves Santo" style="max-width: 100%; border-radius: 20px; margin-bottom: 20px;">
-    <h2>Jueves Santo ✝️</h2>
-    <p>
-    Vive con nosotros este momento tan especial de fe y amor.
-    Acompáñanos en la conmemoración de la Última Cena de nuestro Señor Jesucristo a través de nuestra transmisión en vivo.
-    </p>
-    <a href="transmisiones.html" target="_blank" class="bouncing-button">
-    Ver transmisión en vivo 📺
-    </a>
-    <button onclick="cerrarAviso2()">Cerrar</button>
-  </div>
-</div>
-
 
   <div class="container">
     <h2>¡Bienvenidos!</h2>
