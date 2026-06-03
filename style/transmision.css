@@ -1,0 +1,110 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    background: url('/imagen/cielo.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+  }
+
+  header {
+    background: linear-gradient(to right, #0d47a1, #1976d2, #64b5f6);
+    color: white;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  header img {
+    height: 100px;
+  }
+  
+  .header-text {
+    text-align: center;
+    flex: 1;
+  }
+  
+  .header-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2em;
+    margin: 0;
+  }
+  
+  nav {
+    background: linear-gradient(to right, #002f6c, #0d47a1, #1565c0);
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    display: inline-block;
+    position: relative;
+  }
+  
+  nav a:hover {
+    background-color: rgba(255,255,255,0.15);
+  }
+  
+  /* Dropdown */
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: linear-gradient(to bottom, #0d47a1, #1565c0);
+    min-width: 200px;
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    display: block;
+    padding: 12px 20px;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    color: #5a2a27;
+    text-align: center;
+  }
+
+  iframe {
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  }
+
+  footer {
+    background: linear-gradient(to right, #002f6c, #0d47a1, #1976d2);
+    color: white;
+    text-align: center;
+    padding: 30px 10px;
+  }

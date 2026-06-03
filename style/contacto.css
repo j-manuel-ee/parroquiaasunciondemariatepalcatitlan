@@ -1,0 +1,205 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    background: url('/imagen/cielo.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+  }
+
+  header {
+    background: linear-gradient(to right, #0d47a1, #1976d2, #64b5f6);
+    color: white;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  header img {
+    height: 100px;
+  }
+  
+  .header-text {
+    text-align: center;
+    flex: 1;
+  }
+  
+  .header-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2em;
+    margin: 0;
+  }
+  
+  nav {
+    background: linear-gradient(to right, #002f6c, #0d47a1, #1565c0);
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    display: inline-block;
+    position: relative;
+  }
+  
+  nav a:hover {
+    background-color: rgba(255,255,255,0.15);
+  }
+  
+  /* Dropdown */
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: linear-gradient(to bottom, #0d47a1, #1565c0);
+    min-width: 200px;
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    display: block;
+    padding: 12px 20px;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .banner {
+    background: url('/imagen/asun.jpg') no-repeat center;
+    background-size: cover;
+    background-position: 55% 45%;
+    height: 250px;
+    position: relative;
+  }
+
+  .banner::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .banner h2 {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2em;
+    text-align: center;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+  }
+
+  .social-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .social-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    color: #5a2a27;
+  }
+
+  .social-logo.facebook {
+    height: 40px;
+    vertical-align: middle;
+  }
+
+  .social-logo.instagram {
+    height: 60px;
+    vertical-align: middle;
+  }
+
+  .video-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .video-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 360px;
+    padding: 15px;
+    background: url('imagen/madera.jpg') no-repeat center center;
+    background-size: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .video-wrapper video {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  .social-link {
+    font-size: 1.2em;
+    color: white;
+    text-decoration: none;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .social-link:hover {
+    color: #ccc;
+  }
+
+  .logo {
+    display: block;
+    margin: 30px auto;
+    width: 100px;
+    height: auto;
+  }
+
+  footer {
+    background-color: #04396a;
+    color: white;
+    text-align: center;
+    padding: 30px 10px;
+    margin-top: 40px;
+  }
+
+  footer {
+    background: linear-gradient(to right, #002f6c, #0d47a1, #1976d2);
+    color: white;
+    text-align: center;
+    padding: 30px 10px;
+  }
+
+  @media (max-width: 768px) {
+    .dropdown-content {
+      position: static;
+    }
+  }

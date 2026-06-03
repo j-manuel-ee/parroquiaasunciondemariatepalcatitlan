@@ -1,0 +1,128 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: url('/imagen/cielo.jpg') no-repeat center center fixed;
+    background-size: cover; /* La imagen cubre toda la pantalla */
+    color: #333;
+}
+
+header {
+    background: linear-gradient(to right, #0d47a1, #1976d2, #64b5f6);
+    color: white;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  header img {
+    height: 100px;
+  }
+  
+  .header-text {
+    text-align: center;
+    flex: 1;
+  }
+  
+  .header-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2em;
+    margin: 0;
+  }
+  
+  nav {
+    background: linear-gradient(to right, #002f6c, #0d47a1, #1565c0);
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  
+  nav a {
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    display: inline-block;
+    position: relative;
+  }
+  
+  nav a:hover {
+    background-color: rgba(255,255,255,0.15);
+  }
+  
+  /* Dropdown */
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: linear-gradient(to bottom, #0d47a1, #1565c0);
+    min-width: 200px;
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    display: block;
+    padding: 12px 20px;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+.construction-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Ocupa el 80% de la pantalla para dejar espacio para el logo */
+    backdrop-filter: blur(5px); /* Difumina el fondo detrás del contenido */
+}
+
+.construction-container h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.construction-container img {
+    max-width: 800px; /* Ajusta el tamaño máximo de la imagen */
+    width: 100%; /* Se adapta a pantallas pequeñas */
+    margin-top: 10px;
+}
+
+/* Estilos para el logo en la parte inferior */
+.logo-container {
+    position: relative;
+    text-align: center;
+    padding: 20px;
+}
+
+.logo-container img {
+    max-width: 150px; /* Tamaño del logo */
+    width: 100%;
+}
+
+footer {
+    background: linear-gradient(to right, #002f6c, #0d47a1, #1976d2);
+    color: white;
+    text-align: center;
+    padding: 30px 10px;
+  }
+
+  @media (max-width: 768px) {
+    .dropdown-content {
+      position: static;
+    }
+}
