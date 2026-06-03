@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Foro de Opiniones | Parroquia Asunción de María</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style/foro.css">
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+  </div>
+  <div class="header-text">
+    <h1>Parroquia Asunción de María</h1>
+    <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
+  </div>
+</header>
+
+<nav>
+  <a href="index.html">Inicio</a>
+  <a href="oficina.html">Oficina</a>
+  <div class="dropdown">
+    <a>Historia ▾</a>
+    <div class="dropdown-content">
+      <a href="historia.html">Parroquia</a>
+      <a href="histAsun.html">Asunción de María</a>
+    </div>
+  </div>
+  <div class="dropdown">
+      <a>Eventos ▾</a>
+      <div class="dropdown-content">
+        <a href="eventos.html">Calendario Mensual</a>
+        <a href="eventosEspeciales.html">Eventos Especiales</a>
+      </div>
+    </div>
+    <a href="grupos.html">Grupos Parroquiales</a>
+    <a href="mision.html">Misión</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="vaticanNews.html">Vatican News</a>
+    <a href="foro.html">Foro de Opiniones</a>
+    <a href="transmisiones.html">En Vivo</a>
+    <div class="dropdown">
+      <a>Acceso ▾</a>
+      <div class="dropdown-content">
+        <a href="adminLogin.html">Administrador</a>
+        <a href="coordinadorLogin.html">Coordinador</a>
+    </div>
+  </div>
+</nav>
+
+<div class="banner">
+  <h2>Foro de Opiniones</h2>
+</div>
+
+<div class="container">
+  <h3>Comparte tu opinión</h3>
+  <form id="formOpinion">
+    <label>Nombre:</label>
+    <input type="text" name="nombre" required>
+
+    <label>Rango de edad:</label>
+    <select name="edad" required>
+      <option value="">Selecciona...</option>
+      <option value="Menos de 18">Menos de 18</option>
+      <option value="18-29">18-29</option>
+      <option value="30-45">30-45</option>
+      <option value="46-60">46-60</option>
+      <option value="Más de 60">Más de 60</option>
+    </select>
+
+    <label>Asiste continuamente a la parroquia:</label>
+    <select name="asistencia" required>
+      <option value="">Selecciona...</option>
+      <option value="Sí">Sí</option>
+      <option value="No">No</option>
+    </select>
+
+    <label>Calificación:</label>
+    <select name="calificacion" required>
+      <option value="">Selecciona...</option>
+      <option value="1">★</option>
+      <option value="2">★★</option>
+      <option value="3">★★★</option>
+      <option value="4">★★★★</option>
+      <option value="5">★★★★★</option>
+    </select>
+
+    <label>Comentario:</label>
+    <textarea name="comentario" rows="4" required></textarea>
+
+    <button type="submit">Enviar Opinión</button>
+  </form>
+
+  <!-- Filtro por estrellas -->
+  <div class="filtro">
+    <label for="filtroEstrellas"><strong>Filtrar por estrellas:</strong></label>
+    <select id="filtroEstrellas">
+      <option value="todas">Todas</option>
+      <option value="5">★★★★★ (5 estrellas)</option>
+      <option value="4">★★★★ (4 estrellas)</option>
+      <option value="3">★★★ (3 estrellas)</option>
+      <option value="2">★★ (2 estrellas)</option>
+      <option value="1">★ (1 estrella)</option>
+    </select>
+  </div>
+
+  <div class="opiniones" id="opiniones">
+    <h3>Opiniones de la Comunidad</h3>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 Parroquia Asunción de María | Foro de Opiniones</p>
+</footer>
+
+<script>
+const formOpinion = document.getElementById('formOpinion');
+const contOpiniones = document.getElementById('opiniones');
+const filtroEstrellas = document.getElementById('filtroEstrellas');
+let opinionesGlobal = []; // guardamos todas las opiniones para filtrar
+
+function renderOpiniones(filtro = "todas") {
+    contOpiniones.innerHTML = '<h3>Opiniones de la Comunidad</h3>';
+
+    let filtradas = opinionesGlobal;
+    if (filtro !== "todas") {
+        filtradas = opinionesGlobal.filter(op => op.calificacion == filtro);
+    }
+
+    filtradas.forEach(op => {
+        let div = document.createElement('div');
+        div.classList.add('opinion');
+        div.innerHTML = `
+            <div class="nombre">${op.nombre} (${op.edad}, Asiste: ${op.asistencia})</div>
+            <div class="estrellas">${'★'.repeat(op.calificacion)}</div>
+            <div class="detalle">${op.comentario}</div>
+        `;
+        contOpiniones.appendChild(div);
+    });
+}
+
+function cargarOpiniones() {
+    fetch('obtener_opiniones.php')
+    .then(res => res.json())
+    .then(data => {
+        data.sort((a,b) => b.calificacion - a.calificacion);
+        opinionesGlobal = data;
+        renderOpiniones(filtroEstrellas.value);
+    });
+}
+
+formOpinion.addEventListener('submit', e => {
+    e.preventDefault();
+    const datos = new FormData(formOpinion);
+
+    fetch('guardar_opinion.php', {
+        method: 'POST',
+        body: datos
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
+        formOpinion.reset();
+        cargarOpiniones();
+    });
+});
+
+filtroEstrellas.addEventListener('change', () => {
+    renderOpiniones(filtroEstrellas.value);
+});
+
+cargarOpiniones();
+</script>
+
+</body>
+</html>
