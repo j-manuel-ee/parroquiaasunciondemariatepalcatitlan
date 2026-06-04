@@ -9,130 +9,85 @@
       background: url('imagen/cielo.jpg') no-repeat center center fixed;
       background-size: cover;
       color: black;
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
     }
-
     .login-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      display: flex; justify-content: center; align-items: center; height: 100vh;
       background-color: rgba(0, 0, 0, 0.6);
     }
-
     .login-box {
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 30px;
-      border-radius: 8px;
-      text-align: center;
-      width: 300px;
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 30px; border-radius: 8px; text-align: center; width: 320px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
-
-    .login-box h2 {
-      margin-bottom: 20px;
-      font-size: 1.5em;
-      color: #333;
-    }
-
-    .login-box label {
-      display: block;
-      text-align: left;
-      margin-bottom: 5px;
-      font-weight: bold;
-      color: #555;
-    }
-
-    .login-box input[type="text"],
-    .login-box input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    .login-box button {
-      width: 100%;
-      padding: 10px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .login-box button:hover {
-      background-color: #0056b3;
-    }
-
-    .error-message {
-      color: red;
-      margin: 10px 0;
-      font-size: 0.9em;
-      display: none;
-    }
+    .login-box h2 { margin-bottom: 20px; color: #333; }
+    .login-box label { display: block; text-align: left; font-weight: bold; color: #555; margin-top: 10px;}
+    .login-box input { width: 100%; padding: 10px; margin: 8px 0; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; }
+    .login-box button { width: 100%; padding: 11px; background-color: #004080; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 15px;}
+    .login-box button:hover { background-color: #00264d; }
+    .login-box button:disabled { background-color: #cccccc; cursor: not-allowed; }
+    .error-message { color: #d9534f; margin-top: 10px; font-size: 0.9em; display: none; font-weight: bold; }
   </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <script src="js/conexion.js"></script>
+  
   <script>
-    const cuentas = {
-        "1017123": "Adoracion01",
-        "1017234": "Catequesis20",
-        "1017345": "CofraDelCarmen33",
-        "1017456": "CAMJENS30",
-        "1017567": "EscuCha51",
-        "1017678": "CoroSOS62",
-        "1017789": "EnMatrimonial79",  
-        "1017890": "EscPastoral88",
-        "1017901": "EvaEscenicos92",
-        "1017012" : "FBAM100", 
-        "1017023" : "Scouts111",
-        "1017034" : "HmnCristo121", 
-        "1017045" : "MJVCKuhtli135",  
-        "1017056" : "Liturgia2024",  
-        "1017067" : "Meses743",  
-        "1017078" : "Monaguillos532",  
-        "1017089" : "MnO456vW",  
-        "1017090" : "Platicas947",  
-        "1017111" : "PasInfantil0487", 
-        "1017222" : "PasScocial738", 
-        "1017333" : "LmN753dE",
-        "1017444" : "QrS852fG"
-    };
+    async function validarLogin(event) {
+  event.preventDefault();
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const errorMessage = document.getElementById('error-message');
+  const btnSubmit = document.getElementById('btnSubmit');
 
-    function validarLogin(event) {
-      event.preventDefault();
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const errorMessage = document.getElementById('error-message');
+  errorMessage.style.display = "none";
+  btnSubmit.textContent = "Verificando en Supabase...";
+  btnSubmit.disabled = true;
 
-      if (username === "" || password === "") {
-        errorMessage.textContent = "Todos los campos son obligatorios.";
-        errorMessage.style.display = "block";
-        return;
-      }
+  try {
+    // IMPORTANTE: Ahora solicitamos 'cuenta' y 'nombre_grupo'
+    const { data, error } = await supabaseClient
+      .from('coordinadores')
+      .select('cuenta, nombre_grupo')
+      .eq('cuenta', username)
+      .eq('contrasena', password)
+      .single();
 
-      if (cuentas[username] && cuentas[username] === password) {
-        alert("Inicio de sesión exitoso");
-        window.location.href = "cordiDashboard.html";
-      } else {
-        errorMessage.textContent = "Número de cuenta o contraseña incorrectos.";
-        errorMessage.style.display = "block";
-      }
+    if (error || !data) {
+      throw new Error("Credenciales incorrectas");
     }
+
+    // Guardamos ambos datos de manera temporal y segura en la sesión
+    sessionStorage.setItem("cuenta_activa", data.cuenta);
+    sessionStorage.setItem("grupo_activo", data.nombre_grupo);
+    
+    alert("Inicio de sesión exitoso");
+    window.location.replace("cordiDashboard.html");
+
+  } catch (err) {
+    errorMessage.textContent = "Número de cuenta o contraseña incorrectos.";
+    errorMessage.style.display = "block";
+    btnSubmit.textContent = "Iniciar Sesión";
+    btnSubmit.disabled = false;
+  }
+}
   </script>
 </head>
 <body>
 <div class="login-container">
   <div class="login-box">
-    <h2>Iniciar Sesión como Coordinador</h2>
+    <h2 style="margin:0; font-size: 20px; color:#004080;">Sistema de Coordinadores</h2>
+    <p style="font-size:12px; color:#666; margin: 5px 0 20px 0;">Autenticación Parroquial vía Supabase</p>
+    
     <form onsubmit="validarLogin(event)">
       <label for="username">Número de Cuenta:</label>
-      <input type="text" id="username" name="username" required>
+      <input type="text" id="username" required autocomplete="off">
 
       <label for="password">Contraseña:</label>
-      <input type="password" id="password" name="password" required>
+      <input type="password" id="password" required>
 
-      <button type="submit">Iniciar Sesión</button>
+      <button type="submit" id="btnSubmit">Iniciar Sesión</button>
     </form>
     <div id="error-message" class="error-message"></div>
   </div>
