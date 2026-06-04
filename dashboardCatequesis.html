@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Catequesis</title>
+    <link rel="stylesheet" href="style/dashCate.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght=300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos rápidos para el sistema de pestañas y formulario */
+        .tabs-navegacion { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #ddd; padding-bottom: 10px; }
+        .tab-btn { padding: 10px 20px; border: none; background: #e2e8f0; cursor: pointer; font-weight: bold; border-radius: 4px; font-family: 'Open Sans', sans-serif; }
+        .tab-btn.active { background: #3182ce; color: white; }
+        .seccion-panel { display: none; }
+        .seccion-panel.active { display: block; }
+        .form-recurso { background: #f7fafc; padding: 20px; border-radius: 6px; border: 1px solid #edf2f7; margin-bottom: 25px; }
+        .grid-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px; }
+        .group-form { display: flex; flex-direction: column; }
+        .group-form label { font-weight: 600; margin-bottom: 5px; font-size: 14px; color: #2d3748; }
+        .group-form input, .group-form select, .group-form textarea { padding: 8px; border: 1px solid #cbd5e0; border-radius: 4px; font-family: inherit; }
+    </style>
+</head>
+<body>
+
+    <header class="dashboard-header">
+        <div class="header" style="display: flex; justify-content: space-between; align-items: center; background-color: #2b6cb0; padding: 10px 20px; color: white;">
+    <div class="logo-container">
+        <h2 style="margin: 0; font-family: 'Open Sans', sans-serif;">⛪ Panel de Catequesis</h2>
+    </div>
+    <div class="logout" style="display: flex; gap: 10px; align-items: center;">
+        <a href="cordiDashboard.html" style="background-color: #4a5568; color: white; padding: 8px 16px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 14px; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#2d3748'" onmouseout="this.style.backgroundColor='#4a5568'">
+            ⬅ Regresar al Panel
+        </a>
+    </div>
+</div>
+    </header>
+
+    <main class="dashboard-container">
+
+        <div class="tabs-navegacion">
+            <button class="tab-btn active" onclick="cambiarPestaña('alumnos')">👥 Control de Alumnos</button>
+            <button class="tab-btn" onclick="cambiarPestaña('recursos')">📚 Gestor de Materiales y Recursos</button>
+        </div>
+
+        <div id="panel-alumnos" class="seccion-panel active">
+            <section class="stats-grid">
+                <div class="stat-card"><div class="stat-title">Total Inscritos</div><div class="stat-number" id="totalInscritos">0</div></div>
+                <div class="stat-card"><div class="stat-title">Pendientes</div><div class="stat-number" id="totalPendientes">0</div></div>
+                <div class="stat-card"><div class="stat-title">Aceptados</div><div class="stat-number" id="totalAceptados">0</div></div>
+                <div class="stat-card"><div class="stat-title">No Bautizados</div><div class="stat-number" id="totalNoBautizados">0</div></div>
+            </section>
+
+            <section class="filters" style="background-color: #f7fafc; border-left: 4px solid #3182ce; padding: 15px; margin-bottom: 20px; border-radius: 4px; display: flex; flex-wrap: wrap; gap: 15px; align-items: center;">
+                <div style="font-weight: 600; color: #2b6cb0; width: 100%;">📋 Generador Automático de Listas de Asistencia</div>
+                <select id="cursoLista" style="padding: 8px; flex: 1; min-width: 150px;">
+                    <option value="">-- Selecciona Curso --</option>
+                    <option value="iniciacion">Iniciación</option>
+                    <option value="comunion">Primera Comunión</option>
+                    <option value="confirmacion">Confirmación</option>
+                    <option value="adultos">Adultos</option>
+                </select>
+                
+                <select id="criterioDivision" style="padding: 8px; flex: 1; min-width: 180px;">
+                    <option value="equitativo_1">1 Grupo Único</option>
+                    <option value="edades">Dividir por Edades (6-10 y 11-16 años)</option>
+                    <option value="equitativo_2">Dividir en 2 Grupos (Equitativo Alfabético)</option>
+                    <option value="equitativo_3">Dividir en 3 Grupos (Equitativo Alfabético)</option>
+                    <option value="equitativo_4">Dividir en 4 Grupos (Equitativo Alfabético)</option>
+                </select>
+                
+                <button class="btn btn-view" id="btnGenerarPDF" style="background-color: #3182ce; color: white; padding: 8px 16px;">📄 Generar PDF</button>
+            </section>
+
+            <section class="filters">
+                <input type="text" id="buscarAlumno" placeholder="Buscar por nombre, tutor o teléfono...">
+                <select id="filtroNivel">
+                    <option value="">Todos los niveles</option>
+                    <option value="iniciacion">Iniciación</option>
+                    <option value="comunion">Primera Comunión</option>
+                    <option value="confirmacion">Confirmación</option>
+                    <option value="adultos">Adultos</option>
+                </select>
+                <select id="filtroEstatus">
+                    <option value="">Todos los estatus</option>
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Aceptado">Aceptado</option>
+                    <option value="Rechazado">Rechazado</option>
+                    <option value="Documentación incompleta">Documentación incompleta</option>
+                    <option value="Baja">Dado de baja</option>
+                </select>
+            </section>
+
+            <section class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Alumno</th>
+                            <th>Nivel</th>
+                            <th>Tutor</th>
+                            <th>Teléfono</th>
+                            <th>Estatus</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaCatequesis">
+                        </tbody>
+                </table>
+            </section>
+        </div>
+
+        <div id="panel-recursos" class="seccion-panel">
+            <h2>Subir Nuevo Recurso Administrativo o de Apoyo</h2>
+            <form class="form-recurso" id="formSubirRecurso">
+                <div class="grid-form">
+                    <div class="group-form">
+                        <label for="recCategoria">Apartado / Sección *</label>
+                        <select id="recCategoria" required>
+                            <option value="">-- Selecciona --</option>
+                            <option value="administrativos">Documentos Administrativos</option>
+                            <option value="guias">Guías de Estudio</option>
+                            <option value="padres">Recursos para Padres</option>
+                            <option value="multimedia">Recursos Multimedia</option>
+                        </select>
+                    </div>
+                    <div class="group-form">
+                        <label for="recTitulo">Nombre del Recurso *</label>
+                        <input type="text" id="recTitulo" placeholder="Ej. Guía Primera Comunión" required>
+                    </div>
+                    <div class="group-form">
+                        <label for="recArchivo">Archivo PDF *</label>
+                        <input type="file" id="recArchivo" accept="application/pdf" required>
+                    </div>
+                </div>
+                <div class="group-form" style="margin-bottom: 15px;">
+                    <label for="recDescripcion">Breve Descripción *</label>
+                    <textarea id="recDescripcion" rows="2" placeholder="Describe brevemente el contenido de este archivo..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-edit" style="background-color: #2b6cb0; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; font-weight: bold;">🚀 Publicar Material en la Web</button>
+            </form>
+
+            <h2>Materiales Publicados Actualmente</h2>
+            <section class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sección</th>
+                            <th>Nombre del Material</th>
+                            <th>Descripción</th>
+                            <th>Fecha Subida</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaRecursos">
+                        </tbody>
+                </table>
+            </section>
+        </div>
+
+    </main>
+
+    <div class="modal" id="modalAlumno">
+        <div class="modal-content">
+            <span class="close" id="cerrarModal">&times;</span>
+            <h2>Información del Alumno</h2>
+            <div class="detail-grid">
+                <div class="detail-item"><strong>Nombre</strong> <span id="detalleNombre"></span></div>
+                <div class="detail-item"><strong>Fecha de nacimiento</strong> <span id="detalleNacimiento"></span></div>
+                <div class="detail-item"><strong>Nivel</strong> <span id="detalleNivel"></span></div>
+                <div class="detail-item"><strong>Bautizado</strong> <span id="detalleBautizado"></span></div>
+                <div class="detail-item"><strong>Tutor</strong> <span id="detalleTutor"></span></div>
+                <div class="detail-item"><strong>Teléfono</strong> <span id="detalleTelefono"></span></div>
+                <div class="detail-item"><strong>Correo</strong> <span id="detalleCorreo"></span></div>
+                <div class="detail-item"><strong>Estatus</strong> <span id="detalleEstatus"></span></div>
+                <div class="detail-item"><strong>Dirección</strong> <span id="detalleDireccion"></span></div>
+                <div class="detail-item"><strong>Fecha de Registro</strong> <span id="detalleRegistro"></span></div>
+            </div>
+            
+            <br>
+            <div style="margin-bottom: 12px;">
+                <label style="font-weight: bold; display: block; margin-bottom: 5px;">Observaciones del catequista</label>
+                <textarea id="observacionesCatequista" rows="3" style="width:100%; box-sizing:border-box; padding:6px;"></textarea>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <label style="font-weight: bold; display: block; margin-bottom: 5px;">Cambiar Estatus</label>
+                <select id="nuevoEstatus" style="width: 100%; padding: 6px;">
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Aceptado">Aceptado</option>
+                    <option value="Rechazado">Rechazado</option>
+                    <option value="Documentación incompleta">Documentación incompleta</option>
+                </select>
+            </div>
+
+            <button class="btn btn-edit" id="guardarEstatus">Actualizar Estatus</button>
+            <button class="btn btn-delete" id="darDeBaja">Dar de Baja</button>
+            <button class="btn btn-success" id="reactivarAlumno" style="display:none;">Reactivar Alumno</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+    <script src="js/conexion.js"></script>
+    <script src="js/dashboardCatequesis.js"></script>
+</body>
+</html>
