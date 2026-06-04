@@ -6,162 +6,132 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       background-image: url('imagen/cielo.jpg');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
+      display: none; /* Se oculta la página completa hasta que Supabase dé luz verde */
     }
 
     .header {
-      background-color: rgba(31, 120, 180, 0.9);
+      background-color: rgba(0, 64, 128, 0.9);
       color: #ffffff;
       padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
-    .header .logo-container {
-      display: flex;
-      align-items: center;
-    }
+    .header .logo-container { display: flex; align-items: center; }
+    .header .logo-container img { height: 40px; margin-right: 10px; }
+    .header .logo-container .logo-text { font-size: 1.5em; font-weight: bold; }
+    .header .logout a { color: #ffffff; text-decoration: none; font-size: 1em; padding: 10px 20px; background-color: #d9534f; border-radius: 5px; font-weight: bold; }
+    .header .logout a:hover { background-color: #c9302c; }
 
-    .header .logo-container img {
-      height: 40px;
-      margin-right: 10px;
-    }
-
-    .header .logo-container .logo-text {
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-
-    .header .logout a {
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 1em;
-      padding: 10px 20px;
-      background-color: #d9534f;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-
-    .header .logout a:hover {
-      background-color: #c9302c;
-    }
-
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      padding: 20px;
-      max-width: 1200px;
-      margin: 80px auto 20px;
-    }
-
+    .grid-container { display: flex; flex-wrap: wrap; gap: 20px; padding: 30px; justify-content: center; }
     .grid-item {
-      background-color: rgba(255, 255, 255, 0.8);
-      text-align: center;
-      padding: 40px 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      text-decoration: none;
-      color: #333;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.92);
+      padding: 25px; border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      text-align: center; cursor: pointer; width: 240px;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+    .grid-item:hover { transform: translateY(-4px); box-shadow: 0 6px 15px rgba(0,0,0,0.25); }
+    .grid-item h3 { color: #004080; margin: 0 0 8px 0; font-size: 1.3em; }
+    .grid-item p { font-size: 13px; color: #666; margin: 0; line-height: 1.4; }
 
-    .grid-item h3 {
-      margin: 0;
-      font-size: 1.2em;
-    }
-
-    .grid-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-    }
-
-    .content {
-      max-width: 1200px;
-      margin: 20px auto;
-      padding: 20px;
-      background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      min-height: 200px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    th, td {
-      padding: 10px;
-      text-align: left;
-      border-bottom: 1px solid #ccc;
-    }
-
-    th {
-      background-color: #004080;
-      color: white;
-    }
-
-    .btn-delete {
-      background-color: red;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    .btn-delete:hover {
-      background-color: darkred;
-    }
+    /* Módulo condicional de Catequesis (Oculto por defecto por seguridad) */
+    #moduloCatequesis { background-color: #ebf8ff; border: 2px solid #3182ce; display: none; }
   </style>
-  <script>
 
-    function cerrarSesion() {
-      localStorage.removeItem("rol"); 
-      window.location.href = "index.html"; 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="js/conexion.js"></script>
+
+  <script>
+  // Establecemos el rol de usuario para sub-páginas de consulta (limpieza, juntas)
+  sessionStorage.setItem("rol_usuario", "coordinador");
+
+  async function verificarAccesoSeguro() {
+    const cuenta = sessionStorage.getItem("cuenta_activa");
+    const grupo = sessionStorage.getItem("grupo_activo");
+
+    // Si no hay rastro de inicio de sesión local, expulsar directo al login
+    if (!cuenta || !grupo) {
+        window.location.replace("coordinadorLogin.html");
+        return;
     }
-  </script>
+
+    try {
+        // Re-verificamos la legitimidad de la cuenta directo con Supabase en tiempo real
+        const { data, error } = await supabaseClient
+            .from('coordinadores')
+            .select('cuenta, nombre_grupo')
+            .eq('cuenta', cuenta)
+            .single();
+
+        if (error || !data) {
+            throw new Error("Usuario inválido detectado");
+        }
+
+        // Si el usuario existe, hacemos visible la interfaz
+        document.body.style.display = "block";
+        
+        // ¡AQUÍ ESTÁ EL CAMBIO SOLICITADO! Mostramos el nombre descriptivo del grupo
+        document.getElementById("txtBienvenida").textContent = `Panel del Coordinador: ${data.nombre_grupo}`;
+
+        // REGLA DE ORO: Mostramos el recuadro exclusivo SÓLO si la respuesta de Supabase pertenece a Catequesis
+        if (data.cuenta === "1017234") {
+            document.getElementById("moduloCatequesis").style.display = "block";
+        }
+
+    } catch (err) {
+        cerrarSesion();
+    }
+  }
+
+  function cerrarSesion() {
+    sessionStorage.clear();
+    window.location.replace("coordinadorLogin.html");
+  }
+
+  document.addEventListener("DOMContentLoaded", verificarAccesoSeguro);
+</script>
 </head>
 <body>
 
 <div class="header">
   <div class="logo-container">
     <img src="imagen/logo_asun.png" alt="Logo Parroquia">
-    <div class="logo-text">Panel de Coordinador</div>
+    <div class="logo-text" id="txtBienvenida">Validando credenciales...</div>
   </div>
   <div class="logout">
     <a href="#" onclick="cerrarSesion()">Cerrar Sesión</a>
   </div>
 </div>
 
-<!-- Contenedor de recuadros -->
 <div class="grid-container">
+  
   <div class="grid-item" onclick="window.location.href='centroParroquial.html'">
-    <h3>Horarios del Centro Parroquial</h3>
+    <h3>🏢 Centro Parroquial</h3>
+    <p>Modificar, coordinar y asignar los horarios vigentes de los salones.</p>
   </div>
 
   <div class="grid-item" onclick="window.location.href='juntasParroquiales.html'">
-    <h3>Juntas Parroquiales</h3>
+    <h3>📌 Ver Juntas Parroquiales</h3>
+    <p>Consultar las fechas de las asambleas y reuniones de grupos (Solo Lectura).</p>
   </div>
 
   <div class="grid-item" onclick="window.location.href='limpiezaParroquial.html'">
-    <h3>Horarios de Limpieza Parroquial</h3>
+    <h3>👀 Ver Limpieza Parroquial</h3>
+    <p>Consultar el calendario de aseo asignado a cada grupo (Solo Lectura).</p>
   </div>
-</div>
 
-<!-- Contenido dinámico -->
-<div id="content" class="content">
-  <p>Selecciona una opción del menú para gestionar el contenido.</p>
+  <div class="grid-item" id="moduloCatequesis" onclick="window.location.href='dashboardCatequesis.html'">
+    <h3 style="color: #2b6cb0;">⛪ Módulo de Catequesis</h3>
+    <p style="color: #2c5282; font-weight: 600;">Inscripciones de niños y descarga de listas por rango de edad ➔</p>
+  </div>
+
 </div>
 
 </body>
