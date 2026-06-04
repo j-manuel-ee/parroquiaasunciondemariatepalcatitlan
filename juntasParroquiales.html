@@ -15,7 +15,7 @@
         }
 
         .top-bar {
-            background-color: rgba(0, 64, 128, 0.9);
+            background-color: rgba(31, 120, 180, 0.9);
             color: white;
             display: flex;
             align-items: center;
@@ -40,79 +40,223 @@
             color: white;
             text-decoration: none;
             font-size: 18px;
+            background-color: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: bold;
         }
 
         .top-bar a:hover {
-            text-decoration: underline;
+            background-color: rgba(255,255,255,0.35);
         }
 
         .container {
-            max-width: 1000px;
-            margin: 100px auto 40px;
-            background: rgba(255,255,255,0.9);
+            max-width: 900px;
+            margin: 40px auto;
+            background: rgba(255,255,255,0.95);
             padding: 30px;
             border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         h1 {
             text-align: center;
-            margin-bottom: 30px;
+            color: #1f78b4;
+            margin-bottom: 5px;
         }
 
-        .junta {
+        .sub-header {
+            text-align: center;
+            color: #555;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .tarjeta-junta {
             border-left: 5px solid #1f78b4;
             padding: 15px;
             margin-bottom: 20px;
             background: #ffffff;
             border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
-        .junta h3 {
+        .tarjeta-junta h3 {
             margin-top: 0;
+            color: #1f78b4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        ul {
-            padding-left: 20px;
+        .badge-fecha {
+            font-size: 14px;
+            background-color: #e2e8f0;
+            color: #4a5568;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        p {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Panel Exclusivo para el Admin (Formulario de creación) */
+        .admin-panel-only {
+            background-color: #f7fafc;
+            border: 1px dashed #4299e1;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            display: none; /* Se activa con JS solo para admin */
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2d3748;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+        }
+        
+        .btn-action {
+            background-color: #3182ce;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-edit {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 13px;
+            display: none; /* Se activa con JS */
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Barra superior -->
-    <div class="top-bar">
+    <!-- Barra superior Dinámica -->
+    <div class="top-bar" id="barraSuperior">
         <div class="title">
             <img src="imagen/logo_asun.png" alt="Logo Parroquia">
-            Juntas Parroquiales
+            Calendario de Juntas Parroquiales
         </div>
-        <a href="cordiDashboard.html">Regresar al Panel</a>
+        <a id="btnRegresar" href="adminDashboard.html">Regresar al Panel</a>
     </div>
 
-    <!-- Contenedor principal -->
     <div class="container">
 
-        <h1>Juntas Parroquiales 2026</h1>
+        <h1>Agenda de Asambleas Parroquiales</h1>
+        <div class="sub-header" id="txtModo">Modo Consulta</div>
 
-        <!-- JUNTA -->
-        <div class="junta">
-            <h3>Enero 2026 – Planeación Pastoral</h3>
-            <ul>
-                <li>-</li>
-            </ul>
-            <p><strong>Observaciones:</strong> -</p>
+        <!-- FORMULARIO DE EDICIÓN (SOLO VISIBLE PARA ADMIN) -->
+        <div id="panelAdministrador" class="admin-panel-only">
+            <h3 style="margin: 0 0 15px 0; color: #2b6cb0;">🗓️ Agendar Nueva Junta</h3>
+            <div class="form-group">
+                <label>Grupo / Asunto:</label>
+                <input type="text" placeholder="Ej. Consejo de Pastoral Parroquial">
+            </div>
+            <div class="form-group">
+                <label>Fecha y Hora:</label>
+                <input type="text" placeholder="Ej. Martes 16 de Junio - 7:00 PM">
+            </div>
+            <div class="form-group">
+                <label>Puntos a tratar / Notas:</label>
+                <textarea rows="2" placeholder="Ej. Organización de las fiestas patronales y revisión de presupuestos..."></textarea>
+            </div>
+            <button class="btn-action">Publicar Convocatoria</button>
         </div>
 
-        <div class="junta">
-            <h3>Febrero 2026 – Planeación Pastoral</h3>
-            <ul>
-                <li>-</li>
-            </ul>
-            <p><strong>Observaciones:</strong> -</p>
+        <!-- LISTA DE JUNTAS VIGENTES -->
+        <div class="tarjeta-junta">
+            <h3>
+                <span>📌 Reunión General de Catequistas</span>
+                <span class="badge-fecha">Sábado 13 de Junio - 4:00 PM</span>
+            </h3>
+            <p><strong>Lugar:</strong> Salón San José.<br>
+            <strong>Objetivo:</strong> Entrega y revisión de las listas finales de alumnos inscritos ordenados por rangos de edad. Traer reporte de materiales faltantes.</p>
+            <button class="btn-edit btn-admin-action">Modificar Junta</button>
         </div>
 
-        <!-- Aquí irán más juntas -->
+        <div class="tarjeta-junta">
+            <h3>
+                <span>📌 Consejo Económico Parroquial</span>
+                <span class="badge-fecha">Miércoles 17 de Junio - 8:00 PM</span>
+            </h3>
+            <p><strong>Lugar:</strong> Oficina Principal.<br>
+            <strong>Objetivo:</strong> Evaluación del presupuesto asignado a reparaciones del templo y revisión de los cortes de caja de las actividades de recaudación.</p>
+            <button class="btn-edit btn-admin-action">Modificar Junta</button>
+        </div>
+
+        <div class="tarjeta-junta">
+            <h3>
+                <span>📌 Asamblea de Coros y Ministerios de Canto</span>
+                <span class="badge-fecha">Jueves 25 de Junio - 7:30 PM</span>
+            </h3>
+            <p><strong>Lugar:</strong> Interior del Templo.<br>
+            <strong>Objetivo:</strong> Coordinación de horarios y ensayos solemnes de los cantos para las próximas festividades de la comunidad.</p>
+            <button class="btn-edit btn-admin-action">Modificar Junta</button>
+        </div>
 
     </div>
+
+    <!-- CONTROL DE ACCESOS Y PERMISOS DINÁMICOS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const rol = localStorage.getItem("rol_usuario") || "coordinador";
+            const btnRegresar = document.getElementById("btnRegresar");
+            const panelAdmin = document.getElementById("panelAdministrador");
+            const txtModo = document.getElementById("txtModo");
+            const barraSuperior = document.getElementById("barraSuperior");
+            const botonesEdicion = document.querySelectorAll(".btn-admin-action");
+
+            if (rol === "admin") {
+                // Configuración para el Administrador
+                btnRegresar.href = "adminDashboard.html";
+                btnRegresar.textContent = "⬅ Volver Panel Admin";
+                panelAdmin.style.display = "block";
+                txtModo.textContent = "Modo: Administrador (Edición Habilitada)";
+                txtModo.style.color = "#1f78b4";
+                
+                // Mostrar botones para alterar los datos existentes
+                botonesEdicion.forEach(btn => btn.style.display = "inline-block");
+            } else {
+                // Configuración de Solo Lectura para el Coordinador
+                btnRegresar.href = "cordiDashboard.html";
+                btnRegresar.textContent = "⬅ Volver Panel Coordinador";
+                panelAdmin.style.display = "none";
+                txtModo.textContent = "Modo: Coordinación (Solo Lectura)";
+                txtModo.style.color = "#4a5568";
+                
+                // Cambiar el color de la barra para que combine con su entorno azul marino
+                barraSuperior.style.backgroundColor = "rgba(0, 64, 128, 0.9)";
+                
+                // Esconder por completo los botones de modificación
+                botonesEdicion.forEach(btn => btn.style.display = "none");
+            }
+        });
+    </script>
 
 </body>
 </html>
