@@ -12,6 +12,8 @@
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
+      /* Oculto por defecto para evitar que se parpadee información antes de validar el candado */
+      display: none; 
     }
 
     .header {
@@ -95,10 +97,48 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
+    /* CONTENEDORES DE GRÁFICAS ADAPTADOS */
+    .charts-wrapper {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 30px;
+      padding: 15px;
+      background: #f7fafc;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .chart-box {
+      width: 45%;
+      min-width: 280px;
+      max-width: 380px;
+    }
+
+    .chart-box h4 {
+      text-align: center;
+      margin: 0 0 10px 0;
+      color: #2d3748;
+    }
+
+    .filter-wrapper {
+      margin: 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .filter-wrapper select {
+      padding: 6px 12px;
+      border-radius: 4px;
+      border: 1px solid #cbd5e0;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
+      margin-top: 10px;
     }
 
     th, td {
@@ -124,54 +164,14 @@
     .btn-delete:hover {
       background-color: #c9302c;
     }
+    
+    .loading-text {
+      text-align: center;
+      color: #718096;
+      font-style: italic;
+      padding: 15px;
+    }
   </style>
-  <script>
-    // Al cargar el panel del admin, aseguramos guardar que su rol es "admin"
-    document.addEventListener("DOMContentLoaded", () => {
-        localStorage.setItem("rol_usuario", "admin");
-    });
-
-    function cargarSeccion(seccion) {
-      const contentDiv = document.getElementById("content");
-      if (seccion === 'comentarios') {
-        contentDiv.innerHTML = `
-          <h2>💬 Gestión de Comentarios</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Usuario</th>
-                <th>Comentario</th>
-                <th>Puntuación</th>
-                <th>Fecha</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-            <tbody id="tabla-comentarios">
-              <tr>
-                <td>Juan Pérez</td>
-                <td>Excelente atención en la oficina parroquial. Gracias.</td>
-                <td>⭐⭐⭐⭐⭐</td>
-                <td>02/06/2026</td>
-                <td><button class="btn-delete" onclick="eliminarComentario(this)">Eliminar</button></td>
-              </tr>
-            </tbody>
-          </table>
-        `;
-      }
-    }
-
-    function eliminarComentario(button) {
-      if(confirm("¿Seguro que deseas remover este comentario?")) {
-        const row = button.parentElement.parentElement;
-        row.remove();
-      }
-    }
-
-    function cerrarSesion() {
-      localStorage.clear(); 
-      window.location.replace("adminLogin.html"); 
-    }
-  </script>
 </head>
 <body>
 
@@ -181,7 +181,7 @@
     <div class="logo-text">Panel de Administrador Global</div>
   </div>
   <div class="logout">
-    <a href="#" onclick="cerrarSesion()">Salir del Sistema</a>
+    <a href="#" id="btnCerrarSesion">Salir del Sistema</a>
   </div>
 </div>
 
@@ -192,7 +192,7 @@
     <p>Publicar anuncios y festividades en la web principal.</p>
   </div>
   
-  <div class="grid-item" onclick="cargarSeccion('comentarios')">
+  <div class="grid-item" id="btnSeccionComentarios">
     <h3>💬 Comentarios</h3>
     <p>Revisar y moderar las opiniones de la comunidad.</p>
   </div>
@@ -204,16 +204,16 @@
 
   <div class="grid-item" onclick="window.location.href='limpiezaParroquial.html'">
     <h3>🧹 Limpieza Parroquial</h3>
-    <p>Modificar y asignar los roles de aseo del templo.</p>
+    <p>Modificar y asignaron los roles de aseo del templo.</p>
   </div>
 
-  <!-- NUEVA SECCIÓN: CENTRO PARROQUIAL -->
+   <!-- NUEVA SECCIÓN: CENTRO PARROQUIAL -->
   <div class="grid-item" onclick="window.location.href='centroParroquial.html'">
     <h3>🏢 Centro Parroquial</h3>
     <p>Control de salones, auditorio y horarios de ocupación.</p>
   </div>
 
-  <div class="grid-item" onclick="window.location.href='loginCatequesis.html'" style="background-color: #ebf8ff; border: 2px solid #3182ce;">
+  <div class="grid-item" onclick="window.location.href='dashboardCatequesis.html'" style="background-color: #ebf8ff; border: 2px solid #3182ce;">
     <h3 style="color: #2b6cb0;">⛪ Catequesis</h3>
     <p style="color: #2c5282; font-weight: 600;">Control de alumnos, listas por edades y guías ➔</p>
   </div>
@@ -223,6 +223,11 @@
 <div id="content" class="content">
   <p style="text-align: center; color: #555;">Selecciona una opción del menú para interactuar con los datos o navega usando los recuadros superiores.</p>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/conexion.js"></script>
+<script src="js/adminDashboard.js"></script>
 
 </body>
 </html>
