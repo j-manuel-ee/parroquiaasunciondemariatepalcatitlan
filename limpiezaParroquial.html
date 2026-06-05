@@ -271,201 +271,99 @@
     <script src="js/conexion.js"></script>
 
     <script>
-        // Verificación blindada del Rol
-        const rolGuardado = localStorage.getItem("rol_usuario");
-        const esCoordinadorActivo = sessionStorage.getItem("grupo_activo");
-        const rol = (esCoordinadorActivo ? "coordinador" : (rolGuardado ? rolGuardado.trim().toLowerCase() : "coordinador"));
 
-        const btnRegresar = document.getElementById("btnRegresar");
-        const panelAdmin = document.getElementById("panelAdministrador");
-        const txtModo = document.getElementById("txtModo");
-        const barraSuperior = document.querySelector(".top-bar");
-        const contenedorRoles = document.getElementById("contenedorRoles");
-        const modalEditor = document.getElementById("modalEditorRoles");
-        const formRoles = document.getElementById("formEditorRoles");
+        // Asegúrate de que esta parte en tu código se vea así:
+       async function cargarRolesDesdeSupabase(esAdmin) {
+        const contenedor = document.getElementById("contenedorRoles");
+        try {
+            const { data, error } = await supabaseClient
+                .from('limpieza_roles')
+                .select('*');
 
-        // Diccionario para convertir el nombre del mes a un índice numérico para ordenar cronológicamente
-        const mesesOrden = {
-            "enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 6,
-            "julio": 7, "agosto": 8, "septiembre": 9, "octubre": 10, "noviembre": 11, "diciembre": 12
-        };
+            if (error) throw error;
 
-        document.addEventListener("DOMContentLoaded", () => {
-            if (rol === "admin") {
-                btnRegresar.href = "adminDashboard.html";
-                btnRegresar.textContent = "⬅ Volver Panel Admin";
-                if (panelAdmin) panelAdmin.style.display = "block";
-                if (txtModo) {
-                    txtModo.textContent = "Modo: Administrador (Edición Habilitada)";
-                    txtModo.style.color = "#dd6b20";
-                }
-            } else {
-                btnRegresar.href = "cordiDashboard.html";
-                btnRegresar.textContent = "⬅ Volver Panel Coordinador";
-                if (txtModo) {
-                    txtModo.textContent = "Modo: Coordinación (Solo Consulta de Roles)";
-                    txtModo.style.color = "#004080";
-                }
-                if (barraSuperior) barraSuperior.style.backgroundColor = "rgba(0, 45, 90, 0.9)";
+            if (!data || data.length === 0) {
+                contenedor.innerHTML = `<p style="text-align:center;">No hay roles registrados.</p>`;
+                return;
+            }
+
+            // Limpiamos el contenedor antes de dibujar
+            contenedor.innerHTML = "";
+
+            // DIBUJAMOS CADA TARJETA
+            data.forEach(item => {
+                const div = document.createElement("div");
+                div.className = "junta";
                 
-                if (panelAdmin) panelAdmin.remove();
-                if (modalEditor) modalEditor.remove();
-            }
+                // Si es admin, agregamos botones
+                let botonesAdmin = esAdmin ? `
+                    <div class="acciones-admin-tarjeta">
+                        <button class="btn-edit" onclick="editarMes('${item.id}')">Editar</button>
+                        <button class="btn-delete" onclick="eliminarMes('${item.id}')">Borrar</button>
+                    </div>
+                ` : "";
 
-            cargarRolesDesdeSupabase();
-        });
-
-        // 1. OBTENER, ORDENAR Y RENDERIZAR LOS ROLES
-        async function cargarRolesDesdeSupabase() {
-            try {
-                const { data, error } = await supabaseClient
-                    .from('limpieza_roles')
-                    .select('*');
-
-                if (error) throw error;
-
-                if (!data || data.length === 0) {
-                    contenedorRoles.innerHTML = `<p style="text-align:center; color:#888;">No hay roles asentados en el calendario de limpieza actual.</p>`;
-                    return;
-                }
-
-                // --- ALGORITMO DE ORDENAMIENTO CRONOLÓGICO ---
-                data.sort((a, b) => {
-                    // Extraemos y separamos el texto (Ej: "Junio 2026" -> ["Junio", "2026"])
-                    const partesA = a.mes_anio.trim().toLowerCase().split(/\s+/);
-                    const partesB = b.mes_anio.trim().toLowerCase().split(/\s+/);
-
-                    // Si no tiene año explícito, asumimos el año actual por seguridad
-                    const anioA = parseInt(partesA[1]) || new Date().getFullYear();
-                    const anioB = parseInt(partesB[1]) || new Date().getFullYear();
-
-                    const mesA = mesesOrden[partesA[0]] || 0;
-                    const mesB = mesesOrden[partesB[0]] || 0;
-
-                    // Primero comparamos los años de forma ascendente
-                    if (anioA !== anioB) {
-                        return anioA - anioB;
-                    }
-                    // Si el año es el mismo, ordenamos por la posición del mes en el calendario
-                    return mesA - mesB;
-                });
-
-                contenedorRoles.innerHTML = "";
-                data.forEach(item => {
-                    const div = document.createElement("div");
-                    div.classList.add("junta");
-
-                    const lineas = item.detalles_roles.split("\n");
-                    let liHTML = "";
-                    lineas.forEach(linea => {
-                        if (linea.trim() !== "") {
-                            liHTML += `<li>${escapeHTML(linea)}</li>`;
-                        }
-                    });
-
-                    const panelAccionesHTML = (rol === "admin")
-                        ? `<div class="acciones-admin-tarjeta">
-                            <button class="btn-edit" onclick="abrirEditorRoles(${item.id}, \`${escapeHTML(item.mes_anio)}\`, \`${escapeHTML(item.detalles_roles)}\`)">Editar</button>
-                            <button class="btn-delete" onclick="eliminarMes(${item.id})">Borrar</button>
-                           </div>`
-                        : '';
-
-                    div.innerHTML = `
-                        <h3>📅 ${item.mes_anio}</h3>
-                        <ul>${liHTML}</ul>
-                        ${panelAccionesHTML}
-                    `;
-                    contenedorRoles.appendChild(div);
-                });
-
-            } catch (err) {
-                contenedorRoles.innerHTML = `<p style="color:red; text-align:center;">Error de conexión con Supabase: ${err.message}</p>`;
-            }
-        }
-
-        function escapeHTML(str) {
-            return str.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-        }
-
-        // 2. CONFIGURACIÓN DE MODALES
-        function abrirCreadorMes() {
-            if (rol !== "admin") return;
-            document.getElementById("modalTitulo").textContent = "📅 Registrar Nuevo Mes de Limpieza";
-            document.getElementById("formIdRegistro").value = "";
-            document.getElementById("formMesAño").value = "";
-            document.getElementById("formDetalleRoles").value = "";
-            modalEditor.style.display = "flex";
-        }
-
-        function abrirEditorRoles(id, mesAnio, detalles) {
-            if (rol !== "admin") return;
-            document.getElementById("modalTitulo").textContent = "✏️ Modificar Roles de Limpieza";
-            document.getElementById("formIdRegistro").value = id;
-            document.getElementById("formMesAño").value = mesAnio;
-            document.getElementById("formDetalleRoles").value = detalles;
-            modalEditor.style.display = "flex";
-        }
-
-        function cerrarModal() {
-            if (modalEditor) {
-                modalEditor.style.display = "none";
-                formRoles.reset();
-            }
-        }
-
-        // 3. ENVIAR DATOS A SUPABASE
-        if (formRoles) {
-            formRoles.addEventListener("submit", async (e) => {
-                e.preventDefault();
-                if (rol !== "admin") return;
-
-                const idRegistro = document.getElementById("formIdRegistro").value;
-                const mesAnioVal = document.getElementById("formMesAño").value.trim();
-                const detallesVal = document.getElementById("formDetalleRoles").value.trim();
-
-                try {
-                    if (idRegistro) {
-                        const { error } = await supabaseClient
-                            .from('limpieza_roles')
-                            .update({ mes_anio: mesAnioVal, detalles_roles: detallesVal })
-                            .eq('id', idRegistro);
-                        if (error) throw error;
-                        alert("Calendario mensual actualizado con éxito.");
-                    } else {
-                        const { error } = await supabaseClient
-                            .from('limpieza_roles')
-                            .insert([{ mes_anio: mesAnioVal, detalles_roles: detallesVal }]);
-                        if (error) throw error;
-                        alert("Nuevo mes de limpieza publicado.");
-                    }
-
-                    cerrarModal();
-                    cargarRolesDesdeSupabase();
-                } catch (err) {
-                    alert("Error en la transacción de Supabase: " + err.message);
-                }
+                div.innerHTML = `
+                    ${botonesAdmin}
+                    <h3>${item.mes_anio}</h3>
+                    <pre style="white-space: pre-wrap; font-family: Arial;">${item.detalles_roles}</pre>
+                `;
+                contenedor.appendChild(div);
             });
+
+        } catch (err) {
+            console.error("Error al cargar:", err);
+            contenedor.innerHTML = `<p style="text-align:center; color: red;">Error al cargar datos.</p>`;
         }
+    }
+        // 1. ELIMINA toda la lógica vieja de localStorage y sessionStorage al inicio.
+        // Usa esta estructura única en tus archivos:
 
-        // 4. BORRAR MES
-        async function eliminarMes(id) {
-            if (rol !== "admin") return;
+        async function initPage() {
+            // A. Mostrar pantalla de carga o mantener oculta la página
+            document.body.style.display = "none"; 
 
-            if (confirm("¿Estás seguro de que deseas eliminar permanentemente este mes del calendario de limpieza?")) {
-                try {
-                    const { error } = await supabaseClient
-                        .from('limpieza_roles')
-                        .delete()
-                        .eq('id', id);
+            // B. Obtener usuario de Supabase
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            
+            if (!user) {
+                window.location.href = "adminLogin.html";
+                return;
+            }
 
-                    if (error) throw error;
-                    alert("Registro eliminado.");
-                    cargarRolesDesdeSupabase();
-                } catch (err) {
-                    alert("No se pudo eliminar el registro: " + err.message);
-                }
+            // C. Consultar el rol real en la tabla 'perfiles'
+            const { data: perfil, error } = await supabaseClient
+                .from('perfiles')
+                .select('rol')
+                .eq('id', user.id)
+                .single();
+
+            const esAdmin = (perfil && perfil.rol === 'admin');
+
+            // D. Ajustar la interfaz basándonos en el resultado
+            const panelAdmin = document.getElementById("panelAdministrador");
+            const txtModo = document.getElementById("txtModo");
+            
+            if (panelAdmin) {
+                panelAdmin.style.display = esAdmin ? "block" : "none";
+            }
+            
+            if (txtModo) {
+                txtModo.textContent = esAdmin ? "Modo: Administrador (Edición Habilitada)" : "Modo: Coordinación (Solo Consulta)";
+                txtModo.style.color = esAdmin ? "#dd6b20" : "#004080";
+            }
+
+            // E. Mostrar la página una vez ajustada
+            document.body.style.display = "block";
+
+            // F. Cargar los datos específicos de esta página
+            if (typeof cargarRolesDesdeSupabase === 'function') {
+                cargarRolesDesdeSupabase(esAdmin);
             }
         }
+
+        // Ejecutar al cargar
+        document.addEventListener("DOMContentLoaded", initPage);
     </script>
 </body>
 </html>
