@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SOS Vamos a cantar | Parroquia Asunción de María</title>
+  <title>Torneo Deportivo Fuerzas Básicas AM | Parroquia Asunción de María</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
     body {
@@ -48,7 +48,7 @@
       background: linear-gradient(to right, #002f6c, #0d47a1, #1565c0);
       display: flex;
       justify-content: center;
-      position: relative;
+      flex-wrap: wrap;
     }
 
     nav a {
@@ -56,14 +56,12 @@
       text-decoration: none;
       padding: 15px 20px;
       display: inline-block;
-      position: relative;
     }
 
     nav a:hover {
       background-color: rgba(255,255,255,0.15);
     }
 
-    /* Dropdown */
     .dropdown {
       position: relative;
     }
@@ -73,7 +71,7 @@
       position: absolute;
       top: 100%;
       left: 0;
-     background: linear-gradient(to bottom, #0d47a1, #1565c0);
+      background: linear-gradient(to bottom, #0d47a1, #1565c0);
       min-width: 200px;
       z-index: 1;
     }
@@ -88,10 +86,9 @@
     }
 
     .banner {
-      background: url('imagen/Sos.jpg') no-repeat center;
+      background: url('imagen/deportivo.jpg') no-repeat center;
       background-size: cover;
-      background-position: 55% 30%;
-      height:400px;
+      height: 250px;
       position: relative;
     }
 
@@ -126,107 +123,29 @@
       margin-top: 30px;
     }
 
-    .video-container {
-        position: relative;
-        width: 100%;
-        max-width: 750px;
-        margin: 0 auto;
-    }
-
-    .video-container video {
-        width: 100%;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .play-button {
-        display: block;
-        margin: 20px auto;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        font-size: 1.2em;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .play-button:hover {
-        background-color: #0056b3;
-    }
-
-    .social-container {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .social-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 250px;
-      padding: 20px;
-      border-radius: 10px;
-      color: white;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .social-card:hover {
-      transform: translateY(-10px);
-    }
-
-    .social-card img {
-      width: 80px;
-      height: 80px;
-      margin-bottom: 15px;
-    }
-
-    .social-card a {
-      color: white;
-      text-decoration: none;
-      font-size: 1.2em;
-      margin-top: 10px;
-    }
-
-    .social-card a:hover {
-      text-decoration: underline;
-    }
-
-    .whatsapp {
-      background-color: #25D366;
-    }
-
-    .facebook {
-      background-color: #4267B2;
-    }
-
-    .instagram {
-      background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4);
-    }
-
-    .tiktok {
-      background-color: #000;
-    }
-
-    .youtube {
-      background-color: #FF0000;
-    }
-
-    .gmail {
-      background: linear-gradient(45deg, #EA4335, #FBBC05, #34A853, #4285F4);
-    }
-
     .historia-texto {
       line-height: 1.8;
       font-size: 1.1em;
       text-align: justify;
       margin-bottom: 20px;
+    }
+
+    .photos {
+      text-align: center;
+    }
+
+    .photos h2 {
+      font-family: 'Playfair Display', serif;
+      margin-top: 40px;
+      color: #333;
+    }
+
+    .photos img {
+      max-width: 300px;
+      height: auto;
+      margin: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
 
     footer {
@@ -238,110 +157,96 @@
     }
 
     @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+      }
+
       .dropdown-content {
         position: static;
       }
+
+      .photos img {
+        max-width: 90%;
+      }
     }
   </style>
-  <script>
-    function redirectTo(page) {
-      window.location.href = page;
-    }
-  </script>
 </head>
 <body>
 
-    <header>
-        <div class="header-left">
-            <img src="imagen/logo_asun.png" alt="Logo Parroquia">
-          </div>
-          <div class="header-text">
-            <h1>Parroquia Asunción de María</h1>
-            <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
-          </div>
-      </header>
+  <header>
+    <div class="header-left">
+      <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+    </div>
+    <div class="header-text">
+      <h1>Parroquia Asunción de María</h1>
+      <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
+    </div>
+  </header>
 
-      <nav>
-        <a href="index.html">Inicio</a>
-        <a href="oficina.html">Oficina</a>
-        <div class="dropdown">
-          <a>Historia ▾</a>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="oficina.html">Oficina</a>
+      <div class="dropdown">
+        <a>Historia ▾</a>
+        <div class="dropdown-content">
+          <a href="historia.html">Parroquia</a>
+          <a href="histAsun.html">Asunción de María</a>
+        </div>
+      </div>
+      <div class="dropdown">
+          <a>Eventos ▾</a>
           <div class="dropdown-content">
-            <a href="historia.html">Parroquia</a>
-            <a href="histAsun.html">Asunción de María</a>
+            <a href="eventos.html">Calendario Mensual</a>
+            <a href="eventosEspeciales.html">Eventos Especiales</a>
           </div>
         </div>
-        <div class="dropdown">
-            <a>Eventos ▾</a>
-            <div class="dropdown-content">
-              <a href="eventos.html">Calendario Mensual</a>
-              <a href="eventosEspeciales.html">Eventos Especiales</a>
-            </div>
-          </div>
         <a href="grupos.html">Grupos Parroquiales</a>
         <a href="mision.html">Misión</a>
         <a href="contacto.html">Contacto</a>
+        <a href="vaticanNews.html">Vatican News</a>
         <a href="foro.html">Foro de Opiniones</a>
+        <a href="transmisiones.html">En Vivo</a>
         <div class="dropdown">
           <a>Acceso ▾</a>
           <div class="dropdown-content">
-            <a href="adminLogin.html">Administrador</a>
+            <a href="usuarioLogin.html">Usuario</a>
             <a href="coordinadorLogin.html">Coordinador</a>
-          </div>
-        </div>
-      </nav>
-
-  <div class="banner">
-    <h2>SOS Vamos a cantar</h2>
-  </div>
-
-  <div class="container">
-    <section id="Acerca SOS Vamos a cantar"> 
-      <section id="Acerca-sos">
-        <h3>Acerca de SOS Vamos a cantar</h3>
-        <p class="historia-texto">
-            <div class="video-container">
-                <video id="coroVideo" loop>
-                    <source src="videos/coro_sos.mp4" type="video/mp4">
-                    Tu navegador no soporta la reproducción de videos.
-                </video>
-            </div>
-    
-            <button class="play-button" onclick="playVideo()">Reproducir Video</button>
-        </p>
-      </section>
-    </section>
-
-    <section id="Contacto">
-      <h3>Contacto</h3>
-      <p class="historia-texto">
-        Para más información sobre SOS Vamos a cantar, síguenos o contáctanos a través de nuestras redes sociales:
-      </p>
-      <div class="social-container">
-        <!-- Instagram -->
-        <div class="social-card instagram" onclick="window.location.href='https://www.instagram.com/coro.sos/';">
-          <img src="imagen/insta.png" alt="Instagram">
-          <a href="https://www.instagram.com/coro.sos/" target="_blank">@coro.sos</a>
-        </div>
-        <!-- Gmail -->
-        <div class="social-card gmail">
-          <img src="imagen/gmail.png" alt="Gmail">
-          <a href="mailto:coro.sos2020@gmail.com">coro.sos2020@gmail.com</a>
+            <a href="adminLogin.html">Administrador</a>
         </div>
       </div>
-    </section>
-    
+    </nav>
 
+  <div class="banner">
+    <h2>Torneo Deportivo Fuerzas Básicas AM</h2>
   </div>
+  <div class="container">
+    <section id="Acerca Coro Asunción de María"> 
+      <section id="Acerca-cam">
+        <h3>Torneo de Fútbol y Voleibol 2024</h3>
+        <div class="historia-texto">
+          <p>
+            En abril de 2024, Fuerzas Básicas AM organizó el Torneo de Fútbol y Voleibol en colaboración con los grupos parroquiales del decanato.
+            Este evento reunió a jóvenes apasionados por el deporte en una jornada llena de emoción, competencia y trabajo en equipo.
+          </p>
+          <p>
+            El torneo no solo promovió el deporte y la sana convivencia, sino que también fortaleció los lazos entre las comunidades parroquiales, destacando
+            valores como la unidad, el respeto y el esfuerzo.
+          </p>
+
+          <div class="photos">
+            <h2>Fotos del Evento</h2>
+            <img src="imagen/fuerzas_basicas.jpg" alt="Foto del evento 1">
+            <img src="imagen/TorneoFBAM.png" alt="Foto del evento 2">
+            <img src="imagen/torneo2024/DSC_0138.JPG" alt="Anuncio del Torneo">
+          </div>
+        </div>
+      </section>
+    </section>
+  </div>
+
   <footer>
-    <p>&copy; 2026 Parroquia Asunción de María | Grupos Parroquiales | SOS Vamos a cantar</p>
+    <p>&copy; 2026 Parroquia Asunción de María | Grupos Parroquiales | Fuerzas Básicas AM</p>
   </footer>
-  <script>
-    function playVideo() {
-        let video = document.getElementById("coroVideo");
-        video.play();
-    }
-</script>
+
 </body>
 </html>
-
