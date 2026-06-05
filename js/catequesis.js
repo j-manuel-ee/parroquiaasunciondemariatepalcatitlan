@@ -84,7 +84,7 @@ function generarComprobantePDF(datos, folio, desglosados) {
     doc.setFont("Helvetica", "bold");
     doc.setFontSize(15);
     doc.setTextColor(31, 78, 121);
-    doc.text("PARROQUIA ASUNCIÓN DE MARÍA TEPALCATITLÁN", 108, 22, { align: "center" });
+    doc.text("PARROQUIA ASUNCIÓN DE MARÍA TEPALCATITLAN", 108, 22, { align: "center" });
 
     doc.setFontSize(11);
     doc.setFont("Helvetica", "normal");
@@ -220,6 +220,8 @@ function generarComprobantePDF(datos, folio, desglosados) {
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
     cargarRecursosEnPaginaPublica();
+    // Ejecutar de forma automática el validador de fechas del candado
+    verificarPeriodoInscripcion();
 });
 
 async function cargarRecursosEnPaginaPublica() {
@@ -248,7 +250,6 @@ async function cargarRecursosEnPaginaPublica() {
     let contadores = { administrativos: 0, guias: 0, padres: 0, multimedia: 0 };
 
     data.forEach(rec => {
-        // Adaptamos el HTML para usar exactamente las clases CSS de tu archivo 'catequesis.css'
         const tarjetaHtml = `
             <div class="download-item">
                 <div class="download-icon">📄</div>
@@ -267,9 +268,67 @@ async function cargarRecursosEnPaginaPublica() {
         if (rec.categoria === 'multimedia' && contMulti) { contMulti.innerHTML += tarjetaHtml; contadores.multimedia++; }
     });
 
-    // Colocar mensaje de aviso si la sección está vacía
     if(contAdmin && contadores.administrativos === 0) contAdmin.innerHTML = mensajeVacio;
     if(contGuias && contadores.guias === 0) contGuias.innerHTML = mensajeVacio;
     if(contPadres && contadores.padres === 0) contPadres.innerHTML = mensajeVacio;
     if(contMulti && contadores.multimedia === 0) contMulti.innerHTML = mensajeVacio;
+}
+
+// ========================================================
+// CONTROL AUTOMÁTICO DE PERIODO DE INSCRIPCIONES (CON CANDADO)
+// ========================================================
+function verificarPeriodoInscripcion() {
+    const ahora = new Date();
+    const añoActual = ahora.getFullYear();
+
+    // 1. CALCULAR EL PRIMER SÁBADO DE SEPTIEMBRE DEL AÑO VIGENTE
+    let fechaApertura = new Date(añoActual, 8, 1, 0, 0, 0); 
+    while (fechaApertura.getDay() !== 6) {
+        fechaApertura.setDate(fechaApertura.getDate() + 1);
+    }
+
+    // 2. LA FECHA DE CIERRE (1 mes después)
+    let fechaCierre = new Date(fechaApertura);
+    fechaCierre.setMonth(fechaCierre.getMonth() + 1);
+
+    const candado = document.getElementById("candadoInscripcion");
+    const textoCandado = document.getElementById("textoCandado");
+    const contadorHtml = document.getElementById("contadorRegresivo");
+
+    if (!candado) return; 
+
+    const intervalo = setInterval(() => {
+        const tiempoActual = new Date().getTime();
+        
+        // ESTADO A: Falta tiempo para el primer sábado de septiembre -> ACTIVA BORROSO Y CUENTA REGRESIVA
+        if (tiempoActual < fechaApertura.getTime()) {
+            candado.style.display = "flex";
+            
+            const distancia = fechaApertura.getTime() - tiempoActual;
+            
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+            
+            document.getElementById("dias").textContent = dias.toString().padStart(2, '0');
+            document.getElementById("horas").textContent = horas.toString().padStart(2, '0');
+            document.getElementById("minutos").textContent = minutos.toString().padStart(2, '0');
+            document.getElementById("segundos").textContent = segundos.toString().padStart(2, '0');
+        } 
+        
+        // ESTADO B: Periodo vigente (Sujeto al mes de duración) -> SE QUITA EL CANDADO Y EL BORROSO
+        else if (tiempoActual >= fechaApertura.getTime() && tiempoActual < fechaCierre.getTime()) {
+            clearInterval(intervalo);
+            candado.style.display = "none"; 
+        } 
+        
+        // ESTADO C: Pasado el mes -> SE TRABA DE NUEVO CON UN MENSAJE DE CIERRE
+        else if (tiempoActual >= fechaCierre.getTime()) {
+            clearInterval(intervalo);
+            candado.style.display = "flex";
+            contadorHtml.style.display = "none"; 
+            textoCandado.innerHTML = "❌ El periodo ordinario de inscripciones para el presente ciclo escolar ha concluido.";
+        }
+    }, 1000);
 }
