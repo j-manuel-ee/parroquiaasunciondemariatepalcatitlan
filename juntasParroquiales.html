@@ -348,12 +348,7 @@
             cargarMinutas();
         });
 
-        // Ejemplo de cómo mejorar la verificación
-        async function roleAdminVerificado() {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (!session) return false;
-            // Si tienes un rol guardado en el perfil del usuario en Supabase, 
-            // podrías consultarlo aquí para mayor seguridad.
+        function roleAdminVerificado() {
             return rol === "admin";
         }
 
