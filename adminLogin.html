@@ -73,36 +73,13 @@
       display: none;
     }
   </style>
-  <script>
-    function validarLogin(event) {
-      event.preventDefault();
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const errorMessage = document.getElementById('error-message');
-
-      if (username === "" || password === "") {
-        errorMessage.textContent = "Todos los campos son obligatorios.";
-        errorMessage.style.display = "block";
-        return;
-      }
-
-      // Aquí puedes agregar una validación con AJAX si tienes un backend
-      if (username === "asunciondemaria@gmail.com" && password === "asun@maria") {
-        alert("Inicio de sesión exitoso");
-        window.location.href = "adminDashboard.html"; // Redirige al panel del administrador
-      } else {
-        errorMessage.textContent = "Correo o contraseña incorrectos. Por favor, inténtelo de nuevo.";
-        errorMessage.style.display = "block";
-      }
-    }
-  </script>
 </head>
 <body>
 
 <div class="login-container">
   <div class="login-box">
     <h2>Iniciar Sesión como Administrador</h2>
-    <form onsubmit="validarLogin(event)">
+    <form id="loginForm">
       <label for="username">Correo Electrónico:</label>
       <input type="text" id="username" name="username" required>
 
@@ -114,6 +91,10 @@
     <div id="error-message" class="error-message"></div>
   </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/conexion.js"></script>
+<script src="js/adminLogin.js"></script>
 
 </body>
 </html>
