@@ -92,6 +92,15 @@
             line-height: 1.6;
         }
 
+        /* Contenedor de botones de gestión en la tarjeta */
+        .acciones-admin-tarjeta {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 8px;
+        }
+
         /* Panel Exclusivo para el Admin */
         .admin-panel-only {
             background-color: #fffaf0;
@@ -99,25 +108,122 @@
             padding: 15px;
             border-radius: 6px;
             margin-bottom: 25px;
-            display: none; /* Se activa con JS solo para admin */
+            display: none; 
         }
         
         .btn-edit {
             background-color: #dd6b20;
             color: white;
             border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
+            padding: 6px 12px;
+            border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
-            display: none; /* Se activa con JS */
+            font-size: 13px;
+        }
+        .btn-edit:hover {
+            background-color: #c05621;
+        }
+
+        .btn-delete {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .btn-delete:hover {
+            background-color: #c53030;
+        }
+
+        .btn-primary-admin {
+            background-color: #2b6cb0;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-primary-admin:hover {
+            background-color: #2c5282;
+        }
+
+        .loading-text {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Ventana emergente (Modal) */
+        .modal-editor {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-editor-content {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 550px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .modal-editor-content h2 {
+            margin-top: 0;
+            color: #dd6b20;
+            font-size: 20px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 12px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2d3748;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+        }
+        .modal-flex-btns {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .btn-cancel {
+            background-color: #718096;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="top-bar">
+    <div class="top-bar" id="barraSuperior">
         <div class="title">
             <img src="imagen/logo_asun.png" alt="Logo Parroquia">
             Calendario de Limpieza Parroquial
@@ -126,92 +232,240 @@
     </div>
 
     <div class="container">
-
-        <h1>Roles de Limpieza 2026</h1>
+        <h1>Roles de Limpieza Parroquial</h1>
         <div class="sub-header" id="txtModo">Modo Consulta</div>
 
         <div id="panelAdministrador" class="admin-panel-only">
             <h4 style="margin: 0 0 10px 0; color: #dd6b20;">🛠️ Herramientas de Administrador</h4>
-            <p style="margin: 0 0 10px 0; font-size: 14px;">Como administrador global puedes reasignar grupos o agregar nuevas fechas al calendario oficial.</p>
-            <button style="background-color: #2b6cb0; color: white; padding: 8px 12px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">+ Agregar Nuevo Mes</button>
+            <p style="margin: 0 0 10px 0; font-size: 14px;">Como administrador global puedes reasignar los grupos de limpieza o abrir nuevos meses.</p>
+            <button class="btn-primary-admin" onclick="abrirCreadorMes()">+ Agregar Nuevo Mes</button>
         </div>
 
-        <div class="junta">
-            <h3>Diciembre 2025</h3>
-            <ul>
-                <li><strong>13 de diciembre:</strong> Ministros</li>
-                <li><strong>20 de diciembre:</strong> Pastoral Social</li>
-                <li><strong>27 de diciembre:</strong> DESCANSO Pastores</li>
-            </ul>
-            <button class="btn-edit btn-admin-action">Editar Roles de Diciembre</button>
+        <div id="contenedorRoles">
+            <p class="loading-text">Cargando roles oficiales desde la base de datos...</p>
         </div>
-
-        <div class="junta">
-            <h3>Enero 2026</h3>
-            <ul>
-                <li><strong>3 de enero:</strong> Scouts México</li>
-                <li><strong>10 de enero:</strong> Evangelizadores Escénicos</li>
-                <li><strong>17 de enero:</strong> Adoración Nocturna</li>
-                <li><strong>24 de enero:</strong> Coro SOS Vamos a Cantar</li>
-                <li><strong>31 de enero:</strong> Cofradía de la Virgen del Carmen</li>
-            </ul>
-            <button class="btn-edit btn-admin-action">Editar Roles de Enero</button>
-        </div>
-
-        <div class="junta">
-            <h3>Febrero 2026</h3>
-            <ul>
-                <li><strong>7 de febrero:</strong> Redes Parroquiales</li>
-                <li><strong>14 de febrero:</strong> Equipo de Liturgia</li>
-                <li><strong>21 de febrero:</strong> Monaguillos y Acólitos</li>
-                <li><strong>28 de febrero:</strong> Taller de Tejido Comunitario</li>
-            </ul>
-            <button class="btn-edit btn-admin-action">Editar Roles de Febrero</button>
-        </div>
-
-        <div class="junta">
-            <h3>Marzo 2026</h3>
-            <ul>
-                <li><strong>7 de marzo:</strong> Coro Asunción de María</li>
-                <li><strong>14 de marzo:</strong> Grupo Scout Kuhtli</li>
-                <li><strong>21 de marzo:</strong> Grupo Parroquial de Escucha</li>
-            </ul>
-            <button class="btn-edit btn-admin-action">Editar Roles de Marzo</button>
-        </div>
-
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const rol = localStorage.getItem("rol_usuario") || "coordinador";
-            const btnRegresar = document.getElementById("btnRegresar");
-            const panelAdmin = document.getElementById("panelAdministrador");
-            const txtModo = document.getElementById("txtModo");
-            const botonesEdicion = document.querySelectorAll(".btn-admin-action");
+    <div id="modalEditorRoles" class="modal-editor">
+        <div class="modal-editor-content">
+            <h2 id="modalTitulo">✏️ Modificar Roles de Limpieza</h2>
+            <form id="formEditorRoles">
+                <input type="hidden" id="formIdRegistro">
+                <div class="form-group">
+                    <label>Mes / Año:</label>
+                    <input type="text" id="formMesAño" placeholder="Ej: Junio 2026" required>
+                </div>
+                <div class="form-group">
+                    <label>Asignación de Fechas y Grupos (Escribe uno por línea):</label>
+                    <textarea id="formDetalleRoles" rows="7" placeholder="Ej:&#10;• 06 de Junio: Catequesis&#10;• 13 de Junio: Coro de Jóvenes&#10;• 20 de Junio: Ministros" required></textarea>
+                </div>
+                <div class="modal-flex-btns">
+                    <button type="button" class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
+                    <button type="submit" class="btn-primary-admin" id="btnGuardarModal" style="background-color: #dd6b20;">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/conexion.js"></script>
+
+    <script>
+        // Verificación blindada del Rol
+        const rolGuardado = localStorage.getItem("rol_usuario");
+        const esCoordinadorActivo = sessionStorage.getItem("grupo_activo");
+        const rol = (esCoordinadorActivo ? "coordinador" : (rolGuardado ? rolGuardado.trim().toLowerCase() : "coordinador"));
+
+        const btnRegresar = document.getElementById("btnRegresar");
+        const panelAdmin = document.getElementById("panelAdministrador");
+        const txtModo = document.getElementById("txtModo");
+        const barraSuperior = document.querySelector(".top-bar");
+        const contenedorRoles = document.getElementById("contenedorRoles");
+        const modalEditor = document.getElementById("modalEditorRoles");
+        const formRoles = document.getElementById("formEditorRoles");
+
+        // Diccionario para convertir el nombre del mes a un índice numérico para ordenar cronológicamente
+        const mesesOrden = {
+            "enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 6,
+            "julio": 7, "agosto": 8, "septiembre": 9, "octubre": 10, "noviembre": 11, "diciembre": 12
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
             if (rol === "admin") {
-                // Es el administrador: Le permitimos todo
                 btnRegresar.href = "adminDashboard.html";
                 btnRegresar.textContent = "⬅ Volver Panel Admin";
-                panelAdmin.style.display = "block";
-                txtModo.textContent = "Modo: Administrador (Edición Autorizada)";
-                txtModo.style.color = "#dd6b20";
-                
-                // Mostrar los botones individuales para cambiar datos
-                botonesEdicion.forEach(btn => btn.style.display = "inline-block");
+                if (panelAdmin) panelAdmin.style.display = "block";
+                if (txtModo) {
+                    txtModo.textContent = "Modo: Administrador (Edición Habilitada)";
+                    txtModo.style.color = "#dd6b20";
+                }
             } else {
-                // Es un coordinador: Modo Lectura estricto
                 btnRegresar.href = "cordiDashboard.html";
                 btnRegresar.textContent = "⬅ Volver Panel Coordinador";
-                panelAdmin.style.display = "none";
-                txtModo.textContent = "Modo: Coordinación (Solo Lectura)";
-                txtModo.style.color = "#004080";
+                if (txtModo) {
+                    txtModo.textContent = "Modo: Coordinación (Solo Consulta de Roles)";
+                    txtModo.style.color = "#004080";
+                }
+                if (barraSuperior) barraSuperior.style.backgroundColor = "rgba(0, 45, 90, 0.9)";
                 
-                // Ocultar botones de alteración
-                botonesEdicion.forEach(btn => btn.style.display = "none");
+                if (panelAdmin) panelAdmin.remove();
+                if (modalEditor) modalEditor.remove();
             }
-        });
-    </script>
 
+            cargarRolesDesdeSupabase();
+        });
+
+        // 1. OBTENER, ORDENAR Y RENDERIZAR LOS ROLES
+        async function cargarRolesDesdeSupabase() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('limpieza_roles')
+                    .select('*');
+
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+                    contenedorRoles.innerHTML = `<p style="text-align:center; color:#888;">No hay roles asentados en el calendario de limpieza actual.</p>`;
+                    return;
+                }
+
+                // --- ALGORITMO DE ORDENAMIENTO CRONOLÓGICO ---
+                data.sort((a, b) => {
+                    // Extraemos y separamos el texto (Ej: "Junio 2026" -> ["Junio", "2026"])
+                    const partesA = a.mes_anio.trim().toLowerCase().split(/\s+/);
+                    const partesB = b.mes_anio.trim().toLowerCase().split(/\s+/);
+
+                    // Si no tiene año explícito, asumimos el año actual por seguridad
+                    const anioA = parseInt(partesA[1]) || new Date().getFullYear();
+                    const anioB = parseInt(partesB[1]) || new Date().getFullYear();
+
+                    const mesA = mesesOrden[partesA[0]] || 0;
+                    const mesB = mesesOrden[partesB[0]] || 0;
+
+                    // Primero comparamos los años de forma ascendente
+                    if (anioA !== anioB) {
+                        return anioA - anioB;
+                    }
+                    // Si el año es el mismo, ordenamos por la posición del mes en el calendario
+                    return mesA - mesB;
+                });
+
+                contenedorRoles.innerHTML = "";
+                data.forEach(item => {
+                    const div = document.createElement("div");
+                    div.classList.add("junta");
+
+                    const lineas = item.detalles_roles.split("\n");
+                    let liHTML = "";
+                    lineas.forEach(linea => {
+                        if (linea.trim() !== "") {
+                            liHTML += `<li>${escapeHTML(linea)}</li>`;
+                        }
+                    });
+
+                    const panelAccionesHTML = (rol === "admin")
+                        ? `<div class="acciones-admin-tarjeta">
+                            <button class="btn-edit" onclick="abrirEditorRoles(${item.id}, \`${escapeHTML(item.mes_anio)}\`, \`${escapeHTML(item.detalles_roles)}\`)">Editar</button>
+                            <button class="btn-delete" onclick="eliminarMes(${item.id})">Borrar</button>
+                           </div>`
+                        : '';
+
+                    div.innerHTML = `
+                        <h3>📅 ${item.mes_anio}</h3>
+                        <ul>${liHTML}</ul>
+                        ${panelAccionesHTML}
+                    `;
+                    contenedorRoles.appendChild(div);
+                });
+
+            } catch (err) {
+                contenedorRoles.innerHTML = `<p style="color:red; text-align:center;">Error de conexión con Supabase: ${err.message}</p>`;
+            }
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
+        // 2. CONFIGURACIÓN DE MODALES
+        function abrirCreadorMes() {
+            if (rol !== "admin") return;
+            document.getElementById("modalTitulo").textContent = "📅 Registrar Nuevo Mes de Limpieza";
+            document.getElementById("formIdRegistro").value = "";
+            document.getElementById("formMesAño").value = "";
+            document.getElementById("formDetalleRoles").value = "";
+            modalEditor.style.display = "flex";
+        }
+
+        function abrirEditorRoles(id, mesAnio, detalles) {
+            if (rol !== "admin") return;
+            document.getElementById("modalTitulo").textContent = "✏️ Modificar Roles de Limpieza";
+            document.getElementById("formIdRegistro").value = id;
+            document.getElementById("formMesAño").value = mesAnio;
+            document.getElementById("formDetalleRoles").value = detalles;
+            modalEditor.style.display = "flex";
+        }
+
+        function cerrarModal() {
+            if (modalEditor) {
+                modalEditor.style.display = "none";
+                formRoles.reset();
+            }
+        }
+
+        // 3. ENVIAR DATOS A SUPABASE
+        if (formRoles) {
+            formRoles.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                if (rol !== "admin") return;
+
+                const idRegistro = document.getElementById("formIdRegistro").value;
+                const mesAnioVal = document.getElementById("formMesAño").value.trim();
+                const detallesVal = document.getElementById("formDetalleRoles").value.trim();
+
+                try {
+                    if (idRegistro) {
+                        const { error } = await supabaseClient
+                            .from('limpieza_roles')
+                            .update({ mes_anio: mesAnioVal, detalles_roles: detallesVal })
+                            .eq('id', idRegistro);
+                        if (error) throw error;
+                        alert("Calendario mensual actualizado con éxito.");
+                    } else {
+                        const { error } = await supabaseClient
+                            .from('limpieza_roles')
+                            .insert([{ mes_anio: mesAnioVal, detalles_roles: detallesVal }]);
+                        if (error) throw error;
+                        alert("Nuevo mes de limpieza publicado.");
+                    }
+
+                    cerrarModal();
+                    cargarRolesDesdeSupabase();
+                } catch (err) {
+                    alert("Error en la transacción de Supabase: " + err.message);
+                }
+            });
+        }
+
+        // 4. BORRAR MES
+        async function eliminarMes(id) {
+            if (rol !== "admin") return;
+
+            if (confirm("¿Estás seguro de que deseas eliminar permanentemente este mes del calendario de limpieza?")) {
+                try {
+                    const { error } = await supabaseClient
+                        .from('limpieza_roles')
+                        .delete()
+                        .eq('id', id);
+
+                    if (error) throw error;
+                    alert("Registro eliminado.");
+                    cargarRolesDesdeSupabase();
+                } catch (err) {
+                    alert("No se pudo eliminar el registro: " + err.message);
+                }
+            }
+        }
+    </script>
 </body>
 </html>
