@@ -9,6 +9,83 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* === ESTILOS DEL CANDADO AUTOMÁTICO DE INSCRIPCIÓN === */
+        .contenedor-bloqueo-inscripcion {
+            position: relative;
+            width: 100%;
+        }
+
+        .candado-overlay {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+            background-color: rgba(255, 255, 255, 0.4); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99;
+            border-radius: 8px;
+        }
+
+        .candado-mensaje {
+            background: #ffffff;
+            padding: 35px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            border-top: 6px solid #3182ce;
+        }
+
+        .icono-candado {
+            font-size: 45px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .candado-mensaje h3 {
+            color: #2d3748;
+            font-size: 1.4rem;
+            margin: 0 0 25px 0;
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.4;
+        }
+
+        .contador-grid {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .contador-bloque {
+            background: #f7fafc;
+            padding: 12px 8px;
+            border-radius: 8px;
+            min-width: 75px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .contador-bloque span {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #3182ce;
+        }
+
+        .contador-bloque small {
+            display: block;
+            font-size: 0.75rem;
+            color: #718096;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -199,111 +276,131 @@
         <h2 class="section-title">Inscripción a Catequesis</h2>
         <p class="section-subtitle">Completa el siguiente formulario para inscribir a tu hijo/a</p>
         
-        <form class="registration-form" id="registrationForm">
+        <!-- CONTENEDOR CONTROLA EL CANDADO Y EL BORROSO -->
+        <div class="contenedor-bloqueo-inscripcion">
             
-            <!-- BLOQUE DE NOMBRE DESGLOSADO -->
-            <div style="font-weight: 600; margin-bottom: 10px; color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px;">
-                Datos del Alumno
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="apellidoPaterno">Apellido Paterno *</label>
-                    <input type="text" id="apellidoPaterno" name="apellidoPaterno" required placeholder="Ej. Pérez">
-                </div>
-                <div class="form-group">
-                    <label for="apellidoMaterno">Apellido Materno *</label>
-                    <input type="text" id="apellidoMaterno" name="apellidoMaterno" required placeholder="Ej. López">
-                </div>
-                <div class="form-group">
-                    <label for="nombresNino">Nombre(s) *</label>
-                    <input type="text" id="nombresNino" name="nombresNino" required placeholder="Ej. Juan Carlos">
+            <!-- CAPA SUPERPUESTA (CANDADO VISUAL) -->
+            <div id="candadoInscripcion" class="candado-overlay" style="display: none;">
+                <div class="candado-mensaje">
+                    <span class="icono-candado">⛪</span>
+                    <h3 id="textoCandado">La fecha de inscripción será el primer sábado de septiembre</h3>
+                    
+                    <!-- CONTADOR REGRESIVO -->
+                    <div id="contadorRegresivo" class="contador-grid">
+                        <div class="contador-bloque"><span id="dias">00</span><small>Días</small></div>
+                        <div class="contador-bloque"><span id="horas">00</span><small>Horas</small></div>
+                        <div class="contador-bloque"><span id="minutos">00</span><small>Minutos</small></div>
+                        <div class="contador-bloque"><span id="segundos">00</span><small>Segundos</small></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="fechaNacimiento">Fecha de nacimiento *</label>
-                    <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+            <form class="registration-form" id="registrationForm">
+                
+                <!-- BLOQUE DE NOMBRE DESGLOSADO -->
+                <div style="font-weight: 600; margin-bottom: 10px; color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px;">
+                    Datos del Alumno
                 </div>
-                <div class="form-group">
-                    <label for="nivel">Nivel de catequesis *</label>
-                    <select id="nivel" name="nivel" required>
-                        <option value="">Selecciona un nivel</option>
-                        <option value="iniciacion">Iniciación</option>
-                        <option value="comunion">Primera Comunión</option>
-                        <option value="confirmacion">Confirmación</option>
-                        <option value="adultos">Adultos</option>
-                    </select>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="apellidoPaterno">Apellido Paterno *</label>
+                        <input type="text" id="apellidoPaterno" name="apellidoPaterno" required placeholder="Ej. Pérez">
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidoMaterno">Apellido Materno *</label>
+                        <input type="text" id="apellidoMaterno" name="apellidoMaterno" required placeholder="Ej. López">
+                    </div>
+                    <div class="form-group">
+                        <label for="nombresNino">Nombre(s) *</label>
+                        <input type="text" id="nombresNino" name="nombresNino" required placeholder="Ej. Juan Carlos">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="bautizado">¿Ha sido bautizado? *</label>
-                    <select id="bautizado" name="bautizado" required>
-                        <option value="">Selecciona</option>
-                        <option value="si">Sí</option>
-                        <option value="no">No</option>
-                    </select>
-                </div>
-            </div>
 
-            <div style="font-weight: 600; margin-top: 20px; margin-bottom: 10px; color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px;">
-                Datos del Tutor y Contacto
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="nombrePadre">Nombre del padre/tutor *</label>
-                    <input type="text" id="nombrePadre" name="nombrePadre" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fechaNacimiento">Fecha de nacimiento *</label>
+                        <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nivel">Nivel de catequesis *</label>
+                        <select id="nivel" name="nivel" required>
+                            <option value="">Selecciona un nivel</option>
+                            <option value="iniciacion">Iniciación</option>
+                            <option value="comunion">Primera Comunión</option>
+                            <option value="confirmacion">Confirmación</option>
+                            <option value="adultos">Adultos</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bautizado">¿Ha sido bautizado? *</label>
+                        <select id="bautizado" name="bautizado" required>
+                            <option value="">Selecciona</option>
+                            <option value="si">Sí</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="telefonoPadre">Teléfono de contacto *</label>
-                    <input type="tel" id="telefonoPadre" name="telefonoPadre" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Correo electrónico</label>
-                    <input type="email" id="email" name="email">
-                </div>
-            </div>
 
-            <!-- BLOQUE DE DIRECCIÓN DESGLOSADA -->
-            <div style="font-weight: 600; margin-top: 20px; margin-bottom: 10px; color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px;">
-                Domicilio del Alumno
-            </div>
-            <div class="form-row">
-                <div class="form-group" style="flex: 2;">
-                    <label for="calle">Calle *</label>
-                    <input type="text" id="calle" name="calle" required placeholder="Ej. Av. Necaxa">
+                <div style="font-weight: 600; margin-top: 20px; margin-bottom: 10px; color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px;">
+                    Datos del Tutor y Contacto
                 </div>
-                <div class="form-group" style="flex: 1;">
-                    <label for="numExterior">Núm. Exterior *</label>
-                    <input type="text" id="numExterior" name="numExterior" required placeholder="Ej. 100">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nombrePadre">Nombre del padre/tutor *</label>
+                        <input type="text" id="nombrePadre" name="nombrePadre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefonoPadre">Teléfono de contacto *</label>
+                        <input type="tel" id="telefonoPadre" name="telefonoPadre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" name="email">
+                    </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="colonia">Colonia *</label>
-                    <input type="text" id="colonia" name="colonia" required placeholder="Ej. Industrial">
-                </div>
-                <div class="form-group">
-                    <label for="alcaldia">Alcaldía *</label>
-                    <input type="text" id="alcaldia" name="alcaldia" required placeholder="Ej. Gustavo A. Madero">
-                </div>
-                <div class="form-group">
-                    <label for="ciudad">Ciudad *</label>
-                    <input type="text" id="ciudad" name="ciudad" required value="Ciudad de México">
-                </div>
-            </div>
 
-            <div class="form-group" style="margin-top: 15px;">
-                <label for="observaciones">Observaciones o comentarios adicionales</label>
-                <textarea id="observaciones" name="observaciones" rows="3"></textarea>
-            </div>
+                <!-- BLOQUE DE DIRECCIÓN DESGLOSADA -->
+                <div style="font-weight: 600; margin-top: 20px; margin-bottom: 10px; color: #2c3e50; border-bottom: 2px solid #eee; padding-bottom: 5px;">
+                    Domicilio del Alumno
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2;">
+                        <label for="calle">Calle *</label>
+                        <input type="text" id="calle" name="calle" required placeholder="Ej. Av. Necaxa">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="numExterior">Núm. Exterior *</label>
+                        <input type="text" id="numExterior" name="numExterior" required placeholder="Ej. 100">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="colonia">Colonia *</label>
+                        <input type="text" id="colonia" name="colonia" required placeholder="Ej. Industrial">
+                    </div>
+                    <div class="form-group">
+                        <label for="alcaldia">Alcaldía *</label>
+                        <input type="text" id="alcaldia" name="alcaldia" required placeholder="Ej. Gustavo A. Madero">
+                    </div>
+                    <div class="form-group">
+                        <label for="ciudad">Ciudad *</label>
+                        <input type="text" id="ciudad" name="ciudad" required value="Ciudad de México">
+                    </div>
+                </div>
 
-            <div class="form-checkbox">
-                <input type="checkbox" id="acepto" name="acepto" required>
-                <label for="acepto">Acepto el reglamento de catequesis y me comprometo a cumplir con las normas establecidas *</label>
-            </div>
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="observaciones">Observaciones o comentarios adicionales</label>
+                    <textarea id="observaciones" name="observaciones" rows="3"></textarea>
+                </div>
 
-            <button type="submit" class="btn btn-primary btn-large">Enviar Inscripción y Descargar Comprobante</button>
-        </form>
+                <div class="form-checkbox">
+                    <input type="checkbox" id="acepto" name="acepto" required>
+                    <label for="acepto">Acepto el reglamento de catequesis y me comprometo a cumplir con las normas establecidas *</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large">Enviar Inscripción y Descargar Comprobante</button>
+            </form>
+        </div>
     </div>
 </section>
 
