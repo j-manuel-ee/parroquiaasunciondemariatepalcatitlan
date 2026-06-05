@@ -42,6 +42,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     // Redirección oficial a tu panel de administración
                     window.location.href = "adminDashboard.html";
                 }
+
+                // Dentro del bloque de éxito del formulario del administrador:
+                localStorage.setItem("rol_usuario", "admin");
+                window.location.replace("adminDashboard.html");
             } catch (err) {
                 console.error("Error en la autenticación:", err.message);
                 errorMessage.textContent = "Hubo un problema al conectar con el servidor. Inténtalo más tarde.";
