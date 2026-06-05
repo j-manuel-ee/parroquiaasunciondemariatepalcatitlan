@@ -224,6 +224,28 @@
   <p style="text-align: center; color: #555;">Selecciona una opción del menú para interactuar con los datos o navega usando los recuadros superiores.</p>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/conexion.js"></script> <script>
+    async function cerrarSesion() {
+        // 1. Cerramos la sesión en Supabase
+        const { error } = await supabaseClient.auth.signOut();
+        
+        if (error) {
+            console.error("Error al cerrar sesión:", error.message);
+            alert("Hubo un error al salir, intenta de nuevo.");
+            return;
+        }
+
+        // 2. Limpiamos cualquier dato local de persistencia que hayas creado
+        localStorage.clear();
+        sessionStorage.clear();
+
+        // 3. Redirigimos al administrador a la página de login
+        alert("Has cerrado sesión correctamente.");
+        window.location.href = "index.html";
+    }
+</script>
+
 </body>
 <script>
     // Validar sesión antes de mostrar cualquier contenido
