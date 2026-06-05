@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juntas Parroquiales | Parroquia Asunción de María Tepalcatitlán</title>
+    <title>Minutas de Juntas Parroquiales | Parroquia Asunción de María</title>
 
     <style>
         body {
@@ -79,6 +79,7 @@
             background: #ffffff;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: relative;
         }
 
         .tarjeta-junta h3 {
@@ -87,6 +88,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding-right: 140px; /* Espacio para los botones */
         }
 
         .badge-fecha {
@@ -100,16 +102,26 @@
         p {
             line-height: 1.6;
             color: #333;
+            white-space: pre-wrap;
         }
 
-        /* Panel Exclusivo para el Admin (Formulario de creación) */
+        /* Contenedor de acciones del admin dentro de la tarjeta */
+        .acciones-admin-tarjeta {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Panel Exclusivo para el Admin */
         .admin-panel-only {
             background-color: #f7fafc;
             border: 1px dashed #4299e1;
             padding: 20px;
             border-radius: 6px;
             margin-bottom: 25px;
-            display: none; /* Se activa con JS solo para admin */
+            display: none; 
         }
 
         .form-group {
@@ -129,134 +141,358 @@
             box-sizing: border-box;
             border: 1px solid #cbd5e0;
             border-radius: 4px;
+            font-family: Arial, sans-serif;
         }
         
         .btn-action {
             background-color: #3182ce;
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 20px;
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
         }
+        .btn-action:hover {
+            background-color: #2b6cb0;
+        }
 
-        .btn-edit {
-            background-color: #4a5568;
-            color: white;
+        /* Botones de control de registros */
+        .btn-edit-junta {
+            background-color: #ecc94b;
+            color: #744210;
             border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
+            padding: 6px 12px;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 13px;
-            display: none; /* Se activa con JS */
+            font-weight: bold;
+        }
+        .btn-edit-junta:hover {
+            background-color: #d69e2e;
+        }
+
+        .btn-delete-junta {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .btn-delete-junta:hover {
+            background-color: #c53030;
+        }
+
+        .loading-text {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Ventana emergente (Modal) para Edición */
+        .modal-editor {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-editor-content {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .modal-editor-content h2 {
+            margin-top: 0;
+            color: #2b6cb0;
+            font-size: 20px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        .modal-flex-btns {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .btn-cancel {
+            background-color: #718096;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-cancel:hover {
+            background-color: #4a5568;
         }
     </style>
 </head>
-
 <body>
 
-    <!-- Barra superior Dinámica -->
     <div class="top-bar" id="barraSuperior">
         <div class="title">
             <img src="imagen/logo_asun.png" alt="Logo Parroquia">
-            Calendario de Juntas Parroquiales
+            Acuerdos y Minutas de Juntas
         </div>
         <a id="btnRegresar" href="adminDashboard.html">Regresar al Panel</a>
     </div>
 
     <div class="container">
-
-        <h1>Agenda de Asambleas Parroquiales</h1>
+        <h1>Minutas de Juntas Mensuales</h1>
         <div class="sub-header" id="txtModo">Modo Consulta</div>
 
-        <!-- FORMULARIO DE EDICIÓN (SOLO VISIBLE PARA ADMIN) -->
         <div id="panelAdministrador" class="admin-panel-only">
-            <h3 style="margin: 0 0 15px 0; color: #2b6cb0;">🗓️ Agendar Nueva Junta</h3>
-            <div class="form-group">
-                <label>Grupo / Asunto:</label>
-                <input type="text" placeholder="Ej. Consejo de Pastoral Parroquial">
-            </div>
-            <div class="form-group">
-                <label>Fecha y Hora:</label>
-                <input type="text" placeholder="Ej. Martes 16 de Junio - 7:00 PM">
-            </div>
-            <div class="form-group">
-                <label>Puntos a tratar / Notas:</label>
-                <textarea rows="2" placeholder="Ej. Organización de las fiestas patronales y revisión de presupuestos..."></textarea>
-            </div>
-            <button class="btn-action">Publicar Convocatoria</button>
+            <h3 style="margin: 0 0 15px 0; color: #2b6cb0;">✍️ Registrar Puntos Tratados en la Junta</h3>
+            <form id="formMinuta">
+                <div class="form-group">
+                    <label>Título de la Junta / Grupo:</label>
+                    <input type="text" id="minutaTitulo" placeholder="Ej. Junta Mensual de Coordinadores - Junio 2026" required>
+                </div>
+                <div class="form-group">
+                    <label>Fecha de Realización:</label>
+                    <input type="text" id="minutaFecha" placeholder="Ej. Jueves 04 de Junio" required>
+                </div>
+                <div class="form-group">
+                    <label>Puntos Acordados y Conclusiones:</label>
+                    <textarea id="minutaPuntos" rows="6" placeholder="Escribe aquí de forma ordenada los temas vistos..." required></textarea>
+                </div>
+                <button type="submit" class="btn-action">Guardar Minuta Oficial</button>
+            </form>
         </div>
 
-        <!-- LISTA DE JUNTAS VIGENTES -->
-        <div class="tarjeta-junta">
-            <h3>
-                <span>📌 Reunión General de Catequistas</span>
-                <span class="badge-fecha">Sábado 13 de Junio - 4:00 PM</span>
-            </h3>
-            <p><strong>Lugar:</strong> Salón San José.<br>
-            <strong>Objetivo:</strong> Entrega y revisión de las listas finales de alumnos inscritos ordenados por rangos de edad. Traer reporte de materiales faltantes.</p>
-            <button class="btn-edit btn-admin-action">Modificar Junta</button>
+        <div id="contenedorJuntas">
+            <p class="loading-text">Cargando minutas históricas...</p>
         </div>
-
-        <div class="tarjeta-junta">
-            <h3>
-                <span>📌 Consejo Económico Parroquial</span>
-                <span class="badge-fecha">Miércoles 17 de Junio - 8:00 PM</span>
-            </h3>
-            <p><strong>Lugar:</strong> Oficina Principal.<br>
-            <strong>Objetivo:</strong> Evaluación del presupuesto asignado a reparaciones del templo y revisión de los cortes de caja de las actividades de recaudación.</p>
-            <button class="btn-edit btn-admin-action">Modificar Junta</button>
-        </div>
-
-        <div class="tarjeta-junta">
-            <h3>
-                <span>📌 Asamblea de Coros y Ministerios de Canto</span>
-                <span class="badge-fecha">Jueves 25 de Junio - 7:30 PM</span>
-            </h3>
-            <p><strong>Lugar:</strong> Interior del Templo.<br>
-            <strong>Objetivo:</strong> Coordinación de horarios y ensayos solemnes de los cantos para las próximas festividades de la comunidad.</p>
-            <button class="btn-edit btn-admin-action">Modificar Junta</button>
-        </div>
-
     </div>
 
-    <!-- CONTROL DE ACCESOS Y PERMISOS DINÁMICOS -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const rol = localStorage.getItem("rol_usuario") || "coordinador";
-            const btnRegresar = document.getElementById("btnRegresar");
-            const panelAdmin = document.getElementById("panelAdministrador");
-            const txtModo = document.getElementById("txtModo");
-            const barraSuperior = document.getElementById("barraSuperior");
-            const botonesEdicion = document.querySelectorAll(".btn-admin-action");
+    <div id="modalEditarMinuta" class="modal-editor">
+        <div class="modal-editor-content">
+            <h2>✏️ Editar Minuta Existente</h2>
+            <form id="formEditarMinuta">
+                <input type="hidden" id="editMinutaId">
+                <div class="form-group">
+                    <label>Título de la Junta / Grupo:</label>
+                    <input type="text" id="editMinutaTitulo" required>
+                </div>
+                <div class="form-group">
+                    <label>Fecha de Realización:</label>
+                    <input type="text" id="editMinutaFecha" required>
+                </div>
+                <div class="form-group">
+                    <label>Puntos Acordados y Conclusiones:</label>
+                    <textarea id="editMinutaPuntos" rows="8" required></textarea>
+                </div>
+                <div class="modal-flex-btns">
+                    <button type="button" class="btn-cancel" onclick="cerrarModal()">Cancelar</button>
+                    <button type="submit" class="btn-action" style="background-color: #ecc94b; color: #744210;">Actualizar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-            if (rol === "admin") {
-                // Configuración para el Administrador
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/conexion.js"></script>
+
+    <script>
+        const rolGuardado = localStorage.getItem("rol_usuario");
+        const esCoordinadorActivo = sessionStorage.getItem("grupo_activo");
+        const rol = (esCoordinadorActivo ? "coordinador" : (rolGuardado ? rolGuardado.trim().toLowerCase() : "coordinador"));
+
+        const btnRegresar = document.getElementById("btnRegresar");
+        const panelAdmin = document.getElementById("panelAdministrador");
+        const txtModo = document.getElementById("txtModo");
+        const barraSuperior = document.getElementById("barraSuperior");
+        const formMinuta = document.getElementById("formMinuta");
+        const contenedorJuntas = document.getElementById("contenedorJuntas");
+        
+        // Elementos del Modal de Edición
+        const modalEditar = document.getElementById("modalEditarMinuta");
+        const formEditarMinuta = document.getElementById("formEditarMinuta");
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (roleAdminVerificado()) {
                 btnRegresar.href = "adminDashboard.html";
                 btnRegresar.textContent = "⬅ Volver Panel Admin";
-                panelAdmin.style.display = "block";
-                txtModo.textContent = "Modo: Administrador (Edición Habilitada)";
-                txtModo.style.color = "#1f78b4";
-                
-                // Mostrar botones para alterar los datos existentes
-                botonesEdicion.forEach(btn => btn.style.display = "inline-block");
+                if (panelAdmin) panelAdmin.style.display = "block";
+                if (txtModo) {
+                    txtModo.textContent = "Modo: Administrador (Captura y Modificación Completa)";
+                    txtModo.style.color = "#1f78b4";
+                }
             } else {
-                // Configuración de Solo Lectura para el Coordinador
                 btnRegresar.href = "cordiDashboard.html";
                 btnRegresar.textContent = "⬅ Volver Panel Coordinador";
-                panelAdmin.style.display = "none";
-                txtModo.textContent = "Modo: Coordinación (Solo Lectura)";
-                txtModo.style.color = "#4a5568";
-                
-                // Cambiar el color de la barra para que combine con su entorno azul marino
-                barraSuperior.style.backgroundColor = "rgba(0, 64, 128, 0.9)";
-                
-                // Esconder por completo los botones de modificación
-                botonesEdicion.forEach(btn => btn.style.display = "none");
+                if (txtModo) {
+                    txtModo.textContent = "Modo: Coordinación (Solo Lectura de Acuerdos)";
+                    txtModo.style.color = "#4a5568";
+                }
+                if (barraSuperior) {
+                    barraSuperior.style.backgroundColor = "rgba(0, 64, 128, 0.9)";
+                }
+                if (panelAdmin) panelAdmin.remove();
+                if (modalEditar) modalEditar.remove(); // Destruye el modal si es coordinador
             }
-        });
-    </script>
 
+            cargarMinutas();
+        });
+
+        function roleAdminVerificado() {
+            return rol === "admin";
+        }
+
+        // 1. CARGAR JUNTAS DESDE SUPABASE
+        async function cargarMinutas() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('juntas_minutas')
+                    .select('*')
+                    .order('id', { ascending: false });
+
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+                    contenedorJuntas.innerHTML = `<p style="text-align:center; color:#888;">No se han asentado minutas de juntas todavía.</p>`;
+                    return;
+                }
+
+                contenedorJuntas.innerHTML = "";
+                data.forEach(junta => {
+                    const div = document.createElement("div");
+                    div.classList.add("tarjeta-junta");
+                    
+                    // Solo inyectar controles de edición/borrado si es administrador confirmado
+                    const panelAccionesHTML = roleAdminVerificado() 
+                        ? `<div class="acciones-admin-tarjeta">
+                            <button class="btn-edit-junta" onclick="abrirEditor(${junta.id}, \`${escapeHTML(junta.titulo)}\`, \`${escapeHTML(junta.fecha_texto)}\`, \`${escapeHTML(junta.puntos_tratados)}\`)">Editar</button>
+                            <button class="btn-delete-junta" onclick="eliminarMinuta(${junta.id})">Borrar</button>
+                           </div>` 
+                        : '';
+
+                    div.innerHTML = `
+                        <h3>
+                            <span>📌 ${junta.titulo}</span>
+                            <span class="badge-fecha">${junta.fecha_texto}</span>
+                        </h3>
+                        <p>${junta.puntos_tratados}</p>
+                        ${panelAccionesHTML}
+                    `;
+                    contenedorJuntas.appendChild(div);
+                });
+
+            } catch (err) {
+                contenedorJuntas.innerHTML = `<p style="color:red; text-align:center;">Error al cargar minutas: ${err.message}</p>`;
+            }
+        }
+
+        // Helper para evitar errores con comillas o saltos de línea al pasar strings en los botones
+        function escapeHTML(str) {
+            return str.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
+        // 2. AGREGAR NUEVA MINUTA (SOLO ADMIN)
+        if (formMinuta) {
+            formMinuta.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                if (!roleAdminVerificado()) return;
+
+                const tituloVal = document.getElementById("minutaTitulo").value.trim();
+                const fechaVal = document.getElementById("minutaFecha").value.trim();
+                const puntosVal = document.getElementById("minutaPuntos").value.trim();
+
+                try {
+                    const { error } = await supabaseClient
+                        .from('juntas_minutas')
+                        .insert([{ titulo: tituloVal, fecha_texto: fechaVal, puntos_tratados: puntosVal }]);
+
+                    if (error) throw error;
+
+                    alert("La minuta se ha publicado con éxito.");
+                    formMinuta.reset();
+                    cargarMinutas();
+                } catch (err) {
+                    alert("Error al guardar: " + err.message);
+                }
+            });
+        }
+
+        // 3. LOGICA PARA LA EDICIÓN (MODAL FLOTANTE)
+        function abrirEditor(id, titulo, fecha, puntos) {
+            if (!roleAdminVerificado()) return;
+            
+            document.getElementById("editMinutaId").value = id;
+            document.getElementById("editMinutaTitulo").value = titulo;
+            document.getElementById("editMinutaFecha").value = fecha;
+            document.getElementById("editMinutaPuntos").value = puntos;
+            
+            modalEditar.style.display = "flex";
+        }
+
+        function cerrarModal() {
+            modalEditar.style.display = "none";
+            formEditarMinuta.reset();
+        }
+
+        if (formEditarMinuta) {
+            formEditarMinuta.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                if (!roleAdminVerificado()) return;
+
+                const id = document.getElementById("editMinutaId").value;
+                const tituloVal = document.getElementById("editMinutaTitulo").value.trim();
+                const fechaVal = document.getElementById("editMinutaFecha").value.trim();
+                const puntosVal = document.getElementById("editMinutaPuntos").value.trim();
+
+                try {
+                    const { error } = await supabaseClient
+                        .from('juntas_minutas')
+                        .update({ titulo: tituloVal, fecha_texto: fechaVal, puntos_tratados: puntosVal })
+                        .eq('id', id);
+
+                    if (error) throw error;
+
+                    alert("Minuta actualizada correctamente.");
+                    cerrarModal();
+                    cargarMinutas();
+                } catch (err) {
+                    alert("Error al actualizar la minuta: " + err.message);
+                }
+            });
+        }
+
+        // 4. ELIMINAR MINUTA
+        async function eliminarMinuta(idMinuta) {
+            if (!roleAdminVerificado()) {
+                alert("Acción denegada.");
+                return;
+            }
+            
+            if (confirm("¿Estás seguro de que deseas borrar de forma definitiva esta minuta?")) {
+                try {
+                    const { error } = await supabaseClient
+                        .from('juntas_minutas')
+                        .delete()
+                        .eq('id', idMinuta);
+
+                    if (error) throw error;
+                    alert("Minuta eliminada de la base de datos.");
+                    cargarMinutas();
+                } catch (err) {
+                    alert("No se pudo eliminar el registro: " + err.message);
+                }
+            }
+        }
+    </script>
 </body>
 </html>
