@@ -3,181 +3,341 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Operación María de Nazareth | Parroquia Asunción de María</title>
+  <title>Foro de Opiniones | Parroquia Asunción de María</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style/foro.css">
   <style>
-    body {
-      margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      background: url('imagen/cielo.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #333;
-    }
-
-    header {
-      background: linear-gradient(to right, #0d47a1, #1976d2, #64b5f6);
-      color: white;
-      padding: 20px 0;
+    /* Estilos para el aviso emergente (Modal) */
+    .modal-aviso {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    header img {
-      height: 100px;
-    }
-
-    .header-text {
-      text-align: center;
-      flex: 1;
-    }
-
-    .header-text h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.2em;
-      margin: 0;
-    }
-
-    nav {
-      background: linear-gradient(to right, #002f6c, #0d47a1, #1565c0);
-      display: flex;
-      justify-content: center;
-      position: relative;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      padding: 15px 20px;
-      display: inline-block;
-      position: relative;
-    }
-
-    nav a:hover {
-      background-color: #3c8dff;
-    }
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
+      position: fixed;
+      z-index: 9999;
       left: 0;
-      background: linear-gradient(to bottom, #0d47a1, #1565c0);
-      min-width: 200px;
-      z-index: 1;
-    }
-
-    .dropdown-content a {
-      display: block;
-      padding: 12px 20px;
-    }
-
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-
-    h1 {
-      text-align: center;
-      font-family: 'Playfair Display', serif;
-      color: #5a2a27;
-      margin-top: 40px;
-    }
-
-    .image-container {
-      display: flex;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
       justify-content: center;
       align-items: center;
-      margin: 40px 0;
     }
-
-    .image-container img {
-      max-width: 80%;
-      width: 400px;
-      height: auto;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      border-radius: 10px;
-    }
-
-    footer {
-      background-color: #04396a;
-      color: white;
+    .modal-contenido {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 500px;
       text-align: center;
-      padding: 30px 10px;
-      margin-top: 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
-
-    @media (max-width: 768px) {
-      .dropdown-content {
-        position: static;
-      }
-
-      .image-container img {
-        width: 90%;
-      }
+    .modal-contenido h3 {
+      color: #1f78b4;
+      margin-top: 0;
+      font-size: 1.4em;
+    }
+    .modal-contenido ul {
+      text-align: left;
+      margin: 20px 0;
+      padding-left: 20px;
+      color: #444;
+      line-height: 1.6;
+    }
+    .btn-aceptar {
+      background-color: #1f78b4;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      font-size: 1em;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .btn-aceptar:hover {
+      background-color: #155a8a;
+    }
+    /* Estilo sutil para el formato del tiempo al lado del nombre */
+    .tiempo-comentario {
+      font-size: 0.85em;
+      color: #777;
+      font-weight: normal;
+      margin-left: 8px;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="header-left">
-      <img src="imagen/logo_asun.png" alt="Logo Parroquia">
-    </div>
-    <div class="header-text">
-      <h1>Parroquia Asunción de María</h1>
-      <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
-    </div>
-  </header>
-
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="oficina.html">Oficina</a>
-    <div class="dropdown">
-      <a>Historia ▾</a>
-      <div class="dropdown-content">
-        <a href="historia.html">Parroquia</a>
-        <a href="histAsun.html">Asunción de María</a>
-      </div>
-    </div>
-    <div class="dropdown">
-        <a>Eventos ▾</a>
-        <div class="dropdown-content">
-          <a href="eventos.html">Calendario Mensual</a>
-          <a href="eventosEspeciales.html">Eventos Especiales</a>
-        </div>
-      </div>
-      <a href="grupos.html">Grupos Parroquiales</a>
-      <a href="mision.html">Misión</a>
-      <a href="contacto.html">Contacto</a>
-      <a href="vaticanNews.html">Vatican News</a>
-      <a href="foro.html">Foro de Opiniones</a>
-      <a href="transmisiones.html">En Vivo</a>
-      <div class="dropdown">
-        <a>Acceso ▾</a>
-        <div class="dropdown-content">
-          <a href="adminLogin.html">Administrador</a>
-          <a href="coordinadorLogin.html">Coordinador</a>
-      </div>
-    </div>
-  </nav>
-
-  <h1>Estamos preparando un espacio para poder escucharte</h1>
-  <h1>Le agradecemos su espera</h1>
-
-  <div class="image-container">
-    <img src="imagen/omn.png" alt="Imagen de mantenimiento">
+<div id="modalAviso" class="modal-aviso">
+  <div class="modal-contenido">
+    <h3>🙏 Normas de Convivencia del Foro</h3>
+    <p>Para mantener un ambiente fraterno y de respeto mutuo en nuestra comunidad digital, te recordamos que:</p>
+    <ul>
+      <li>Debes usar tu <strong>nombre real</strong> (no se permiten números, apodos ni sobrenombres).</li>
+      <li>No se tolerarán <strong>palabras altisonantes, ofensivas</strong> o comentarios que falten al respeto a los miembros de la comunidad.</li>
+      <li>Cualquier comentario inapropiado o con datos falsos será bloqueado de manera automática.</li>
+    </ul>
+    <button class="btn-aceptar" onclick="cerrarAviso()">Entendido y Aceptar</button>
   </div>
+</div>
+
+<header>
+  <div class="header-left">
+    <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+  </div>
+  <div class="header-text">
+    <h1>Parroquia Asunción de María</h1>
+    <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
+  </div>
+</header>
+
+<nav>
+  <a href="index.html">Inicio</a>
+  <a href="oficina.html">Oficina</a>
+  <div class="dropdown">
+    <a>Historia ▾</a>
+    <div class="dropdown-content">
+      <a href="historia.html">Parroquia</a>
+      <a href="histAsun.html">Asunción de María</a>
+    </div>
+  </div>
+  <div class="dropdown">
+      <a>Eventos ▾</a>
+      <div class="dropdown-content">
+        <a href="eventos.html">Calendario Mensual</a>
+        <a href="eventosEspeciales.html">Eventos Especiales</a>
+      </div>
+    </div>
+    <a href="grupos.html">Grupos Parroquiales</a>
+    <a href="mision.html">Misión</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="vaticanNews.html">Vatican News</a>
+    <a href="foro.html">Foro de Opiniones</a>
+    <a href="transmisiones.html">En Vivo</a>
+    <div class="dropdown">
+      <a>Acceso ▾</a>
+      <div class="dropdown-content">
+        <a href="adminLogin.html">Administrador</a>
+        <a href="coordinadorLogin.html">Coordinador</a>
+    </div>
+  </div>
+</nav>
+
+<div class="banner">
+  <h2>Foro de Opiniones</h2>
+</div>
+
+<div class="container">
+  <h3>Comparte tu opinión</h3>
+  <form id="formOpinion">
+    <label>Nombre:</label>
+    <input type="text" id="insNombre" name="nombre" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+" title="Por favor, ingresa solo letras y espacios. No se permiten números ni apodos." required>
+
+    <label>Rango de edad:</label>
+    <select id="insEdad" name="edad" required>
+      <option value="">Selecciona...</option>
+      <option value="Menos de 18">Menos de 18</option>
+      <option value="18-29">18-29</option>
+      <option value="30-45">30-45</option>
+      <option value="46-60">46-60</option>
+      <option value="Más de 60">Más de 60</option>
+    </select>
+
+    <label>Asiste continuamente a la parroquia:</label>
+    <select id="insAsistencia" name="asistencia" required>
+      <option value="">Selecciona...</option>
+      <option value="Sí">Sí</option>
+      <option value="No">No</option>
+    </select>
+
+    <label>Calificación:</label>
+    <select id="insCalificacion" name="calificacion" required>
+      <option value="">Selecciona...</option>
+      <option value="1">★</option>
+      <option value="2">★★</option>
+      <option value="3">★★★</option>
+      <option value="4">★★★★</option>
+      <option value="5">★★★★★</option>
+    </select>
+
+    <label>Comentario:</label>
+    <textarea id="insComentario" name="comentario" rows="4" placeholder="Escribe aquí tu mensaje de forma respetuosa..." required></textarea>
+
+    <button type="submit">Enviar Opinión</button>
+  </form>
+
+  <div class="filtro">
+    <label for="filtroEstrellas"><strong>Filtrar por estrellas:</strong></label>
+    <select id="filtroEstrellas">
+      <option value="todas">Todas</option>
+      <option value="5">★★★★★ (5 estrellas)</option>
+      <option value="4">★★★★ (4 estrellas)</option>
+      <option value="3">★★★ (3 estrellas)</option>
+      <option value="2">★★ (2 estrellas)</option>
+      <option value="1">★ (1 estrella)</option>
+    </select>
+  </div>
+
+  <div class="opiniones" id="opiniones">
+    <h3>Opiniones de la Comunidad</h3>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 Parroquia Asunción de María | Foro de Opiniones</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/conexion.js"></script>
+
+<script>
+const formOpinion = document.getElementById('formOpinion');
+const contOpiniones = document.getElementById('opiniones');
+const filtroEstrellas = document.getElementById('filtroEstrellas');
+const inputNombre = document.getElementById('insNombre');
+let opinionesGlobal = [];
+
+// --- 1. CONTROL DEL AVISO MÓDULO EMERGENTE ---
+function cerrarAviso() {
+    document.getElementById('modalAviso').style.display = 'none';
+}
+
+// --- 2. BLOQUEO EN TIEMPO REAL EN EL FRONTEND ---
+if(inputNombre) {
+    inputNombre.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]/g, '');
+    });
+}
+
+const palabrasProhibidasLocal = ["pendejo", "pendeja", "cabron", "cabrón", "chingar", "chinga", "puto", "puta", "mierda"];
+
+function contieneGroseriasLocal(texto) {
+    const t = texto.toLowerCase();
+    return palabrasProhibidasLocal.some(p => t.includes(p));
+}
+
+// --- 3. FUNCIÓN INTELIGENTE PARA CALCULAR EL TIEMPO TRANSCURRIDO ---
+function formatearTiempoTranscurrido(fechaIso) {
+    const fechaComentario = new Date(fechaIso);
+    const ahora = new Date();
+    
+    // Diferencia en milisegundos convertida a minutos y horas
+    const diferenciaMs = ahora - fechaComentario;
+    const diferenciaMinutos = Math.floor(diferenciaMs / (1000 * 60));
+    const diferenciaHoras = Math.floor(diferenciaMs / (1000 * 60 * 60));
+
+    // Si ha pasado menos de un minuto
+    if (diferenciaMinutos < 1) {
+        return "• Hace unos instantes";
+    }
+    
+    // REGLA 1: Menos de una hora -> Mostrar en minutos
+    if (diferenciaMinutos < 60) {
+        return `• Hace ${diferenciaMinutos} min`;
+    }
+    
+    // REGLA 2: Entre 1 hora y menos de 24 horas -> Mostrar en horas
+    if (diferenciaHoras < 24) {
+        return `• Hace ${diferenciaHoras} ${diferenciaHoras === 1 ? 'hora' : 'horas'}`;
+    }
+    
+    // REGLA 3: Más de 24 horas -> Mostrar la fecha completa (Ej: 15/05/2026)
+    const dia = String(fechaComentario.getDate()).padStart(2, '0');
+    const mes = String(fechaComentario.getMonth() + 1).padStart(2, '0');
+    const anio = fechaComentario.getFullYear();
+    return `• ${dia}/${mes}/${anio}`;
+}
+
+// --- 4. RENDERIZAR OPINIONES ---
+function renderOpiniones(filtro = "todas") {
+    contOpiniones.innerHTML = '<h3>Opiniones de la Comunidad</h3>';
+    let filtradas = opinionesGlobal;
+    if (filtro !== "todas") {
+        filtradas = opinionesGlobal.filter(op => op.calificacion == filtro);
+    }
+    
+    filtradas.forEach(op => {
+        let div = document.createElement('div');
+        div.classList.add('opinion');
+        
+        // Calculamos la etiqueta del tiempo dinámicamente usando la columna 'fecha'
+        const etiquetaTiempo = formatearTiempoTranscurrido(op.fecha);
+
+        // Como pediste, en la clase .nombre ahora solo se imprime el Nombre y el Tiempo dinámico sutilmente al lado
+        div.innerHTML = `
+            <div class="nombre">${op.nombre} <span class="tiempo-comentario">${etiquetaTiempo}</span></div>
+            <div class="estrellas">${'★'.repeat(op.calificacion)}</div>
+            <div class="detalle">${op.comentario}</div>
+        `;
+        contOpiniones.appendChild(div);
+    });
+}
+
+// --- 5. CARGAR DESDE SUPABASE ---
+async function cargarOpiniones() {
+    try {
+        // Traemos todos los campos (incluyendo el campo 'fecha' autogenerado por Supabase)
+        const { data, error } = await supabaseClient
+            .from('foro_opiniones')
+            .select('*')
+            .order('id', { ascending: false });
+
+        if (error) throw error;
+        opinionesGlobal = data || [];
+        renderOpiniones(filtroEstrellas.value);
+    } catch (err) {
+        console.error("Error al descargar opiniones:", err.message);
+    }
+}
+
+// --- 6. ENVÍO DE FORMULARIO ---
+formOpinion.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    const nombreVal = inputNombre.value.trim();
+    const edadVal = document.getElementById('insEdad').value;
+    const asistenciaVal = document.getElementById('insAsistencia').value;
+    const calificacionVal = parseInt(document.getElementById('insCalificacion').value);
+    const comentarioVal = document.getElementById('insComentario').value.trim();
+
+    if(nombreVal.length < 7) {
+        alert("Por favor, introduce tu nombre real completo (Nombre y Apellido).");
+        return;
+    }
+
+    if (contieneGroseriasLocal(nombreVal) || contieneGroseriasLocal(comentarioVal)) {
+        alert("⚠️ Tu mensaje o nombre contiene vocabulario inadecuado. Por favor, reescríbelo con respeto.");
+        return;
+    }
+
+    try {
+        const { error } = await supabaseClient
+            .from('foro_opiniones')
+            .insert([{
+                nombre: nombreVal,
+                edad: edadVal,
+                asistencia: asistenciaVal,
+                calificacion: calificacionVal,
+                comentario: comentarioVal
+            }]);
+
+        if (error) throw error;
+
+        alert("Opinión enviada de forma exitosa.");
+        formOpinion.reset();
+        cargarOpiniones();
+    } catch (err) {
+        if (err.message && err.message.includes("vocabulario inapropiado")) {
+            alert("⚠️ Sistema de Moderación: Se detectó lenguaje obsceno u ofensivo (incluso camuflado). El comentario ha sido bloqueado.");
+        } else {
+            alert("Error al procesar la solicitud: " + err.message);
+        }
+    }
+});
+
+filtroEstrellas.addEventListener('change', () => {
+    renderOpiniones(filtroEstrellas.value);
+});
+
+cargarOpiniones();
+</script>
 
 </body>
 </html>
