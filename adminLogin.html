@@ -75,26 +75,24 @@
   </style>
 </head>
 <body>
+    <div class="login-container">
+      <div class="login-box">
+        <h2>Iniciar Sesión como Administrador</h2>
+        <form id="loginForm">
+          <label for="username">Correo Electrónico:</label>
+          <input type="text" id="username" name="username" required>
 
-<div class="login-container">
-  <div class="login-box">
-    <h2>Iniciar Sesión como Administrador</h2>
-    <form id="loginForm">
-      <label for="username">Correo Electrónico:</label>
-      <input type="text" id="username" name="username" required>
+          <label for="password">Contraseña:</label>
+          <input type="password" id="password" name="password" required>
 
-      <label for="password">Contraseña:</label>
-      <input type="password" id="password" name="password" required>
+          <button type="submit">Iniciar Sesión</button>
+        </form>
+            <div id="error-message" style="color: red; margin: 10px 0; display: none;"></div>
+        </div>
+    </div>
 
-      <button type="submit">Iniciar Sesión</button>
-    </form>
-    <div id="error-message" class="error-message"></div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/conexion.js"></script>
-<script src="js/adminLogin.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/conexion.js"></script>
+    <script src="js/adminLogin.js"></script>
 </body>
 </html>
