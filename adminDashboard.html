@@ -252,4 +252,19 @@
 </script>
 
 </body>
+
+<script>
+    // Validar sesión antes de mostrar cualquier contenido
+    (async () => {
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        
+        // Si no hay sesión activa, expulsar inmediatamente al login
+        if (!session) {
+            window.location.href = "adminLogin.html";
+        } else {
+            // Si sí hay sesión, mostrar el contenido (oculto por defecto para evitar parpadeos)
+            document.body.style.display = "block";
+        }
+    })();
+</script>
 </html>
