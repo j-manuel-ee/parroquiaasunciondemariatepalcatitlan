@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oficina Parroquial - Gestión de Libros</title>
+  <link rel="stylesheet" href="style/oficinaParroquial.css">
+  <style>
+    /* Ocultamos inicialmente por seguridad de roles; JS lo activará */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: url('imagen/cielo.jpg') no-repeat center center fixed;
+        background-size: cover;
+        color: #333;
+    }
+
+    .top-bar {
+        background-color: rgba(0, 64, 128, 0.9);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 40px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .top-bar .title {
+        display: flex;
+        align-items: center;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .top-bar img {
+        height: 50px;
+        margin-right: 15px;
+    }
+
+    .top-bar a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        background-color: rgba(255,255,255,0.2);
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+
+    .top-bar a:hover {
+        background-color: rgba(255,255,255,0.35);
+    }
+    
+    .secciones-container {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .col-buscador {
+      flex: 3;
+      min-width: 650px;
+    }
+
+    .col-registro {
+      flex: 1;
+      min-width: 320px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e2e8f0;
+      height: fit-content;
+      display: none; /* JS lo mostrará solo si es Administrador */
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: bold;
+      color: #4a5568;
+      margin-bottom: 4px;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e0;
+      font-size: 14px;
+    }
+
+    .btn-guardar {
+      background-color: #2f855a;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 6px;
+      font-weight: bold;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    
+    .btn-guardar:hover {
+      background-color: #22543d;
+    }
+  </style>
+</head>
+<body>
+    
+    <div class="top-bar" id="barraSuperior">
+        <div class="title">
+            <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+            Oficina Parroquial — Archivo de Sacramentos
+        </div>
+        <a id="btnRegresar" href="adminDashboard.html">Regresar al Panel</a>
+    </div>
+
+  <div class="content" style="padding: 20px; max-width: 1400px; margin: 0 auto; font-family: Arial, sans-serif;">
+    
+    <div id="txtModo" style="font-weight: bold; font-size: 14px; margin-bottom: 15px; color: #004080;">Cargando privilegios...</div>
+
+    <div class="secciones-container">
+      
+      <div class="col-buscador">
+        <div style="background: rgba(255,255,255,0.9); padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+            <h2 style="color: #004080; margin: 0 0 5px 0; font-size: 20px;">🔎 Buscador de Actas</h2>
+            <p style="color: #555; font-size: 13px; margin: 0;">Localiza de forma exprés el Libro, Tomo y Foja del documento físico.</p>
+        </div>
+
+        <div class="filter-wrapper" style="display: flex; flex-wrap: wrap; gap: 12px; background: rgba(255, 255, 255, 0.95); padding: 15px; border-radius: 8px; border: 1px solid #cbd5e0; align-items: flex-end; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+          
+          <div style="display: flex; flex-direction: column; flex: 2; min-width: 180px;">
+            <label style="font-size: 11px; font-weight: bold; color: #4a5568; margin-bottom: 4px;">Nombre completo:</label>
+            <input type="text" id="searchNombre" placeholder="Ej. Juan Pérez">
+          </div>
+
+          <div style="display: flex; flex-direction: column; min-width: 130px;">
+            <label style="font-size: 11px; font-weight: bold; color: #4a5568; margin-bottom: 4px;">Sacramento:</label>
+            <select id="searchSacramento">
+              <option value="">-- Todos --</option>
+              <option value="bautizo">Bautizo</option>
+              <option value="comunion">Primera Comunión</option>
+              <option value="confirmacion">Confirmación</option>
+              <option value="matrimonio">Matrimonio</option>
+            </select>
+          </div>
+
+          <div style="display: flex; flex-direction: column; width: 80px;">
+            <label style="font-size: 11px; font-weight: bold; color: #4a5568; margin-bottom: 4px;">Año:</label>
+            <input type="number" id="searchAnio" placeholder="1998" min="1900">
+          </div>
+
+          <div style="display: flex; flex-direction: column; min-width: 100px;">
+            <label style="font-size: 11px; font-weight: bold; color: #4a5568; margin-bottom: 4px;">Mes:</label>
+            <select id="searchMes">
+              <option value="">-- Todos --</option>
+              <option value="01">Enero</option>
+              <option value="02">Febrero</option>
+              <option value="03">Marzo</option>
+              <option value="04">Abril</option>
+              <option value="05">Mayo</option>
+              <option value="06">Junio</option>
+              <option value="07">Julio</option>
+              <option value="08">Agosto</option>
+              <option value="09">Septiembre</option>
+              <option value="10">Octubre</option>
+              <option value="11">Noviembre</option>
+              <option value="12">Diciembre</option>
+            </select>
+          </div>
+
+          <div style="display: flex; flex-direction: column; width: 70px;">
+            <label style="font-size: 11px; font-weight: bold; color: #4a5568; margin-bottom: 4px;">Día:</label>
+            <input type="number" id="searchDia" placeholder="24" min="1" max="31">
+          </div>
+
+          <button id="btnBuscar" class="btn-primary" style="height: 34px; padding: 0 15px; font-size: 14px;">
+            Buscar Libro
+          </button>
+        </div>
+
+        <div class="table-responsive" style="background: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
+          <table id="tablaResultados">
+            <thead>
+              <tr>
+                <th>Nombre Completo</th>
+                <th>Sacramento</th>
+                <th>Fecha / Periodo</th>
+                <th class="highlight-header" style="text-align: center;">Libro 📚</th>
+                <th class="highlight-header" style="text-align: center;">Tomo 📂</th>
+                <th class="highlight-header" style="text-align: center;">Foja 📄</th>
+                <th>No. Acta</th>
+                <th>Observaciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyResultados">
+              <tr>
+                <td colspan="8" style="text-align: center; padding: 25px; color: #666; font-style: italic;">Escribe un parámetro arriba para iniciar la consulta.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="col-registro" id="colRegistro">
+        <h3 style="color: #2f855a; margin-top: 0; margin-bottom: 5px;">📝 Registrar Ubicación</h3>
+        <p style="color: #666; font-size: 12px; margin-bottom: 15px;">Indexa un documento nuevo en la base de datos para futuras búsquedas rápidas.</p>
+        
+        <form id="formRegistro">
+          <div class="form-group">
+            <label>Nombre del Feligrés *</label>
+            <input type="text" id="regNombre" required placeholder="Nombres y Apellidos">
+          </div>
+
+          <div class="form-group">
+            <label>Tipo de Sacramento *</label>
+            <select id="regSacramento" required>
+              <option value="bautizo">Bautizo</option>
+              <option value="comunion">Primera Comunión</option>
+              <option value="confirmacion">Confirmación</option>
+              <option value="matrimonio">Matrimonio</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Fecha Exacta (Si se conoce)</label>
+            <input type="date" id="regFecha">
+          </div>
+
+          <div class="form-group">
+            <label>Año Aproximado (Si no sabe la fecha)</label>
+            <input type="number" id="regAnioEstimado" placeholder="Ej. 1985">
+          </div>
+
+          <div style="background: #ebf8ff; padding: 12px; border-radius: 6px; border: 1px solid #bee3f8; margin-top: 10px; margin-bottom: 10px;">
+            <label style="font-size: 11px; font-weight: bold; color: #2b6cb0; display: block; margin-bottom: 6px;">LOCALIZACIÓN EN ARCHIVO FÍSICO:</label>
+            <div style="display: flex; gap: 6px;">
+              <input type="text" id="regLibro" placeholder="Libro *" required style="width: 34%;">
+              <input type="text" id="regTomo" placeholder="Tomo" style="width: 32%;">
+              <input type="text" id="regFoja" placeholder="Foja *" required style="width: 34%;">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Número de Acta</label>
+            <input type="text" id="regActa" placeholder="Ej. 415">
+          </div>
+
+          <div class="form-group">
+            <label>Notas Marginales u Observaciones</label>
+            <textarea id="regNotas" rows="2" placeholder="Ej. Padrinos, anotaciones al margen..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-guardar">Guardar en Base de Datos</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/conexion.js"></script>
+  <script src="js/oficinaParroquial.js"></script>
+</body>
+</html>
