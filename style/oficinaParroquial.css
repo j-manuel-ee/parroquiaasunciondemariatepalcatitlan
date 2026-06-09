@@ -1,0 +1,217 @@
+/* ==========================================================================
+   ESTILOS PARA EL MÓDULO: OFICINA PARROQUIAL (ÍNDICE DE SACRAMENTOS)
+   ========================================================================== */
+
+/* Contenedor Principal y Cabecera */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+.navigation-bar {
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #1e3a8a; /* Azul institucional/parroquial */
+    margin-bottom: 5px;
+    font-size: 2rem;
+}
+
+/* Panel de Búsqueda (Grid Dinámico) */
+.search-panel {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    align-items: flex-end; /* Alinea el botón con los inputs */
+}
+
+/* Inputs y Selectores del Formulario */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 8px;
+}
+
+.form-group input, 
+.form-group select {
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f9fafb;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.form-group input:focus, 
+.form-group select:focus {
+    border-color: #2563eb;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Botones con la misma consistencia del Dashboard */
+.btn-primary {
+    background-color: #2563eb;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    height: 46px; /* Ajuste para alinear con los inputs */
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-secondary {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    padding: 8px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #e5e7eb;
+    color: #1f2937;
+}
+
+/* Panel de Resultados y Tabla Responsiva */
+.results-panel {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.results-panel h2 {
+    color: #374151;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 10px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+/* Estilos de la Tabla */
+#tablaResultados {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+#tablaResultados th, 
+#tablaResultados td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+#tablaResultados th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+}
+
+/* Filas alternas para facilitar la lectura */
+#tablaResultados tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+#tablaResultados tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+/* --- COLUMNAS ENFOCADAS (El secreto para la Secretaria) --- */
+
+/* Encabezados destacados */
+#tablaResultados th.highlight-header {
+    background-color: #e2e8f0;
+    color: #1e293b;
+}
+
+/* Estilo visual para las celdas de ubicación física */
+td.ubicacion-libro {
+    background-color: #ecfdf5 !important; /* Fondo verde menta muy suave */
+    color: #065f46;
+    font-weight: 700;
+    text-align: center;
+    border-left: 1px solid #d1fae5;
+    border-right: 1px solid #d1fae5;
+}
+
+td.ubicacion-foja {
+    background-color: #fff1f2 !important; /* Fondo rosa/rojo muy suave */
+    color: #9f1239;
+    font-weight: 700;
+    text-align: center;
+    border-left: 1px solid #ffe4e6;
+    border-right: 1px solid #ffe4e6;
+}
+
+/* Ajustes de responsividad para pantallas pequeñas (celulares/tablets) */
+@media (max-width: 600px) {
+    .search-panel {
+        grid-template-columns: 1fr;
+    }
+    
+    .btn-primary {
+        width: 100%;
+    }
+}
+
+/* Agrega esto al final de tus estilos existentes para complementar la sección */
+
+.filter-wrapper input, .filter-wrapper select {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #cbd5e0;
+  font-size: 14px;
+}
+
+/* Colores suaves para que la secretaria distinga instantáneamente la ubicación física */
+.celda-libro {
+  background-color: #eef2f7;
+  font-weight: bold;
+  color: #1f78b4;
+  text-align: center;
+}
+
+.celda-foja {
+  background-color: #fff5f5;
+  font-weight: bold;
+  color: #c53030;
+  text-align: center;
+}
