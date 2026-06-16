@@ -1,5 +1,8 @@
 // js/oficinaParroquial.js
 
+// Variable global para almacenar el rol del usuario actual
+let rolUsuarioActual = 'coordinador'; 
+
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. Control de seguridad y renderizado de módulos por rol
     await verificarAccesoYRoles();
@@ -14,14 +17,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (e.key === 'Enter') buscarSacramentos();
     });
 
-    // 3. Escuchar el evento de guardado del formulario
+    // 3. Escuchar el evento de guardado del formulario de registro
     document.getElementById('formRegistro').addEventListener('submit', guardarRegistroActa);
+
+    // 4. Escuchar eventos del Modal de Edición de Fecha
+    document.getElementById('btnCancelarEdicion').addEventListener('click', cerrarModalEdicion);
+    document.getElementById('formEditarFecha').addEventListener('submit', guardarEdicionFecha);
 });
 
 /**
  * CONTROL DE ACCESOS Y CAPAS:
- * Valida sesión. Si es admin, muestra el formulario de registro.
- * Si es coordinador, lo oculta para proteger la base de datos de escrituras accidentales.
+ * Valida sesión y almacena el rol para habilitar la edición en la tabla.
  */
 async function verificarAccesoYRoles() {
     try {
@@ -44,27 +50,26 @@ async function verificarAccesoYRoles() {
             return;
         }
 
-        const esAdmin = (perfil.rol === 'admin');
+        rolUsuarioActual = perfil.rol; // Guardamos el rol globalmente ('admin' o 'coordinador')
+        const esAdmin = (rolUsuarioActual === 'admin');
         
-        // Ajustar componentes visuales según permisos
         const colRegistro = document.getElementById("colRegistro");
         const txtModo = document.getElementById("txtModo");
 
         if (esAdmin) {
             if (colRegistro) colRegistro.style.display = "block";
             if (txtModo) {
-                txtModo.textContent = "Modo: Administrador (Búsqueda y Captura Habilitadas)";
+                txtModo.textContent = "Modo: Administrador (Búsqueda, Captura y Edición Habilitadas)";
                 txtModo.style.color = "#2f855a";
             }
         } else {
             if (colRegistro) colRegistro.style.display = "none";
             if (txtModo) {
-                txtModo.textContent = "Modo: Coordinación (Solo Consulta de Archivos)";
+                txtModo.textContent = "Modo: Coordinación (Solo Consulta y Actualización de Fechas)";
                 txtModo.style.color = "#004080";
             }
         }
 
-        // Hacemos visible el documento completo sin parpadeos
         document.body.style.display = 'block';
 
     } catch (err) {
@@ -74,9 +79,7 @@ async function verificarAccesoYRoles() {
 }
 
 /**
- * BUSCADOR DE SACRAMENTOS REFORZADO CON ALGORITMO MULTI-TÉRMINO (CORREGIDO):
- * Permite buscar por un nombre y un apellido (ej. "Juan Pérez") y encontrar
- * coincidencias más largas (ej. "Juan Carlos Pérez Gómez") sin romper Supabase.
+ * BUSCADOR DE SACRAMENTOS REFORZADO CON ALGORITMO MULTI-TÉRMINO:
  */
 async function buscarSacramentos() {
     const nombreInput = document.getElementById('searchNombre').value.trim();
@@ -91,24 +94,17 @@ async function buscarSacramentos() {
     try {
         let query = supabaseClient.from('sacramentos').select('*');
 
-        // --- ALGORITMO DE BÚSQUEDA INTELIGENTE POR PALABRAS (SINTAXIS CORRECTA V2) ---
         if (nombreInput) {
-            // Dividimos lo que escribió el usuario por espacios sueltos
             const palabras = nombreInput.split(/\s+/).filter(p => p.length > 0);
-            
-            // Encadenamos un .ilike() por cada palabra dentro del query.
-            // En Supabase, encadenar métodos de manera consecutiva actúa automáticamente como un AND lógico.
             palabras.forEach(palabra => {
                 query = query.ilike('nombre_titular', `%${palabra}%`);
             });
         }
-        // ----------------------------------------------------------------------------
 
         if (sacramento) {
             query = query.eq('tipo_sacramento', sacramento);
         }
 
-        // Segmentación temporal inteligente para la secretaria
         if (anio) {
             if (mes) {
                 if (diaInput) {
@@ -164,14 +160,23 @@ async function buscarSacramentos() {
                 <td style="font-size: 13px;">${sacramentosMap[reg.tipo_sacramento] || reg.tipo_sacramento}</td>
                 <td style="font-size: 13px;">${fechaFormateada}</td>
                 
-                <td class="ubicacion-libro">${escapeHTML(reg.libro)}</td>
-                <td class="ubicacion-libro">${escapeHTML(reg.tomo || '-')}</td>
-                <td class="ubicacion-foja">${escapeHTML(reg.foja)}</td>
+                <td class="ubicacion-libro" style="text-align: center;">${reg.numero_libro}</td>
+                <td class="ubicacion-foja" style="text-align: center;">${reg.numero_hoja}</td>
                 
-                <td style="text-align: center; font-size: 13px; font-weight: bold;">${escapeHTML(reg.acta_numero || '-')}</td>
+                <td style="text-align: center; font-size: 13px; font-weight: bold;">${reg.numero_acta}</td>
                 <td style="font-size: 12px; color: #4a5568;">${escapeHTML(reg.observaciones || '')}</td>
+                <td style="text-align: center;">
+                    <button class="btn-editar-fecha" data-id="${reg.id}" data-nombre="${escapeHTML(reg.nombre_titular)}" data-fecha="${reg.fecha_sacramento || ''}" data-anio="${reg.anio_estimado || ''}" style="background-color: #004080; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: bold;">
+                      ✏️ Fecha
+                    </button>
+                </td>
             `;
             tbody.appendChild(tr);
+        });
+
+        // Añadir el detector de clics a todos los nuevos botones de editar recién creados
+        document.querySelectorAll('.btn-editar-fecha').forEach(boton => {
+            boton.addEventListener('click', abrirModalEdicion);
         });
 
     } catch (err) {
@@ -181,8 +186,67 @@ async function buscarSacramentos() {
 }
 
 /**
+ * FUNCIONES DEL MODAL DE EDICIÓN:
+ */
+function abrirModalEdicion(e) {
+    const boton = e.target;
+    
+    // Extraemos la información del renglón desde los atributos data- del botón
+    const id = boton.getAttribute('data-id');
+    const nombre = boton.getAttribute('data-nombre');
+    const fecha = boton.getAttribute('data-fecha');
+    const anio = boton.getAttribute('data-anio');
+
+    // Inyectamos los datos en el formulario del Modal
+    document.getElementById('editId').value = id;
+    document.getElementById('editFecha').value = fecha;
+    document.getElementById('editAnioEstimado').value = anio;
+    document.getElementById('editModalInfo').textContent = `Feligrés: ${nombre}`;
+
+    // Mostramos el modal usando flex
+    document.getElementById('modalEditarFecha').style.display = 'flex';
+}
+
+function cerrarModalEdicion() {
+    document.getElementById('modalEditarFecha').style.display = 'none';
+    document.getElementById('formEditarFecha').reset();
+}
+
+async function guardarEdicionFecha(e) {
+    e.preventDefault();
+
+    const id = document.getElementById('editId').value;
+    const fecha = document.getElementById('editFecha').value || null;
+    let anioEstimado = document.getElementById('editAnioEstimado').value || null;
+
+    // Si pusieron fecha exacta pero no año, lo calculamos en automático
+    if (fecha && !anioEstimado) {
+        anioEstimado = new Date(fecha).getFullYear();
+    }
+
+    try {
+        const { error } = await supabaseClient
+            .from('sacramentos')
+            .update({
+                fecha_sacramento: fecha,
+                anio_estimado: anioEstimado ? parseInt(anioEstimado, 10) : null
+            })
+            .eq('id', id);
+
+        if (error) throw error;
+
+        alert('📅 Fecha del sacramento actualizada correctamente en el sistema.');
+        cerrarModalEdicion();
+        buscarSacramentos(); // Refrescamos la tabla para que se vea el cambio reflejado inmediatamente
+
+    } catch (err) {
+        console.error('Error al actualizar fecha:', err);
+        alert('❌ Error al actualizar la fecha: ' + err.message);
+    }
+}
+
+/**
  * ESCRIBIR NUEVOS REGISTROS:
- * Toma la información capturada del formulario y la almacena en Supabase.
  */
 async function guardarRegistroActa(e) {
     e.preventDefault();
@@ -191,11 +255,17 @@ async function guardarRegistroActa(e) {
     const sacramento = document.getElementById('regSacramento').value;
     const fecha = document.getElementById('regFecha').value || null;
     let anioEstimado = document.getElementById('regAnioEstimado').value || null;
-    const libro = document.getElementById('regLibro').value.trim();
-    const tomo = document.getElementById('regTomo').value.trim();
-    const foja = document.getElementById('regFoja').value.trim();
-    const acta = document.getElementById('regActa').value.trim();
+    
+    const libroInput = parseInt(document.getElementById('regLibro').value.trim(), 10);
+    const fojaInput = parseInt(document.getElementById('regFoja').value.trim(), 10);
+    const actaInput = parseInt(document.getElementById('regActa').value.trim(), 10);
+    
     const notas = document.getElementById('regNotas').value.trim();
+
+    if (isNaN(libroInput) || isNaN(fojaInput) || isNaN(actaInput)) {
+        alert('❌ Los campos Libro, Foja y Número de Acta deben ser exclusivamente números enteros.');
+        return;
+    }
 
     if (fecha && !anioEstimado) {
         anioEstimado = new Date(fecha).getFullYear();
@@ -208,11 +278,10 @@ async function guardarRegistroActa(e) {
                 nombre_titular: nombre,
                 tipo_sacramento: sacramento,
                 fecha_sacramento: fecha,
-                anio_estimado: anioEstimado ? parseInt(anioEstimado) : null,
-                libro: libro,
-                tomo: tomo || null,
-                foja: foja,
-                acta_numero: acta || null,
+                anio_estimado: anioEstimado ? parseInt(anioEstimado, 10) : null,
+                numero_libro: libroInput,
+                numero_hoja: fojaInput,
+                numero_acta: actaInput,
                 observaciones: notas || null
             }]);
 
@@ -221,7 +290,7 @@ async function guardarRegistroActa(e) {
         alert('✅ Ubicación del acta guardada con éxito en la base de datos.');
         
         document.getElementById('formRegistro').reset();
-        buscarSacramentos(); // Refrescar la tabla de búsquedas automáticamente
+        buscarSacramentos(); 
 
     } catch (err) {
         console.error('Error al insertar registro:', err);
