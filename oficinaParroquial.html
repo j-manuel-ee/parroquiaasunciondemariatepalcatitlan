@@ -116,23 +116,29 @@
 <body>
     
     <div class="top-bar" id="barraSuperior">
-        <div class="title">
-            <img src="imagen/logo_asun.png" alt="Logo Parroquia">
-            Oficina Parroquial — Archivo de Sacramentos
-        </div>
-        <a id="btnRegresar" href="adminDashboard.html">Regresar al Panel</a>
-    </div>
+      <div class="title">
+          <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+          Oficina Parroquial — Archivo de Sacramentos
+      </div>
+      <a id="btnRegresar" href="adminDashboard.html">Regresar al Panel</a>
+  </div>
 
   <div class="content" style="padding: 20px; max-width: 1400px; margin: 0 auto; font-family: Arial, sans-serif;">
     
     <div id="txtModo" style="font-weight: bold; font-size: 14px; margin-bottom: 15px; color: #004080;">Cargando privilegios...</div>
 
+    <div style="background-color: #e6f4ea; border-left: 5px solid #2f855a; padding: 15px 20px; border-radius: 6px; margin-bottom: 25px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 15px;">
+      <div style="font-size: 24px;">📅</div>
+      <div style="font-size: 14px; color: #234e32; line-height: 1.5;">
+        <strong style="font-size: 15px; display: block; margin-bottom: 2px; color: #1c4527;">📢 Aviso Importante sobre el Archivo Digital</strong>
+        El índice digital actual proviene de los libros de registro físicos y puede <strong>NO INCLUIR LA FECHA EXACTA</strong> del sacramento. Puedes realizar la búsqueda utilizando únicamente el <strong>Nombre del feligrés</strong> y el <strong>Tipo de sacramento</strong>. Si localizas el documento físico, te invitamos a presionar el botón <span style="background: #004080; color: white; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold;">✏️ Fecha</span> en la tabla para actualizarlo y enriquecer nuestro archivo parroquial.
+      </div>
+    </div>
     <div class="secciones-container">
-      
       <div class="col-buscador">
         <div style="background: rgba(255,255,255,0.9); padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
             <h2 style="color: #004080; margin: 0 0 5px 0; font-size: 20px;">🔎 Buscador de Actas</h2>
-            <p style="color: #555; font-size: 13px; margin: 0;">Localiza de forma exprés el Libro, Tomo y Foja del documento físico.</p>
+            <p style="color: #555; font-size: 13px; margin: 0;">Localiza de forma exprés el Libro, Hoja y Número del acta.</p>
         </div>
 
         <div class="filter-wrapper" style="display: flex; flex-wrap: wrap; gap: 12px; background: rgba(255, 255, 255, 0.95); padding: 15px; border-radius: 8px; border: 1px solid #cbd5e0; align-items: flex-end; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
