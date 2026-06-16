@@ -195,15 +195,15 @@
                 <th>Sacramento</th>
                 <th>Fecha / Periodo</th>
                 <th class="highlight-header" style="text-align: center;">Libro 📚</th>
-                <th class="highlight-header" style="text-align: center;">Tomo 📂</th>
-                <th class="highlight-header" style="text-align: center;">Foja 📄</th>
-                <th>No. Acta</th>
+                <th class="highlight-header" style="text-align: center;">Hoja 📄</th>
+                <th>No. Acta *</th>
                 <th>Observaciones</th>
+                <th>Acciones</th> <!-- Nueva columna -->
               </tr>
             </thead>
             <tbody id="tbodyResultados">
               <tr>
-                <td colspan="8" style="text-align: center; padding: 25px; color: #666; font-style: italic;">Escribe un parámetro arriba para iniciar la consulta.</td>
+                <td colspan="7" style="text-align: center; padding: 25px; color: #666; font-style: italic;">Escribe un parámetro arriba para iniciar la consulta.</td>
               </tr>
             </tbody>
           </table>
@@ -241,18 +241,21 @@
           </div>
 
           <div style="background: #ebf8ff; padding: 12px; border-radius: 6px; border: 1px solid #bee3f8; margin-top: 10px; margin-bottom: 10px;">
-            <label style="font-size: 11px; font-weight: bold; color: #2b6cb0; display: block; margin-bottom: 6px;">LOCALIZACIÓN EN ARCHIVO FÍSICO:</label>
-            <div style="display: flex; gap: 6px;">
-              <input type="text" id="regLibro" placeholder="Libro *" required style="width: 34%;">
-              <input type="text" id="regTomo" placeholder="Tomo" style="width: 32%;">
-              <input type="text" id="regFoja" placeholder="Foja *" required style="width: 34%;">
+          <label style="font-size: 11px; font-weight: bold; color: #2b6cb0; display: block; margin-bottom: 6px;">LOCALIZACIÓN EN ARCHIVO FÍSICO (NÚMEROS):</label>
+          <div style="display: flex; gap: 10px;">
+            <div style="flex: 1;">
+              <input type="number" id="regLibro" placeholder="Libro *" required min="1" style="width: 100%; box-sizing: border-box;">
+            </div>
+            <div style="flex: 1;">
+              <input type="number" id="regFoja" placeholder="Hoja *" required min="1" style="width: 100%; box-sizing: border-box;">
             </div>
           </div>
+        </div>
 
-          <div class="form-group">
-            <label>Número de Acta</label>
-            <input type="text" id="regActa" placeholder="Ej. 415">
-          </div>
+        <div class="form-group">
+          <label>Número de Acta *</label>
+          <input type="number" id="regActa" placeholder="Ej. 415" required min="1">
+        </div>
 
           <div class="form-group">
             <label>Notas Marginales u Observaciones</label>
@@ -269,5 +272,33 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/conexion.js"></script>
   <script src="js/oficinaParroquial.js"></script>
+
+  <!-- MODAL PARA EDITAR FECHA (Oculto por defecto) -->
+<div id="modalEditarFecha" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); align-items: center; justify-content: center;">
+  <div style="background-color: white; padding: 25px; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); box-sizing: border-box;">
+    <h3 style="color: #004080; margin-top: 0; margin-bottom: 5px;">📅 Actualizar Fecha del Sacramento</h3>
+    <p id="editModalInfo" style="font-size: 13px; color: #666; margin-bottom: 15px; font-weight: bold;"></p>
+    
+    <form id="formEditarFecha">
+      <!-- Input oculto para guardar el ID del registro que estamos editando -->
+      <input type="hidden" id="editId">
+      
+      <div class="form-group" style="margin-bottom: 12px; display: flex; flex-direction: column;">
+        <label style="font-size: 12px; font-weight: bold; color: #4a5568; margin-bottom: 4px;">Fecha Exacta:</label>
+        <input type="date" id="editFecha" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e0;">
+      </div>
+
+      <div class="form-group" style="margin-bottom: 20px; display: flex; flex-direction: column;">
+        <label style="font-size: 12px; font-weight: bold; color: #4a5568; margin-bottom: 4px;">Año Aproximado (Si no se sabe el día/mes):</label>
+        <input type="number" id="editAnioEstimado" placeholder="Ej. 1985" style="padding: 8px; border-radius: 6px; border: 1px solid #cbd5e0;">
+      </div>
+
+      <div style="display: flex; gap: 10px; justify-content: flex-end;">
+        <button type="button" id="btnCancelarEdicion" style="background-color: #e2e8f0; color: #4a5568; border: none; padding: 8px 15px; border-radius: 6px; font-weight: bold; cursor: pointer;">Cancelar</button>
+        <button type="submit" style="background-color: #004080; color: white; border: none; padding: 8px 15px; border-radius: 6px; font-weight: bold; cursor: pointer;">Actualizar Fecha</button>
+      </div>
+    </form>
+  </div>
+</div>
 </body>
 </html>
