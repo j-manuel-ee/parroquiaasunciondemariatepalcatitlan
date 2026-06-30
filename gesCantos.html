@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestión de Cantos y PDFs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background-image: url('imagen/cielo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.96);
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    h2 { color: #004080; border-bottom: 2px solid #004080; padding-bottom: 10px; margin-top: 0; }
+    .form-group { margin: 20px 0; }
+    label { display: block; margin-bottom: 8px; font-weight: bold; color: #333; }
+    input[type="file"] { display: block; width: 100%; padding: 10px; background: #f4f4f4; border: 1px dashed #bbb; border-radius: 4px; }
+    .btn {
+      padding: 12px 20px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 1em;
+    }
+    .btn-upload { background-color: #28a745; color: white; width: 100%; margin-bottom: 10px; }
+    .btn-upload:hover { background-color: #218838; }
+    .btn-delete { background-color: #d9534f; color: white; width: 100%; }
+    .btn-delete:hover { background-color: #c9302c; }
+    .btn-back { display: inline-block; margin-top: 15px; color: #004080; text-decoration: none; font-weight: bold; }
+    .status-box { padding: 10px; border-radius: 4px; margin-top: 15px; display: none; text-align: center; font-weight: bold; }
+    .success { background-color: #d4edda; color: #155724; }
+    .error { background-color: #f8d7da; color: #721c24; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/conexion.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2 id="tituloGestion">Cargando Apartado...</h2>
+  <p>Desde este módulo puedes subir un nuevo archivo PDF (reemplazará al anterior automáticamente) o borrar el archivo actual para que no se muestre.</p>
+  
+  <div class="form-group">
+    <label for="pdfFile">Seleccionar archivo PDF:</label>
+    <input type="file" id="pdfFile" accept="application/pdf">
+  </div>
+
+  <button class="btn btn-upload" onclick="subirPDF()">📤 Guardar / Actualizar PDF</button>
+  <button class="btn btn-delete" onclick="borrarPDF()">🗑️ Eliminar PDF Actual</button>
+
+  <div id="status" class="status-box"></div>
+
+  <a href="#" id="btnVolver" class="btn-back">⬅️ Volver al Panel</a>
+  
+</div>
+
+<script>
+  // Obtener qué misa estamos editando desde los parámetros URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const tipoMisa = urlParams.get('misa'); // Puede ser: lecturas, misa_11am, misa_1pm, misa_6pm, misas_especiales
+
+  // Mapeo de nombres descriptivos y nombres de archivos en el Storage
+  const nombresMisas = {
+    'lecturas': { titulo: "Lecturas Dominicales de la Semana", archivo: "lecturas_dominicales.pdf" },
+    'misa_11am': { titulo: "Misa Dominical de 11:00 AM", archivo: "cantos_misa_11am.pdf" },
+    'misa_1pm': { titulo: "Misa Dominical de 1:00 PM", archivo: "cantos_misa_1pm.pdf" },
+    'misa_6pm': { titulo: "Misa Dominical de 6:00 PM", archivo: "cantos_misa_6pm.pdf" },
+    'misas_especiales': { titulo: "Cantos de Misas Especiales", archivo: "cantos_misas_especiales.pdf" }
+  };
+
+  // Validar parámetro correcto al cargar. Si falla, regresa usando el rol de sesión.
+  if (!tipoMisa || !nombresMisas[tipoMisa]) {
+    alert("Apartado inválido.");
+    regresarAlPanelCorrecto();
+  } else {
+    document.getElementById("tituloGestion").textContent = `Gestión: ${nombresMisas[tipoMisa].titulo}`;
+  }
+
+  // LÓGICA CORREGIDA: Escucha al botón con el ID correspondiente
+  document.getElementById("btnVolver").addEventListener("click", (e) => {
+    e.preventDefault();
+    regresarAlPanelCorrecto();
+  });
+  
+  function regresarAlPanelCorrecto() {
+    const rol = localStorage.getItem("rol_usuario") || sessionStorage.getItem("rol_usuario");
+    if (rol === "admin") {
+      window.location.href = "adminDashboard.html";
+    } else {
+      window.location.href = "cordiDashboard.html"; // Corregido de coordinadorDashboard a cordiDashboard
+    }
+  }
+
+  function mostrarMensaje(texto, tipo) {
+    const box = document.getElementById("status");
+    box.textContent = texto;
+    box.className = `status-box ${tipo}`;
+    box.style.display = "block";
+  }
+
+  async function subirPDF() {
+    const fileInput = document.getElementById("pdfFile");
+    const file = fileInput.files[0];
+
+    if (!file) {
+      mostrarMensaje("Por favor, selecciona un archivo PDF primero.", "error");
+      return;
+    }
+
+    if (file.type !== "application/pdf") {
+      mostrarMensaje("El archivo debe ser estrictamente un formato PDF.", "error");
+      return;
+    }
+
+    mostrarMensaje("Subiendo archivo... por favor espera.", "");
+
+    const nombreArchivoFinal = nombresMisas[tipoMisa].archivo;
+
+    // Subida al Storage de Supabase sobreescribiendo el archivo existente (upsert: true)
+    const { data, error } = await supabaseClient
+      .storage
+      .from('cantos-dominicales') 
+      .upload(nombreArchivoFinal, file, {
+        cacheControl: '3600',
+        upsert: true
+      });
+
+    if (error) {
+      console.error(error);
+      mostrarMensaje(`Error al subir: ${error.message}`, "error");
+    } else {
+      mostrarMensaje("¡Archivo PDF subido y actualizado con éxito en la web!", "success");
+      fileInput.value = ""; // Limpiar input
+    }
+  }
+
+  async function borrarPDF() {
+    if (!confirm("¿Estás seguro de que deseas eliminar permanentemente este archivo PDF del servidor?")) {
+      return;
+    }
+
+    const nombreArchivoFinal = nombresMisas[tipoMisa].archivo;
+
+    const { data, error } = await supabaseClient
+      .storage
+      .from('cantos-dominicales')
+      .remove([nombreArchivoFinal]);
+
+    if (error) {
+      console.error(error);
+      mostrarMensaje(`Error al eliminar: ${error.message}`, "error");
+    } else {
+      mostrarMensaje("El archivo PDF ha sido removido del sistema.", "success");
+    }
+  }
+</script>
+</body>
+</html>

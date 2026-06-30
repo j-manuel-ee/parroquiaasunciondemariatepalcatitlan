@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecturas y Cantos Dominicales - Parroquia Asunción de María</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style/inicio.css">
+  
+  <style>
+    body {
+      background-color: #f4f6f9;
+    }
+
+    .banner-introduccion {
+      max-width: 1000px;
+      margin: 30px auto 10px auto;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    .banner-introduccion h2 {
+      color: #1f78b4;
+      font-family: 'Playfair Display', serif;
+      margin-top: 0;
+    }
+
+    .grid-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px 30px 40px 30px;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .grid-item {
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      cursor: pointer;
+      width: 240px;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+
+    .grid-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.18);
+    }
+
+    .grid-item h3 {
+      color: #1f78b4;
+      margin: 0 0 10px 0;
+      font-size: 1.25em;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .grid-item p {
+      font-size: 13px;
+      color: #666;
+      margin: 0;
+      line-height: 1.4;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .grid-item-especial {
+      background-color: #f0f7ff;
+      border: 2px solid #1f78b4;
+    }
+    
+    .grid-item-especial h3 { color: #15527c; }
+    .grid-item-especial p { color: #2c5282; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+    <header>
+      <div class="header-left">
+          <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+        </div>
+        <div class="header-text">
+          <h1>Parroquia Asunción de María</h1>
+          <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
+        </div>
+    </header>
+
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="oficina.html">Oficina</a>
+      <div class="dropdown">
+        <a>Historia ▾</a>
+        <div class="dropdown-content">
+          <a href="historia.html">Parroquia</a>
+          <a href="histAsun.html">Asunción de María</a>
+        </div>
+      </div>
+      <div class="dropdown">
+          <a>Eventos ▾</a>
+          <div class="dropdown-content">
+            <a href="eventos.html">Calendario Mensual</a>
+            <a href="eventosEspeciales.html">Eventos Especiales</a>
+          </div>
+        </div>
+        <a href="grupos.html">Grupos Parroquiales</a>
+        <a href="mision.html">Misión</a>
+        <a href="contacto.html">Contacto</a>
+        <a href="vaticanNews.html">Vatican News</a>
+        <a href="foro.html">Foro de Opiniones</a>
+        <a href="lecturas.html">Lecturas y Cantos Dominicales</a>
+        <a href="transmisiones.html">En Vivo</a>
+        <div class="dropdown">
+          <a>Acceso ▾</a>
+          <div class="dropdown-content">
+            <a href="coordinadorLogin.html">Coordinador</a>
+            <a href="adminLogin.html">Administrador</a>
+        </div>
+      </div>
+    </nav>
+
+  <div class="hero">
+    <div class="hero-text">"La palabra de Dios nutre nuestra fe y el canto alegra el corazón"</div>
+  </div>
+
+  <div class="banner-introduccion">
+    <h2>Lecturas y Cantos Dominicales</h2>
+    <p>Selecciona cualquiera de los siguientes apartados para abrir y descargar la guía litúrgica o el repertorio de cantos en formato PDF.</p>
+  </div>
+
+  <div class="grid-container">
+    
+    <a id="link-lecturas" target="_blank" class="grid-item">
+      <h3>📖 Lecturas Dominicales</h3>
+      <p>Consulta las Sagradas Escrituras y el Evangelio de este domingo. ➔</p>
+    </a>
+    
+    <a id="link-misa11" target="_blank" class="grid-item">
+      <h3>🎶 Misa 11:00 AM</h3>
+      <p>Cantos dominicales preparados por el Coro Asunción de María. ➔</p>
+    </a>
+
+    <a id="link-misa1" target="_blank" class="grid-item">
+      <h3>🎶 Misa 1:00 PM</h3>
+      <p>Cantos dominicales preparados por el Coro SOS. ➔</p>
+    </a>
+
+    <a id="link-misa6" target="_blank" class="grid-item">
+      <h3>🎶 Misa 6:00 PM</h3>
+      <p>Cantos dominicales preparados por el Coro Kyrios. ➔</p>
+    </a>
+
+    <a id="link-especiales" target="_blank" class="grid-item grid-item-especial">
+      <h3>✨ Misas Especiales</h3>
+      <p>Cantos para Solemnidades, y Fiestas Patronales. ➔</p>
+    </a>
+
+  </div>
+
+  <footer>
+    <img src="imagen/logo_asun.png" alt="Logo Asunción de María">
+    <p>© 2026 Parroquia Asunción de María | Todos los derechos reservados</p>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.397843518592!2d-99.1270693!3d19.4760285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f90b4367bbc3%3A0xd2caa35576a999cf!2sParroquia%20de%20la%20Asunci%C3%B3n%20de%20Mar%C3%ADa!5e0!3m2!1ses!2smx!4v1618864105453!5m2!1ses!2smx"></iframe>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/conexion.js"></script>
+  <script>
+    // Usamos las credenciales inicializadas en js/conexion.js para armar las URLs públicas del Storage
+    document.addEventListener("DOMContentLoaded", () => {
+      // Extraemos la URL base de tu cliente Supabase
+      const urlBaseSupabase = supabaseClient.supabaseUrl; 
+      const bucketName = "cantos-dominicales";
+
+      // Ruta base pública del Storage de Supabase
+      const storageUrl = `${urlBaseSupabase}/storage/v1/object/public/${bucketName}`;
+
+      // Inyectamos dinámicamente las direcciones exactas a las tarjetas
+      document.getElementById("link-lecturas").href = `${storageUrl}/lecturas_dominicales.pdf`;
+      document.getElementById("link-misa11").href  = `${storageUrl}/cantos_misa_11am.pdf`;
+      document.getElementById("link-misa1").href   = `${storageUrl}/cantos_misa_1pm.pdf`;
+      document.getElementById("link-misa6").href   = `${storageUrl}/cantos_misa_6pm.pdf`;
+      document.getElementById("link-especiales").href = `${storageUrl}/cantos_misas_especiales.pdf`;
+    });
+  </script>
+</body>
+</html>
