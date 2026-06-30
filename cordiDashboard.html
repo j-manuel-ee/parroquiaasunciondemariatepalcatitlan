@@ -11,7 +11,7 @@
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
-      display: none; /* Se oculta la página completa hasta que Supabase dé luz verde */
+      display: none; /* Se oculta hasta que Supabase valide */
     }
 
     .header {
@@ -40,54 +40,68 @@
     .grid-item h3 { color: #004080; margin: 0 0 8px 0; font-size: 1.3em; }
     .grid-item p { font-size: 13px; color: #666; margin: 0; line-height: 1.4; }
 
-    /* Módulo condicional de Catequesis (Oculto por defecto por seguridad) */
+    /* Módulos condicionales (Ocultos por defecto) */
     #moduloCatequesis { background-color: #ebf8ff; border: 2px solid #3182ce; display: none; }
+    .modulo-coro { background-color: #f6fedb; border: 2px solid #8eb816; display: none; }
+    .modulo-coro h3 { color: #537004 !important; }
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <script src="js/conexion.js"></script>
 
   <script>
-  // Establecemos el rol de usuario para sub-páginas de consulta (limpieza, juntas)
   sessionStorage.setItem("rol_usuario", "coordinador");
 
   async function verificarAccesoSeguro() {
     const cuenta = sessionStorage.getItem("cuenta_activa");
     const grupo = sessionStorage.getItem("grupo_activo");
 
-    // Si no hay rastro de inicio de sesión local, expulsar directo al login
     if (!cuenta || !grupo) {
         window.location.replace("coordinadorLogin.html");
         return;
     }
 
     try {
-        // Re-verificamos la legitimidad de la cuenta directo con Supabase en tiempo real
         const { data, error } = await supabaseClient
             .from('coordinadores')
             .select('cuenta, nombre_grupo')
             .eq('cuenta', cuenta)
             .single();
 
-        if (error || !data) {
-            throw new Error("Usuario inválido detectado");
-        }
+        if (error || !data) throw new Error("Usuario inválido");
 
-        // Si el usuario existe, hacemos visible la interfaz
         document.body.style.display = "block";
-        
-        // ¡AQUÍ ESTÁ EL CAMBIO SOLICITADO! Mostramos el nombre descriptivo del grupo
         document.getElementById("txtBienvenida").textContent = `Panel del Coordinador: ${data.nombre_grupo}`;
 
-        // REGLA DE ORO: Mostramos el recuadro exclusivo SÓLO si la respuesta de Supabase pertenece a Catequesis
+        // Regla Catequesis
         if (data.cuenta === "1017234") {
             document.getElementById("moduloCatequesis").style.display = "block";
+        }
+
+        // --- REGLAS CONDICIONALES PARA LOS COROS ---
+        const gNombre = data.nombre_grupo.trim();
+
+        if (gNombre === "Coro Asunción de María") {
+            document.getElementById("moduloAsuncion11").style.display = "block";
+            document.getElementById("moduloEspecialesCoros").style.display = "block";
+        } 
+        else if (gNombre === "Coro SOS") {
+            document.getElementById("moduloSOS1").style.display = "block";
+            document.getElementById("moduloEspecialesCoros").style.display = "block";
+        } 
+        else if (gNombre === "Coro Kyrios") {
+            document.getElementById("moduloKyrios6").style.display = "block";
+            document.getElementById("moduloEspecialesCoros").style.display = "block";
         }
 
     } catch (err) {
         cerrarSesion();
     }
+  }
+
+  function irAGestionarCantos(tipoMisa) {
+    // Redirige pasando el tipo de archivo o misa a gestionar vía parámetro URL
+    window.location.href = `gesCantos.html?misa=${encodeURIComponent(tipoMisa)}`;
   }
 
   function cerrarSesion() {
@@ -114,7 +128,7 @@
   
   <div class="grid-item" onclick="window.location.href='centroParroquial.html'">
     <h3>🏢 Centro Parroquial</h3>
-    <p>Modificar, coordinar y asignar los horarios vigentes de los salones.</p>
+    <p>Modificar, coordinar y assignar los horarios vigentes de los salones.</p>
   </div>
 
   <div class="grid-item" onclick="window.location.href='juntasParroquiales.html'">
@@ -130,6 +144,28 @@
   <div class="grid-item" id="moduloCatequesis" onclick="window.location.href='dashboardCatequesis.html'">
     <h3 style="color: #2b6cb0;">⛪ Módulo de Catequesis</h3>
     <p style="color: #2c5282; font-weight: 600;">Inscripciones de niños y descarga de listas por rango de edad ➔</p>
+  </div>
+
+  <!-- APARTADOS DINÁMICOS DE LOS COROS -->
+  <div class="grid-item modulo-coro" id="moduloAsuncion11" onclick="irAGestionarCantos('misa_11am')">
+    <h3>🎶 Cantos Misa 11:00 AM</h3>
+    <p style="font-weight:600;">Subir, borrar o cambiar el PDF de la misa dominical matutina. ➔</p>
+  </div>
+
+  <div class="grid-item modulo-coro" id="moduloSOS1" onclick="irAGestionarCantos('misa_1pm')">
+    <h3>🎶 Cantos Misa 1:00 PM</h3>
+    <p style="font-weight:600;">Subir, borrar o cambiar el PDF de la misa dominical del mediodía. ➔</p>
+  </div>
+
+  <div class="grid-item modulo-coro" id="moduloKyrios6" onclick="irAGestionarCantos('misa_6pm')">
+    <h3>🎶 Cantos Misa 6:00 PM</h3>
+    <p style="font-weight:600;">Subir, borrar o cambiar el PDF de la misa dominical de la tarde. ➔</p>
+  </div>
+
+  <!-- APARTADO COMPARTIDO POR LOS TRES COROS -->
+  <div class="grid-item modulo-coro" id="moduloEspecialesCoros" onclick="irAGestionarCantos('misas_especiales')" style="background-color: #fff9db; border: 2px solid #f59f00;">
+    <h3 style="color: #b25e00 !important;">✨ Cantos Misas Especiales</h3>
+    <p style="color: #b25e00; font-weight:600;">Gestionar el PDF compartido para Solemnidades y Fiestas. ➔</p>
   </div>
 
 </div>
