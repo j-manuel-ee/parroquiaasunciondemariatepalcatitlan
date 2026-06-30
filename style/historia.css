@@ -179,8 +179,31 @@ body {
     padding: 30px 10px;
   }
 
+  /* Ajustes del contenido principal para móviles */
   @media (max-width: 768px) {
-    .dropdown-content {
-      position: static;
+    .container {
+      margin: 15px 10px !important; /* Disminuye los márgenes para aprovechar el espacio */
+      padding: 15px !important;
+    }
+
+    h2 {
+      font-size: 1.4em;
+    }
+
+    /* Modifica la galería horizontal para que las fotos queden una debajo de la otra */
+    .galeria {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .galeria img {
+      width: 100% !important; /* Ocupa el ancho total disponible */
+      height: auto !important;
+    }
+    
+    footer iframe {
+      width: 100% !important; /* Permite que el mapa de Google se estire proporcionalmente */
+      height: 240px;
     }
   }
