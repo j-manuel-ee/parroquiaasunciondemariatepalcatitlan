@@ -44,6 +44,56 @@
     #moduloCatequesis { background-color: #ebf8ff; border: 2px solid #3182ce; display: none; }
     .modulo-coro { background-color: #f6fedb; border: 2px solid #8eb816; display: none; }
     .modulo-coro h3 { color: #537004 !important; }
+
+    /* Ajustes de los tableros del Administrador y Coordinador para Celulares */
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+        padding: 15px;
+      }
+
+      .header .logout {
+        width: 100%;
+      }
+
+      .header .logout a {
+        display: block; /* Convierte el enlace de salida en un botón completo */
+        text-align: center;
+      }
+
+      .grid-container {
+        padding: 15px !important;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .grid-item {
+        width: 100% !important; /* Los botones de opciones se expanden uniformemente */
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      /* Exclusivo para el Administrador: Evita que las tablas de comentarios rompan la pantalla */
+      .content {
+        margin: 15px 10px !important;
+        overflow-x: auto; /* Habilita scroll horizontal únicamente en la tabla si los datos no caben */
+      }
+
+      table {
+        font-size: 13px; /* Compacta el texto de las celdas */
+      }
+
+      .charts-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .chart-box {
+        width: 100% !important;
+      }
+    }
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
