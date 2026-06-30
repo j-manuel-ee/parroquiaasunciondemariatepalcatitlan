@@ -152,7 +152,7 @@
 
     <a id="link-misa1" target="_blank" class="grid-item">
       <h3>🎶 Misa 1:00 PM</h3>
-      <p>Cantos dominicales preparados por el Coro S.O.S. ➔</p>
+      <p>Cantos dominicales preparados por el Coro SOS. ➔</p>
     </a>
 
     <a id="link-misa6" target="_blank" class="grid-item">
@@ -174,21 +174,23 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/conexion.js"></script>
   <script>
-    // Usamos las credenciales inicializadas en js/conexion.js para armar las URLs públicas del Storage
+    // Usamos las credenciales inicializadas en js/conexion.js para armar las URLs públicas del Storage del CDN
     document.addEventListener("DOMContentLoaded", () => {
-      // Extraemos la URL base de tu cliente Supabase
       const urlBaseSupabase = supabaseClient.supabaseUrl; 
       const bucketName = "cantos-dominicales";
+
+      // Creamos un código único en milisegundos para romper la caché del servidor y navegador de golpe
+      const antiparasitoCache = `?v=${new Date().getTime()}`;
 
       // Ruta base pública del Storage de Supabase
       const storageUrl = `${urlBaseSupabase}/storage/v1/object/public/${bucketName}`;
 
-      // Inyectamos dinámicamente las direcciones exactas a las tarjetas
-      document.getElementById("link-lecturas").href = `${storageUrl}/lecturas_dominicales.pdf`;
-      document.getElementById("link-misa11").href  = `${storageUrl}/cantos_misa_11am.pdf`;
-      document.getElementById("link-misa1").href   = `${storageUrl}/cantos_misa_1pm.pdf`;
-      document.getElementById("link-misa6").href   = `${storageUrl}/cantos_misa_6pm.pdf`;
-      document.getElementById("link-especiales").href = `${storageUrl}/cantos_misas_especiales.pdf`;
+      // Inyectamos dinámicamente las direcciones exactas agregando la estampa de tiempo al final
+      document.getElementById("link-lecturas").href = `${storageUrl}/lecturas_dominicales.pdf${antiparasitoCache}`;
+      document.getElementById("link-misa11").href  = `${storageUrl}/cantos_misa_11am.pdf${antiparasitoCache}`;
+      document.getElementById("link-misa1").href   = `${storageUrl}/cantos_misa_1pm.pdf${antiparasitoCache}`;
+      document.getElementById("link-misa6").href   = `${storageUrl}/cantos_misa_6pm.pdf${antiparasitoCache}`;
+      document.getElementById("link-especiales").href = `${storageUrl}/cantos_misas_especiales.pdf${antiparasitoCache}`;
     });
   </script>
 </body>
