@@ -35,6 +35,56 @@
     .status-box { padding: 10px; border-radius: 4px; margin-top: 15px; display: none; text-align: center; font-weight: bold; }
     .success { background-color: #d4edda; color: #155724; }
     .error { background-color: #f8d7da; color: #721c24; }
+
+    /* Ajustes de los tableros del Administrador y Coordinador para Celulares */
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+        padding: 15px;
+      }
+
+      .header .logout {
+        width: 100%;
+      }
+
+      .header .logout a {
+        display: block; /* Convierte el enlace de salida en un botón completo */
+        text-align: center;
+      }
+
+      .grid-container {
+        padding: 15px !important;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .grid-item {
+        width: 100% !important; /* Los botones de opciones se expanden uniformemente */
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      /* Exclusivo para el Administrador: Evita que las tablas de comentarios rompan la pantalla */
+      .content {
+        margin: 15px 10px !important;
+        overflow-x: auto; /* Habilita scroll horizontal únicamente en la tabla si los datos no caben */
+      }
+
+      table {
+        font-size: 13px; /* Compacta el texto de las celdas */
+      }
+
+      .charts-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .chart-box {
+        width: 100% !important;
+      }
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/conexion.js"></script>
@@ -126,7 +176,7 @@
       .storage
       .from('cantos-dominicales') 
       .upload(nombreArchivoFinal, file, {
-        cacheControl: '3600',
+        cacheControl: '0',
         upsert: true
       });
 
