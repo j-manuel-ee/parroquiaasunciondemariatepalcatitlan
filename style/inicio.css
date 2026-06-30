@@ -157,32 +157,114 @@ body {
     border: none;
     margin-top: 20px;
   }
+
+  /* ==========================================================================
+   CORRECCIÓN COMPLETA PARA DISPOSITIVOS MÓVILES (CELULARES) - INICIO
+   ========================================================================== */
+@media (max-width: 768px) {
   
-  /* Ajustes del contenido principal para móviles */
-  @media (max-width: 768px) {
-    .container {
-      margin: 15px 10px !important; /* Disminuye los márgenes para aprovechar el espacio */
-      padding: 15px !important;
-    }
-
-    h2 {
-      font-size: 1.4em;
-    }
-
-    /* Modifica la galería horizontal para que las fotos queden una debajo de la otra */
-    .galeria {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .galeria img {
-      width: 100% !important; /* Ocupa el ancho total disponible */
-      height: auto !important;
-    }
-    
-    footer iframe {
-      width: 100% !important; /* Permite que el mapa de Google se estire proporcionalmente */
-      height: 240px;
-    }
+  /* 1. Forzar que la pantalla respete los límites del dispositivo sin desbordarse */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
   }
+
+  /* 2. Cabecera (Logo, Título y Ubicación) */
+  header {
+    flex-direction: column !important; /* Alinea los elementos verticalmente */
+    text-align: center;
+    padding: 15px 10px !important;
+  }
+  
+  .header-left {
+    flex-direction: column;
+    margin-right: 0 !important;
+    gap: 10px;
+  }
+
+  header img {
+    height: 70px; /* Tamaño del escudo parroquial más estilizado para celular */
+  }
+
+  .header-text h1 {
+    font-size: 1.5em !important; /* Reducción de tipografía para pantallas pequeñas */
+  }
+
+  .header-text p {
+    font-size: 0.9em !important;
+  }
+
+  /* 3. Menú de Navegación (Evita por completo el estiramiento horizontal) */
+  nav {
+    flex-direction: column !important; /* Convierte los botones horizontales en una lista vertical */
+    align-items: stretch !important;
+    width: 100% !important;
+    display: flex !important;
+  }
+
+  nav a, .dropdown > a {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 12px 20px !important; /* Altura ideal y cómoda para pulsar con el dedo */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left !important;
+  }
+
+  /* 4. Submenús Desplegables (Historia y Eventos) */
+  .dropdown {
+    width: 100%;
+  }
+
+  .dropdown-content {
+    position: static !important; /* Cambia de flotante flotando a la derecha a desplegarse hacia abajo */
+    width: 100% !important;
+    box-shadow: none !important;
+    background-color: rgba(0, 40, 80, 0.15) !important;
+  }
+
+  .dropdown-content a {
+    padding-left: 40px !important; /* Sangría interna para identificar el submenú */
+  }
+
+  /* 5. Imagen Principal de Bienvenida (Hero) */
+  .hero {
+    height: 130px !important; /* Reducción del alto del banner */
+  }
+
+  .hero-text {
+    font-size: 1.1em !important;
+    padding: 10px !important;
+  }
+
+  /* 6. Cuadro Blanco de Información */
+  .container {
+    margin: 15px 12px !important; /* Márgenes pequeños para que no se encime en el borde físico */
+    padding: 15px !important;
+    max-width: none !important;
+    width: auto !important;
+  }
+
+  h2 {
+    font-size: 1.4em !important;
+  }
+
+  /* 7. Galería de Fotos de la Parroquia */
+  .galeria {
+    flex-direction: column !important; /* Pasa de 3 columnas a 1 sola fila vertical */
+    align-items: center !important;
+    gap: 15px !important;
+  }
+
+  .galeria img {
+    width: 100% !important; /* Ajuste perfecto al ancho del teléfono */
+    height: auto !important; /* Evita que las imágenes se estiren o se distorsionen */
+    max-width: 400px;
+  }
+
+  /* 8. Mapa de Google Maps del Footer */
+  footer iframe {
+    width: 100% !important;
+    height: 220px !important;
+  }
+}
