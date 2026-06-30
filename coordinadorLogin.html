@@ -34,16 +34,6 @@
   <script src="js/conexion.js"></script>
   
   <script>
-
-    // Guardamos ambos datos de manera temporal y segura en la sesión
-    sessionStorage.setItem("cuenta_activa", data.cuenta);
-    sessionStorage.setItem("grupo_activo", data.nombre_grupo);
-    
-    // CORRECCIÓN: Definir explícitamente el rol para limpiar residuos de administrador
-    localStorage.setItem("rol_usuario", "coordinador");
-    
-    alert("Inicio de sesión exitoso");
-    window.location.replace("cordiDashboard.html");
     
     async function validarLogin(event) {
   event.preventDefault();
