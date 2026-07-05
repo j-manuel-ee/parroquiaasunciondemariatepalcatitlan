@@ -200,6 +200,7 @@
       max-width: 400px;
       width: 100%;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      box-sizing: border-box; /* Evita desbordamiento en móviles */
     }
 
     .aviso h2 {
@@ -282,9 +283,67 @@
       margin-top: 20px;
     }
 
+    /* =======================================================
+       NUEVOS AJUSTES EXCLUSIVOS PARA DISPOSITIVOS MÓVILES
+       ======================================================= */
     @media (max-width: 768px) {
-      .galeria img {
+      header {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 10px;
+      }
+
+      .header-left {
+        justify-content: center;
         width: 100%;
+      }
+
+      header img {
+        height: 80px;
+      }
+
+      .header-text h1 {
+        font-size: 1.8em;
+      }
+
+      nav {
+        flex-direction: column; /* Alinea el menú verticalmente para que quepa en celulares */
+      }
+
+      nav a {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        text-align: center;
+      }
+
+      .dropdown-content {
+        position: static; /* Hace que los submenús se desplieguen hacia abajo fluidamente en móvil */
+        width: 100%;
+        background: linear-gradient(to bottom, #00224e, #0d47a1);
+      }
+
+      .hero {
+        height: 200px; /* Reduce el tamaño del banner para que no ocupe toda la pantalla */
+      }
+
+      .hero-text {
+        font-size: 1.4em;
+        width: 90%;
+      }
+
+      .galeria img {
+        width: 100%; /* Las imágenes de la galería ahora se apilan perfectamente una por una */
+      }
+
+      .aviso-contenido {
+        width: 90%;
+        padding: 20px;
+      }
+      
+      .aviso p {
+        font-size: 15px; /* Ajusta el texto del aviso para pantallas pequeñas */
       }
     }
   </style>
