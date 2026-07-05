@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coro Kyrios | Parroquia Asunción de María</title>
+  <link rel="icon" type="image/png" href="imagen/favicon.png?v=1">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap\" rel="stylesheet">
+  <link rel="stylesheet" href="style/historia.css">
+  
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f8f8f8;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(to right, #0d47a1, #1976d2, #64b5f6);
+      color: white;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    header img {
+      height: 100px;
+    }
+
+    .header-text {
+      text-align: center;
+      flex: 1;
+    }
+
+    .header-text h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em;
+      margin: 0;
+    }
+
+    nav {
+      background: linear-gradient(to right, #002f6c, #0d47a1, #1565c0);
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px 20px;
+      display: inline-block;
+      position: relative;
+    }
+
+    nav a:hover {
+      background-color: rgba(255,255,255,0.15);
+    }
+
+    .banner {
+      background: url('imagen/CoroKyrios.jpg') no-repeat center;
+      background-size: cover;
+      background-position: 50% 55%; /* Aquí ajustas el recorrido */
+      height: 380px;
+      position: relative;
+    }
+
+    .banner::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .banner h2 {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* ====================================================
+       ESTILOS DEL CONTENEDOR PARA LA PÁGINA DE WIX (IFRAME)
+       ==================================================== */
+    .wix-container {
+      position: relative;
+      width: 100%;
+      height: 750px; /* Altura ideal fija para visualizar el sitio cómodamente */
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .wix-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    footer {
+      background: linear-gradient(to right, #002f6c, #0d47a1, #1976d2);
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .wix-container {
+        height: 550px; /* Reducimos un poco la altura en móviles */
+      }
+    }
+  </style>
+</head>
+<body>
+
+      <header>
+        <div class="header-left">
+            <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+          </div>
+          <div class="header-text">
+            <h1>Parroquia Asunción de María</h1>
+            <p>Industrial, Gustavo A. Madero, Ciudad de México</p>
+          </div>
+      </header>
+
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="oficina.html">Oficina</a>
+      <div class="dropdown">
+        <a>Historia ▾</a>
+        <div class="dropdown-content">
+          <a href="historia.html">Parroquia</a>
+          <a href="histAsun.html">Asunción de María</a>
+        </div>
+      </div>
+      <div class="dropdown">
+          <a>Eventos ▾</a>
+          <div class="dropdown-content">
+            <a href="eventos.html">Calendario Mensual</a>
+            <a href="eventosEspeciales.html">Eventos Especiales</a>
+          </div>
+        </div>
+        <a href="grupos.html">Grupos Parroquiales</a>
+        <a href="mision.html">Misión</a>
+        <a href="contacto.html">Contacto</a>
+        <a href="vaticanNews.html">Vatican News</a>
+        <a href="foro.html">Foro de Opiniones</a>
+        <a href="lecturas.html">Lecturas y Cantos Dominicales</a>
+        <a href="transmisiones.html">En Vivo</a>
+        <div class="dropdown">
+          <a>Acceso ▾</a>
+          <div class="dropdown-content">
+            <a href="coordinadorLogin.html">Coordinador</a>
+            <a href="adminLogin.html">Administrador</a>
+        </div>
+      </div>
+    </nav>
+
+  <div class="banner">
+    <h2>Coro Kyrios</h2>
+  </div>
+
+  <div class="container">
+    <div class="wix-container">
+      <iframe 
+        src="https://ukiliana.wixsite.com/kyrios" 
+        title="Sitio Oficial del Coro Kyrios"
+        allow="autoplay; encrypted-media" 
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Parroquia Asunción de María | Coro Kyrios</p>
+  </footer>
+
+</body>
+</html>
