@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lecturas y Cantos Dominicales - Parroquia Asunción de María</title>
-  <link rel="icon" type="image/png" href="/imagen/favicon.png?v=1.1">
+  <link rel="icon" type="image/png" href="imagen/favicon.png?v=1">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style/historia.css">
   
@@ -83,9 +83,124 @@
     
     .grid-item-especial h3 { color: #15527c; }
     .grid-item-especial p { color: #2c5282; font-weight: 600; }
+
+    /* ==========================================
+       ESTILOS DEL AVISO EMERGENTE (MODAL)
+       ========================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px); /* Suaviza el fondo */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999; /* Asegura estar por encima de todo */
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+      box-sizing: border-box;
+      transform: scale(0.8);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: scale(1);
+    }
+
+    .modal-icon {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .modal-content h3 {
+      font-family: 'Playfair Display', serif;
+      color: #1f78b4;
+      margin-top: 0;
+      font-size: 1.6em;
+    }
+
+    .modal-content p {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 15px;
+      color: #444;
+      line-height: 1.6;
+      margin: 15px 0;
+    }
+
+    .modal-btn {
+      background-color: #1f78b4;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 14px;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .modal-btn:hover {
+      background-color: #15527c;
+    }
+
+    /* Ajustes específicos de las Tarjetas de Cantos para Celulares */
+    @media (max-width: 768px) {
+      .banner-introduccion {
+        margin: 15px 10px !important;
+        padding: 15px;
+      }
+
+      .grid-container {
+        padding: 10px 15px 30px 15px !important;
+        flex-direction: column; 
+        align-items: center;
+      }
+
+      .grid-item {
+        width: 100% !important; 
+        max-width: 420px; 
+        min-height: auto;
+        padding: 20px;
+      }
+    }
   </style>
 </head>
 <body>
+
+    <!-- Estructura del Aviso Emergente -->
+    <div class="modal-overlay" id="avisoModal">
+      <div class="modal-content">
+        <div class="modal-icon">📳</div>
+        <h3>Respetemos la Casa de Dios</h3>
+        <p>Recuerda que mientras estamos en misa o en adoración, es importante poner tu celular en <strong>silencio o en modo avión</strong> para no interrumpir la celebración.</p>
+        <p style="color: #666; font-size: 13.5px; border-top: 1px dashed #ddd; padding-top: 12px;">
+          Para ver las lecturas y cantos, deslice hacia abajo y dé clic al recuadro que necesite.
+        </p>
+        <button class="modal-btn" id="cerrarModal">Entendido</button>
+      </div>
+    </div>
 
     <header>
       <div class="header-left">
@@ -175,18 +290,25 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/conexion.js"></script>
   <script>
-    // Usamos las credenciales inicializadas en js/conexion.js para armar las URLs públicas del Storage del CDN
     document.addEventListener("DOMContentLoaded", () => {
+      // --- Lógica del Aviso Emergente ---
+      const modal = document.getElementById("avisoModal");
+      const btnCerrar = document.getElementById("cerrarModal");
+
+      // Muestra el modal al cargar la página
+      modal.classList.add("active");
+
+      // Cierra el modal al dar clic al botón
+      btnCerrar.addEventListener("click", () => {
+        modal.classList.remove("active");
+      });
+
+      // --- Lógica de URLs de Supabase Storage ---
       const urlBaseSupabase = supabaseClient.supabaseUrl; 
       const bucketName = "cantos-dominicales";
-
-      // Creamos un código único en milisegundos para romper la caché del servidor y navegador de golpe
       const antiparasitoCache = `?v=${new Date().getTime()}`;
-
-      // Ruta base pública del Storage de Supabase
       const storageUrl = `${urlBaseSupabase}/storage/v1/object/public/${bucketName}`;
 
-      // Inyectamos dinámicamente las direcciones exactas agregando la estampa de tiempo al final
       document.getElementById("link-lecturas").href = `${storageUrl}/lecturas_dominicales.pdf${antiparasitoCache}`;
       document.getElementById("link-misa11").href  = `${storageUrl}/cantos_misa_11am.pdf${antiparasitoCache}`;
       document.getElementById("link-misa1").href   = `${storageUrl}/cantos_misa_1pm.pdf${antiparasitoCache}`;
