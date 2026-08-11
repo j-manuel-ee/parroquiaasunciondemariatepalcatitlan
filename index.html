@@ -5,7 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Parroquia Asunción de María</title>
   <link rel="icon" type="image/png" href="/imagen/favicon.png?v=1.1">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  
+  <!-- Optimización de conexión a Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Playfair+Display&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
@@ -14,8 +19,8 @@
       color: #333;
     }
 
-   header {
-    background: linear-gradient(to right, #0d47a1, #1976d2, #64b5f6);
+    header {
+      background: linear-gradient(to right, #0d47a1, #1976d2, #64b5f6);
       color: white;
       padding: 20px 0;
       display: flex;
@@ -89,11 +94,11 @@
     }
 
     .hero {
-    background-image: url('imagen/asun.jpg');
-    background-size: cover;
-    background-position: 55% 45%; /* Aquí ajustas el recorrido */
-    height: 300px;
-    position: relative;
+      background-image: url('imagen/asun.jpg');
+      background-size: cover;
+      background-position: 55% 45%;
+      height: 300px;
+      position: relative;
     }
 
     .hero::after {
@@ -144,39 +149,6 @@
       object-fit: cover;
     }
 
-     /* Estilo del popup */
-     .popup {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .popup-content {
-      background: white;
-      padding: 20px;
-      text-align: center;
-      border-radius: 10px;
-      max-width: 400px;
-      width: 80%;
-    }
-
-    .popup button {
-      margin-top: 20px;
-      background-color: #007bff;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
     /* Estilos del aviso emergente */
     .aviso {
       display: flex;
@@ -200,7 +172,7 @@
       max-width: 400px;
       width: 100%;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-      box-sizing: border-box; /* Evita desbordamiento en móviles */
+      box-sizing: border-box;
     }
 
     .aviso h2 {
@@ -231,21 +203,21 @@
     }
 
     .bouncing-button-container {
-    margin: 30px 0;
+      margin: 30px 0;
     }
 
     .bouncing-button {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: #FFD700;
-    color: #333;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    animation: bounce 1.5s infinite;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+      display: inline-block;
+      padding: 12px 25px;
+      background-color: #FFD700;
+      color: #333;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      animation: bounce 1.5s infinite;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
     }
 
     .bouncing-button:hover {
@@ -283,9 +255,6 @@
       margin-top: 20px;
     }
 
-    /* =======================================================
-       NUEVOS AJUSTES EXCLUSIVOS PARA DISPOSITIVOS MÓVILES
-       ======================================================= */
     @media (max-width: 768px) {
       header {
         flex-direction: column;
@@ -307,7 +276,7 @@
       }
 
       nav {
-        flex-direction: column; /* Alinea el menú verticalmente para que quepa en celulares */
+        flex-direction: column;
       }
 
       nav a {
@@ -319,13 +288,13 @@
       }
 
       .dropdown-content {
-        position: static; /* Hace que los submenús se desplieguen hacia abajo fluidamente en móvil */
+        position: static;
         width: 100%;
         background: linear-gradient(to bottom, #00224e, #0d47a1);
       }
 
       .hero {
-        height: 200px; /* Reduce el tamaño del banner para que no ocupe toda la pantalla */
+        height: 200px;
       }
 
       .hero-text {
@@ -334,7 +303,7 @@
       }
 
       .galeria img {
-        width: 100%; /* Las imágenes de la galería ahora se apilan perfectamente una por una */
+        width: 100%;
       }
 
       .aviso-contenido {
@@ -343,7 +312,7 @@
       }
       
       .aviso p {
-        font-size: 15px; /* Ajusta el texto del aviso para pantallas pequeñas */
+        font-size: 15px;
       }
     }
   </style>
@@ -403,19 +372,19 @@
   </div>
 
   <!-- Aviso emergente -->
-<div id="aviso" class="aviso">
-  <div class="aviso-contenido">
-    <img src="imagen/foro.png" alt="Aviso Importante" style="max-width: 80%; border-radius: 8px; margin-bottom: 40px;">
-    <h2>¡Nuevo Foro de Opiniones!</h2>
-<p>La Parroquia Asunción de María ha creado un espacio para escuchar a toda la comunidad.</p>
-<p>Te invitamos a compartir tus opiniones, sugerencias y comentarios para ayudarnos a mejorar y seguir creciendo juntos en la fe.</p>
-<p>¡Tu voz cuenta y queremos escucharte!</p>
+  <div id="aviso" class="aviso">
+    <div class="aviso-contenido">
+      <img src="imagen/foro.png" alt="Aviso Importante" loading="lazy" style="max-width: 80%; border-radius: 8px; margin-bottom: 40px;">
+      <h2>¡Nuevo Foro de Opiniones!</h2>
+      <p>La Parroquia Asunción de María ha creado un espacio para escuchar a toda la comunidad.</p>
+      <p>Te invitamos a compartir tus opiniones, sugerencias y comentarios para ayudarnos a mejorar y seguir creciendo juntos en la fe.</p>
+      <p>¡Tu voz cuenta y queremos escucharte!</p>
       <div class="bouncing-button-container">
-        <a href="foro.html" target="_blank" class="bouncing-button">Da clic aqui</a>
+        <a href="foro.html" target="_blank" class="bouncing-button">Da clic aquí</a>
       </div>
-    <button onclick="cerrarAviso()">Cerrar aviso</button>
+      <button onclick="cerrarAviso()">Cerrar aviso</button>
+    </div>
   </div>
-</div>
 
   <div class="container">
     <h2>¡Bienvenidos!</h2>
@@ -439,55 +408,42 @@
     <p class="historia">
       Orgullosamente animamos la vida parroquia con actividades para todas las edades:
     </p>
-    <p>
-      - <strong>Semana Santa:</strong> Representaciones vivientes de la Última Cena gracias a los “Evangelizadores Escénicos”.
-    </p>
-    <p>
-      - <strong>Octubre:</strong> Rosario misionero viviente en comunidad donde se pide por los continentes.
-    </p>
-    <p>
-      - <strong>Noviembre:</strong> Ofrendas y concursos que fortalecen la fraternidad entre los grupos.
-    </p>
-    <p>
-      - <strong>Diciembre:</strong> Posadas y pastorelas llenas de alegría y mensaje navideño.
-    </p>
-    <p>
-      - <strong>Formación permanente:</strong> Cursos bíblicos, litúrgicos y talleres que nutren nuestra fe y conocimiento.
-    </p>
+    <p>- <strong>Semana Santa:</strong> Representaciones vivientes de la Última Cena gracias a los “Evangelizadores Escénicos”.</p>
+    <p>- <strong>Octubre:</strong> Rosario misionero viviente en comunidad donde se pide por los continentes.</p>
+    <p>- <strong>Noviembre:</strong> Ofrendas y concursos que fortalecen la fraternidad entre los grupos.</p>
+    <p>- <strong>Diciembre:</strong> Posadas y pastorelas llenas de alegría y mensaje navideño.</p>
+    <p>- <strong>Formación permanente:</strong> Cursos bíblicos, litúrgicos y talleres que nutren nuestra fe y conocimiento.</p>
   </div>
 
-    <div class="container">
-      <h2>¡Te esperamos con los brazos abiertos en la Parroquia de la Asunción de María Tepalcatitlán!</h2>
-      <p class="historia">
-        Desde este espacio abierto y vivo, te invitamos a unirte a nuestra misión: participar en nuestras celebraciones, actividades y proyectos. 
-        Aquí, cada historia cuenta, cada voz suma y cada corazón encuentra un lugar.
-      </p>
-    </div>
+  <div class="container">
+    <h2>¡Te esperamos con los brazos abiertos en la Parroquia de la Asunción de María Tepalcatitlán!</h2>
+    <p class="historia">
+      Desde este espacio abierto y vivo, te invitamos a unirte a nuestra misión: participar en nuestras celebraciones, actividades y proyectos. 
+      Aquí, cada historia cuenta, cada voz suma y cada corazón encuentra un lugar.
+    </p>
+  </div>
         
-    <div class="container">
-      <h2>Ubicación</h2>
-      <p class="historia">
-        Nos encontramos en Av. Necaxa 100, Colonia Industrial, Gustavo A. Madero, CDMX, C.P. 07800
-      </p>
-      <p>
-        <strong>Teléfono:</strong> 55 5557 4812
-      </p>
-      <p>
-        <strong>Que nuestra Madre, Asunta al Cielo, continúe protegiendo y guiando a nuestra comunidad. Amén.</strong>
-      </p>
+  <div class="container">
+    <h2>Ubicación</h2>
+    <p class="historia">
+      Nos encontramos en Av. Necaxa 100, Colonia Industrial, Gustavo A. Madero, CDMX, C.P. 07800
+    </p>
+    <p><strong>Teléfono:</strong> 55 5557 4812</p>
+    <p><strong>Que nuestra Madre, Asunta al Cielo, continúe protegiendo y guiando a nuestra comunidad. Amén.</strong></p>
         
     <h2>Galería</h2>
     <div class="galeria">
-      <img src="imagen/parroquia.png" alt="Imagen 1">
-      <img src="imagen/asun.jpg" alt="Imagen 2">
-      <img src="imagen/parroquia_union.png" alt="Imagen 3">
+      <img src="imagen/parroquia.png" alt="Imagen 1" loading="lazy">
+      <img src="imagen/asun.jpg" alt="Imagen 2" loading="lazy">
+      <img src="imagen/parroquia_union.png" alt="Imagen 3" loading="lazy">
     </div>
   </div>
 
   <footer>
-    <img src="imagen/logo_asun.png" alt="Logo Asunción de María">
+    <img src="imagen/logo_asun.png" alt="Logo Asunción de María" loading="lazy">
     <p>&copy; 2026 Parroquia Asunción de María | Todos los derechos reservados</p>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.397843518592!2d-99.1270693!3d19.4760285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f90b4367bbc3%3A0xd2caa35576a999cf!2sParroquia%20de%20la%20Asunci%C3%B3n%20de%20Mar%C3%ADa!5e0!3m2!1ses!2smx!4v1618864105453!5m2!1ses!2smx"></iframe>
+    <!-- Se agrega loading="lazy" para evitar bloqueo en datos celulares -->
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.397843518592!2d-99.1270693!3d19.4760285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f90b4367bbc3%3A0xd2caa35576a999cf!2sParroquia%20de%20la%20Asunci%C3%B3n%20de%20Mar%C3%ADa!5e0!3m2!1ses!2smx!4v1618864105453!5m2!1ses!2smx" loading="lazy"></iframe>
   </footer>
 
 </body>
