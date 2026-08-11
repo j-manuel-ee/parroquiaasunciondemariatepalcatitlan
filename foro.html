@@ -4,9 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Foro de Opiniones | Parroquia Asunción de María</title>
-  <link rel="icon" type="image/png" href="/imagen/favicon.png?v=1.1">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  
+  <!-- Preconexión a Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Playfair+Display&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style/foro.css">
+  
   <style>
     /* Estilos para el aviso emergente (Modal) */
     .modal-aviso {
@@ -62,7 +66,18 @@
       font-weight: normal;
       margin-left: 8px;
     }
+    /* Mensaje de carga para redes celulares lentas */
+    .cargando-opiniones {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+      font-style: italic;
+    }
   </style>
+
+  <!-- Carga diferida de scripts para evitar congelar la pantalla -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="js/conexion.js" defer></script>
 </head>
 <body>
 
@@ -81,7 +96,7 @@
 
 <header>
   <div class="header-left">
-    <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+    <img src="imagen/logo_asun.png" alt="Logo Parroquia" loading="lazy">
   </div>
   <div class="header-text">
     <h1>Parroquia Asunción de María</h1>
@@ -100,24 +115,24 @@
     </div>
   </div>
   <div class="dropdown">
-      <a>Eventos ▾</a>
-      <div class="dropdown-content">
-        <a href="eventos.html">Calendario Mensual</a>
-        <a href="eventosEspeciales.html">Eventos Especiales</a>
-      </div>
+    <a>Eventos ▾</a>
+    <div class="dropdown-content">
+      <a href="eventos.html">Calendario Mensual</a>
+      <a href="eventosEspeciales.html">Eventos Especiales</a>
     </div>
-    <a href="grupos.html">Grupos Parroquiales</a>
-    <a href="mision.html">Misión</a>
-    <a href="contacto.html">Contacto</a>
-    <a href="vaticanNews.html">Vatican News</a>
-    <a href="foro.html">Foro de Opiniones</a>
-    <a href="lecturas.html">Lecturas y Cantos Dominicales</a>
-    <a href="transmisiones.html">En Vivo</a>
-    <div class="dropdown">
-      <a>Acceso ▾</a>
-      <div class="dropdown-content">
-        <a href="adminLogin.html">Administrador</a>
-        <a href="coordinadorLogin.html">Coordinador</a>
+  </div>
+  <a href="grupos.html">Grupos Parroquiales</a>
+  <a href="mision.html">Misión</a>
+  <a href="contacto.html">Contacto</a>
+  <a href="vaticanNews.html">Vatican News</a>
+  <a href="foro.html">Foro de Opiniones</a>
+  <a href="lecturas.html">Lecturas y Cantos Dominicales</a>
+  <a href="transmisiones.html">En Vivo</a>
+  <div class="dropdown">
+    <a>Acceso ▾</a>
+    <div class="dropdown-content">
+      <a href="coordinadorLogin.html">Coordinador</a>
+      <a href="adminLogin.html">Administrador</a>
     </div>
   </div>
 </nav>
@@ -162,7 +177,7 @@
     <label>Comentario:</label>
     <textarea id="insComentario" name="comentario" rows="4" placeholder="Escribe aquí tu mensaje de forma respetuosa..." required></textarea>
 
-    <button type="submit">Enviar Opinión</button>
+    <button type="submit" id="btnEnviar">Enviar Opinión</button>
   </form>
 
   <div class="filtro">
@@ -179,6 +194,7 @@
 
   <div class="opiniones" id="opiniones">
     <h3>Opiniones de la Comunidad</h3>
+    <p class="cargando-opiniones">Cargando opiniones de la comunidad...</p>
   </div>
 </div>
 
@@ -186,111 +202,106 @@
   <p>&copy; 2026 Parroquia Asunción de María | Foro de Opiniones</p>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/conexion.js"></script>
-
 <script>
-const formOpinion = document.getElementById('formOpinion');
-const contOpiniones = document.getElementById('opiniones');
-const filtroEstrellas = document.getElementById('filtroEstrellas');
-const inputNombre = document.getElementById('insNombre');
-let opinionesGlobal = [];
+document.addEventListener("DOMContentLoaded", () => {
+  const formOpinion = document.getElementById('formOpinion');
+  const contOpiniones = document.getElementById('opiniones');
+  const filtroEstrellas = document.getElementById('filtroEstrellas');
+  const inputNombre = document.getElementById('insNombre');
+  const btnEnviar = document.getElementById('btnEnviar');
+  let opinionesGlobal = [];
 
-// --- 1. CONTROL DEL AVISO MÓDULO EMERGENTE ---
-function cerrarAviso() {
+  // 1. CONTROL DEL AVISO EMERGENTE
+  window.cerrarAviso = function() {
     document.getElementById('modalAviso').style.display = 'none';
-}
+  };
 
-// --- 2. BLOQUEO EN TIEMPO REAL EN EL FRONTEND ---
-if(inputNombre) {
+  // 2. BLOQUEO EN TIEMPO REAL
+  if(inputNombre) {
     inputNombre.addEventListener('input', (e) => {
-        e.target.value = e.target.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]/g, '');
+      e.target.value = e.target.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]/g, '');
     });
-}
+  }
 
-const palabrasProhibidasLocal = ["pendejo", "pendeja", "cabron", "cabrón", "chingar", "chinga", "puto", "puta", "mierda"];
+  const palabrasProhibidasLocal = ["pendejo", "pendeja", "cabron", "cabrón", "chingar", "chinga", "puto", "puta", "mierda"];
 
-function contieneGroseriasLocal(texto) {
+  function contieneGroseriasLocal(texto) {
     const t = texto.toLowerCase();
     return palabrasProhibidasLocal.some(p => t.includes(p));
-}
+  }
 
-// --- 3. FUNCIÓN INTELIGENTE PARA CALCULAR EL TIEMPO TRANSCURRIDO ---
-function formatearTiempoTranscurrido(fechaIso) {
+  // 3. CÁLCULO DE TIEMPO
+  function formatearTiempoTranscurrido(fechaIso) {
+    if (!fechaIso) return "";
     const fechaComentario = new Date(fechaIso);
     const ahora = new Date();
     
-    // Diferencia en milisegundos convertida a minutos y horas
     const diferenciaMs = ahora - fechaComentario;
     const diferenciaMinutos = Math.floor(diferenciaMs / (1000 * 60));
     const diferenciaHoras = Math.floor(diferenciaMs / (1000 * 60 * 60));
 
-    // Si ha pasado menos de un minuto
-    if (diferenciaMinutos < 1) {
-        return "• Hace unos instantes";
-    }
+    if (diferenciaMinutos < 1) return "• Hace unos instantes";
+    if (diferenciaMinutos < 60) return `• Hace ${diferenciaMinutos} min`;
+    if (diferenciaHoras < 24) return `• Hace ${diferenciaHoras} ${diferenciaHoras === 1 ? 'hora' : 'horas'}`;
     
-    // REGLA 1: Menos de una hora -> Mostrar en minutos
-    if (diferenciaMinutos < 60) {
-        return `• Hace ${diferenciaMinutos} min`;
-    }
-    
-    // REGLA 2: Entre 1 hora y menos de 24 horas -> Mostrar en horas
-    if (diferenciaHoras < 24) {
-        return `• Hace ${diferenciaHoras} ${diferenciaHoras === 1 ? 'hora' : 'horas'}`;
-    }
-    
-    // REGLA 3: Más de 24 horas -> Mostrar la fecha completa (Ej: 15/05/2026)
     const dia = String(fechaComentario.getDate()).padStart(2, '0');
     const mes = String(fechaComentario.getMonth() + 1).padStart(2, '0');
     const anio = fechaComentario.getFullYear();
     return `• ${dia}/${mes}/${anio}`;
-}
+  }
 
-// --- 4. RENDERIZAR OPINIONES ---
-function renderOpiniones(filtro = "todas") {
+  // 4. RENDERIZAR OPINIONES
+  function renderOpiniones(filtro = "todas") {
     contOpiniones.innerHTML = '<h3>Opiniones de la Comunidad</h3>';
     let filtradas = opinionesGlobal;
     if (filtro !== "todas") {
-        filtradas = opinionesGlobal.filter(op => op.calificacion == filtro);
+      filtradas = opinionesGlobal.filter(op => op.calificacion == filtro);
     }
     
-    filtradas.forEach(op => {
-        let div = document.createElement('div');
-        div.classList.add('opinion');
-        
-        // Calculamos la etiqueta del tiempo dinámicamente usando la columna 'fecha'
-        const etiquetaTiempo = formatearTiempoTranscurrido(op.fecha);
-
-        // Como pediste, en la clase .nombre ahora solo se imprime el Nombre y el Tiempo dinámico sutilmente al lado
-        div.innerHTML = `
-            <div class="nombre">${op.nombre} <span class="tiempo-comentario">${etiquetaTiempo}</span></div>
-            <div class="estrellas">${'★'.repeat(op.calificacion)}</div>
-            <div class="detalle">${op.comentario}</div>
-        `;
-        contOpiniones.appendChild(div);
-    });
-}
-
-// --- 5. CARGAR DESDE SUPABASE ---
-async function cargarOpiniones() {
-    try {
-        // Traemos todos los campos (incluyendo el campo 'fecha' autogenerado por Supabase)
-        const { data, error } = await supabaseClient
-            .from('foro_opiniones')
-            .select('*')
-            .order('id', { ascending: false });
-
-        if (error) throw error;
-        opinionesGlobal = data || [];
-        renderOpiniones(filtroEstrellas.value);
-    } catch (err) {
-        console.error("Error al descargar opiniones:", err.message);
+    if (filtradas.length === 0) {
+      contOpiniones.innerHTML += '<p style="text-align:center; color:#777;">No hay opiniones registradas con esta calificación.</p>';
+      return;
     }
-}
 
-// --- 6. ENVÍO DE FORMULARIO ---
-formOpinion.addEventListener('submit', async e => {
+    filtradas.forEach(op => {
+      let div = document.createElement('div');
+      div.classList.add('opinion');
+      
+      const etiquetaTiempo = formatearTiempoTranscurrido(op.fecha);
+
+      div.innerHTML = `
+        <div class="nombre">${op.nombre} <span class="tiempo-comentario">${etiquetaTiempo}</span></div>
+        <div class="estrellas">${'★'.repeat(op.calificacion)}</div>
+        <div class="detalle">${op.comentario}</div>
+      `;
+      contOpiniones.appendChild(div);
+    });
+  }
+
+  // 5. CARGAR DESDE SUPABASE
+  async function cargarOpiniones() {
+    try {
+      if (typeof supabaseClient === 'undefined') {
+        setTimeout(cargarOpiniones, 500); // Reintenta si la librería no ha terminado de cargar en la red móvil
+        return;
+      }
+
+      const { data, error } = await supabaseClient
+        .from('foro_opiniones')
+        .select('*')
+        .order('id', { ascending: false });
+
+      if (error) throw error;
+      opinionesGlobal = data || [];
+      renderOpiniones(filtroEstrellas.value);
+    } catch (err) {
+      console.error("Error al descargar opiniones:", err.message);
+      contOpiniones.innerHTML = '<h3>Opiniones de la Comunidad</h3><p style="text-align:center; color:#a00;">No se pudieron cargar las opiniones. Revisa tu conexión a datos móviles.</p>';
+    }
+  }
+
+  // 6. ENVÍO DE FORMULARIO
+  formOpinion.addEventListener('submit', async e => {
     e.preventDefault();
 
     const nombreVal = inputNombre.value.trim();
@@ -300,45 +311,53 @@ formOpinion.addEventListener('submit', async e => {
     const comentarioVal = document.getElementById('insComentario').value.trim();
 
     if(nombreVal.length < 7) {
-        alert("Por favor, introduce tu nombre real completo (Nombre y Apellido).");
-        return;
+      alert("Por favor, introduce tu nombre real completo (Nombre y Apellido).");
+      return;
     }
 
     if (contieneGroseriasLocal(nombreVal) || contieneGroseriasLocal(comentarioVal)) {
-        alert("⚠️ Tu mensaje o nombre contiene vocabulario inadecuado. Por favor, reescríbelo con respeto.");
-        return;
+      alert("⚠️ Tu mensaje o nombre contiene vocabulario inadecuado. Por favor, reescríbelo con respeto.");
+      return;
     }
 
     try {
-        const { error } = await supabaseClient
-            .from('foro_opiniones')
-            .insert([{
-                nombre: nombreVal,
-                edad: edadVal,
-                asistencia: asistenciaVal,
-                calificacion: calificacionVal,
-                comentario: comentarioVal
-            }]);
+      btnEnviar.disabled = true;
+      btnEnviar.innerText = "Enviando...";
 
-        if (error) throw error;
+      const { error } = await supabaseClient
+        .from('foro_opiniones')
+        .insert([{
+          nombre: nombreVal,
+          edad: edadVal,
+          asistencia: asistenciaVal,
+          calificacion: calificacionVal,
+          comentario: comentarioVal
+        }]);
 
-        alert("Opinión enviada de forma exitosa.");
-        formOpinion.reset();
-        cargarOpiniones();
+      if (error) throw error;
+
+      alert("Opinión enviada de forma exitosa.");
+      formOpinion.reset();
+      cargarOpiniones();
     } catch (err) {
-        if (err.message && err.message.includes("vocabulario inapropiado")) {
-            alert("⚠️ Sistema de Moderación: Se detectó lenguaje obsceno u ofensivo (incluso camuflado). El comentario ha sido bloqueado.");
-        } else {
-            alert("Error al procesar la solicitud: " + err.message);
-        }
+      if (err.message && err.message.includes("vocabulario inapropiado")) {
+        alert("⚠️ Sistema de Moderación: Se detectó lenguaje obsceno u ofensivo. El comentario ha sido bloqueado.");
+      } else {
+        alert("Error al procesar la solicitud: " + err.message);
+      }
+    } finally {
+      btnEnviar.disabled = false;
+      btnEnviar.innerText = "Enviar Opinión";
     }
-});
+  });
 
-filtroEstrellas.addEventListener('change', () => {
+  filtroEstrellas.addEventListener('change', () => {
     renderOpiniones(filtroEstrellas.value);
-});
+  });
 
-cargarOpiniones();
+  // Inicio diferido de la carga
+  cargarOpiniones();
+});
 </script>
 
 </body>
