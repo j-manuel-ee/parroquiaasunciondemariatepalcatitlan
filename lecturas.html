@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lecturas y Cantos Dominicales - Parroquia Asunción de María</title>
   <link rel="icon" type="image/png" href="imagen/favicon.png?v=1">
+  
+  <!-- Preconexión para acelerar fuentes en red móvil -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style/historia.css">
   
@@ -94,11 +98,11 @@
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px); /* Suaviza el fondo */
+      backdrop-filter: blur(4px);
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 9999; /* Asegura estar por encima de todo */
+      z-index: 9999;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
@@ -165,7 +169,6 @@
       background-color: #15527c;
     }
 
-    /* Ajustes específicos de las Tarjetas de Cantos para Celulares */
     @media (max-width: 768px) {
       .banner-introduccion {
         margin: 15px 10px !important;
@@ -186,6 +189,10 @@
       }
     }
   </style>
+
+  <!-- Scripts diferidos para evitar pantalla congelada -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="js/conexion.js" defer></script>
 </head>
 <body>
 
@@ -204,7 +211,7 @@
 
     <header>
       <div class="header-left">
-          <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+          <img src="imagen/logo_asun.png" alt="Logo Parroquia" loading="lazy">
         </div>
         <div class="header-text">
           <h1>Parroquia Asunción de María</h1>
@@ -278,7 +285,7 @@
 
     <a id="link-especiales" target="_blank" class="grid-item grid-item-especial">
       <h3>✨ Misas Especiales</h3>
-      <p>Cantos para Solemnidades, y Fiestas Patronales. ➔</p>
+      <p>Cantos para Solemnidades y Fiestas Patronales. ➔</p>
     </a>
 
   </div>
@@ -287,27 +294,28 @@
     <p>&copy; 2026 Parroquia Asunción de María | Lecturas y Cantos Dominicales</p>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/conexion.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       // --- Lógica del Aviso Emergente ---
       const modal = document.getElementById("avisoModal");
       const btnCerrar = document.getElementById("cerrarModal");
 
-      // Muestra el modal al cargar la página
       modal.classList.add("active");
 
-      // Cierra el modal al dar clic al botón
       btnCerrar.addEventListener("click", () => {
         modal.classList.remove("active");
       });
 
-      // --- Lógica de URLs de Supabase Storage ---
-      const urlBaseSupabase = supabaseClient.supabaseUrl; 
+      // --- Lógica de URLs de Supabase Storage Directas ---
+      // REEMPLAZA "TU_PROJECT_REF" con el ID de tu proyecto de Supabase (ejemplo: 'abcde12345')
+      const projectRef = "TU_PROJECT_REF"; 
       const bucketName = "cantos-dominicales";
-      const antiparasitoCache = `?v=${new Date().getTime()}`;
-      const storageUrl = `${urlBaseSupabase}/storage/v1/object/public/${bucketName}`;
+      
+      // Control de caché inteligente por día (YYYY-MM-DD) en lugar de milisegundos
+      const hoy = new Date().toISOString().split('T')[0];
+      const antiparasitoCache = `?v=${hoy}`;
+      
+      const storageUrl = `https://${projectRef}.supabase.co/storage/v1/object/public/${bucketName}`;
 
       document.getElementById("link-lecturas").href = `${storageUrl}/lecturas_dominicales.pdf${antiparasitoCache}`;
       document.getElementById("link-misa11").href  = `${storageUrl}/cantos_misa_11am.pdf${antiparasitoCache}`;
