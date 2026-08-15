@@ -111,9 +111,7 @@ async function buscarSacramentos() {
                     const diaFormateado = diaInput.padStart(2, '0');
                     query = query.eq('fecha_sacramento', `${anio}-${mes}-${diaFormateado}`);
                 } else {
-                    const fechaInicio = `${anio}-${mes}-01`;
-                    const fechaFin = `${anio}-${mes}-31`;
-                    query = query.or(`fecha_sacramento.gte.${fechaInicio},fecha_sacramento.lte.${fechaFin},anio_estimado.eq.${anio}`);
+                    query = query.or(`fecha_sacramento.like.${anio}-${mes}-%,anio_estimado.eq.${anio}`);
                 }
             } else {
                 const fechaInicio = `${anio}-01-01`;
@@ -221,7 +219,7 @@ async function guardarEdicionFecha(e) {
 
     // Si pusieron fecha exacta pero no año, lo calculamos en automático
     if (fecha && !anioEstimado) {
-        anioEstimado = new Date(fecha).getFullYear();
+        anioEstimado = parseInt(fecha.split('-')[0], 10);
     }
 
     try {
