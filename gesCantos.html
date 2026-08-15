@@ -175,7 +175,7 @@
     // Subida al Storage de Supabase sobreescribiendo el archivo existente (upsert: true)
     const { data, error } = await supabaseClient
       .storage
-      .from('CANTOS-DOMINICALES') 
+      .from('cantos-dominicales') 
       .upload(nombreArchivoFinal, file, {
         cacheControl: '0',
         upsert: true
@@ -199,7 +199,7 @@
 
     const { data, error } = await supabaseClient
       .storage
-      .from('CANTOS-DOMINICALES')
+      .from('cantos-dominicales')
       .remove([nombreArchivoFinal]);
 
     if (error) {
