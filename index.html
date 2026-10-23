@@ -316,6 +316,17 @@
         font-size: 15px;
       }
     }
+  
+    /* ===== Anuncios emergentes dinámicos (reutilizan .aviso / .aviso-contenido) ===== */
+    .anuncio-contenido { max-width: 460px; max-height: 90vh; overflow-y: auto; }
+    .anuncio-contador { font-size: 13px; color: #777; margin: 0 0 10px; }
+    .anuncio-contenido img.anuncio-img { max-width: 100%; max-height: 300px; object-fit: contain; border-radius: 8px; margin-bottom: 20px; }
+    .anuncio-contenido iframe.anuncio-pdf { width: 100%; height: 300px; margin: 0 0 8px; border-radius: 8px; }
+    .anuncio-contenido .anuncio-pdf-link { display: block; margin-bottom: 20px; color: #0d47a1; font-weight: bold; }
+    .anuncio-contenido .anuncio-desc { white-space: pre-line; }
+    .anuncio-contenido .bouncing-button-container { margin: 25px 0 15px; }
+    .anuncio-contenido button:focus-visible, .anuncio-contenido a:focus-visible { outline: 3px solid #1976d2; outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { .anuncio-contenido .bouncing-button { animation: none; } }
   </style>
   <script>
     function cerrarAviso() {
@@ -370,21 +381,6 @@
 
   <div class="hero">
     <div class="hero-text">"Un lugar de fe, tradición y comunidad"</div>
-  </div>
-
-  <!-- Aviso emergente -->
-  <div id="aviso" class="aviso">
-    <div class="aviso-contenido">
-      <img src="imagen/foro.png" alt="Aviso Importante" loading="lazy" style="max-width: 80%; border-radius: 8px; margin-bottom: 40px;">
-      <h2>¡Nuevo Foro de Opiniones!</h2>
-      <p>La Parroquia Asunción de María ha creado un espacio para escuchar a toda la comunidad.</p>
-      <p>Te invitamos a compartir tus opiniones, sugerencias y comentarios para ayudarnos a mejorar y seguir creciendo juntos en la fe.</p>
-      <p>¡Tu voz cuenta y queremos escucharte!</p>
-      <div class="bouncing-button-container">
-        <a href="foro.html" target="_blank" class="bouncing-button">Da clic aquí</a>
-      </div>
-      <button onclick="cerrarAviso()">Cerrar aviso</button>
-    </div>
   </div>
 
   <div class="container">
@@ -446,6 +442,97 @@
     <!-- Se agrega loading="lazy" para evitar bloqueo en datos celulares -->
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.397843518592!2d-99.1270693!3d19.4760285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f90b4367bbc3%3A0xd2caa35576a999cf!2sParroquia%20de%20la%20Asunci%C3%B3n%20de%20Mar%C3%ADa!5e0!3m2!1ses!2smx!4v1618864105453!5m2!1ses!2smx" loading="lazy"></iframe>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/conexion.js"></script>
+  <script>
+    // Anuncios emergentes creados desde el panel de administración (tabla "anuncios")
+    (function () {
+      const enlaceSeguro = u => /^[\w-]+\.html(\?[\w=&%-]*)?$/.test(u || '');
+      const el = (tag, cls, txt) => {
+        const n = document.createElement(tag);
+        if (cls) n.className = cls;
+        if (txt) n.textContent = txt;
+        return n;
+      };
+
+      function mostrarAnuncios(lista) {
+        let i = 0;
+        const overlay = el('div', 'aviso');
+        overlay.setAttribute('role', 'dialog');
+        overlay.setAttribute('aria-modal', 'true');
+        overlay.setAttribute('aria-label', 'Anuncio de la parroquia');
+        const caja = el('div', 'aviso-contenido anuncio-contenido');
+        overlay.append(caja);
+        document.body.append(overlay);
+
+        function cerrar() {
+          overlay.remove();
+          document.removeEventListener('keydown', onKey);
+        }
+        function onKey(e) { if (e.key === 'Escape') cerrar(); }
+        document.addEventListener('keydown', onKey);
+
+        function pintar() {
+          const a = lista[i];
+          caja.replaceChildren();
+          if (lista.length > 1) caja.append(el('p', 'anuncio-contador', `Anuncio ${i + 1} de ${lista.length}`));
+
+          if (a.archivo_url) {
+            if (a.archivo_tipo === 'application/pdf') {
+              const f = el('iframe', 'anuncio-pdf');
+              f.src = a.archivo_url; f.title = 'PDF: ' + a.titulo;
+              const l = el('a', 'anuncio-pdf-link', 'Abrir PDF en otra pestaña');
+              l.href = a.archivo_url; l.target = '_blank'; l.rel = 'noopener';
+              caja.append(f, l);
+            } else {
+              const img = el('img', 'anuncio-img');
+              img.src = a.archivo_url; img.alt = a.titulo;
+              caja.append(img);
+            }
+          }
+
+          caja.append(el('h2', '', a.titulo));
+          if (a.descripcion) caja.append(el('p', 'anuncio-desc', a.descripcion));
+
+          if (enlaceSeguro(a.enlace)) {
+            const wrap = el('div', 'bouncing-button-container');
+            const cta = el('a', 'bouncing-button', a.texto_boton || 'Ver más');
+            cta.href = a.enlace;
+            wrap.append(cta);
+            caja.append(wrap);
+          }
+
+          const ultimo = i === lista.length - 1;
+          const btn = el('button', '', ultimo ? 'Cerrar aviso' : 'Siguiente anuncio');
+          btn.type = 'button';
+          btn.addEventListener('click', () => { if (ultimo) cerrar(); else { i++; pintar(); caja.scrollTop = 0; } });
+          caja.append(btn);
+          btn.focus({ preventScroll: true });
+        }
+        pintar();
+      }
+
+      async function cargar() {
+        try {
+          const { data, error } = await supabaseClient
+            .from('anuncios').select('*').order('creado_en', { ascending: false });
+          if (error || !data || !data.length) return;
+          mostrarAnuncios(data);
+        } catch (e) { console.error('No se pudieron cargar los anuncios', e); }
+      }
+
+      // Si el aviso del foro está visible, los anuncios salen cuando se cierre.
+      document.addEventListener('DOMContentLoaded', () => {
+        const foro = document.getElementById('aviso');
+        const visible = foro && getComputedStyle(foro).display !== 'none';
+        if (!visible) return cargar();
+        new MutationObserver((_, obs) => {
+          if (getComputedStyle(foro).display === 'none') { obs.disconnect(); cargar(); }
+        }).observe(foro, { attributes: true, attributeFilter: ['style'] });
+      });
+    })();
+  </script>
 
 </body>
 </html>
