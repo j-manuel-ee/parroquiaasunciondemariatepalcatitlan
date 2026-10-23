@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Anuncios | Administrador</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; display: none;
+      background-image: url('imagen/cielo.jpg'); background-size: cover; background-position: center; background-attachment: fixed; }
+
+    .header { background-color: rgba(31,120,180,.9); color: #fff; padding: 10px 20px; display: flex; align-items: center;
+      justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,.2); gap: 12px; }
+    .header .logo-container { display: flex; align-items: center; }
+    .header .logo-container img { height: 40px; margin-right: 10px; }
+    .header .logo-text { font-size: 1.5em; font-weight: bold; }
+    .header .acciones-header { display: flex; gap: 10px; }
+    .header a { color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; background: rgba(255,255,255,.2); }
+    .header a.salir { background: #d9534f; }
+
+    .content { max-width: 1000px; margin: 20px auto; background: rgba(255,255,255,.95); padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+    .content h2 { color: #1f78b4; margin-top: 0; }
+
+    form.grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+    .campo { display: flex; flex-direction: column; gap: 6px; }
+    .campo.full { grid-column: 1 / -1; }
+    .campo label { font-weight: bold; color: #2d3748; }
+    .campo input, .campo textarea, .campo select { font: inherit; padding: 10px; border: 1px solid #cbd5e0; border-radius: 4px; background: #fff; }
+    .campo input:focus-visible, .campo textarea:focus-visible, .campo select:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid #3182ce; outline-offset: 2px; }
+    .campo small { color: #718096; }
+    .check { display: flex; align-items: center; gap: 8px; font-weight: normal !important; }
+
+    .archivo-actual { display: flex; align-items: center; gap: 12px; padding: 10px; background: #ebf8ff; border: 1px solid #bee3f8; border-radius: 4px; }
+    .archivo-actual img { height: 50px; border-radius: 4px; }
+
+    .acciones { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn { font: inherit; font-weight: bold; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; color: #fff; }
+    .btn-primario { background: #1f78b4; } .btn-primario:hover { background: #185f8f; }
+    .btn-gris { background: #718096; } .btn-gris:hover { background: #5a6779; }
+    .btn-edit { background: #3182ce; padding: 6px 12px; border-radius: 4px; } .btn-edit:hover { background: #2b6cb0; }
+    .btn-delete { background: #d9534f; padding: 6px 12px; border-radius: 4px; } .btn-delete:hover { background: #c9302c; }
+    .btn[disabled] { opacity: .6; cursor: not-allowed; }
+
+    .msg { display: none; margin: 14px 0 0; padding: 10px 14px; border-radius: 5px; }
+    .msg.ok { display: block; background: #e6f4ea; color: #1d5a2b; }
+    .msg.err { display: block; background: #fdecea; color: #8d1520; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; vertical-align: middle; }
+    th { background-color: #1f78b4; color: #fff; }
+    td.acc { white-space: nowrap; display: flex; gap: 8px; }
+    .thumb { width: 80px; height: 56px; border-radius: 4px; background: #eef4f9; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #718096; overflow: hidden; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .loading-text { text-align: center; color: #718096; font-style: italic; padding: 15px; }
+
+    @media (max-width: 768px) {
+      .header { flex-direction: column; text-align: center; padding: 15px; }
+      .header .acciones-header { width: 100%; flex-direction: column; }
+      .header a { display: block; text-align: center; }
+      form.grid { grid-template-columns: 1fr; }
+      .content { margin: 15px 10px; }
+      .tabla-scroll { overflow-x: auto; }
+      table { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo-container">
+    <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+    <div class="logo-text">Anuncios</div>
+  </div>
+  <div class="acciones-header">
+    <a href="adminDashboard.html">Volver al panel</a>
+    <a href="#" class="salir" id="btnSalir">Salir</a>
+  </div>
+</div>
+
+<div class="content">
+  <h2 id="tituloForm">📢 Crear anuncio</h2>
+  <form id="formAnuncio" class="grid" novalidate>
+    <div class="campo full">
+      <label for="titulo">Título</label>
+      <input id="titulo" type="text" maxlength="120" required>
+    </div>
+    <div class="campo full">
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion" rows="4" maxlength="1200"></textarea>
+    </div>
+    <div class="campo full">
+      <label for="archivo">Imagen o PDF (opcional)</label>
+      <input id="archivo" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf">
+      <small>JPG, JPEG, PNG o PDF. Máximo 5 MB.</small>
+    </div>
+    <div class="campo full" id="bloqueActual" hidden>
+      <div class="archivo-actual">
+        <span id="previewActual"></span>
+        <label class="check"><input type="checkbox" id="quitarArchivo"> Quitar el archivo actual</label>
+      </div>
+      <small>Si eliges un archivo nuevo arriba, reemplaza al actual.</small>
+    </div>
+    <div class="campo">
+      <label for="enlace">Enlace de destino (opcional)</label>
+      <select id="enlace">
+        <option value="">Sin enlace</option>
+        <option value="index.html">Inicio</option>
+        <option value="oficina.html">Oficina</option>
+        <option value="historia.html">Historia: Parroquia</option>
+        <option value="histAsun.html">Historia: Asunción de María</option>
+        <option value="eventos.html">Eventos: Calendario Mensual</option>
+        <option value="eventosEspeciales.html">Eventos Especiales</option>
+        <option value="grupos.html">Grupos Parroquiales</option>
+        <option value="mision.html">Misión</option>
+        <option value="contacto.html">Contacto</option>
+        <option value="vaticanNews.html">Vatican News</option>
+        <option value="foro.html">Foro de Opiniones</option>
+        <option value="lecturas.html">Lecturas y Cantos Dominicales</option>
+        <option value="transmisiones.html">En Vivo</option>
+      </select>
+    </div>
+    <div class="campo">
+      <label for="textoBoton">Texto del botón</label>
+      <input id="textoBoton" type="text" maxlength="40" placeholder="Ej. Ver eventos, Ir al foro">
+      <small>Si lo dejas vacío, el botón dirá “Ver más”.</small>
+    </div>
+    <div class="acciones">
+      <button type="submit" class="btn btn-primario" id="btnGuardar">Publicar anuncio</button>
+      <button type="button" class="btn btn-gris" id="btnCancelar" hidden>Cancelar edición</button>
+    </div>
+  </form>
+  <p id="msg" class="msg" role="status"></p>
+</div>
+
+<div class="content">
+  <h2>Anuncios publicados</h2>
+  <div class="tabla-scroll">
+    <table>
+      <thead>
+        <tr><th>Archivo</th><th>Título</th><th>Enlace</th><th>Publicado</th><th>Acciones</th></tr>
+      </thead>
+      <tbody id="tabla-anuncios">
+        <tr><td colspan="5" class="loading-text">Cargando…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/conexion.js"></script>
+<script>
+  // supabaseClient viene de js/conexion.js
+  const BUCKET = 'anuncios';
+  const MAX_BYTES = 5 * 1024 * 1024;
+  const TIPOS = { 'image/jpeg': 'jpg', 'image/png': 'png', 'application/pdf': 'pdf' };
+
+  const $ = id => document.getElementById(id);
+  const form = $('formAnuncio'), msg = $('msg'), tbody = $('tabla-anuncios');
+  let editando = null;   // registro que se está editando (o null)
+  let cache = [];
+
+  function aviso(t, tipo = 'ok') { msg.textContent = t; msg.className = 'msg ' + tipo; }
+  function el(tag, props = {}, ...kids) {
+    const n = document.createElement(tag);
+    Object.entries(props).forEach(([k, v]) => k === 'class' ? n.className = v : n.setAttribute(k, v));
+    kids.forEach(c => n.append(c));
+    return n;
+  }
+  const nombreEnlace = v => { const o = [...$('enlace').options].find(o => o.value === v); return o ? o.textContent : '—'; };
+  const fmt = iso => new Date(iso).toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' });
+
+  $('btnSalir').addEventListener('click', async e => {
+    e.preventDefault();
+    const { error } = await supabaseClient.auth.signOut();
+    if (error) { alert('Hubo un error al salir, intenta de nuevo.'); return; }
+    localStorage.clear(); sessionStorage.clear();
+    window.location.href = 'index.html';
+  });
+
+  // ---------- Listado ----------
+  async function cargarLista() {
+    const { data, error } = await supabaseClient.from('anuncios').select('*').order('creado_en', { ascending: false });
+    if (error) { console.error(error); tbody.replaceChildren(el('tr', {}, el('td', { colspan: 5, class: 'loading-text' }, 'No se pudo cargar la lista.'))); return; }
+    cache = data;
+    if (!data.length) { tbody.replaceChildren(el('tr', {}, el('td', { colspan: 5, class: 'loading-text' }, 'Aún no hay anuncios publicados.'))); return; }
+
+    tbody.replaceChildren(...data.map(a => {
+      const thumb = el('div', { class: 'thumb' });
+      if (a.archivo_url && a.archivo_tipo !== 'application/pdf') thumb.append(el('img', { src: a.archivo_url, alt: '' }));
+      else thumb.append(a.archivo_tipo === 'application/pdf' ? 'PDF' : '—');
+      const bE = el('button', { type: 'button', class: 'btn btn-edit' }, 'Editar');
+      const bD = el('button', { type: 'button', class: 'btn btn-delete' }, 'Borrar');
+      bE.addEventListener('click', () => iniciarEdicion(a));
+      bD.addEventListener('click', () => borrar(a, bD));
+      return el('tr', {},
+        el('td', {}, thumb), el('td', {}, a.titulo), el('td', {}, a.enlace ? nombreEnlace(a.enlace) : '—'),
+        el('td', {}, fmt(a.creado_en)), el('td', { class: 'acc' }, bE, bD));
+    }));
+  }
+
+  // ---------- Edición ----------
+  function iniciarEdicion(a) {
+    editando = a;
+    $('tituloForm').textContent = '✏️ Editar anuncio';
+    $('titulo').value = a.titulo; $('descripcion').value = a.descripcion || '';
+    $('enlace').value = a.enlace || ''; $('textoBoton').value = a.texto_boton || '';
+    $('archivo').value = ''; $('quitarArchivo').checked = false;
+    const prev = $('previewActual'); prev.replaceChildren();
+    if (a.archivo_url) {
+      prev.append(a.archivo_tipo === 'application/pdf' ? 'Archivo actual: PDF' : el('img', { src: a.archivo_url, alt: 'Archivo actual' }));
+      $('bloqueActual').hidden = false;
+    } else $('bloqueActual').hidden = true;
+    $('btnGuardar').textContent = 'Guardar cambios'; $('btnCancelar').hidden = false;
+    msg.className = 'msg'; window.scrollTo({ top: 0, behavior: 'smooth' }); $('titulo').focus();
+  }
+  function salirEdicion() {
+    editando = null; form.reset(); $('bloqueActual').hidden = true;
+    $('tituloForm').textContent = '📢 Crear anuncio';
+    $('btnGuardar').textContent = 'Publicar anuncio'; $('btnCancelar').hidden = true;
+  }
+  $('btnCancelar').addEventListener('click', () => { salirEdicion(); msg.className = 'msg'; });
+
+  // ---------- Crear / Editar ----------
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    const file = $('archivo').files[0];
+    if (file) {
+      if (!TIPOS[file.type]) return aviso('El archivo debe ser JPG, JPEG, PNG o PDF.', 'err');
+      if (file.size > MAX_BYTES) return aviso('El archivo supera los 5 MB.', 'err');
+    }
+    const btn = $('btnGuardar'), etiqueta = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Guardando…';
+
+    let nuevo = null;                 // archivo recién subido
+    try {
+      if (file) {
+        const path = `${crypto.randomUUID()}.${TIPOS[file.type]}`;
+        const up = await supabaseClient.storage.from(BUCKET).upload(path, file, { contentType: file.type });
+        if (up.error) throw up.error;
+        const { data } = supabaseClient.storage.from(BUCKET).getPublicUrl(path);
+        nuevo = { archivo_url: data.publicUrl, archivo_path: path, archivo_tipo: file.type };
+      }
+      const campos = {
+        titulo: $('titulo').value.trim(),
+        descripcion: $('descripcion').value.trim() || null,
+        enlace: $('enlace').value || null,
+        texto_boton: $('enlace').value ? ($('textoBoton').value.trim() || null) : null
+      };
+      let borrarPath = null;
+      if (nuevo) Object.assign(campos, nuevo);
+      if (editando) {
+        if (nuevo && editando.archivo_path) borrarPath = editando.archivo_path;
+        if (!nuevo && $('quitarArchivo').checked && editando.archivo_path) {
+          Object.assign(campos, { archivo_url: null, archivo_path: null, archivo_tipo: null });
+          borrarPath = editando.archivo_path;
+        }
+      }
+      const q = editando
+        ? supabaseClient.from('anuncios').update(campos).eq('id', editando.id)
+        : supabaseClient.from('anuncios').insert(campos);
+      const { error } = await q;
+      if (error) { if (nuevo) await supabaseClient.storage.from(BUCKET).remove([nuevo.archivo_path]); throw error; }
+      if (borrarPath) await supabaseClient.storage.from(BUCKET).remove([borrarPath]);
+
+      aviso(editando ? 'Anuncio actualizado.' : 'Anuncio publicado.');
+      salirEdicion(); cargarLista();
+    } catch (err) {
+      console.error(err); aviso('No se pudo guardar el anuncio: ' + (err.message || 'error desconocido'), 'err');
+      btn.textContent = etiqueta;
+    } finally { btn.disabled = false; }
+  });
+
+  // ---------- Borrar ----------
+  async function borrar(a, btn) {
+    if (!confirm(`¿Borrar el anuncio “${a.titulo}”? Esta acción no se puede deshacer.`)) return;
+    btn.disabled = true;
+    const { error } = await supabaseClient.from('anuncios').delete().eq('id', a.id);
+    if (error) { btn.disabled = false; return aviso('No se pudo borrar: ' + error.message, 'err'); }
+    if (a.archivo_path) await supabaseClient.storage.from(BUCKET).remove([a.archivo_path]);
+    if (editando && editando.id === a.id) salirEdicion();
+    aviso('Anuncio borrado.'); cargarLista();
+  }
+
+  // ---------- Validar sesión (igual que adminDashboard) ----------
+  (async () => {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (!session) { window.location.href = 'adminLogin.html'; return; }
+    document.body.style.display = 'block';
+    cargarLista();
+  })();
+</script>
+</body>
+</html>
