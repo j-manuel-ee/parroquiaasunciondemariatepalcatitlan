@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Eventos Especiales | Administrador</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; display: none;
+      background-image: url('imagen/cielo.jpg'); background-size: cover; background-position: center; background-attachment: fixed; }
+
+    .header { background-color: rgba(31,120,180,.9); color: #fff; padding: 10px 20px; display: flex; align-items: center;
+      justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,.2); gap: 12px; }
+    .header .logo-container { display: flex; align-items: center; }
+    .header .logo-container img { height: 40px; margin-right: 10px; }
+    .header .logo-text { font-size: 1.5em; font-weight: bold; }
+    .header .acciones-header { display: flex; gap: 10px; }
+    .header a { color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; background: rgba(255,255,255,.2); }
+    .header a.salir { background: #d9534f; }
+
+    .content { max-width: 1000px; margin: 20px auto; background: rgba(255,255,255,.95); padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+    .content h2 { color: #1f78b4; margin-top: 0; }
+
+    form.grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+    .campo { display: flex; flex-direction: column; gap: 6px; }
+    .campo.full { grid-column: 1 / -1; }
+    .campo label { font-weight: bold; color: #2d3748; }
+    .campo input, .campo textarea { font: inherit; padding: 10px; border: 1px solid #cbd5e0; border-radius: 4px; }
+    .campo input:focus-visible, .campo textarea:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid #3182ce; outline-offset: 2px; }
+    .campo small { color: #718096; }
+
+    .acciones { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn { font: inherit; font-weight: bold; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; color: #fff; }
+    .btn-primario { background: #1f78b4; } .btn-primario:hover { background: #185f8f; }
+    .btn-aviso { background: #dd6b20; } .btn-aviso:hover { background: #c05621; }
+    .btn-delete { background: #d9534f; padding: 6px 12px; border-radius: 4px; } .btn-delete:hover { background: #c9302c; }
+    .btn[disabled] { opacity: .6; cursor: not-allowed; }
+
+    .msg { display: none; margin: 14px 0 0; padding: 10px 14px; border-radius: 5px; }
+    .msg.ok { display: block; background: #e6f4ea; color: #1d5a2b; }
+    .msg.err { display: block; background: #fdecea; color: #8d1520; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; vertical-align: middle; }
+    th { background-color: #1f78b4; color: #fff; }
+    tr.inactivo td { opacity: .55; }
+    .thumb { width: 80px; height: 56px; object-fit: cover; border-radius: 4px; background: #eef4f9; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #718096; overflow: hidden; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .loading-text { text-align: center; color: #718096; font-style: italic; padding: 15px; }
+
+    @media (max-width: 768px) {
+      .header { flex-direction: column; text-align: center; padding: 15px; }
+      .header .acciones-header { width: 100%; flex-direction: column; }
+      .header a { display: block; text-align: center; }
+      form.grid { grid-template-columns: 1fr; }
+      .content { margin: 15px 10px; }
+      .tabla-scroll { overflow-x: auto; }
+      table { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo-container">
+    <img src="imagen/logo_asun.png" alt="Logo Parroquia">
+    <div class="logo-text">Eventos Especiales</div>
+  </div>
+  <div class="acciones-header">
+    <a href="adminDashboard.html">Volver al panel</a>
+    <a href="#" class="salir" id="btnSalir">Salir</a>
+  </div>
+</div>
+
+<div class="content">
+  <h2>🥳 Agregar evento especial</h2>
+  <form id="formEvento" class="grid" novalidate>
+    <div class="campo full">
+      <label for="nombre">Nombre del evento</label>
+      <input id="nombre" type="text" maxlength="150" required>
+    </div>
+    <div class="campo">
+      <label for="lugar">¿Dónde?</label>
+      <input id="lugar" type="text" maxlength="200" required>
+    </div>
+    <div class="campo">
+      <label for="costo">Costo</label>
+      <input id="costo" type="text" maxlength="80" placeholder="Ej. Entrada libre, $50 por persona" required>
+    </div>
+    <div class="campo">
+      <label for="fecha">¿Cuándo?</label>
+      <input id="fecha" type="date" required>
+    </div>
+    <div class="campo">
+      <label for="hora">¿A qué hora?</label>
+      <input id="hora" type="time" required>
+    </div>
+    <div class="campo full">
+      <label for="observaciones">Observaciones</label>
+      <textarea id="observaciones" rows="3" maxlength="800"></textarea>
+    </div>
+    <div class="campo full">
+      <label for="archivo">Imagen o PDF del evento</label>
+      <input id="archivo" type="file" accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/png,application/pdf">
+      <small>JPG, JPEG, PNG o PDF. Máximo 5 MB.</small>
+    </div>
+    <div class="acciones">
+      <button type="submit" class="btn btn-primario" id="btnGuardar">Publicar evento</button>
+      <button type="button" class="btn btn-aviso" id="btnSinEventos">Marcar “Sin eventos”</button>
+    </div>
+  </form>
+  <p id="msg" class="msg" role="status"></p>
+</div>
+
+<div class="content">
+  <h2>Eventos registrados</h2>
+  <div class="tabla-scroll">
+    <table>
+      <thead>
+        <tr><th>Archivo</th><th>Evento</th><th>Fecha y hora</th><th>Lugar</th><th>Costo</th><th>Estado</th><th>Acción</th></tr>
+      </thead>
+      <tbody id="tabla-eventos">
+        <tr><td colspan="7" class="loading-text">Cargando…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/conexion.js"></script>
+<script>
+  // supabaseClient viene de js/conexion.js
+  const BUCKET = 'eventos';
+  const MAX_BYTES = 5 * 1024 * 1024;
+  const TIPOS = { 'image/jpeg': 'jpg', 'image/png': 'png', 'application/pdf': 'pdf' };
+
+  const $ = id => document.getElementById(id);
+  const form = $('formEvento'), msg = $('msg'), tbody = $('tabla-eventos');
+
+  function aviso(t, tipo = 'ok') { msg.textContent = t; msg.className = 'msg ' + tipo; }
+
+  function el(tag, props = {}, ...kids) {
+    const n = document.createElement(tag);
+    Object.entries(props).forEach(([k, v]) => k === 'class' ? n.className = v : n.setAttribute(k, v));
+    kids.forEach(c => n.append(c));
+    return n;
+  }
+  const fmtFecha = iso => { const [y,m,d] = iso.split('-').map(Number);
+    return new Date(Date.UTC(y,m-1,d)).toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}); };
+  const fmtHora = t => { const [h,m] = t.split(':').map(Number);
+    return `${(h%12)||12}:${String(m).padStart(2,'0')} ${h>=12?'p. m.':'a. m.'}`; };
+
+  // ---------- Cerrar sesión (mismo flujo del dashboard) ----------
+  $('btnSalir').addEventListener('click', async e => {
+    e.preventDefault();
+    const { error } = await supabaseClient.auth.signOut();
+    if (error) { alert('Hubo un error al salir, intenta de nuevo.'); return; }
+    localStorage.clear(); sessionStorage.clear();
+    window.location.href = 'index.html';
+  });
+
+  // ---------- Listado ----------
+  async function cargarLista() {
+    const { data, error } = await supabaseClient.from('eventos_especiales').select('*')
+      .order('fecha', { ascending: true }).order('hora', { ascending: true });
+    if (error) { console.error(error); tbody.replaceChildren(el('tr', {}, el('td', { colspan: 7, class: 'loading-text' }, 'No se pudo cargar la lista.'))); return; }
+    if (!data.length) { tbody.replaceChildren(el('tr', {}, el('td', { colspan: 7, class: 'loading-text' }, 'Aún no hay eventos registrados.'))); return; }
+
+    tbody.replaceChildren(...data.map(ev => {
+      const thumb = el('div', { class: 'thumb' });
+      if (ev.archivo_url && ev.archivo_tipo !== 'application/pdf') thumb.append(el('img', { src: ev.archivo_url, alt: '' }));
+      else thumb.append(ev.archivo_tipo === 'application/pdf' ? 'PDF' : '—');
+      const btn = el('button', { type: 'button', class: 'btn btn-delete' }, 'Eliminar');
+      btn.addEventListener('click', () => eliminar(ev, btn));
+      return el('tr', { class: ev.activo ? '' : 'inactivo' },
+        el('td', {}, thumb),
+        el('td', {}, ev.nombre),
+        el('td', {}, `${fmtFecha(ev.fecha)}, ${fmtHora(ev.hora)}`),
+        el('td', {}, ev.lugar),
+        el('td', {}, ev.costo),
+        el('td', {}, ev.activo ? 'Visible' : 'Oculto'),
+        el('td', {}, btn));
+    }));
+  }
+
+  // ---------- Agregar ----------
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    const file = $('archivo').files[0];
+    if (file) {
+      if (!TIPOS[file.type]) return aviso('El archivo debe ser JPG, JPEG, PNG o PDF.', 'err');
+      if (file.size > MAX_BYTES) return aviso('El archivo supera los 5 MB.', 'err');
+    }
+    const btn = $('btnGuardar'); btn.disabled = true; btn.textContent = 'Publicando…';
+    try {
+      let archivo = { archivo_url: null, archivo_path: null, archivo_tipo: null };
+      if (file) {
+        const path = `${crypto.randomUUID()}.${TIPOS[file.type]}`;
+        const up = await supabaseClient.storage.from(BUCKET).upload(path, file, { contentType: file.type });
+        if (up.error) throw up.error;
+        const { data } = supabaseClient.storage.from(BUCKET).getPublicUrl(path);
+        archivo = { archivo_url: data.publicUrl, archivo_path: path, archivo_tipo: file.type };
+      }
+      const { error } = await supabaseClient.from('eventos_especiales').insert({
+        nombre: $('nombre').value.trim(), lugar: $('lugar').value.trim(),
+        fecha: $('fecha').value, hora: $('hora').value, costo: $('costo').value.trim(),
+        observaciones: $('observaciones').value.trim() || null, activo: true, ...archivo
+      });
+      if (error) { if (archivo.archivo_path) await supabaseClient.storage.from(BUCKET).remove([archivo.archivo_path]); throw error; }
+      form.reset(); aviso('Evento publicado.'); cargarLista();
+    } catch (err) {
+      console.error(err); aviso('No se pudo publicar el evento: ' + (err.message || 'error desconocido'), 'err');
+    } finally { btn.disabled = false; btn.textContent = 'Publicar evento'; }
+  });
+
+  // ---------- Eliminar ----------
+  async function eliminar(ev, btn) {
+    if (!confirm(`¿Eliminar “${ev.nombre}”? Esta acción no se puede deshacer.`)) return;
+    btn.disabled = true;
+    const { error } = await supabaseClient.from('eventos_especiales').delete().eq('id', ev.id);
+    if (error) { btn.disabled = false; return aviso('No se pudo eliminar: ' + error.message, 'err'); }
+    if (ev.archivo_path) await supabaseClient.storage.from(BUCKET).remove([ev.archivo_path]);
+    aviso('Evento eliminado.'); cargarLista();
+  }
+
+  // ---------- Sin eventos (oculta todos sin borrarlos) ----------
+  $('btnSinEventos').addEventListener('click', async () => {
+    if (!confirm('Se ocultarán todos los eventos y la página pública mostrará “Sin eventos”. ¿Continuar?')) return;
+    const { error } = await supabaseClient.from('eventos_especiales').update({ activo: false }).eq('activo', true);
+    if (error) return aviso('No se pudo actualizar: ' + error.message, 'err');
+    aviso('La página pública ahora muestra “Sin eventos”.'); cargarLista();
+  });
+
+  // ---------- Validar sesión antes de mostrar contenido (igual que adminDashboard) ----------
+  (async () => {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (!session) { window.location.href = 'adminLogin.html'; return; }
+    document.body.style.display = 'block';
+    cargarLista();
+  })();
+</script>
+</body>
+</html>
