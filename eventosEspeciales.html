@@ -4,9 +4,43 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Eventos Especiales | Parroquia Asunción de María Tepalcatitlán</title>
-  <link rel="icon" type="image/png" href="/imagen/favicon.png?v=1.1">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style/eventosEspeciales.css">
+
+  <!-- Estilos SOLO para el contenido dinámico (no tocan header, nav ni footer) -->
+  <style>
+    body { background-color: #42aae2; } /* azul celeste */
+
+    #eventos-root { max-width: 1000px; margin: 0 auto; padding: 24px 16px 40px; }
+    #eventos-root .estado { text-align: center; font-family: 'Open Sans', sans-serif; color: #555; padding: 40px 0; }
+
+    .ev-card {
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 0; background: #fff; border: 1px solid #cfe0ee; border-radius: 10px;
+      overflow: hidden; margin-bottom: 28px; box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    }
+    .ev-info { padding: 24px 26px; font-family: 'Open Sans', sans-serif; color: #2b2b2b; }
+    .ev-info h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; margin: 0 0 16px; color: #1f78b4; line-height: 1.2; }
+    .ev-datos { list-style: none; margin: 0; padding: 0; }
+    .ev-datos li { padding: 9px 0; border-bottom: 1px solid #e2eef7; display: grid; grid-template-columns: 110px 1fr; gap: 10px; }
+    .ev-datos li:last-child { border-bottom: 0; }
+    .ev-datos strong { color: #1f78b4; font-weight: 700; }
+    .ev-notas { margin-top: 16px; padding: 12px 14px; background: #ebf8ff; border-left: 4px solid #3182ce; border-radius: 4px; }
+    .ev-notas strong { display: block; margin-bottom: 4px; color: #1f78b4; }
+    .ev-media { background: #eef4f9; display: flex; align-items: center; justify-content: center; min-height: 260px; }
+    .ev-media img { width: 100%; height: 100%; object-fit: contain; display: block; max-height: 520px; }
+    .ev-media iframe { width: 100%; height: 100%; min-height: 420px; border: 0; }
+    .ev-pdf { display: flex; flex-direction: column; width: 100%; height: 100%; }
+    .ev-pdf a { text-align: center; padding: 10px; font-family: 'Open Sans', sans-serif; font-weight: 700; color: #1f78b4; background: #e2eef7; text-decoration: none; }
+    .ev-pdf a:hover, .ev-pdf a:focus-visible { text-decoration: underline; }
+    .ev-sin-media { color: #8a8272; font-family: 'Open Sans', sans-serif; padding: 20px; text-align: center; }
+
+    @media (max-width: 760px) {
+      .ev-card { grid-template-columns: 1fr; }
+      .ev-media { order: -1; min-height: 200px; }
+      .ev-datos li { grid-template-columns: 1fr; gap: 2px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -42,7 +76,6 @@
       <a href="contacto.html">Contacto</a>
       <a href="vaticanNews.html">Vatican News</a>
       <a href="foro.html">Foro de Opiniones</a>
-      <a href="lecturas.html">Lecturas y Cantos Dominicales</a>
       <a href="transmisiones.html">En Vivo</a>
       <div class="dropdown">
         <a>Acceso ▾</a>
@@ -53,16 +86,105 @@
     </div>
   </nav>
 
-  <h1>Por el momento no tenemos eventos especiales</h1>
-  <h1>Intente después volver a ingresar para descubrir los próximos eventos</h1>
-
-  <div class="image-container">
-    <img src="imagen/SinEventos.png" alt="Imagen de mantenimiento">
-  </div>
+  <!-- CONTENIDO DINÁMICO (solo lectura) -->
+  <main id="eventos-root" aria-live="polite">
+    <p class="estado">Cargando eventos…</p>
+  </main>
 
     <footer>
       <p>&copy; 2026 Parroquia Asunción de María | Eventos Especiales</p>
     </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/conexion.js"></script>
+  <script>
+    // supabaseClient viene de js/conexion.js (igual que en el resto del proyecto)
+    const db = supabaseClient;
+
+    const root = document.getElementById('eventos-root');
+
+    function el(tag, props = {}, ...children) {
+      const node = document.createElement(tag);
+      Object.entries(props).forEach(([k, v]) => {
+        if (k === 'class') node.className = v;
+        else node.setAttribute(k, v);
+      });
+      children.forEach(c => node.append(c));
+      return node;
+    }
+
+    function formatFecha(iso) {
+      const [y, m, d] = iso.split('-').map(Number);
+      const txt = new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('es-MX', {
+        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC'
+      });
+      return txt.charAt(0).toUpperCase() + txt.slice(1);
+    }
+
+    function formatHora(t) {
+      const [h, m] = t.split(':').map(Number);
+      const suf = h >= 12 ? 'p. m.' : 'a. m.';
+      return `${(h % 12) || 12}:${String(m).padStart(2, '0')} ${suf}`;
+    }
+
+    function renderSinEventos() {
+      root.replaceChildren(
+        el('h1', {}, 'Por el momento no tenemos eventos especiales'),
+        el('h1', {}, 'Intente después volver a ingresar para descubrir los próximos eventos'),
+        el('div', { class: 'image-container' },
+          el('img', { src: 'imagen/SinEventos.png', alt: 'Sin eventos por el momento' }))
+      );
+    }
+
+    function renderMedia(ev) {
+      const box = el('div', { class: 'ev-media' });
+      if (!ev.archivo_url) {
+        box.append(el('p', { class: 'ev-sin-media' }, 'Sin imagen'));
+      } else if (ev.archivo_tipo === 'application/pdf') {
+        const wrap = el('div', { class: 'ev-pdf' },
+          el('iframe', { src: ev.archivo_url, title: 'PDF de ' + ev.nombre }),
+          el('a', { href: ev.archivo_url, target: '_blank', rel: 'noopener' }, 'Abrir PDF en otra pestaña'));
+        box.append(wrap);
+      } else {
+        box.append(el('img', { src: ev.archivo_url, alt: 'Imagen de ' + ev.nombre, loading: 'lazy' }));
+      }
+      return box;
+    }
+
+    function renderEvento(ev) {
+      const datos = el('ul', { class: 'ev-datos' },
+        el('li', {}, el('strong', {}, '¿Dónde?'), el('span', {}, ev.lugar)),
+        el('li', {}, el('strong', {}, '¿Cuándo?'), el('span', {}, formatFecha(ev.fecha))),
+        el('li', {}, el('strong', {}, '¿A qué hora?'), el('span', {}, formatHora(ev.hora))),
+        el('li', {}, el('strong', {}, 'Costo'), el('span', {}, ev.costo))
+      );
+      const info = el('div', { class: 'ev-info' }, el('h2', {}, ev.nombre), datos);
+      if (ev.observaciones && ev.observaciones.trim()) {
+        info.append(el('div', { class: 'ev-notas' },
+          el('strong', {}, 'Observaciones'), el('span', {}, ev.observaciones)));
+      }
+      return el('article', { class: 'ev-card' }, info, renderMedia(ev));
+    }
+
+    async function cargarEventos() {
+      const { data, error } = await db
+        .from('eventos_especiales')
+        .select('*')
+        .eq('activo', true)
+        .order('fecha', { ascending: true })
+        .order('hora', { ascending: true });
+
+      if (error) {
+        console.error(error);
+        root.replaceChildren(el('p', { class: 'estado' },
+          'No pudimos cargar los eventos. Intente de nuevo en unos minutos.'));
+        return;
+      }
+      if (!data || data.length === 0) return renderSinEventos();
+      root.replaceChildren(...data.map(renderEvento));
+    }
+
+    cargarEventos();
+  </script>
 </body>
 </html>
