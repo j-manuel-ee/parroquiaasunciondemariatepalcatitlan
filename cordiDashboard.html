@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Dashboard del Coordinador</title>
-  <link rel="icon" type="image/png" href="/imagen/favicon.png?v=1.1">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -135,6 +134,19 @@
         if (gNombre === "Coro Asunción de María") {
             document.getElementById("moduloAsuncion11").style.display = "block";
             document.getElementById("moduloEspecialesCoros").style.display = "block";
+            
+            // Apartados exclusivos del Coordinador CAM
+            document.getElementById("camPlanTrabajo").style.display = "block";
+            document.getElementById("camCancioneroLetras").style.display = "block";
+            document.getElementById("camCancioneroAcordes").style.display = "block";
+            document.getElementById("camMisaActual").style.display = "block";
+            document.getElementById("camAvisos").style.display = "block";
+            document.getElementById("camAmigoSecreto").style.display = "block";
+            document.getElementById("camEventosEspeciales").style.display = "block";
+            
+            // NUEVO: Habilitar gestión de integrantes
+            document.getElementById("camGestionIntegrantes").style.display = "block";
+            document.getElementById("camGestionCalendario").style.display = "block";
         } 
         else if (gNombre === "Coro S.O.S Vamos a Cantar") {
             document.getElementById("moduloSOS1").style.display = "block";
@@ -218,6 +230,53 @@
     <h3 style="color: #b25e00 !important;">✨ Cantos Misas Especiales</h3>
     <p style="color: #b25e00; font-weight:600;">Gestionar el PDF compartido para Solemnidades y Fiestas. ➔</p>
   </div>
+
+  <!-- APARTADOS EXCLUSIVOS PARA EL COORDINADOR DEL CORO ASUNCIÓN DE MARÍA -->
+<div class="grid-item modulo-coro-exclusivo" id="camPlanTrabajo" style="display:none; background-color: #e8f5e9; border: 2px solid #2e7d32;" onclick="window.location.href='gesPlanTrabajoCam.html'">
+  <h3 style="color: #2e7d32 !important;">📋 Plan de Trabajo Actual</h3>
+  <p>Gestionar y actualizar el plan de actividades del coro.</p>
+</div>
+
+<div class="grid-item modulo-coro-exclusivo" id="camCancioneroLetras" style="display:none; background-color: #e8f5e9; border: 2px solid #2e7d32;" onclick="window.location.href='gesPlanTrabajoCam.html'">
+  <h3 style="color: #2e7d32 !important;">📄 Cancionero (Letras)</h3>
+  <p>Subir y organizar las letras de los cantos.</p>
+</div>
+
+<div class="grid-item modulo-coro-exclusivo" id="camCancioneroAcordes" style="display:none; background-color: #e8f5e9; border: 2px solid #2e7d32;" onclick="window.location.href='gesPlanTrabajoCam.html'">
+  <h3 style="color: #2e7d32 !important;">🎸 Cancionero (Acordes)</h3>
+  <p>Gestionar los acordes y partituras para los músicos.</p>
+</div>
+
+<div class="grid-item modulo-coro-exclusivo" id="camMisaActual" style="display:none; background-color: #e8f5e9; border: 2px solid #2e7d32;" onclick="window.location.href='gesPlanTrabajoCam.html'">
+  <h3 style="color: #2e7d32 !important;">⛪ Misa Actual</h3>
+  <p>Definir los cantos y detalles para la próxima eucaristía.</p>
+</div>
+
+<div class="grid-item modulo-coro-exclusivo" id="camAvisos" style="display:none; background-color: #e8f5e9; border: 2px solid #2e7d32;" onclick="window.location.href='gesAvisosCam.html'">
+  <h3 style="color: #2e7d32 !important;">📢 Avisos Parroquiales / Coro</h3>
+  <p>Publicar comunicados internos para los integrantes.</p>
+</div>
+
+<div class="grid-item modulo-coro-exclusivo" id="camAmigoSecreto" style="display:none; background-color: #e8f5e9; border: 2px solid #2e7d32;" onclick="window.location.href='amigoSecretoAdmin.html'">
+  <h3 style="color: #2e7d32 !important;">🎁 Amigo Secreto</h3>
+  <p>Administrar el juego y la ruleta del intercambio navideño.</p>
+</div>
+
+<div class="grid-item modulo-coro-exclusivo" id="camEventosEspeciales" style="display:none; background-color: #e8f5e9; border: 2px solid #2e7d32;">
+  <h3 style="color: #2e7d32 !important;">✨ Eventos Especiales</h3>
+  <p>Coordinar aniversarios, conciertos con causa y fechas especiales.</p>
+</div>
+
+<!-- APARTADO PARA GESTIONAR INTEGRANTES DEL CORO (Solo Coordinador CAM) -->
+<div class="grid-item modulo-coro-exclusivo" id="camGestionIntegrantes" style="display:none; background-color: #e8f5e9; border: 2px solid #2e7d32;" onclick="window.location.href='gesMiembrosCam.html'">
+  <h3 style="color: #2e7d32 !important;">👥 Gestionar Integrantes</h3>
+  <p>Agregar o eliminar miembros del coro y sus claves de acceso.</p>
+</div>
+
+<div class="grid-item modulo-coro-exclusivo" id="camGestionCalendario" style="display:none; background-color: #e8f5e9; border: 2px solid #2e7d32;" onclick="window.location.href='gesCalendarioCam.html'">
+  <h3 style="color: #2e7d32 !important;">📅 Gestionar Calendario</h3>
+  <p>Agregar, modificar o borrar las actividades y ensayos del mes.</p>
+</div>
 
 </div>
 
