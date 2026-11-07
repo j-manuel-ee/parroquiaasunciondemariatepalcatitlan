@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Calendario | Coro CAM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Open Sans', sans-serif; background: #369bfa; margin: 0; padding: 20px; color: #333; }
+    .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    h2, h3 { font-family: 'Playfair Display', serif; color: #0d47a1; }
+    .btn-volver { background: #6c757d; color: white; padding: 8px 16px; border-radius: 5px; text-decoration: none; display: inline-block; margin-bottom: 20px; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+    .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+    .btn { background: #2e7d32; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    th { background: #0d47a1; color: white; }
+    .btn-del { background: #d9534f; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/conexion.js"></script>  
+</head>
+<body>
+
+  <div class="container">
+    <a href="cordiDashboard.html" class="btn-volver">← Volver al Dashboard</a>
+    <h2>Gestión de Calendario y Actividades CAM</h2>
+    
+    <form id="formActividad" onsubmit="guardarActividad(event)">
+      <div class="form-group">
+        <label for="titulo">Título de la actividad:</label>
+        <input type="text" id="titulo" placeholder="Ej. Ensayo general para Misa Dominical" required />
+      </div>
+      <div style="display: flex; gap: 15px;">
+        <div class="form-group" style="flex:1;">
+          <label for="fecha">Fecha:</label>
+          <input type="date" id="fecha" required />
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label for="hora">Hora:</label>
+          <input type="time" id="hora" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lugar">Lugar:</label>
+        <input type="text" id="lugar" value="Parroquia Asunción de María" />
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción / Notas:</label>
+        <textarea id="descripcion" rows="3" placeholder="Detalles o cantos a repasar..."></textarea>
+      </div>
+      <button type="submit" class="btn">Agregar Actividad</button>
+    </form>
+
+    <hr style="margin: 30px 0;">
+
+    <h3>Actividades Registradas</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Título</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody id="tablaActividades">
+        <tr><td colspan="4">Cargando...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", cargarActividades);
+
+    async function cargarActividades() {
+      const tbody = document.getElementById('tablaActividades');
+      const { data, error } = await supabaseClient
+        .from('actividades_cam')
+        .select('*')
+        .order('fecha', { ascending: true });
+
+      if (error || !data) {
+        tbody.innerHTML = '<tr><td colspan="4">Error al cargar datos.</td></tr>';
+        return;
+      }
+
+      if (data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4">No hay actividades registradas.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = '';
+      data.forEach(act => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${act.fecha}</td>
+            <td>${act.hora || 'Sin hora'}</td>
+            <td><strong>${act.titulo}</strong><br><small>${act.descripcion || ''}</small></td>
+            <td><button class="btn-del" onclick="eliminarActividad(${act.id})">Eliminar</button></td>
+          </tr>
+        `;
+      });
+    }
+
+    async function guardarActividad(e) {
+      e.preventDefault();
+      const titulo = document.getElementById('titulo').value.trim();
+      const fecha = document.getElementById('fecha').value;
+      const hora = document.getElementById('hora').value;
+      const lugar = document.getElementById('lugar').value.trim();
+      const descripcion = document.getElementById('descripcion').value.trim();
+
+      const { error } = await supabaseClient
+        .from('actividades_cam')
+        .insert([{ titulo, fecha, hora: hora || null, lugar, descripcion }]);
+
+      if (error) {
+        alert("Error al guardar la actividad.");
+        return;
+      }
+
+      alert("¡Actividad registrada exitosamente!");
+      document.getElementById('formActividad').reset();
+      cargarActividades();
+    }
+
+    async function eliminarActividad(id) {
+      if (!confirm("¿Deseas borrar esta actividad del calendario?")) return;
+      await supabaseClient.from('actividades_cam').delete().eq('id', id);
+      cargarActividades();
+    }
+  </script>
+</body>
+</html>

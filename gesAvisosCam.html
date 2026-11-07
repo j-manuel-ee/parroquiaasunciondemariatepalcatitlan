@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Avisos | Coro CAM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Open Sans', sans-serif; background-color: #5ab7ec; margin: 0; padding: 20px; color: #333; }
+    .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    h2, h3 { font-family: 'Playfair Display', serif; color: #0d47a1; }
+    .btn-volver { background-color: #6c757d; color: white; padding: 8px 16px; border-radius: 5px; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: bold; }
+    .btn-volver:hover { background-color: #5a6268; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+    .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 1em; }
+    .ayuda-plantilla { background: #e3f2fd; padding: 10px 15px; border-radius: 6px; font-size: 0.9em; margin-bottom: 15px; color: #0d47a1; }
+    .btn-publicar { background-color: #0d47a1; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    .btn-publicar:hover { background-color: #002f6c; }
+    .aviso-card { background: #f8f9fa; border-left: 4px solid #0d47a1; padding: 15px; margin-bottom: 15px; border-radius: 4px; position: relative; white-space: pre-line; }
+    .aviso-card h4 { margin: 0 0 5px 0; color: #0d47a1; }
+    .aviso-card p { margin: 0; font-size: 0.95em; color: #444; line-height: 1.5; }
+    .fecha-aviso { font-size: 0.75em; color: #777; display: block; margin-top: 12px; }
+    .btn-eliminar { background-color: #d9534f; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.85em; position: absolute; top: 15px; right: 15px; }
+    .btn-eliminar:hover { background-color: #c9302c; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/conexion.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <a href="cordiDashboard.html" class="btn-volver">← Volver al Dashboard</a>
+    <h2>📢 Gestión de Avisos Internos</h2>
+    <p>Publica comunicados organizados con el estilo habitual del coro para que los integrantes los consulten.</p>
+
+    <!-- Formulario para publicar aviso -->
+    <form id="formAviso" onsubmit="publicarAviso(event)">
+      <div class="form-group">
+        <label for="titulo">Título Principal del Aviso:</label>
+        <input type="text" id="titulo" placeholder="Ej. Avisos de la semana / Rol dominical" required />
+      </div>
+
+      <div class="ayuda-plantilla">
+        💡 <b>Tip de redacción:</b> Puedes usar emojis (🗓️, 🩶, 🫡, 🫶🏽), negritas y saltos de línea tal como acostumbras en los comunicados del coro.
+      </div>
+
+      <div class="form-group">
+        <label for="contenido">Contenido del Comunicado:</label>
+        <textarea id="contenido" rows="8" placeholder="🗓️ *Sábado*&#10;Nos toca la limpieza...&#10;&#10;🗓️ *Domingo*&#10;Misa normal..." required></textarea>
+      </div>
+
+      <button type="submit" class="btn-publicar" id="btnSubmit">Publicar Aviso</button>
+    </form>
+
+    <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+    <h3>Avisos Publicados</h3>
+    <div id="listaAvisos">
+      <p style="text-align: center; color: #666;">Cargando avisos...</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", cargarAvisosAdmin);
+
+    async function cargarAvisosAdmin() {
+      const contenedor = document.getElementById('listaAvisos');
+      const { data, error } = await supabaseClient
+        .from('avisos_cam')
+        .select('*')
+        .order('id', { ascending: false });
+
+      if (error || !data) {
+        contenedor.innerHTML = '<p style="color: red; text-align: center;">Error al cargar los avisos.</p>';
+        return;
+      }
+
+      if (data.length === 0) {
+        contenedor.innerHTML = '<p style="text-align: center; color: #666;">No hay avisos publicados actualmente.</p>';
+        return;
+      }
+
+      contenedor.innerHTML = '';
+      data.forEach(item => {
+        const fechaFormateada = new Date(item.creado_en).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+        contenedor.innerHTML += `
+          <div class="aviso-card">
+            <button class="btn-eliminar" onclick="eliminarAviso(${item.id})">Eliminar</button>
+            <h4 style="font-size: 1.1em; margin-bottom: 8px;">${item.titulo}</h4>
+            <p>${item.contenido}</p>
+            <span class="fecha-aviso">Publicado el: ${fechaFormateada}</span>
+          </div>
+        `;
+      });
+    }
+
+    async function publicarAviso(e) {
+      e.preventDefault();
+      const titulo = document.getElementById('titulo').value.trim();
+      const contenido = document.getElementById('contenido').value.trim();
+      const btn = document.getElementById('btnSubmit');
+
+      btn.disabled = true;
+      btn.textContent = "Publicando...";
+
+      const { error } = await supabaseClient
+        .from('avisos_cam')
+        .insert([{ titulo, contenido }]);
+
+      if (error) {
+        alert("Error al publicar: " + error.message);
+        btn.disabled = false;
+        btn.textContent = "Publicar Aviso";
+        return;
+      }
+
+      alert("¡Aviso publicado con éxito!");
+      document.getElementById('formAviso').reset();
+      btn.disabled = false;
+      btn.textContent = "Publicar Aviso";
+      cargarAvisosAdmin();
+    }
+
+    async function eliminarAviso(id) {
+      if (!confirm("¿Estás seguro de eliminar este aviso?")) return;
+
+      const { error } = await supabaseClient
+        .from('avisos_cam')
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        alert("No se pudo eliminar el aviso.");
+        return;
+      }
+
+      cargarAvisosAdmin();
+    }
+  </script>
+</body>
+</html>

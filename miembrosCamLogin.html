@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acceso Miembros | Coro Asunción de María</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(to right, #0d47a1, #1976d2, #64b5f6);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .login-card {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .login-card img { height: 80px; margin-bottom: 15px; }
+    .login-card h2 { font-family: 'Playfair Display', serif; color: #0d47a1; margin-bottom: 10px; }
+    .form-group { margin-bottom: 20px; text-align: left; }
+    .form-group label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 0.9em; }
+    .form-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1em; }
+    .btn-submit { background-color: #0d47a1; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-size: 1em; font-weight: bold; cursor: pointer; }
+    .btn-submit:hover { background-color: #002f6c; }
+    .error-msg { color: #d9534f; font-size: 0.85em; margin-top: 15px; display: none; }
+    .back-link { display: block; margin-top: 20px; color: #666; text-decoration: none; font-size: 0.9em; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/conexion.js"></script>
+</head>
+<body>
+  <div class="login-card">
+    <img src="imagen/logoCAM.png" alt="Parroquia Logo">
+    <h2>Miembros CAM</h2>
+    <p>Ingresa tu clave de acceso exclusiva</p>
+    <form id="loginForm" onsubmit="validarMiembro(event)">
+      <div class="form-group">
+        <label for="codigoAcceso">Clave Secreta:</label>
+        <input type="password" id="codigoAcceso" placeholder="Introduce tu clave" required />
+      </div>
+      <button type="submit" class="btn-submit" id="btnEntrar">Entrar al Apartado</button>
+      <div id="errorMsg" class="error-msg">Clave incorrecta o no registrada.</div>
+    </form>
+    <a href="cam.html" class="back-link">← Volver a la página del coro</a>
+  </div>
+  <script>
+    async function validarMiembro(event) {
+      event.preventDefault();
+      const codigo = document.getElementById('codigoAcceso').value.trim();
+      const errorDiv = document.getElementById('errorMsg');
+      const btn = document.getElementById('btnEntrar');
+
+      errorDiv.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Verificando...';
+
+      try {
+        const { data, error } = await supabaseClient
+          .from('miembros_cam')
+          .select('*')
+          .eq('codigo_acceso', codigo)
+          .single();
+
+        if (error || !data) throw new Error('No autorizado');
+
+        sessionStorage.setItem('miembro_cam_id', data.id);
+        sessionStorage.setItem('miembro_cam_nombre', data.nombre_completo);
+        window.location.href = 'dashboardMiembrosCam.html';
+      } catch (err) {
+        errorDiv.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Entrar al Apartado';
+      }
+    }
+  </script>
+</body>
+</html>

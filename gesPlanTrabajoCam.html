@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Documentos y Cancioneros | Coro CAM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Open Sans', sans-serif; background-color: #369bfa; margin: 0; padding: 20px; color: #333; }
+    .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    h2, h3 { font-family: 'Playfair Display', serif; color: #0d47a1; }
+    .btn-volver { background-color: #6c757d; color: white; padding: 8px 16px; border-radius: 5px; text-decoration: none; display: inline-block; margin-bottom: 20px; font-weight: bold; }
+    .seccion-archivo { background: #f8f9fa; border: 1px solid #e9ecef; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+    .seccion-archivo h4 { margin-top: 0; color: #0d47a1; }
+    .form-group { margin-bottom: 12px; }
+    .form-group input[type="file"] { border: 1px solid #ccc; padding: 8px; width: 100%; border-radius: 5px; background: #fff; box-sizing: border-box; }
+    .btn-subir { background-color: #0d47a1; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; }
+    .btn-subir:hover { background-color: #002f6c; }
+    .link-ver { display: inline-block; margin-top: 8px; font-size: 0.9em; color: #2e7d32; font-weight: bold; text-decoration: none; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/conexion.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <a href="cordiDashboard.html" class="btn-volver">← Volver al Dashboard</a>
+    <h2>📁 Gestión de Documentos y Cancioneros (PDF)</h2>
+    <p>Sube o actualiza los archivos oficiales para que los integrantes los consulten al instante en su panel.</p>
+
+    <!-- PLAN DE TRABAJO -->
+    <div class="seccion-archivo">
+      <h4>📋 Plan de Trabajo</h4>
+      <div class="form-group">
+        <input type="file" id="pdf_plan_trabajo" accept="application/pdf" />
+      </div>
+      <button class="btn-subir" onclick="subirDocumento('plan_trabajo_url', 'pdf_plan_trabajo', 'Plan de Trabajo')">Subir Plan de Trabajo</button>
+      <div><a id="link_plan_trabajo_url" class="link-ver" href="#" target="_blank" style="display: none;">Ver archivo actual ↗</a></div>
+    </div>
+
+    <!-- CANCIONERO (LETRAS) -->
+    <div class="seccion-archivo">
+      <h4>📄 Cancionero (Letras)</h4>
+      <div class="form-group">
+        <input type="file" id="pdf_letras" accept="application/pdf" />
+      </div>
+      <button class="btn-subir" onclick="subirDocumento('cancionero_letras_url', 'pdf_letras', 'Cancionero de Letras')">Subir Letras</button>
+      <div><a id="link_cancionero_letras_url" class="link-ver" href="#" target="_blank" style="display: none;">Ver archivo actual ↗</a></div>
+    </div>
+
+    <!-- CANCIONERO (ACORDES) -->
+    <div class="seccion-archivo">
+      <h4>🎸 Cancionero (Acordes)</h4>
+      <div class="form-group">
+        <input type="file" id="pdf_acordes" accept="application/pdf" />
+      </div>
+      <button class="btn-subir" onclick="subirDocumento('cancionero_acordes_url', 'pdf_acordes', 'Cancionero de Acordes')">Subir Acordes</button>
+      <div><a id="link_cancionero_acordes_url" class="link-ver" href="#" target="_blank" style="display: none;">Ver archivo actual ↗</a></div>
+    </div>
+
+    <!-- MISA ACTUAL -->
+    <div class="seccion-archivo">
+      <h4>⛪ Misa Actual (Repertorio Dominical)</h4>
+      <div class="form-group">
+        <input type="file" id="pdf_misa" accept="application/pdf" />
+      </div>
+      <button class="btn-subir" onclick="subirDocumento('misa_actual_url', 'pdf_misa', 'Misa Actual')">Subir Misa Actual</button>
+      <div><a id="link_misa_actual_url" class="link-ver" href="#" target="_blank" style="display: none;">Ver archivo actual ↗</a></div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", cargarLinksExistentes);
+
+    const clavesDocumentos = [
+      'plan_trabajo_url', 
+      'cancionero_letras_url', 
+      'cancionero_acordes_url', 
+      'misa_actual_url'
+    ];
+
+    async function cargarLinksExistentes() {
+      try {
+        const { data, error } = await supabaseClient
+          .from('configuracion_cam')
+          .select('clave, valor')
+          .in('clave', clavesDocumentos);
+
+        if (data) {
+          data.forEach(item => {
+            const linkTag = document.getElementById(`link_${item.clave}`);
+            if (linkTag && item.valor) {
+              linkTag.href = item.valor;
+              linkTag.style.display = 'inline-block';
+            }
+          });
+        }
+      } catch (e) {
+        console.log("Cargando enlaces...");
+      }
+    }
+
+    async function subirDocumento(claveConfig, inputId, nombreAmable) {
+      const input = document.getElementById(inputId);
+      if (input.files.length === 0) {
+        alert(`Por favor selecciona un archivo PDF para ${nombreAmable}.`);
+        return;
+      }
+
+      const archivo = input.files[0];
+      const nombreRuta = `${claveConfig}_${Date.now()}.pdf`;
+
+      alert(`Subiendo ${nombreAmable} a la nube...`);
+
+      try {
+        // 1. Subir a Storage
+        const { error: uploadError } = await supabaseClient.storage
+          .from('documentos_cam')
+          .upload(nombreRuta, archivo, { upsert: true });
+
+        if (uploadError) throw uploadError;
+
+        // 2. Obtener URL pública
+        const { data: publicUrlData } = supabaseClient.storage
+          .from('documentos_cam')
+          .getPublicUrl(nombreRuta);
+
+        const urlPublica = publicUrlData.publicUrl;
+
+        // 3. Guardar en tabla de configuración
+        const { error: dbError } = await supabaseClient
+          .from('configuracion_cam')
+          .upsert({ clave: claveConfig, valor: urlPublica }, { onConflict: 'clave' });
+
+        if (dbError) throw dbError;
+
+        alert(`¡${nombreAmable} subido y actualizado con éxito!`);
+        input.value = "";
+        cargarLinksExistentes();
+
+      } catch (err) {
+        alert("Error al subir el archivo: " + err.message);
+      }
+    }
+  </script>
+</body>
+</html>

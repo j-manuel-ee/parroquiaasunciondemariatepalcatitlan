@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Miembros | Coro Asunción de María</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #72b7f8;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      display: none; /* Se muestra solo al validar sesión */
+    }
+
+    header {
+      background: linear-gradient(to right, #0d47a1, #1976d2, #64b5f6);
+      color: white;
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+      font-size: 1.8em;
+    }
+
+    .btn-salir {
+      background-color: #d9534f;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .btn-salir:hover {
+      background-color: #c9302c;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .welcome-banner {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .welcome-banner h2 {
+      font-family: 'Playfair Display', serif;
+      color: #0d47a1;
+      margin-top: 0;
+    }
+
+    /* Secciones / Tarjetas del Dashboard */
+    .grid-dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .card-modulo {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      text-align: center;
+      transition: transform 0.2s;
+      border-top: 4px solid #0d47a1;
+    }
+
+    .card-modulo:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-modulo h3 {
+      font-family: 'Playfair Display', serif;
+      color: #0d47a1;
+      margin-bottom: 10px;
+    }
+
+    .card-modulo p {
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    .btn-accion {
+      background-color: #0d47a1;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-accion:hover {
+      background-color: #002f6c;
+    }
+
+    /* Estilo especial para la tarjeta de Amigo Secreto */
+    .card-amigo {
+      border-top: 4px solid #2e7d32;
+      background: #f1f8e9;
+      margin-bottom: 20px;
+    }
+    .card-amigo h3 { color: #2e7d32; }
+    .card-amigo .btn-accion { background-color: #2e7d32; }
+    .card-amigo .btn-accion:hover { background-color: #1b5e20; }
+
+    /* Modal o Sección de la Ruleta */
+    .amigo-box {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .ruleta-display {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #2e7d32;
+      margin: 15px 0;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .calendar-card {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .calendar-header h3 {
+      font-family: 'Playfair Display', serif;
+      color: #0d47a1;
+      margin: 0;
+      font-size: 1.5em;
+    }
+
+    .calendar-btn {
+      background: #0d47a1;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      text-align: center;
+    }
+
+    .day-header {
+      font-weight: bold;
+      color: #555;
+      padding: 8px 0;
+    }
+
+    .calendar-day {
+      min-height: 65px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 5px;
+      background: #fafafa;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.2s;
+    }
+
+    .calendar-day:hover { background: #e3f2fd; }
+
+    .calendar-day.today {
+      border: 2px solid #0d47a1;
+      background: #e8eaf6;
+      font-weight: bold;
+    }
+
+    .calendar-day .day-num { font-size: 0.9em; float: left; }
+
+    .event-badge {
+      background-color: #2e7d32;
+      color: white;
+      font-size: 0.7em;
+      border-radius: 3px;
+      padding: 2px 4px;
+      margin-top: 15px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  </style>
+
+  <!-- Supabase y Conexión -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/conexion.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>Coro Asunción de María | Zona Exclusiva</h1>
+    <button class="btn-salir" onclick="cerrarSesionMiembro()">Cerrar Sesión</button>
+  </header>
+
+  <div class="container">
+    
+    <div class="welcome-banner">
+      <h2>¡Bienvenido(a), <span id="nombreUsuario"></span>!</h2>
+      <p>Este es tu espacio privado con material exclusivo del coro y la dinámica navideña.</p>
+    </div>
+
+    <!-- Módulos de Información -->
+    <div class="grid-dashboard">
+      <div class="card-modulo">
+        <h3>📋 Plan de Trabajo</h3>
+        <p>Consulta el documento oficial con las actividades y objetivos programados.</p>
+        <button class="btn-accion" onclick="abrirDocumentoPdf('plan_trabajo_url')">Ver Plan (PDF)</button>
+      </div>
+
+      <div class="card-modulo">
+        <h3>📄 Cancionero (Letras)</h3>
+        <p>Revisa las letras oficiales de los cantos litúrgicos y especiales.</p>
+        <button class="btn-accion" onclick="abrirDocumentoPdf('cancionero_letras_url')">Ver Letras (PDF)</button>
+      </div>
+
+      <div class="card-modulo">
+        <h3>🎸 Cancionero (Acordes)</h3>
+        <p>Material de apoyo instrumental y notas musicales para los músicos.</p>
+        <button class="btn-accion" onclick="abrirDocumentoPdf('cancionero_acordes_url')">Ver Acordes (PDF)</button>
+      </div>
+
+      <div class="card-modulo">
+        <h3>⛪ Misa Actual</h3>
+        <p>Repertorio designado para la celebración eucarística dominical.</p>
+        <button class="btn-accion" onclick="abrirDocumentoPdf('misa_actual_url')">Ver Misa (PDF)</button>
+      </div>
+
+      <div class="card-modulo">
+        <h3>📢 Avisos Internos</h3>
+        <p>Comunicados importantes exclusivos para los integrantes del coro.</p>
+        <button class="btn-accion" onclick="abrirAvisosModal()">Ver Avisos</button>
+        </div>
+
+      <div class="card-modulo">
+        <h3>✨ Eventos Especiales</h3>
+        <p>Aniversarios, conciertos con causa y fechas solemnes del coro.</p>
+        <button class="btn-accion" onclick="window.location.href='eventosEspeciales.html'">Ver Eventos</button>
+      </div>
+    </div>
+
+    <!-- MÓDULO DEL CALENDARIO INTERACTIVO -->
+    <div class="calendar-card">
+      <div class="calendar-header">
+        <button class="calendar-btn" onclick="cambiarMes(-1)">◄ Anterior</button>
+        <h3 id="mesAñoTitulo">Cargando Mes...</h3>
+        <button class="calendar-btn" onclick="cambiarMes(1)">Siguiente ►</button>
+      </div>
+
+      <div class="calendar-grid" id="diasSemana">
+        <div class="day-header">Dom</div>
+        <div class="day-header">Lun</div>
+        <div class="day-header">Mar</div>
+        <div class="day-header">Mié</div>
+        <div class="day-header">Jue</div>
+        <div class="day-header">Vie</div>
+        <div class="day-header">Sáb</div>
+      </div>
+
+      <div class="calendar-grid" id="gridDias"></div>
+
+      <div id="detalleActividad" style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 6px; display: none;">
+        <h4 id="actFecha" style="margin: 0 0 5px 0; color: #2e7d32;"></h4>
+        <h3 id="actTitulo" style="margin: 0 0 10px 0;"></h3>
+        <p id="actDesc" style="margin: 0; font-size: 0.95em;"></p>
+      </div>
+    </div>
+
+    <!-- MÓDULO 1: RULETA DEL AMIGO SECRETO -->
+    <div class="card-modulo card-amigo" id="seccionAmigoSecreto">
+      <h3>🎁 Ruleta del Amigo Secreto</h3>
+      <p>Gira la ruleta para descubrir a qué miembro le regalarás tu carta.</p>
+      
+      <div class="amigo-box">
+        <div id="estadoAntesDeGirar">
+          <p id="mensajeInstruccion">¡Descubre a quién le regalarás tu carta esta Navidad!</p>
+          <button class="btn-accion" id="btnGirar" onclick="girarRuletaAmigoSecreto()" style="background-color: #2e7d32; font-size: 1.1em; padding: 12px 25px;">🎲 ¡Girar Ruleta!</button>
+        </div>
+
+        <div id="estadoDespuesDeGirar" style="display: none;">
+          <p>Tu amigo secreto asignado es:</p>
+          <div class="ruleta-display" id="resultadoAsignado">Cargando...</div>
+          <p style="font-size: 0.85em; color: #555;">Guarda bien este nombre. Prepara tu carta con anticipación.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MÓDULO 2: APARTADO DE SOBRENOMBRE AMIGO SECRETO -->
+    <div class="card-modulo card-amigo" style="border-top: 4px solid #1b5e20;">
+      <h3>✏️ Sobrenombre Amigo Secreto</h3>
+      <p>Establece o actualiza el seudónimo con el que firmarás tus cartas para que los demás sepan quién eres al final.</p>
+      
+      <div class="amigo-box">
+        <div style="max-width: 400px; margin: 0 auto;">
+          <label for="inputAlias" style="font-weight: bold; color: #1b5e20; display: block; margin-bottom: 8px; text-align: left;">Tu Alias / Sobrenombre:</label>
+          <div style="display: flex; gap: 10px;">
+            <input type="text" id="inputAlias" placeholder="Ej. El Ruiseñor, Ángel Nocturno..." style="flex: 1; padding: 10px; border: 1px solid #c8e6c9; border-radius: 5px; font-size: 1em;" />
+            <button class="btn-accion" onclick="actualizarSobrenombre()" style="background-color: #2e7d32;">Guardar</button>
+          </div>
+          <small style="color: #666; display: block; margin-top: 8px; text-align: left;">Puedes modificarlo las veces que quieras antes de la cena navideña.</small>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let fechaActual = new Date();
+    let actividadesMes = [];
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const idMiembro = sessionStorage.getItem('miembro_cam_id');
+      const nombreMiembro = sessionStorage.getItem('miembro_cam_nombre');
+
+      if (!idMiembro || !nombreMiembro) {
+        window.location.replace('miembrosCamLogin.html');
+        return;
+      }
+
+      document.body.style.display = "block";
+      document.getElementById('nombreUsuario').textContent = nombreMiembro;
+
+      verificarEstadoAmigoSecreto(idMiembro);
+      renderizarCalendario();
+    });
+
+    function cerrarSesionMiembro() {
+      sessionStorage.clear();
+      window.location.replace('miembrosCamLogin.html');
+    }
+
+    async function verificarEstadoAmigoSecreto(miembroId) {
+      try {
+        const { data } = await supabaseClient
+          .from('amigo_secreto_cam')
+          .select(`receptor_id, sobrenombre_firmado, miembros_cam!amigo_secreto_cam_receptor_id_fkey(nombre_completo)`)
+          .eq('comprador_id', miembroId);
+
+        if (data && data.length > 0) {
+          const asignacion = data[0];
+          document.getElementById('estadoAntesDeGirar').style.display = 'none';
+          document.getElementById('resultadoAsignado').textContent = asignacion.miembros_cam ? asignacion.miembros_cam.nombre_completo : 'Desconocido';
+          document.getElementById('estadoDespuesDeGirar').style.display = 'block';
+          if (asignacion.sobrenombre_firmado && asignacion.sobrenombre_firmado !== 'Sin alias') {
+            document.getElementById('inputAlias').value = asignacion.sobrenombre_firmado;
+          }
+        } else {
+          document.getElementById('estadoAntesDeGirar').style.display = 'block';
+          document.getElementById('estadoDespuesDeGirar').style.display = 'none';
+          
+          // Recuperar alias temporal si ya lo había escrito antes de girar
+          const aliasGuardado = sessionStorage.getItem('temp_alias_amigo');
+          if (aliasGuardado) {
+            document.getElementById('inputAlias').value = aliasGuardado;
+          }
+        }
+      } catch (err) {
+        console.log("Estado inicial cargado.");
+      }
+    }
+
+    async function girarRuletaAmigoSecreto() {
+      const miembroId = sessionStorage.getItem('miembro_cam_id');
+      const btn = document.getElementById('btnGirar');
+      const mensaje = document.getElementById('mensajeInstruccion');
+
+      btn.disabled = true;
+      mensaje.textContent = "Girando la ruleta...";
+
+      try {
+        const { data: todos, error: errTodos } = await supabaseClient
+          .from('miembros_cam')
+          .select('id, nombre_completo');
+
+        if (errTodos || !todos) throw new Error("No se pudo cargar la lista.");
+
+        const { data: asignados } = await supabaseClient
+          .from('amigo_secreto_cam')
+          .select('receptor_id');
+
+        const idsOcupados = asignados ? asignados.map(a => a.receptor_id) : [];
+        const disponibles = todos.filter(m => m.id != miembroId && !idsOcupados.includes(m.id));
+
+        if (disponibles.length === 0) {
+          alert("¡Ups! Ya no hay participantes disponibles.");
+          btn.disabled = false;
+          mensaje.textContent = "¡Descubre a quién le regalarás tu carta esta Navidad!";
+          return;
+        }
+
+        let contador = 0;
+        const interval = setInterval(() => {
+          const randomIndexTemp = Math.floor(Math.random() * todos.length);
+          mensaje.textContent = `Girando... ${todos[randomIndexTemp].nombre_completo}`;
+          contador++;
+          if (contador > 15) clearInterval(interval);
+        }, 100);
+
+        setTimeout(async () => {
+          const indiceAleatorio = Math.floor(Math.random() * disponibles.length);
+          const seleccionado = disponibles[indiceAleatorio];
+          
+          // Tomar el alias del input o del almacenamiento temporal, o por defecto 'Sin alias'
+          const aliasInput = document.getElementById('inputAlias').value.trim();
+          const aliasTemp = sessionStorage.getItem('temp_alias_amigo');
+          const aliasFinal = aliasInput || aliasTemp || 'Sin alias';
+
+          const { error: errInsert } = await supabaseClient
+            .from('amigo_secreto_cam')
+            .insert([{ 
+              comprador_id: miembroId, 
+              receptor_id: seleccionado.id, 
+              sobrenombre_firmado: aliasFinal 
+            }]);
+
+          if (errInsert) throw new Error("Error al guardar la asignación: " + errInsert.message);
+
+          document.getElementById('estadoAntesDeGirar').style.display = 'none';
+          document.getElementById('resultadoAsignado').textContent = seleccionado.nombre_completo;
+          document.getElementById('estadoDespuesDeGirar').style.display = 'block';
+
+        }, 1600);
+
+      } catch (err) {
+        alert("Error: " + err.message);
+        btn.disabled = false;
+        mensaje.textContent = "¡Descubre a quién le regalarás tu carta esta Navidad!";
+      }
+    }
+
+    async function actualizarSobrenombre() {
+      const miembroId = sessionStorage.getItem('miembro_cam_id');
+      const nuevoAlias = document.getElementById('inputAlias').value.trim();
+
+      if (!nuevoAlias) {
+        alert("Por favor escribe un sobrenombre válido.");
+        return;
+      }
+
+      // Guardar temporalmente en el navegador por si aún no gira la ruleta
+      sessionStorage.setItem('temp_alias_amigo', nuevoAlias);
+
+      // Verificar si ya existe registro en la base de datos (ya giró la ruleta)
+      const { data } = await supabaseClient
+        .from('amigo_secreto_cam')
+        .select('id')
+        .eq('comprador_id', miembroId);
+
+      if (data && data.length > 0) {
+        const { error } = await supabaseClient
+          .from('amigo_secreto_cam')
+          .update({ sobrenombre_firmado: nuevoAlias })
+          .eq('comprador_id', miembroId);
+
+        if (error) { 
+          alert("Error al actualizar: " + error.message); 
+          return; 
+        }
+        alert("¡Sobrenombre actualizado con éxito!");
+      } else {
+        alert("¡Alias guardado temporalmente! Se registrará en cuanto gires la ruleta.");
+      }
+    }
+
+    async function renderizarCalendario() {
+      const año = fechaActual.getFullYear();
+      const mes = fechaActual.getMonth();
+      const nombresMeses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+      document.getElementById('mesAñoTitulo').textContent = `${nombresMeses[mes]} ${año}`;
+
+      const primerDiaMes = new Date(año, mes, 1).toISOString().split('T')[0];
+      const ultimoDiaMes = new Date(año, mes + 1, 0).toISOString().split('T')[0];
+
+      const { data: eventos } = await supabaseClient.from('actividades_cam').select('*').gte('fecha', primerDiaMes).lte('fecha', ultimoDiaMes);
+      actividadesMes = eventos || [];
+
+      const primerDiaSemana = new Date(año, mes, 1).getDay();
+      const totalDias = new Date(año, mes + 1, 0).getDate();
+      const grid = document.getElementById('gridDias');
+      grid.innerHTML = '';
+
+      for (let i = 0; i < primerDiaSemana; i++) { grid.innerHTML += `<div class="calendar-day" style="background:#f9f9f9;"></div>`; }
+
+      const hoy = new Date();
+      for (let d = 1; d <= totalDias; d++) {
+        const fechaString = `${año}-${String(mes + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const esHoy = (d === hoy.getDate() && mes === hoy.getMonth() && año === hoy.getFullYear());
+        const eventoDelDia = actividadesMes.find(a => a.fecha === fechaString);
+
+        let htmlEvento = eventoDelDia ? `<div class="event-badge">${eventoDelDia.titulo}</div>` : '';
+        const diaDiv = document.createElement('div');
+        diaDiv.className = `calendar-day ${esHoy ? 'today' : ''}`;
+        diaDiv.innerHTML = `<span class="day-num">${d}</span> ${htmlEvento}`;
+        if (eventoDelDia) { diaDiv.onclick = () => mostrarDetalleActividad(eventoDelDia); }
+        grid.appendChild(diaDiv);
+      }
+    }
+
+    function cambiarMes(delta) {
+      fechaActual.setMonth(fechaActual.getMonth() + delta);
+      document.getElementById('detalleActividad').style.display = 'none';
+      renderizarCalendario();
+    }
+
+    function mostrarDetalleActividad(act) {
+      document.getElementById('actFecha').textContent = `📅 ${act.fecha} ${act.hora ? '- ' + act.hora : ''}`;
+      document.getElementById('actTitulo').textContent = act.titulo;
+      document.getElementById('actDesc').textContent = `${act.descripcion || ''} (Lugar: ${act.lugar})`;
+      document.getElementById('detalleActividad').style.display = 'block';
+    }
+
+    async function abrirDocumentoPdf(claveConfig) {
+  try {
+    const { data, error } = await supabaseClient
+      .from('configuracion_cam')
+      .select('valor')
+      .eq('clave', claveConfig)
+      .single();
+
+    if (data && data.valor) {
+      window.open(data.valor, '_blank');
+    } else {
+      alert("El coordinador aún no ha subido este documento.");
+    }
+  } catch (err) {
+    alert("No se pudo cargar el documento en este momento.");
+  }
+}
+
+
+  </script>
+
+  <!-- MODAL PARA VER AVISOS CON EL ESTILO ORIGINAL -->
+<div id="modalAvisos" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; padding: 15px; box-sizing: border-box;">
+  <div style="background: white; padding: 25px 30px; border-radius: 10px; width: 100%; max-width: 650px; max-height: 85vh; overflow-y: auto; position: relative; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+    <h3 style="font-family: 'Playfair Display', serif; color: #0d47a1; margin-top: 0; border-bottom: 2px solid #e3f2fd; padding-bottom: 10px;">📢 Avisos Internos del Coro</h3>
+    
+    <div id="contenidoAvisosMiembros" style="margin: 20px 0;">Cargando avisos...</div>
+    
+    <div style="text-align: right; margin-top: 20px;">
+      <button onclick="cerrarAvisosModal()" style="background: #d9534f; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Estilo para respetar saltos de línea y formato del aviso */
+  .aviso-item-publicado {
+    background: #f8f9fa;
+    border-left: 4px solid #0d47a1;
+    padding: 18px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    white-space: pre-line; /* Clave para conservar los emojis, saltos y estructura */
+  }
+  .aviso-item-publicado h4 {
+    margin: 0 0 8px 0;
+    color: #0d47a1;
+    font-size: 1.15em;
+    font-family: 'Playfair Display', serif;
+  }
+  .aviso-item-publicado p {
+    margin: 0 0 12px 0;
+    font-size: 0.95em;
+    color: #333;
+    line-height: 1.5;
+  }
+  .aviso-item-publicado .fecha-pub {
+    font-size: 0.75em;
+    color: #777;
+    display: block;
+    border-top: 1px solid #eee;
+    padding-top: 8px;
+  }
+</style>
+
+<script>
+  async function abrirAvisosModal() {
+    const modal = document.getElementById('modalAvisos');
+    const contenedor = document.getElementById('contenidoAvisosMiembros');
+    modal.style.display = 'flex';
+    contenedor.innerHTML = '<p style="text-align: center; color: #666;">Cargando comunicados...</p>';
+
+    try {
+      const { data, error } = await supabaseClient
+        .from('avisos_cam')
+        .select('*')
+        .order('id', { ascending: false });
+
+      if (error || !data) throw error;
+
+      if (data.length === 0) {
+        contenedor.innerHTML = '<p style="color: #666; text-align: center;">No hay avisos nuevos por el momento.</p>';
+        return;
+      }
+
+      contenedor.innerHTML = '';
+      data.forEach(item => {
+        const fechaFormateada = new Date(item.creado_en).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+        contenedor.innerHTML += `
+          <div class="aviso-item-publicado">
+            <h4>${item.titulo}</h4>
+            <p>${item.contenido}</p>
+            <span class="fecha-pub">Publicado el: ${fechaFormateada}</span>
+          </div>
+        `;
+      });
+    } catch (err) {
+      contenedor.innerHTML = '<p style="color: red; text-align: center;">Error al cargar los avisos.</p>';
+    }
+  }
+
+  function cerrarAvisosModal() {
+    document.getElementById('modalAvisos').style.display = 'none';
+  }
+</script>
+</body>
+</html>
