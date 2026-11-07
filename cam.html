@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Coro Asunción de María | Parroquia Asunción de María</title>
-  <link rel="icon" type="image/png" href="/imagen/favicon.png?v=1.1">
+    <link rel="icon" type="image/png" href="/imagen/favicon.png?v=1.1">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
   <style>
     body {
@@ -302,12 +302,10 @@
         <a href="contacto.html">Contacto</a>
         <a href="vaticanNews.html">Vatican News</a>
         <a href="foro.html">Foro de Opiniones</a>
-        <a href="lecturas.html">Lecturas y Cantos Dominicales</a>
         <a href="transmisiones.html">En Vivo</a>
         <div class="dropdown">
           <a>Acceso ▾</a>
           <div class="dropdown-content">
-            <a href="usuarioLogin.html">Usuario</a>
             <a href="coordinadorLogin.html">Coordinador</a>
             <a href="adminLogin.html">Administrador</a>
         </div>
@@ -390,7 +388,22 @@
         </div>        
       </div>
     </section>
-    
+
+    <!-- Agrega este enlace o sección en cam.html donde desees que los miembros accedan -->
+    <section id="acceso-miembros-cam" style="background-color: #e3f2fd; padding: 20px; border-radius: 8px; margin: 30px 0; text-align: center;">
+      <h3 style="color: #0d47a1; margin-top: 0;">¿Eres integrante de CAM?</h3>
+      <p>Accede al espacio exclusivo para miembros del Coro Asunción de María.</p>
+      <button onclick="verificarAccesoCam()" style="background-color: #0d47a1; color: white; border: none; padding: 12px 20px; font-size: 1em; border-radius: 5px; cursor: pointer; font-weight: bold;">
+        Entrar al Dashboard de Miembros
+      </button>
+    </section>
+
+    <script>
+      function verificarAccesoCam() {
+        // Aquí puedes redirigir a un login de miembros o validar si ya tienen sesión activa
+        window.location.href = "miembrosCamLogin.html"; 
+      }
+    </script>
 
   </div>
   <footer>
